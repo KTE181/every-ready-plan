@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    font-family: 맑은 고딕, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.main-content {
+    flex-shrink:0;
+    flex-grow: 1;
+    min-width: 1400px;
+    min-height: 500px;
+    background-color: #ECF2FD;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+    background-color: #447dff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #3668cc;
+}
+
+.content-area {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 9% 83% 8%;
+    flex: 1;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.134);
+}

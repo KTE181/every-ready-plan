@@ -1,0 +1,135 @@
+
+.sidebar {
+    flex-shrink:0;
+    width: 270px;
+    min-height: 919px;
+    background-color: #416DFF;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-area > img {
+    width: 200px;
+    height: 90px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+    margin: 0;
+}
+
+.sidebar ul li {
+    font-size: 15px;
+    padding: 10px 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-item {
+    padding: 15px 20px;
+    font-size : 23px;
+    font-weight: 500;
+}
+
+.title-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    background-color: #ECF2FD;
+    color: rgb(34, 34, 34);
+}
+
+.title-menu {
+    padding-bottom: 10px;    
+}
+
+.dropdown-menu.visible {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 235px;
+    padding: 5px 5px;
+    font-weight: 800;
+}
+
+.dropdown-menu1 {
+    display: none;
+    list-style: none;
+    background-color: #ECF2FD;
+    color: rgb(34, 34, 34);
+}
+
+.dropdown-menu1.visible {
+    display: block;
+    border-radius: 10px;
+    width: 235px;
+    padding: 5px 5px;
+    font-weight: 800;
+}
+
+.dropdown-menu2 {
+    display: none;
+    list-style: none;
+    background-color: #ECF2FD;
+    color: rgb(34, 34, 34);
+}
+
+.dropdown-menu2.visible {
+    display: block;
+    border-radius: 10px;
+    width: 235px;
+    padding: 5px 5px;
+    font-weight: 800;
+}
+
+.dropdown-menu3 {
+    display: none;
+    list-style: none;
+    background-color: #ECF2FD;
+    color: rgb(34, 34, 34);
+}
+
+.dropdown-menu3.visible {
+    display: block;
+    border-radius: 10px;
+    width: 235px;
+    padding: 5px 5px;
+    font-weight: 800;
+}
+
+.dropdown-menu4 {
+    display:none;
+    list-style: none;
+    background-color: #ECF2FD;
+    color: rgb(34, 34, 34);
+}
+
+.dropdown-menu4.visible {
+    display: block;
+    border-radius: 10px;
+    width: 235px;
+    padding: 5px 5px;
+    font-weight: 800;
+}
+
+
+.sidebar ul li:hover {
+    background-color: #c8dbff;
+    color: rgb(34, 34, 34);
+    border-radius: 10px;
+}
