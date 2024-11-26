@@ -1,0 +1,16 @@
+.middle-content-area{
+    margin-top: 7px; 
+    margin-bottom: 7px; 
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: rgb(227, 253, 253);
+}
+
+.list-area{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(15, 1fr);
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+}
