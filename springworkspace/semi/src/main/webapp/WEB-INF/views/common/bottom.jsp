@@ -13,13 +13,13 @@ pageEncoding="UTF-8"%>
             <button class="crud-button-white">삭제</button>
         </div>
 
-        <div>
+        <!-- <div>
             <button class="ok-button">확인</button>
         </div>
 
         <div>
             <button class="cancle-button">취소</button>
-        </div>
+        </div> -->
 
         <div>
             <div class="pagination">
@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%>
                 <a href="#" class="page-button previous">&laquo;</a>
 
                 <!-- 페이지 번호 버튼들 -->
-                <a href="#" class="page-button">1</a>
+                <a href="#" class="page-button active">1</a>
                 <a href="#" class="page-button">2</a>
                 <a href="#" class="page-button">3</a>
                 <a href="#" class="page-button">4</a>
@@ -37,11 +37,12 @@ pageEncoding="UTF-8"%>
                 <a href="#" class="page-button">8</a>
                 <a href="#" class="page-button">9</a>
                 <a href="#" class="page-button">10</a>
-                <a href="#" class="page-button active ">88</a>
                 <!-- 다음 페이지 버튼 -->
                 <a href="#" class="page-button next">&raquo;</a>
              </div>
         </div>
-        <div class="bottom-content-area-5"><button class="crud-button-white">수정</button></div>
+
+        <!-- <div class="bottom-content-area-5"><button class="crud-button-white">수정</button></div> -->
+         
         <div><button class="crud-button-white">등록</button></div>
     </div>
