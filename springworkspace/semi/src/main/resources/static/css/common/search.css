@@ -8,7 +8,7 @@
 }
 
 .menu-name{
-    margin-top: 15px;
+    margin-top: 12px;
     font-size: 28px;
     color: #2c3cc9;
     font-weight: 500;
@@ -17,7 +17,7 @@
 }
 
 .top-title-area-form{
-    margin-top: 18px;
+    margin-top: 17px;
     display: flex;
     flex-shrink:0;
     width: 100%;
