@@ -2,9 +2,9 @@
     display: flex;
     margin-left: 42px;
     margin-right: 42px;
-    margin-bottom: 14px; 
     justify-content:space-between;
     align-items: center;
+    height: 100%;
 }
 
 /* 버튼 클릭 시 또는 포커스 시 스타일 */
@@ -34,8 +34,8 @@
     cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
     border: 1px solid #416DFF; ;
     width: 70px;
-    height: 40px;
-
+    height: 38px;
+    margin-bottom: 8px;
 }
 
 .crud-button-white:hover {
@@ -54,6 +54,7 @@
     border: 2px solid #416DFF; /* 박스 외곽선 */
     border-radius: 10px;
     background-color: #f4f4f4;
+
 }
 
 /* 전체 페이지네이션 스타일 */
@@ -62,6 +63,7 @@
     justify-content: center;
     align-items: center;
     width: 100%; /* 박스 크기에 맞춰 전체 width 설정 */
+    margin-bottom: 8px;
 }
 
 /* 페이징 버튼 공통 스타일 */
