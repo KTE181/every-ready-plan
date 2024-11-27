@@ -1,11 +1,23 @@
 .top-title-area{
-    margin-left: 25px;
-    margin-right: 25px;
-    margin-top: 16px;
+    margin-left: 42px;
+    margin-right: 42px;
     border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-name{
+    margin-top: 15px;
+    font-size: 28px;
+    color: #2c3cc9;
+    font-weight: 500;
+    font-family: '맑은 고딕';
+    letter-spacing: 1px;
 }
 
 .top-title-area-form{
+    margin-top: 18px;
     display: flex;
     flex-shrink:0;
     width: 100%;
@@ -30,22 +42,24 @@
     color: rgb(34, 34, 34);
     border: 1px solid #416DFF;
     border-radius: 20px;
-    width: 68px;
-    height: 34px;
+    width: 67px;
+    height: 35px;
     cursor: pointer;
     margin-left: 5px;
+    font-weight: 300;
 }
 
 .search-bar > button:hover {
     background-color: #416DFF;
     color: white;
+    font-weight: bold;
 }
 
 .search-bar select{
     width: 135px;
     height: 29px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 13px;
     margin-left: 10px;
     border: 1px solid rgb(182, 182, 182);
     margin-left: 8px;
@@ -56,7 +70,7 @@
     width: 110px;
     height: 29px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 13px;
     margin-left: 10px;
     margin-right: 2px;
     border: 1px solid rgb(182, 182, 182);
@@ -68,21 +82,21 @@
     width: 360px;
     height: 29px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 13px;
     border: 1px solid rgb(182, 182, 182);
     margin-left: 2px;
     padding-left: 8px;
 }
 
 .search-bar label {
-    font-size: 14px;
+    font-size: 13px;
     padding-left: 8px;
 }
 
 .search-bar input[name=year]{
     width: 100px;
     height: 29px;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     border-radius: 5px;
     border: 1px solid rgb(182, 182, 182);
@@ -92,7 +106,7 @@
 .search-bar input[name=month]{
     width: 50px;
     height: 29px;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     border-radius: 5px;
     border: 1px solid rgb(182, 182, 182);
@@ -102,7 +116,7 @@
 .search-bar input[name=day]{
     width: 50px;
     height: 29px;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     border-radius: 5px;
     border: 1px solid rgb(182, 182, 182);
@@ -112,7 +126,7 @@
 .search-bar input[type=month]{
     width: 120px;
     height: 29px;
-    font-size: 14px;
+    font-size: 13px;
     font-family: 맑은 고딕;
     text-align: center;
     border-radius: 5px;
@@ -125,7 +139,7 @@
 .search-bar input[type=date]{
     width: 120px;
     height: 29px;
-    font-size: 14px;
+    font-size: 13px;
     font-family: 맑은 고딕;
     text-align: center;
     border-radius: 5px;

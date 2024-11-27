@@ -38,7 +38,7 @@ body {
 .content-area {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 9% 83% 8%;
+    grid-template-rows: 10% 80% 10%;
     flex: 1;
     background-color: white;
     margin-top: 20px;
