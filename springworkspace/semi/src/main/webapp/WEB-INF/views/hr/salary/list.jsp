@@ -30,7 +30,7 @@
 
                                 <!-- Search Area -->
                                 <div class="top-title-area">
-                                        <div class="menu-name">휴가 관리</div>
+                                        <div class="menu-name">급여 관리</div>
                                         <div>
                                             <form action="" class="top-title-area-form">
                                                 <!-- <label for="">연월일</label> -->
