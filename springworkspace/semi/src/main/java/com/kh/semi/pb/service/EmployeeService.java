@@ -14,8 +14,11 @@ import java.util.List;
 @Slf4j
 @Transactional
 public class EmployeeService {
+
     private final EmployeeMapper mapper;
-    public List<EmployeeVo> employeeVoList() {
-        return mapper.employeeVoList();
+
+    // 검색 기능 추가
+    public List<EmployeeVo> searchEmployees(String department, String position, String name) {
+        return mapper.searchEmployees(department, position, name);
     }
 }

@@ -2,6 +2,7 @@ package com.kh.semi.pb.mapper;
 
 import com.kh.semi.pb.vo.EmployeeVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -20,9 +21,16 @@ public interface EmployeeMapper {
                 E.BIRTH AS birth,
                 E.GENDER AS gender
             FROM EMPLOYEE E
-            JOIN DEPARTMENT D ON (D.NO = E.DEPT_CODE)
-            JOIN POSITION P ON (P.NO = E.POSITION_CODE)
+            JOIN DEPARTMENT D ON D.NO = E.DEPT_CODE
+            JOIN POSITION P ON P.NO = E.POSITION_CODE
             WHERE E.DEL_YN = 'N'
+              AND (#{department} IS NULL OR D.NAME = #{department})
+              AND (#{position} IS NULL OR P.NAME = #{position})
+              AND (#{name} IS NULL OR E.NAME LIKE '%' || #{name} || '%')
             """)
-    List<EmployeeVo> employeeVoList();
+    List<EmployeeVo> searchEmployees(
+            @Param("department") String department,
+            @Param("position") String position,
+            @Param("name") String name
+    );
 }

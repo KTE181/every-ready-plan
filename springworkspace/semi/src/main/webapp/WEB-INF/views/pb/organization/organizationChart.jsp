@@ -26,7 +26,7 @@
             <div class="content-area">
                 <div class="index1">
                     <div class="index2">
-                        회사 연혁도
+                        회사 조직도
                     </div>
                 </div>
 
