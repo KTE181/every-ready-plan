@@ -61,5 +61,13 @@ public class VacationController {
         return "hr/vacation/list";
     }
 
+    //휴가 상세조회
+    @PostMapping("detail")
+    @ResponseBody
+    public VacationVo detail(String selectNo){
+         VacationVo voList = service.getVacationVo(selectNo);
+        return voList;
+    }
+
 
 }

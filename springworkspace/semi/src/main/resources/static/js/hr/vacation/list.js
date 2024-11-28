@@ -93,3 +93,74 @@ closeBtnmodal.addEventListener('click', () => {
     btnmodal.style.display = 'none';
       return false;
   }
+
+
+
+const tbodyTag = document.querySelector(".list-area tbody");
+
+tbodyTag.addEventListener("click",(evt)=>{
+    if(evt.target.tagName != "TD"){return;}
+    const selectNo = evt.target.parentNode.children[1].innerText;
+
+
+    $.ajax({
+      url:`/api/hr/vacation/detail?no=${selectNo}`,
+      method:"POST",
+      data:({
+        selectNo: selectNo,
+      }),
+      success: function(data){
+        console.log(data);
+
+
+        
+        const vacationselectmodal = document.getElementById('vacationselectmodal');
+        const closeVacationselectmodal = document.querySelector('.vacationselectmodal-close');
+
+        const empNo= document.querySelector(".vacationselectmodal-cont > div > input[name=empNo]");
+        const ename = document.querySelector(".vacationselectmodal-cont input[name=name]");
+        const dname = document.querySelector(".vacationselectmodal-cont  input[name=dname]");
+        const pname = document.querySelector(".vacationselectmodal-cont input[name=pname]");
+        const thisDate = document.querySelector(".vacationselectmodal-cont input[name=thisDate]");
+        const code = document.querySelector(".vacationselectmodal-cont select[name=code]");
+        const reason = document.querySelector(".vacationselectmodal-cont textarea[name=reason]");
+
+        console.log(code);
+        
+      
+        empNo.value =data.empNo;
+        ename.value=data.ename;
+        dname.value=data.dname;
+        pname.value=data.pname;
+        thisDate.value=data.thisDate;
+        code.setAttribute("value",data.code);
+        reason.value=data.reason;
+        
+        
+
+
+
+
+        vacationselectmodal.style.display = 'block'; // 모달 표시
+         // "X" 버튼 클릭 시 모달 닫기
+          closeVacationselectmodal.addEventListener('click', () => {
+            vacationselectmodal.style.display = 'none'; // 모달 숨기기
+        });
+        
+
+      },
+      fail: function(){
+
+      }
+
+    })
+    
+
+
+
+    
+    });
+
+   
+   
+

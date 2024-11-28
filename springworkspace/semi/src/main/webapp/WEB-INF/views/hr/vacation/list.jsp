@@ -10,6 +10,7 @@
             <link rel="stylesheet" href="/css/common/index.css">
             <script defer src="/js/hr/vacation/list.js"></script>
             <link rel="stylesheet" href="/css/common/search.css">
+            <link rel="stylesheet" href="/css/common/list.css">
         </head>
 
         <body>
@@ -67,7 +68,7 @@
                                     </div>
 
                                     <!-- List Area -->
-                                   <link rel="stylesheet" href="/css/common/list.css">
+
                                         <div class="middle-content-area">
                                                 <table class="list-area">
                                                     <thead>
@@ -108,6 +109,7 @@
                                         <!-- Bottom Area -->
                                         <%@ include file="/WEB-INF/views/common/bottom.jsp" %>
                                             <!-- 모달 구조  test-->
+                                              <!--                                    휴가 등록 모달          -->
                                             <div>
                                                 <!-- <div class="test-area">
                                                     <div class="test3">TEST3</div>
@@ -168,7 +170,69 @@
                                                     </div>
                                                 </form>
                                             </div>
+                                            <!--                                    휴가 상세조회 모달          -->
+                                            <div>
+                                                <!-- <div class="test-area">
+                                                    <div class="test3">TEST3</div>
+                                                </div> -->
+                                                <form action="/api/hr/vacation/write" method="post" id="vacationselectmodal" class="vacationselectmodal">
+                                                    <div class="vacationselectmodal-content">
+                                                        <span class="vacationselectmodal-close">&times;</span>
+                                                        <div class="vacationselectmodal-title">휴가 상세조회</div>
+                                                        <div><span class="title-span" id="overtimespan">*는 필수입력
+                                                                사항입니다</span></div>
+                                                        <div class="vacationselectmodal-cont">
+                                                            <label for="employeeId"><span
+                                                                    class="title-span">*</span>사번</label>
+                                                            <div><input type="text" id="employeeId" class="employeeId"
+                                                                    name="empNo" disabled="false"> <input type="button" value="사번선택"
+                                                                    class="employee-select-btn" disabled="false"></div>
+                                                        </div>
+                                                        <div class="vacationselectmodal-cont">
+                                                            <label for="name"><span
+                                                                    class="title-span">*</span>사원명</label>
+                                                            <input type="text" id="name" name="name" disabled="false"/>
+                                                        </div>
+                                                        <div class="vacationselectmodal-cont" id="department">
+                                                            <label for="position"><span
+                                                                    class="title-span">*</span>소속부서</label>
+                                                            <input type="text" name="dname" disabled="false">
+                                                        </div>
+                                                        <div class="vacationselectmodal-cont">
+                                                            <label for="phone"><span
+                                                                    class="title-span">*</span>직급</label>
+                                                            <input type="text" name="pname" disabled="false" />
+                                                        </div>
+                                                        <div class="vacationselectmodal-cont">
+                                                            <label for="region"><span class="title-span">*</span>일자
+                                                                ex)2024-11-26</label>
+                                                            <input type="text" name="thisDate" disabled="false" />
+                                                        </div>
+                                                        <div class="vacationselectmodal-cont">
+                                                            <label for="region"><span class="title-span">*</span>휴가유형
+                                                                <select name="code" id="overtime-type" disabled="false">
+                                                                    <option value="1">연차</option>
+                                                                    <option value="2">반차</option>
+                                                                    <option value="3">법정휴가</option>
+                                                                    <option value="4">연가</option>
+                                                                </select></label>
+                                                        </div>
+                                                        <div class="vacationselectmodal-cont" id="content-area">
+                                                            <label for="position"><span class="title-span">*</span>휴가사유
+                                                            </label>
+                                                            <textarea name="reason" disabled="false"></textarea>
 
+                                                        </div>
+
+                                                        <div></div>
+                                                        <div class="btn-area">
+                                                            <div class="button-container"><button>수정</button></div>
+                                                            <div class="button-container"><button>삭제</button></div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+<!--                                    사원조회 모달          -->
                                             <div>
                                                 <form action="" method="post" id="btnmodal" class="btnmodal">
                                                     <div class="btnmodal-content">

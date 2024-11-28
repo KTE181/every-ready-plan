@@ -29,4 +29,8 @@ public class VacationService {
     public EmployeeVo selectvolist(String empNo) {
         return mapper.selectvolist(empNo);
     }
+
+    public VacationVo getVacationVo(String selectNo) {
+        return  mapper.getVacationVo(selectNo);
+    }
 }
