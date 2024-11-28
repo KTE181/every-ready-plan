@@ -10,11 +10,37 @@ testDiv3.addEventListener('click', () => {
     const ename = document.querySelector("input[name=name]");
     const dname = document.querySelector("input[name=dname]");
     const panme = document.querySelector("input[name=pname]");
-    empNo.setAttribute("value","");
-    ename.setAttribute("value","");
-    dname.setAttribute("value","");
-    panme.setAttribute("value","");
+    const salary = document.querySelector("input[name=salary]");
+    const basic = document.querySelector(".salarymodal-cont input[name=basic]");
+    const payment = document.querySelector(".salarymodal-second input[name=payment]");
+    const nationalPension = document.querySelector(".salarymodal-third input[name=nationalPension]");
+    const healthInsurance = document.querySelector(".salarymodal-third input[name=healthInsurance]");
+    const employmentInsurance = document.querySelector(".salarymodal-third input[name=employmentInsurance]");
+    const longtermCareInsurance = document.querySelector(".salarymodal-third input[name=longtermCareInsurance]");
+    const incomeTax = document.querySelector(".salarymodal-third input[name=incomeTax]");
+    const localTaxes = document.querySelector(".salarymodal-third input[name=localTaxes]");
+    const deductions = document.querySelector(".salarymodal-third input[name=deductions]");
+    const netPayment = document.querySelector(".salarymodal-third input[name=netPayment]");
+
+
+    empNo.removeAttribute("value");
+    ename.removeAttribute("value");
+    dname.removeAttribute("value");
+    panme.removeAttribute("value");
+    salary.removeAttribute("value");
+    basic.value="";
+    payment.value="";
+    nationalPension.value="";
+    healthInsurance.value="";
+    employmentInsurance.value="";
+    longtermCareInsurance.value="";
+    incomeTax.value="";
+    localTaxes.value="";
+    deductions.value="";
+    netPayment.value="";
     console.log(salarymodal);
+
+
     salarymodal.style.display = 'block'; // 모달 표시
 });
 

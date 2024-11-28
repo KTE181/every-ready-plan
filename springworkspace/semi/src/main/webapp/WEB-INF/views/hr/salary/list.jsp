@@ -129,7 +129,7 @@
    <!-- 모달 구조 -->
    
        <div id="salarymodal" class="salarymodal">
-           <form action="" method="post">
+           <form action="/api/hr/salary/write" method="post">
            <div class="salarymodal-content">
                <span class="salarymodal-close">&times;</span>
                <div class="salarymodal-first">
