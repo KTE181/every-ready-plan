@@ -97,13 +97,13 @@
   font-weight: bold; /* 강조 */
 }
 
-input {
+.modal-content input {
   padding: 5px;
   font-size: 1em;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-button {
+.modal-content button {
   width: 130px; /* 버튼 너비 */
   height: 50px; /* 버튼 높이 */
   font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
