@@ -5,8 +5,10 @@ import com.kh.semi.hr.vacation.vo.VacationVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface VacationMapper {
@@ -190,4 +192,16 @@ public interface VacationMapper {
                     WHERE A.NO = #{selectNo} AND A.DEL_YN ='N'
             """)
     VacationVo getVacationVo(String selectNo);
+
+    @Update("""
+               UPDATE VACATION_LOG SET
+               EMP_NO = #{empNo},
+               CODE = #{code},
+               THISDATE =#{thisDate},
+               REASON=#{reason},
+               MODIFY_DATE= SYSDATE
+               WHERE  NO=#{selectNo} AND DEL_YN ='N'
+            """)
+    int update(Map<String, String> alldata);
+
 }

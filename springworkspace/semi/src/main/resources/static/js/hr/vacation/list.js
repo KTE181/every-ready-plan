@@ -100,6 +100,7 @@ const tbodyTag = document.querySelector(".list-area tbody");
 
 tbodyTag.addEventListener("click",(evt)=>{
     if(evt.target.tagName != "TD"){return;}
+   
     const selectNo = evt.target.parentNode.children[1].innerText;
 
 
@@ -111,7 +112,8 @@ tbodyTag.addEventListener("click",(evt)=>{
       }),
       success: function(data){
         console.log(data);
-
+        
+        document.querySelector(".vacationselectmodal-content .button-container").innerHTML = '';
 
         
         const vacationselectmodal = document.getElementById('vacationselectmodal');
@@ -124,8 +126,7 @@ tbodyTag.addEventListener("click",(evt)=>{
         const thisDate = document.querySelector(".vacationselectmodal-cont input[name=thisDate]");
         const code = document.querySelector(".vacationselectmodal-cont select[name=code]");
         const reason = document.querySelector(".vacationselectmodal-cont textarea[name=reason]");
-
-        console.log(code);
+        const employeebtn = document.querySelector(".vacationselectmodal-cont input[value='사번선택']");
         
       
         empNo.value =data.empNo;
@@ -135,6 +136,109 @@ tbodyTag.addEventListener("click",(evt)=>{
         thisDate.value=data.thisDate;
         code.setAttribute("value",data.code);
         reason.value=data.reason;
+
+        empNo.setAttribute("disabled","false");
+        ename.setAttribute("disabled","false");
+        dname.setAttribute("disabled","false");
+        pname.setAttribute("disabled","false");
+        code.setAttribute("disabled","false");
+        thisDate.setAttribute("disabled","false");
+        reason.setAttribute("disabled","false");
+        employeebtn.setAttribute("disabled","false");
+
+        
+
+        const btnDiv =document.querySelector(".vacationselectmodal-content .button-container");
+
+        const editBtn =document.createElement("input");
+        editBtn.setAttribute("type","button");
+        editBtn.setAttribute("value","수정하기");
+
+        btnDiv.appendChild(editBtn);
+
+
+        const delbtn = document.createElement("input");
+        delbtn.setAttribute("type","button");
+        delbtn.setAttribute("value","삭제하기");
+
+        btnDiv.appendChild(delbtn);
+
+       
+        editBtn.addEventListener("click",()=>{
+          const empNo= document.querySelector(".vacationselectmodal-cont > div > input[name=empNo]");
+          const ename = document.querySelector(".vacationselectmodal-cont input[name=name]");
+          const dname = document.querySelector(".vacationselectmodal-cont  input[name=dname]");
+          const pname = document.querySelector(".vacationselectmodal-cont input[name=pname]");
+          const thisDate = document.querySelector(".vacationselectmodal-cont input[name=thisDate]");
+          const code = document.querySelector(".vacationselectmodal-cont select[name=code]");
+          const reason = document.querySelector(".vacationselectmodal-cont textarea[name=reason]");
+          const employeebtn = document.querySelector(".vacationselectmodal-cont input[value='사번선택']");
+  
+          empNo.removeAttribute("disabled");
+          ename.removeAttribute("disabled");
+          dname.removeAttribute("disabled");
+          pname.removeAttribute("disabled");
+          code.removeAttribute("disabled");
+          thisDate.removeAttribute("disabled");
+          reason.removeAttribute("disabled");
+          employeebtn.removeAttribute("disabled");
+
+
+          editBtn.remove();
+          delbtn.remove();
+
+          const btnDiv =document.querySelector(".vacationselectmodal-content .button-container");
+           const editBtn2 =document.createElement("input");
+           editBtn2.setAttribute("type","button");
+           editBtn2.setAttribute("value","수정하기");
+
+         
+           btnDiv.appendChild(editBtn2);
+
+           editBtn2.addEventListener("click",()=>{
+
+            const x = document.querySelector(".vacationselectmodal-cont textarea[name=reason]");
+
+            const alldata = {
+              selectNo:selectNo,
+              empNo:empNo.value,
+              ename:ename.value,
+              dname:dname.value,
+              pname:pname.value,
+              code:code.value,
+              thisDate:thisDate.value,
+              reason:reason.value,
+            }
+
+            $.ajax({
+              url:"/api/hr/vacation/update",
+              contentType: "application/json",
+              method:"POST",
+              data:JSON.stringify(alldata),
+  
+              success:function(data2){
+                  alert("수정 성공");
+                  console.log(data2);
+                  location.href="/api/hr/vacation/list";
+                  
+                  
+              },
+              fail:function(){
+  
+              }
+  
+             })
+           })
+           
+
+          
+
+
+        })
+
+
+             
+         
         
         
 
@@ -160,6 +264,8 @@ tbodyTag.addEventListener("click",(evt)=>{
 
     
     });
+
+
 
    
    

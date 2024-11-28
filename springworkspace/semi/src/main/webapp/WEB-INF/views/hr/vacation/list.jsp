@@ -175,7 +175,7 @@
                                                 <!-- <div class="test-area">
                                                     <div class="test3">TEST3</div>
                                                 </div> -->
-                                                <form action="/api/hr/vacation/write" method="post" id="vacationselectmodal" class="vacationselectmodal">
+                                                <form action="/api/hr/vacation/update" method="post" id="vacationselectmodal" class="vacationselectmodal">
                                                     <div class="vacationselectmodal-content">
                                                         <span class="vacationselectmodal-close">&times;</span>
                                                         <div class="vacationselectmodal-title">휴가 상세조회</div>
@@ -185,32 +185,32 @@
                                                             <label for="employeeId"><span
                                                                     class="title-span">*</span>사번</label>
                                                             <div><input type="text" id="employeeId" class="employeeId"
-                                                                    name="empNo" disabled="false"> <input type="button" value="사번선택"
-                                                                    class="employee-select-btn" disabled="false"></div>
+                                                                    name="empNo" > <input type="button" value="사번선택"
+                                                                    class="employee-select-btn" ></div>
                                                         </div>
                                                         <div class="vacationselectmodal-cont">
                                                             <label for="name"><span
                                                                     class="title-span">*</span>사원명</label>
-                                                            <input type="text" id="name" name="name" disabled="false"/>
+                                                            <input type="text" id="name" name="name" />
                                                         </div>
                                                         <div class="vacationselectmodal-cont" id="department">
                                                             <label for="position"><span
                                                                     class="title-span">*</span>소속부서</label>
-                                                            <input type="text" name="dname" disabled="false">
+                                                            <input type="text" name="dname" >
                                                         </div>
                                                         <div class="vacationselectmodal-cont">
                                                             <label for="phone"><span
                                                                     class="title-span">*</span>직급</label>
-                                                            <input type="text" name="pname" disabled="false" />
+                                                            <input type="text" name="pname" />
                                                         </div>
                                                         <div class="vacationselectmodal-cont">
                                                             <label for="region"><span class="title-span">*</span>일자
                                                                 ex)2024-11-26</label>
-                                                            <input type="text" name="thisDate" disabled="false" />
+                                                            <input type="text" name="thisDate"  />
                                                         </div>
                                                         <div class="vacationselectmodal-cont">
                                                             <label for="region"><span class="title-span">*</span>휴가유형
-                                                                <select name="code" id="overtime-type" disabled="false">
+                                                                <select name="code" id="overtime-type" >
                                                                     <option value="1">연차</option>
                                                                     <option value="2">반차</option>
                                                                     <option value="3">법정휴가</option>
@@ -220,14 +220,14 @@
                                                         <div class="vacationselectmodal-cont" id="content-area">
                                                             <label for="position"><span class="title-span">*</span>휴가사유
                                                             </label>
-                                                            <textarea name="reason" disabled="false"></textarea>
+                                                            <textarea name="reason"></textarea>
 
                                                         </div>
 
                                                         <div></div>
                                                         <div class="btn-area">
-                                                            <div class="button-container"><button>수정</button></div>
-                                                            <div class="button-container"><button>삭제</button></div>
+                                                            
+                                                            <div class="button-container"></div>
                                                         </div>
                                                     </div>
                                                 </form>
