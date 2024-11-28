@@ -140,4 +140,33 @@ public interface SalaryMapper {
             )
             """)
     int write(SalaryVo vo);
+
+    @Select("""
+            SELECT\s
+                A.NO ,
+                B.SALARY,
+                A.PAY_YEARMONTH ,
+                A.EMP_NO ,
+                B.NAME ENAME,
+                D.NAME DNAME,
+                C.NAME PNAME,
+                A.BASIC ,
+                A.MEAL_ALLOWANCE ,
+                A.COMMUNICATION_COST ,
+                (A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) AS PAYMENT,
+                A.NATIONAL_PENSION ,
+                A.HEALTH_INSURANCE ,
+                A.EMPLOYMENT_INSURANCE ,
+                A.LONGTERM_CARE_INSURANCE ,
+                A.INCOME_TAX ,
+                A.LOCAL_TAXES ,
+                (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)AS DEDUCTIONS,
+                ((A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) - (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)) AS NETPAYMENT
+                FROM SALARY A
+                JOIN EMPLOYEE B ON (A.EMP_NO = B.NO)
+                JOIN POSITION C ON (B.POSITION_CODE= C.NO)
+                JOIN DEPARTMENT D ON (B.DEPT_CODE = D.NO)
+                WHERE A.NO=#{selectNo} AND DEL_YN = 'N'
+            """)
+    SalaryVo detail(String selectNo);
 }

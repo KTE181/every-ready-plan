@@ -29,4 +29,15 @@ public class SalaryService {
     public int write(SalaryVo vo) {
         return mapper.write(vo);
     }
+
+    public SalaryVo detail(String selectNo) {
+        SalaryVo vo =mapper.detail(selectNo);
+
+        String original = vo.getPayYearmonth();
+        String year = original.substring(0, 4); // 첫 4자리 (연도)
+        String month = original.substring(4, 6); // 마지막 2자리 (월)
+        String finishData = year + "-" + month;
+        vo.setPayYearmonth(finishData);
+        return vo;
+    }
 }

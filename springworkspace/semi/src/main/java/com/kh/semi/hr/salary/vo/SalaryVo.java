@@ -7,6 +7,7 @@ public class SalaryVo {
     private String no; // 순번
     private String payYearmonth; //지급연월
     private String empNo;//사번
+    private String salary;// 연봉
     private String ename;//사원명
     private String dname; // 부서명
     private String pname; // 직급
@@ -22,5 +23,6 @@ public class SalaryVo {
     private String localTaxes; //지방세
     private String deductions;//공제총액
     private String netPayment;// 실수령액
+
 
 }

@@ -23,12 +23,12 @@ public class SalaryController {
         List<SalaryVo> SalaryVoList = service.listAll();
         List<EmployeeVo> empVoList = service.empVoList();
 
-        for (EmployeeVo vo : empVoList) {
-            System.out.println("vo = " + vo);
-        }
-        for (SalaryVo vo : SalaryVoList) {
-            System.out.println("vo    :" +vo);
-        }
+//        for (EmployeeVo vo : empVoList) {
+//            System.out.println("vo = " + vo);
+//        }
+//        for (SalaryVo vo : SalaryVoList) {
+//            System.out.println("vo    :" +vo);
+//        }
         model.addAttribute("SalaryVoList",SalaryVoList);
         model.addAttribute("empVoList",empVoList);
         return "hr/salary/list";
@@ -61,5 +61,18 @@ public class SalaryController {
         System.out.println(empNo);
         EmployeeVo selectvolist = service.selectvolist(empNo);
         return selectvolist;
+    }
+
+
+    //급여 상세조회 하기
+    @PostMapping("detail")
+    @ResponseBody
+    public SalaryVo detail(String selectNo){
+
+
+        SalaryVo vo = service.detail(selectNo);
+
+        System.out.println(vo);
+        return vo;
     }
 }

@@ -1,10 +1,4 @@
-/* 기본 레이아웃 */
-.test-area{
-    padding: 10px 20px;
-    background-color: lightblue;
-    text-align: center;
-    cursor: pointer;
-}
+
 
 .middle-content-area{
   display: flex;
@@ -71,46 +65,7 @@
 } 
 
 /* 모달 전체 배경 */
-.overmodal1 {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-.overmodal2 {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-.vacationmodal {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-.vacationselectmodal {
-  display: none; /* 기본적으로 숨김 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
-  z-index: 1000; /* 다른 요소 위에 표시 */
-}
+
 .btnmodal{
   display: none; /* 기본적으로 숨김 */
   position: fixed;
@@ -123,74 +78,7 @@
 }
 
 /* 모달 창 본체 */
-.overmodal1-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
-    background-color: white;
-    padding: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
-
-    width: 1000px;
-    height: 500px;
-
-}
-.overmodal2-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
-    background-color: white;
-    padding: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-
-    width: 1000px;
-    height: 500px;
-
-}
-.vacationmodal-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
-    background-color: white;
-    padding: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-
-    width: 1000px;
-    height: 500px;
-
-}
-.vacationselectmodal-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
-  background-color: white;
-  padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-
-  width: 1000px;
-  height: 500px;
-
-}
 .btnmodal-content{
   display: grid;
     grid-template-columns:1fr;
@@ -207,60 +95,14 @@
     width: 800px;
     height: 400px;
 }
-.overmodal1-title{
-    font-size: 2em;
-    font-weight: bold;
-    text-align: left;
 
-}
-.overmodal2-title{
-    font-size: 2em;
-    font-weight: bold;
-    text-align: left;
-
-}
-.vacationmodal-title{
-    font-size: 2em;
-    font-weight: bold;
-    text-align: left;
-
-}
-.vacationselectmodal-title{
-  font-size: 2em;
-  font-weight: bold;
-  text-align: left;
-
-}
-.overmodal1-cont{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em
-}
 .btnmodal-cont{
     display: grid;
     justify-content: center;
     align-items: center;
     font-size: 1.5em
 }
-.overmodal2-cont{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em
-}
-.vacationmodal-cont{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em
-}
-.vacationselectmodal-cont{
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5em
-}
+
 /* 부모 요소를 가로 정렬 */
 .row {
     display: flex; /* 가로 배열 */
@@ -311,38 +153,6 @@
 
 
 /* 닫기 버튼 */
-.overmodal1-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: gray;
-}
-.overmodal2-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: gray;
-}
-.vacationmodal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: gray;
-}
-.vacationselectmodal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  color: gray;
-}
 
 .btnmodal-close{
   position: absolute;
@@ -353,18 +163,7 @@
     color: gray;
 
 }
-.overmodal1-close:hover {
-    color: black;
-}
-.overmodal2-close:hover {
-    color: black;
-}
-.vacationmodal-close:hover {
-    color: black;
-}
-.vacationselectmodal-close:hover {
-  color: black;
-}
+
 .btnmodal-close:hover{
   color: black;
 }
@@ -402,20 +201,23 @@ textarea{
 
 
 /* 기본 레이아웃 */
-.test4 {
-    width: 100px;
-    height: 100px;
-    padding: 10px 20px;
-    background-color: lightblue;
-    text-align: center;
-    cursor: pointer;
-  }
+
   label {
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   }
 
   /* 모달 전체 배경 */
   .salarymodal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+  }
+  .salaryselectmodal {
     display: none; /* 기본적으로 숨김 */
     position: fixed;
     top: 0;
@@ -442,7 +244,30 @@ textarea{
     height: 850px;
 
   }
+  /* 모달 창 본체 */
+  .salaryselectmodal-content {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 1200px;
+    height: 850px;
+
+  }
   .salarymodal-first {
+    display: grid;
+    grid-template-rows: 0.5fr 0.5fr repeat(3, 1fr) ;
+    grid-template-columns:  1fr 1fr;
+    grid-auto-flow: row;
+
+  }
+  .salaryselectmodal-first {
     display: grid;
     grid-template-rows: 0.5fr 0.5fr repeat(3, 1fr) ;
     grid-template-columns:  1fr 1fr;
@@ -455,7 +280,20 @@ textarea{
     grid-template-columns:  1fr 1fr;
     grid-auto-flow: row;
   }
+  .salaryselectmodal-second {
+    display: grid;
+    grid-template-rows: 0.5fr repeat(3, 1fr) ;
+    grid-template-columns:  1fr 1fr;
+    grid-auto-flow: row;
+  }
   .salarymodal-third {
+    display: grid;
+    grid-template-rows: 0.5fr repeat(5, 1fr);
+    grid-template-columns:  1fr 1fr;
+    grid-auto-flow: row;
+
+  }
+  .salaryselectmodal-third {
     display: grid;
     grid-template-rows: 0.5fr repeat(5, 1fr);
     grid-template-columns:  1fr 1fr;
@@ -464,6 +302,14 @@ textarea{
   }
 
   .salarymodal-title{
+    grid-column: 1/3;
+    font-size: 2em;
+    font-weight: bold;
+    justify-content: center;
+    text-align: left;
+
+  }
+  .salaryselectmodal-title{
     grid-column: 1/3;
     font-size: 2em;
     font-weight: bold;
@@ -490,10 +336,27 @@ textarea{
     text-align: left;
     color: rgb(41, 102, 216);
   }
-
+  .salaryselectmodal-subtitle{
+    display: flex;
+    grid-column: 1/3;
+    font-size: 1.5em;
+    font-weight: bold;
+    justify-content: flex-start; /* 수평 정렬: 왼쪽 정렬 */
+    align-items: center; /* 수직 정렬: 중앙 정렬 */
+    text-align: left;
+    color: rgb(41, 102, 216);
+  }
 
 
   .salarymodal-cont{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em
+
+
+  }
+  .salaryselectmodal-cont{
     display: grid;
     justify-content: center;
     align-items: center;
@@ -553,7 +416,18 @@ textarea{
     color: gray;
   }
 
+  .salaryselectmodal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+  }
   .salarymodal-close:hover {
+    color: black;
+  }
+  .salaryselectmodal-close:hover {
     color: black;
   }
   .salarylabel{

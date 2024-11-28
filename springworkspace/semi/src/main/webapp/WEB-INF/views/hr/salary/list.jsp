@@ -235,67 +235,113 @@
            </div>
        </form>
        </div>
-                                            <!--                                    휴가 상세조회 모달          -->
-                                            <div>
-                                                <!-- <div class="test-area">
-                                                    <div class="test3">TEST3</div>
-                                                </div> -->
-                                                <form action="/api/hr/vacation/update" method="post" id="vacationselectmodal" class="vacationselectmodal">
-                                                    <div class="vacationselectmodal-content">
-                                                        <span class="vacationselectmodal-close">&times;</span>
-                                                        <div class="vacationselectmodal-title">휴가 상세조회</div>
-                                                        <div><span class="title-span" id="overtimespan">*는 필수입력
-                                                                사항입니다</span></div>
-                                                        <div class="vacationselectmodal-cont">
-                                                            <label for="employeeId"><span
-                                                                    class="title-span">*</span>사번</label>
-                                                            <div><input type="text" id="employeeId" class="employeeId"
-                                                                    name="empNo" > <input type="button" value="사번선택"
-                                                                    class="employee-select-btn" ></div>
+                                            <!--                                   급여 상세조회         -->
+                                            <div id="salaryselectmodal" class="salaryselectmodal">
+                                                <form action="/api/hr/salary/write" method="post">
+                                                <div class="salaryselectmodal-content">
+                                                    <span class="salaryselectmodal-close">&times;</span>
+                                                    <div class="salaryselectmodal-first">
+                                                        <div class="salaryselectmodal-title">급여 상세 조회</div>
+                                                        <div class="salaryselectmodal-subtitle">기본정보
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <span class="title-span">*는 필수입력 사항입니다</span></div>
+                                     
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>사번</label>
+                                                            <div><input type="text" id="employeeId" class="employeeId" name="empNo"> <input type="button" value="사번선택" class="employee-select-btn"></div>
+                                                            </button>
                                                         </div>
-                                                        <div class="vacationselectmodal-cont">
-                                                            <label for="name"><span
-                                                                    class="title-span">*</span>사원명</label>
-                                                            <input type="text" id="name" name="name" />
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>사원명</label>
+                                                            <input type="text" id="price" name ="name" />
                                                         </div>
-                                                        <div class="vacationselectmodal-cont" id="department">
-                                                            <label for="position"><span
-                                                                    class="title-span">*</span>소속부서</label>
-                                                            <input type="text" name="dname" >
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>소속부서</label>
+                                                             <input type="text" id="price" name ="dname"/>
                                                         </div>
-                                                        <div class="vacationselectmodal-cont">
-                                                            <label for="phone"><span
-                                                                    class="title-span">*</span>직급</label>
-                                                            <input type="text" name="pname" />
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>직급</label>
+                                                            <input type="text" id="price" name="pname" />
                                                         </div>
-                                                        <div class="vacationselectmodal-cont">
-                                                            <label for="region"><span class="title-span">*</span>일자
-                                                                ex)2024-11-26</label>
-                                                            <input type="text" name="thisDate"  />
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel">연봉</label>
+                                                            <input type="text" id="price" name="salary"/>
                                                         </div>
-                                                        <div class="vacationselectmodal-cont">
-                                                            <label for="region"><span class="title-span">*</span>휴가유형
-                                                                <select name="code" id="overtime-type" >
-                                                                    <option value="1">연차</option>
-                                                                    <option value="2">반차</option>
-                                                                    <option value="3">법정휴가</option>
-                                                                    <option value="4">연가</option>
-                                                                </select></label>
+                                     
+                                     
+                                     
+                                     
+                                                    </div>
+                                                    <div class="salaryselectmodal-second">
+                                                        <div class="salaryselectmodal-subtitle">지급정보</div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>지급연월  ex)2024-06</label>
+                                                            <input type="text" id="price" name="payYearmonth" />
                                                         </div>
-                                                        <div class="vacationselectmodal-cont" id="content-area">
-                                                            <label for="position"><span class="title-span">*</span>휴가사유
-                                                            </label>
-                                                            <textarea name="reason"></textarea>
-
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel">기본급</label>
+                                                            <input type="text" id="price" name="basic" />
                                                         </div>
-
-                                                        <div></div>
-                                                        <div class="btn-area">
-
-                                                            <div class="button-container"></div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>식대</label>
+                                                            <input type="text" id="price" name="mealAllowance" value="200000" />
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>통신비</label>
+                                                            <input type="text" id="price" name ="communicationCost" value="50000"/>
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>지급총액</label>
+                                                            <input type="text" id="price" name ="payment"/>
                                                         </div>
                                                     </div>
-                                                </form>
+                                     
+                                                    <div class="salaryselectmodal-third">
+                                                        <div class="salaryselectmodal-subtitle">공제정보</div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>국민연금</label>
+                                                            <input type="text" id="price" name ="nationalPension" />
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>건강보험</label>
+                                                            <input type="text" id="price" name ="healthInsurance" />
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>고용보험</label>
+                                                            <input type="text" id="price" name="employmentInsurance" />
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>장기요양보험료</label>
+                                                            <input type="text" id="price" name ="longtermCareInsurance"/>
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>소득세</label>
+                                                            <input type="text" id="price" name ="incomeTax"/>
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel"><span class="title-span">*</span>지방소득세</label>
+                                                            <input type="text" id="price" name="localTaxes" />
+                                                        </div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel">공제총액</label>
+                                                            <input type="text" id="price" name="deductions" />
+                                                        </div>
+                                     
+                                                        <div class="salaryselectmodal-cont">
+                                                            <label class="salarylabel">실지급액</label>
+                                                            <input type="text" id="price" name="netPayment" />
+                                                        </div>
+                                                        <div></div>
+                                                        <div class="salaryselectmodal-cont">
+                                                            <input type="submit" value="등록" />
+                                     
+                                                        </div>
+                                     
+                                                    </div>
+                                                </div>
+                                            </form>
                                             </div>
 <!--                                    사원조회 모달          -->
                                             <div>
