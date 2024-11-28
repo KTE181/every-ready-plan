@@ -1,0 +1,477 @@
+/* 기본 레이아웃 */
+.test-area{
+    padding: 10px 20px;
+    background-color: lightblue;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+
+/* 모달 전체 배경 */
+.overmodal1 {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+.overmodal2 {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+.vacationmodal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+.btnmodal{
+  display: none; /* 기본적으로 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+/* 모달 창 본체 */
+.overmodal1-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+
+    width: 1000px;
+    height: 500px;
+
+}
+.overmodal2-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+
+    width: 1000px;
+    height: 500px;
+
+}
+.vacationmodal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+
+    width: 1000px;
+    height: 500px;
+
+}
+.btnmodal-content{
+  display: grid;
+    grid-template-columns:1fr;
+    grid-template-rows: 1fr 6fr 1fr;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+
+    width: 800px;
+    height: 400px;
+}
+.overmodal1-title{
+    font-size: 2em;
+    font-weight: bold;
+    text-align: left;
+
+}
+.overmodal2-title{
+    font-size: 2em;
+    font-weight: bold;
+    text-align: left;
+
+}
+.vacationmodal-title{
+    font-size: 2em;
+    font-weight: bold;
+    text-align: left;
+
+}
+.overmodal1-cont{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em
+}
+.btnmodal-cont{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em
+}
+.overmodal2-cont{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em
+}
+.vacationmodal-cont{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em
+}
+/* 부모 요소를 가로 정렬 */
+.row {
+    display: flex; /* 가로 배열 */
+    align-items: center; /* 세로 정렬 */
+    margin-bottom: 1em; /* 각 행 간격 */
+}
+
+.row label {
+    margin-right: 10px; /* 텍스트와 input 간격 */
+    font-weight: bold; /* 강조 */
+}
+
+.vacationmodal input {
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.vacationmodal button {
+    width: 130px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
+    margin-top: 20px; /* 버튼 위쪽 간격 */
+    cursor: pointer; /* 마우스 커서 모양 변경 */
+}
+
+/* 버튼을 우측 정렬 */
+
+.btn-area{
+    display: flex;
+    justify-content: right; /* 우측 정렬 */
+}
+
+
+/* 닫기 버튼 */
+.overmodal1-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+}
+.overmodal2-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+}
+.vacationmodal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+}
+
+.btnmodal-close{
+  position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+
+}
+.overmodal1-close:hover {
+    color: black;
+}
+.overmodal2-close:hover {
+    color: black;
+}
+.vacationmodal-close:hover {
+    color: black;
+}
+.btnmodal-close:hover{
+  color: black;
+}
+#department   select{
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 8px;
+    width: 305px;
+    border: 2px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#hour{
+    width: 50px;
+    text-align: center;
+}
+#minute{
+    width: 50px;
+    text-align: center;
+}
+
+
+#content-area{
+    grid-column:span 2;
+}
+textarea{
+    width: 800px;
+    height: 100px;
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 기본 레이아웃 */
+.test4 {
+    width: 100px;
+    height: 100px;
+    padding: 10px 20px;
+    background-color: lightblue;
+    text-align: center;
+    cursor: pointer;
+  }
+  label {
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  }
+
+  /* 모달 전체 배경 */
+  .salarymodal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+  }
+
+  /* 모달 창 본체 */
+  .salarymodal-content {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 1200px;
+    height: 850px;
+
+  }
+  .salarymodal-first {
+    display: grid;
+    grid-template-rows: 0.5fr 0.5fr repeat(3, 1fr) ;
+    grid-template-columns:  1fr 1fr;
+    grid-auto-flow: row;
+
+  }
+  .salarymodal-second {
+    display: grid;
+    grid-template-rows: 0.5fr repeat(3, 1fr) ;
+    grid-template-columns:  1fr 1fr;
+    grid-auto-flow: row;
+  }
+  .salarymodal-third {
+    display: grid;
+    grid-template-rows: 0.5fr repeat(5, 1fr);
+    grid-template-columns:  1fr 1fr;
+    grid-auto-flow: row;
+
+  }
+
+  .salarymodal-title{
+    grid-column: 1/3;
+    font-size: 2em;
+    font-weight: bold;
+    justify-content: center;
+    text-align: left;
+
+  }
+  .btnmodal-title{
+
+    font-size: 2em;
+    grid-column: 1/4;
+    font-weight: bold;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .salarymodal-subtitle{
+    display: flex;
+    grid-column: 1/3;
+    font-size: 1.5em;
+    font-weight: bold;
+    justify-content: flex-start; /* 수평 정렬: 왼쪽 정렬 */
+    align-items: center; /* 수직 정렬: 중앙 정렬 */
+    text-align: left;
+    color: rgb(41, 102, 216);
+  }
+
+
+
+  .salarymodal-cont{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em
+
+
+  }
+
+
+
+  /* 부모 요소를 가로 정렬 */
+  .row {
+    display: flex; /* 가로 배열 */
+    align-items: center; /* 세로 정렬 */
+    margin-bottom: 1em; /* 각 행 간격 */
+  }
+
+  .row label {
+    margin-right: 10px; /* 텍스트와 input 간격 */
+    font-weight: bold; /* 강조 */
+  }
+
+  input {
+
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .vacationmodal button {
+    width: 130px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
+    margin-top: 20px; /* 버튼 위쪽 간격 */
+    cursor: pointer; /* 마우스 커서 모양 변경 */
+  }
+
+  /* 버튼을 우측 정렬 */
+  .vacationmodal .button-container {
+    display: flex; /* 플렉스 컨테이너 */
+    justify-content: right; /* 우측 정렬 */
+  }
+
+
+  /* 닫기 버튼 */
+  .salarymodal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+  }
+
+  .salarymodal-close:hover {
+    color: black;
+  }
+  .salarylabel{
+    font-size: 18px;
+  }
+
+  input[type = date]{
+    width: 290px;
+  }
+  .select-option{
+    border: 2px solid black;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    height: 46px;
+  }
+#overtime-hour{
+  border: 2px solid black;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 60px;
+    height: 35px;
+}
+#overtime-minute{
+  border: 2px solid black;
+  font-size: 1em;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 60px;
+  height: 35px;
+}
+.title-span{
+  color: red;
+}
+
+#overtimespan{
+  display: flex;
+  justify-content: end;
+}
+#overtime-type{
+  border: 2px solid black;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    height: 35px;
+}
+
+.employeeId{
+  width: 180px;
+}

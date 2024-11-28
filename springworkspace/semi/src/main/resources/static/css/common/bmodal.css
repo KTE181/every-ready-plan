@@ -93,15 +93,11 @@
 }
 
 .modal-content button {
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
-    border: 1px solid #416DFF; ;
-    width: 70px;
-    height: 38px;
+  width: 130px; /* 버튼 너비 */
+  height: 50px; /* 버튼 높이 */
+  font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
+  margin-top: 20px; /* 버튼 위쪽 간격 */
+  cursor: pointer; /* 마우스 커서 모양 변경 */
 }
 
 .modal-content button:hover {

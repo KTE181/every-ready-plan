@@ -6,6 +6,8 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/common/bottom.css">
+    <link rel="stylesheet" href="/css/hr/vacation/list.css">
+    
 </head>
 
     <div class="bottom-content-area">
@@ -44,5 +46,6 @@ pageEncoding="UTF-8"%>
 
         <!-- <div class="bottom-content-area-5"><button class="crud-button-white">수정</button></div> -->
          
-        <div><button class="crud-button-white" id="enroll-button">등록</button></div>
+
+        <div><button class="crud-button-white" id="create">등록</button></div>
     </div>
