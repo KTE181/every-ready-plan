@@ -44,5 +44,5 @@ pageEncoding="UTF-8"%>
 
         <!-- <div class="bottom-content-area-5"><button class="crud-button-white">수정</button></div> -->
          
-        <div><button class="crud-button-white">등록</button></div>
+        <div><button class="crud-button-white" id="enroll-button">등록</button></div>
     </div>

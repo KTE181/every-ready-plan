@@ -1,6 +1,6 @@
 package com.kh.semi.asreq.mapper;
 
-import com.kh.semi.asreq.asreq.vo.AsreqVo;
+import com.kh.semi.asreq.vo.AsreqVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,13 @@
     <link rel="stylesheet" href="/css/common/bmodal.css">
     <script defer src="/js/common/bmodal.js"></script>
 </head>
-<body>
-<div>
-    <div class="test">TEST</div>
-</div>
 
 <!-- 모달 구조 -->
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
         <div class="modal-title">상품 등록</div>
+
         <div class="modal-profile">
             <div class="modal-profile-index">기본 이미지</div>
         </div>
@@ -76,5 +74,3 @@
         <div class="button-container"><button>등록</button></div>
     </div>
 </div>
-</body>
-</html>

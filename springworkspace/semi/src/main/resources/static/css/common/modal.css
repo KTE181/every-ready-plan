@@ -1,10 +1,3 @@
-/* 기본 레이아웃 */
-.test {
-    padding: 10px 20px;
-    background-color: lightblue;
-    text-align: center;
-    cursor: pointer;
-}
 
 /* 모달 전체 배경 */
 .modal {
@@ -28,27 +21,31 @@
     left: 50%;
     transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
     background-color: white;
-    padding: 40px;
+    padding: 25px 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 650px;
+    height: 300px;
+}
 
-
-    width: 1000px;
-    height: 500px;
-
+#required-text {
+    font-size: 14px;
+    color: red;
+    text-align: right;
 }
 
 .modal-title{
-    font-size: 2em;
+    font-size: 23px;
     font-weight: bold;
     text-align: left;
-
 }
+
 .modal-cont{
     display: grid;
     justify-content: center;
     align-items: center;
-    font-size: 1.5em
+    font-size: 15px;
 }
+
 /* 부모 요소를 가로 정렬 */
 .row {
     display: flex; /* 가로 배열 */
@@ -61,26 +58,37 @@
     font-weight: bold; /* 강조 */
 }
 
-input {
+.modal-content input {
     padding: 5px;
     font-size: 1em;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
 }
-button {
-    width: 130px; /* 버튼 너비 */
-    height: 50px; /* 버튼 높이 */
-    font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
-    margin-top: 20px; /* 버튼 위쪽 간격 */
-    cursor: pointer; /* 마우스 커서 모양 변경 */
+
+.modal-content button {
+    font-size: 15px; /* 작은 글씨 크기 */
+    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
+    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
+    color: black; /* 버튼 글자색 (흰색) */
+    border-radius: 20px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    border: 1px solid #416DFF; ;
+    width: 70px;
+    height: 38px;
+}
+
+.modal-content button:hover {
+    background-color: #416DFF;
+    color: white; 
+    font-weight: bold;
 }
 
 /* 버튼을 우측 정렬 */
 .button-container {
     display: flex; /* 플렉스 컨테이너 */
     justify-content: right; /* 우측 정렬 */
+    align-items: center;
 }
-
 
 /* 닫기 버튼 */
 .modal-close {

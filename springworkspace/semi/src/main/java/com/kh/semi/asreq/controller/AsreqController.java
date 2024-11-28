@@ -1,6 +1,6 @@
 package com.kh.semi.asreq.controller;
 
-import com.kh.semi.asreq.asreq.vo.AsreqVo;
+import com.kh.semi.asreq.vo.AsreqVo;
 import com.kh.semi.asreq.service.AsreqService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

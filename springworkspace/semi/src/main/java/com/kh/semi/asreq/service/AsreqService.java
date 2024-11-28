@@ -1,6 +1,6 @@
 package com.kh.semi.asreq.service;
 
-import com.kh.semi.asreq.asreq.vo.AsreqVo;
+import com.kh.semi.asreq.vo.AsreqVo;
 import com.kh.semi.asreq.mapper.AsreqMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
