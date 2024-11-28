@@ -1,12 +1,3 @@
-/* 기본 레이아웃 */
-.test {
-  width: 100px;
-  height: 100px;
-  padding: 10px 20px;
-  background-color: lightblue;
-  text-align: center;
-  cursor: pointer;
-}
 
 /* 모달 전체 배경 */
 .modal {
@@ -32,19 +23,15 @@
   background-color: white;
   padding: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-
-  width: 1200px;
-  height: 800px;
-
+  width: 1000px;
+  height: 700px;
 }
 
 .modal-title{
   grid-column: 1 / 4;
-  font-size: 2em;
+  font-size: 23px;
   font-weight: bold;
   text-align: left;
-
 }
 
 .modal-profile{
@@ -62,6 +49,7 @@
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
   }
+
 .modal-cont{
   display: grid;
   justify-content: center;
@@ -103,6 +91,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 .modal-content button {
   width: 130px; /* 버튼 너비 */
   height: 50px; /* 버튼 높이 */
@@ -111,6 +100,11 @@
   cursor: pointer; /* 마우스 커서 모양 변경 */
 }
 
+.modal-content button:hover {
+    background-color: #416DFF;
+    color: white; 
+    font-weight: bold;
+}
 /* 버튼을 우측 정렬 */
 .button-container {
   display: flex; /* 플렉스 컨테이너 */

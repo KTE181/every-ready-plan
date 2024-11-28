@@ -1,4 +1,4 @@
-package com.kh.semi.asreq.asreq.vo;
+package com.kh.semi.asreq.vo;
 
 import lombok.Data;
 

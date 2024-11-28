@@ -1,10 +1,9 @@
 // 모달 요소 가져오기
 const modal = document.getElementById('modal');
-const testDiv = document.querySelector('.test');
+const enrollTag = document.querySelector('#enroll-button');
 const closeModal = document.querySelector('.modal-close');
 
-// "TEST" div 클릭 시 모달 열기
-testDiv.addEventListener('click', () => {
+enrollTag.addEventListener('click', () => {
     modal.style.display = 'block'; // 모달 표시
 });
 

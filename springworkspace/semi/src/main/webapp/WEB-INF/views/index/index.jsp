@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -32,6 +33,14 @@
 
                 <!-- Bottom Area -->
                 <%@ include file="/WEB-INF/views/common/bottom.jsp" %>
+            
+            </div>
+
+            <!-- Modal Area -->
+
+            <!-- Small modal -->
+            <%@ include file="/WEB-INF/views/common/modal.jsp" %> 
+
 
         </div>
     </div>

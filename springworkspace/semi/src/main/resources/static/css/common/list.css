@@ -5,6 +5,7 @@
     margin-bottom: 10px;
     margin-left: 42px;
     margin-right: 42px;
+    height: fit-content;
 }
 
 .list-area {
@@ -29,6 +30,7 @@
     padding: 10px 20px;
     font-size: 13px;
     border-collapse: collapse;
+    max-height: 41px;
 }
 
 .list-area thead th {
