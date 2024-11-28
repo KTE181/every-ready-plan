@@ -1,0 +1,41 @@
+table {
+    width: 90%;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  /* 헤더 스타일 */
+  thead tr {
+    background-color: #cce4f7;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  /* 강조된 행 스타일 */
+  tr.highlight {
+    background-color: #eaf6fd;
+  }
+
+  /* 홀수 행 스타일 (대체 색상) */
+  tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  /* 강조 스타일 */
+  td:first-child {
+    font-weight: bold;
+  }
+
+  /* 숫자 금액은 오른쪽 정렬 */
+  td:nth-child(3), td:nth-child(5) {
+    text-align: right;
+  }
+
+  .bold{
+    font-weight : bold;
+  }
