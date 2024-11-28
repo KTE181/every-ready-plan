@@ -30,8 +30,44 @@
                                 <%@ include file="/WEB-INF/views/common/search.jsp" %>
 
                                     <!-- List Area -->
-                                    <%@ include file="/WEB-INF/views/common/list.jsp" %>
+                                   <link rel="stylesheet" href="/css/common/list.css">
+                                        <div class="middle-content-area">
+                                                <table class="list-area">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><input type="checkbox" name=""></th>
+                                                            <th>순번</th>
+                                                            <th>휴가사용일자</th>
+                                                            <th>사원번호</th>
+                                                            <th>사원명</th>
+                                                            <th>소속부서</th>
+                                                            <th>직급</th>
+                                                            <th>휴가유형</th>
+                                                            <th>총휴가일수</th>
+                                                            <th>사용휴가일수</th>
+                                                            <th>남은휴가일수</th>
 
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach items="${vacationListVo}" var="vo">
+                                                            <tr>
+                                                                <td><input type="checkbox" name=""></td>
+                                                                <td>${vo.no}</td>
+                                                                <td>${vo.thisDate}</td>
+                                                                <td>${vo.empNo}</td>
+                                                                <td>${vo.ename}</td>
+                                                                <td>${vo.dname}</td>
+                                                                <td>${vo.pname}</td>
+                                                                <td>${vo.type}</td>
+                                                                <td>${vo.allVacation}</td>
+                                                                <td>${vo.useVacation}</td>
+                                                                <td>${vo.vacation}</td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         <!-- Bottom Area -->
                                         <%@ include file="/WEB-INF/views/common/bottom.jsp" %>
                                             <!-- 모달 구조  test-->
@@ -39,7 +75,7 @@
                                                 <!-- <div class="test-area">
                                                     <div class="test3">TEST3</div>
                                                 </div> -->
-                                                <form action="" method="post" id="vacationmodal" class="vacationmodal">
+                                                <form action="/api/hr/vacation/write" method="post" id="vacationmodal" class="vacationmodal">
                                                     <div class="vacationmodal-content">
                                                         <span class="vacationmodal-close">&times;</span>
                                                         <div class="vacationmodal-title">휴가 등록</div>

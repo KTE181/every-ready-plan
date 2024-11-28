@@ -38,7 +38,7 @@ public interface VacationMapper {
                         ELSE 1                
                         END) AS TOTAL_COUNT
                         FROM VACATION_LOG
-                        WHERE EMP_NO = 1
+                       
                         AND CODE NOT IN (3)
                         GROUP BY EMP_NO) AS VACATION,
                         A.REASON ,
