@@ -39,6 +39,16 @@
     background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
     z-index: 1000; /* 다른 요소 위에 표시 */
 }
+.vacationselectmodal {
+  display: none; /* 기본적으로 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
 .btnmodal{
   display: none; /* 기본적으로 숨김 */
   position: fixed;
@@ -102,6 +112,23 @@
     height: 500px;
 
 }
+.vacationselectmodal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+
+  width: 1000px;
+  height: 500px;
+
+}
 .btnmodal-content{
   display: grid;
     grid-template-columns:1fr;
@@ -136,6 +163,12 @@
     text-align: left;
 
 }
+.vacationselectmodal-title{
+  font-size: 2em;
+  font-weight: bold;
+  text-align: left;
+
+}
 .overmodal1-cont{
     display: grid;
     justify-content: center;
@@ -160,6 +193,12 @@
     align-items: center;
     font-size: 1.5em
 }
+.vacationselectmodal-cont{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em
+}
 /* 부모 요소를 가로 정렬 */
 .row {
     display: flex; /* 가로 배열 */
@@ -178,6 +217,12 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.vacationselectmodal input {
+  padding: 5px;
+  font-size: 1em;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 .vacationmodal button {
     width: 130px; /* 버튼 너비 */
@@ -185,6 +230,14 @@
     font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
     margin-top: 20px; /* 버튼 위쪽 간격 */
     cursor: pointer; /* 마우스 커서 모양 변경 */
+}
+
+.vacationselectmodal button {
+  width: 130px; /* 버튼 너비 */
+  height: 50px; /* 버튼 높이 */
+  font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
+  margin-top: 20px; /* 버튼 위쪽 간격 */
+  cursor: pointer; /* 마우스 커서 모양 변경 */
 }
 
 /* 버튼을 우측 정렬 */
@@ -220,6 +273,14 @@
     cursor: pointer;
     color: gray;
 }
+.vacationselectmodal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: gray;
+}
 
 .btnmodal-close{
   position: absolute;
@@ -238,6 +299,9 @@
 }
 .vacationmodal-close:hover {
     color: black;
+}
+.vacationselectmodal-close:hover {
+  color: black;
 }
 .btnmodal-close:hover{
   color: black;
@@ -403,12 +467,18 @@ textarea{
     margin-top: 20px; /* 버튼 위쪽 간격 */
     cursor: pointer; /* 마우스 커서 모양 변경 */
   }
+  
 
   /* 버튼을 우측 정렬 */
   .vacationmodal .button-container {
     display: flex; /* 플렉스 컨테이너 */
     justify-content: right; /* 우측 정렬 */
   }
+    /* 버튼을 우측 정렬 */
+    .vacationselectmodal .button-container {
+      display: flex; /* 플렉스 컨테이너 */
+      justify-content: right; /* 우측 정렬 */
+    }
 
 
   /* 닫기 버튼 */

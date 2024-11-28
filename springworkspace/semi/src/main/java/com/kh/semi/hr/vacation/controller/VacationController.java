@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,12 +48,7 @@ public class VacationController {
         List<VacationVo> listVo = service.list();
         List<EmployeeVo> empVoList = service.empVoList();
 
-        for (VacationVo vo : listVo) {
-            System.out.println("VacationVo  =======" +vo);
-        }
-        for (EmployeeVo vo2 : empVoList) {
-            System.out.println("vo2====="+vo2);
-        }
+
 
         model.addAttribute("vacationListVo", listVo);
 
@@ -61,5 +57,30 @@ public class VacationController {
         return "hr/vacation/list";
     }
 
+    //휴가 상세조회
+    @PostMapping("detail")
+    @ResponseBody
+    public VacationVo detail(String selectNo){
+         VacationVo voList = service.getVacationVo(selectNo);
+        return voList;
+    }
+
+
+    //휴가 수정
+    @PostMapping("update")
+    @ResponseBody
+    public String update(@RequestBody Map<String, String> alldata){
+        System.out.println(alldata);
+        for (String key : alldata.keySet()) {
+            String value = alldata.get(key);
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+        int result= service.update(alldata);
+
+        if(result != 1){
+            throw new IllegalStateException("업데이트 실패했다~~");
+        }
+        return "good";
+    }
 
 }

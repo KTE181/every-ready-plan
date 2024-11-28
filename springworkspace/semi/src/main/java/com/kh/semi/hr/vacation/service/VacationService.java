@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +29,13 @@ public class VacationService {
 
     public EmployeeVo selectvolist(String empNo) {
         return mapper.selectvolist(empNo);
+    }
+
+    public VacationVo getVacationVo(String selectNo) {
+        return  mapper.getVacationVo(selectNo);
+    }
+
+    public int update(Map<String, String> alldata) {
+        return mapper.update(alldata);
     }
 }
