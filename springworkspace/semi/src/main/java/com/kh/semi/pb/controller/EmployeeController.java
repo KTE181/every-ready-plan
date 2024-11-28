@@ -2,6 +2,7 @@ package com.kh.semi.pb.controller;
 
 import com.kh.semi.pb.service.EmployeeService;
 import com.kh.semi.pb.vo.EmployeeVo;
+import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,30 @@ public class EmployeeController {
             @RequestParam(value = "department", required = false) String department,
             @RequestParam(value = "position", required = false) String position,
             @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "page", defaultValue = "1", required = false) int currentPage,
             Model model) {
+        System.out.println("Current Page: " + currentPage);
+        System.out.println("Department: " + department);
+        System.out.println("Position: " + position);
+        System.out.println("Name: " + name);
+        // 전체 데이터 수 (검색 조건 포함)
+        int listCount = service.getEmployeeCountWithSearch(department, position, name);
 
-        List<EmployeeVo> employeeVoList = service.searchEmployees(department, position, name);
+        // 페이징 정보 계산
+        int pageLimit = 5;  // 하단 페이지 번호 개수
+        int boardLimit = 7; // 한 페이지에 보여줄 데이터 수
+        PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
+        // 검색 조건 + 페이징 처리된 직원 목록 조회
+        List<EmployeeVo> employeeVoList = service.searchEmployeesWithPaging(department, position, name, pageVo);
+
+        // 모델에 데이터 전달
+        model.addAttribute("pageVo", pageVo);
         model.addAttribute("employeeVoList", employeeVoList);
+        model.addAttribute("department", department);
+        model.addAttribute("position", position);
+        model.addAttribute("name", name);
+
         return "pb/employee/employee";
     }
 }

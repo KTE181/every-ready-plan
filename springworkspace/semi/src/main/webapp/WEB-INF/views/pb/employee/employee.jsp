@@ -102,7 +102,24 @@
                         </c:forEach>
                     </tbody>
                 </table>
-                <div>bottom</div>
+                <div class="pagination">
+                    <c:if test="${pageVo.currentPage > 1}">
+                        <a href="/employee?page=${pageVo.currentPage - 1}&department=${department}&position=${position}&name=${name}" class="page-button">이전</a>
+                    </c:if>
+
+                    <c:forEach var="i" begin="${pageVo.startPage}" end="${pageVo.endPage}">
+                        <a href="/employee?page=${i}&department=${department}&position=${position}&name=${name}"
+                           class="page-button ${i == pageVo.currentPage ? 'active' : ''}">
+                           ${i}
+                        </a>
+                    </c:forEach>
+
+                    <c:if test="${pageVo.currentPage < pageVo.maxPage}">
+                        <a href="/employee?page=${pageVo.currentPage + 1}&department=${department}&position=${position}&name=${name}" class="page-button">다음</a>
+                    </c:if>
+                </div>
+
+
             </div>
         </div>
     </div>
