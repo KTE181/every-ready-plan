@@ -335,7 +335,7 @@
                                                         </div>
                                                         <div></div>
                                                         <div class="salaryselectmodal-cont">
-                                                            <input type="submit" value="등록" />
+                                                                <div class="btn-class"></div>
                                      
                                                         </div>
                                      

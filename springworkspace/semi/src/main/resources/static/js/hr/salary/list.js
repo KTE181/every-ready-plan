@@ -36,7 +36,8 @@ testDiv3.addEventListener('click', () => {
   healthInsurance.value = "";
   employmentInsurance.value = "";
   longtermCareInsurance.value = "";
-  incomeTax.value = "";
+
+
   localTaxes.value = "";
   deductions.value = "";
   netPayment.value = "";
@@ -208,7 +209,7 @@ tbodyTag.addEventListener("click", (evt) => {
 
 
       
-      // "TEST" div 클릭 시 모달 열기
+      //모달에다가 값 가져오기
       
         const empNo = document.querySelector(".salaryselectmodal-cont input[name=empNo]");
         const ename = document.querySelector(".salaryselectmodal-cont input[name=name]");
@@ -228,6 +229,7 @@ tbodyTag.addEventListener("click", (evt) => {
         const netPayment = document.querySelector(".salaryselectmodal-third input[name=netPayment]");
 
 
+
         empNo.setAttribute("value",data.empNo);
         ename.value=data.ename;
         dname.value=data.dname;
@@ -244,16 +246,77 @@ tbodyTag.addEventListener("click", (evt) => {
         localTaxes.value = data.localTaxes;
         deductions.value = data.deductions;
         netPayment.value = data.netPayment;
+
+
+
+
+        empNo.setAttribute("disabled","false");
+        ename.setAttribute("disabled","false");
+        dname.setAttribute("disabled","false");
+        pname.setAttribute("disabled","false");
+        salary.setAttribute("disabled","false");
+        basic.setAttribute("disabled","false");
+        payment.setAttribute("disabled","false");
+        payYearmonth.setAttribute("disabled","false");
+        nationalPension.setAttribute("disabled","false");
+        healthInsurance.setAttribute("disabled","false");
+        employmentInsurance.setAttribute("disabled","false");
+        longtermCareInsurance.setAttribute("disabled","false");
+        incomeTax.setAttribute("disabled","false");
+        localTaxes.setAttribute("disabled","false");
+        deductions.setAttribute("disabled","false");
+        netPayment.setAttribute("disabled","false");
+      
+    
+
+
+
+
+
+
+
+        
+        const btnDivTag = document.querySelector(".btn-class");
+        const editbtn = document.createElement("input");
+        editbtn.setAttribute("type","button");
+        editbtn.setAttribute("value","수정하기");
+        btnDivTag.appendChild(editbtn);
        
 
         salaryselectmodal.style.display = 'block'; // 모달 표시
-     
 
+
+
+
+
+
+        
       // "X" 버튼 클릭 시 모달 닫기
       closeSalaryselectmodal.addEventListener('click', () => {
         salaryselectmodal.style.display = 'none'; // 모달 숨기기
       });
 
+      editbtn.addEventListener("click",()=>{
+          
+        empNo.removeAttribute("disabled");
+        ename.removeAttribute("disabled");
+        dname.removeAttribute("disabled");
+        pname.removeAttribute("disabled");
+        salary.removeAttribute("disabled");
+        basic.removeAttribute("disabled");
+        payment.removeAttribute("disabled");
+        payYearmonth.removeAttribute("disabled");
+        nationalPension.removeAttribute("disabled");
+        healthInsurance.removeAttribute("disabled");
+        employmentInsurance.removeAttribute("disabled");
+        longtermCareInsurance.removeAttribute("disabled");
+        incomeTax.removeAttribute("disabled");
+        localTaxes.removeAttribute("disabled");
+        deductions.removeAttribute("disabled");
+        netPayment.removeAttribute("disabled");
+      
+
+      })
       console.log(data);
       console.log(data.salary);
 
