@@ -1,0 +1,85 @@
+/* 기본 스타일 설정 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e8f1fa; /* 연한 하늘색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* 로그인 컨테이너 스타일 */
+.login-container {
+    background: #ffffff; /* 흰색 배경 */
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    padding: 20px 40px;
+    width: 400px;
+    height: 300px;
+    position: relative;
+}
+
+/* 탭 스타일 */
+.tab {
+    position: absolute;
+    top: -30px;
+    left: 0px;
+    background-color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+/* 로그인 폼 스타일 */
+.login-form {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    height: 100%; /* 폼 전체 높이 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 입력 필드 및 버튼 스타일 */
+.login-form label {
+    margin: 10px 0 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-form input {
+    padding: 10px;
+    border: 1px solid #2c2c2c;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    width: 80%; /* 입력 필드 너비 설정 */
+    text-align: center; /* 입력 텍스트 가운데 정렬 */
+}
+
+.login-btn {
+    display: block; /* 버튼이 제대로 보이게 */
+    pointer-events: auto; /* 클릭 가능 상태 */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 85%; /* 버튼 너비 설정 */
+    text-align: center;
+}
+
+
+.login-btn:hover {
+    background-color: #007bff; /* 파란색 배경 */
+    color: #ffffff;
+}
