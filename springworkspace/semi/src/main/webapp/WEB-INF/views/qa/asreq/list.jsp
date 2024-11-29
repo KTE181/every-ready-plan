@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/qa/asreq/list.css">
     <link rel="stylesheet" href="/css/qa/asreq/detail.css">
+    <link rel="stylesheet" href="/css/qa/asreq/edit.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script defer src="/js/qa/asreq/list.js"></script>
 
@@ -131,8 +132,18 @@
 
             <!-- Detail Modal -->
             <div id="asreq-detail">
-                <form action="/qa/asreq/write" method="post">
+                <form action='/qa/asreq/delete' method="get" onsubmit="return confirm('삭제하시겠습니까?');">
                     <div class="detail-content">
+                        
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- Edit Modal -->
+            <div id="asreq-edit">
+                <form id="asreq-edit-form" action='/qa/asreq/edit' method="post" onsubmit="return confirm('저장하시겠습니까?');" >
+                    <div class="edit-content">
                         
 
                     </div>

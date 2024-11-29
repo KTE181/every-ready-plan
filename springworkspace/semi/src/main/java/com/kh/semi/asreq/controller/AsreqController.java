@@ -4,17 +4,20 @@ import com.kh.semi.asreq.vo.AsreqVo;
 import com.kh.semi.asreq.service.AsreqService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("qa/asreq")
 @RequiredArgsConstructor
+@Slf4j
 public class AsreqController {
 
     private final AsreqService service;
@@ -79,7 +82,6 @@ public class AsreqController {
         }
 
         model.addAttribute("asreqVo", asreqVo);
-        System.out.println("asreqVo = " + asreqVo);
 
         return "qa/asreq/edit";
     }
@@ -87,8 +89,6 @@ public class AsreqController {
     // AS 요청 수정 (처리)
     @PostMapping("edit")
     public String edit(AsreqVo vo, HttpSession session, Model model) throws Exception {
-
-        System.out.println("vo = " + vo);
         
         int result = service.edit(vo);
 
@@ -101,14 +101,31 @@ public class AsreqController {
         AsreqVo asreqVo = service.getAsreqDetail(vo.getNo(), model);
         model.addAttribute("asreqVo", asreqVo);
 
-        return "qa/asreq/detail";
+        return "redirect:/qa/asreq/list";
+    }
+
+    // AS 요청 접수하기
+    @GetMapping("receive")
+    @ResponseBody
+    public int receive(String no, HttpSession session) throws Exception {
+
+        System.out.println("no = " + no);
+        
+        int result = service.receive(no);
+
+        if(result != 1) {
+            throw new Exception("Error");
+        }
+
+        session.setAttribute("alertMsg", "접수되었습니다.");
+        return result;
     }
 
     // AS 요청 삭제
     @GetMapping("delete")
-    public String delete(String asreqNo, HttpSession session) throws Exception {
+    public String delete(String no, HttpSession session) throws Exception {
 
-        int result = service.delete(asreqNo);
+        int result = service.delete(no);
 
         if(result != 1) {
             throw new Exception("Error");

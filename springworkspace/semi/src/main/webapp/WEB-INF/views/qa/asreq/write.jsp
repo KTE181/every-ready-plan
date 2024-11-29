@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
 
 
 <div id="asreq-write">
-    <form action="/qa/asreq/write" method="post">
+    <form action="/qa/asreq/write" method="post" onsubmit="return confirm('등록하시겠습니까?');">
         <div class="modal-content">
             <span class="write-close">&times;</span>
 
@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="modal-cont">
                 <label for="">상품구매일자</label>
-                <input type="text" name="purchaseDate">
+                <input type="date" name="purchaseDate">
             </div>
             <div class="modal-cont">
                 <label for="">무상가능여부</label>
@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
 
             <div class="modal-cont">
                 <label>AS희망일자</label>
-                <input type="text" name="preferredServiceDate">
+                <input type="date" name="preferredServiceDate">
             </div>
             
             <div class="modal-cont long-textbox">
@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
 
             <div></div>
 
-            <div class="button-container"><input type="submit" value="등록"></div>
+            <div class="button-container"><input type="submit" value="등록" ></div>
 
         </div>
     </form>

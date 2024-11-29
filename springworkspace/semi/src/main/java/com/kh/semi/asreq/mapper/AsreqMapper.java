@@ -67,6 +67,7 @@ public interface AsreqMapper {
             JOIN PRODUCT_REGISTRATION P ON (A.P_NO = P.NO)
             WHERE A.STATUS_CODE = 1
             AND A.DEL_YN = 'N'
+            ORDER BY A.NO DESC
             """)
     List<AsreqVo> getAsreqList(Model model);
 
@@ -119,7 +120,30 @@ public interface AsreqMapper {
             SET
                 DEL_YN = 'Y'
                 , MODIFY_DATE = SYSDATE
-            WHERE NO IN (#{asreqNo})
+            WHERE NO IN (#{no})
             """)
-    int delete(String asreqNo);
+    int delete(String no);
+
+    @Update("""
+            UPDATE AS_REQUEST
+            SET
+                STATUS_CODE = 2
+                , MODIFY_DATE = SYSDATE
+            WHERE NO = #{no}
+            """)
+    int receiveAsreq(String no);
+
+    @Insert("""
+            INSERT INTO AS_WORK
+            (
+                NO
+                , AS_NO
+            )
+            VALUES
+            (
+                SEQ_AS_WORK.NEXTVAL
+                , #{no}
+            )
+            """)
+    int enrollAswork(String no);
 }

@@ -7,6 +7,7 @@
     <div id="required-text"></div>
 
     <div class="title-text">AS상품정보</div>
+    <input type="hidden" name="no" value="${asreqVo.no}">
     <input type="hidden" name="productNo" value="${asreqVo.productNo}">
 
     <div class="modal-cont">
@@ -39,11 +40,7 @@
         <label>고객주소</label>
         <div>
             <select name="customerArea" disabled>
-                <option value="서울">서울</option>
-                <option value="인천">인천</option>
-                <option value="경기">경기</option>
-                <option value="부산">부산</option>
-                <option value="제주도">제주도</option>
+                <option value="${asreqVo.customerArea}">${asreqVo.customerArea}</option>
             </select>
             <input type="text" name="customerAdress" placeholder="상세주소" value="${asreqVo.customerAdress}" disabled>
         </div>
@@ -69,4 +66,9 @@
 
     <div></div>
 
-    <div class="button-container"><input type="submit" value="수정"></div>
+    <div class="button-container">
+        <div><input type="button" id="asreq-receive-button" value="접수하기"></div>
+        <div><input type="button" value="수정"></div>
+        <div><input type="submit" value="삭제"></div>
+    </div>
+    </div>
