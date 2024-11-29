@@ -45,4 +45,8 @@ public class SalaryService {
     public int edit(HashMap<String, String> editdata) {
         return mapper.edit(editdata);
     }
+
+    public int delete(String no) {
+        return mapper.delete(no);
+    }
 }

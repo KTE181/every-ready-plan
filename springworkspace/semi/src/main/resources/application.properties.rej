@@ -1,0 +1,9 @@
+diff a/springworkspace/semi/src/main/resources/application.properties b/springworkspace/semi/src/main/resources/application.properties	(rejected hunks)
+@@ -1,6 +1,6 @@
+ spring.application.name=semi
+ 
+-server.port=8080
++server.port=80
+ 
+ # view resolver
+ spring.mvc.view.prefix=/WEB-INF/views/

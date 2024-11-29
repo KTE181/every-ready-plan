@@ -204,4 +204,11 @@ public interface VacationMapper {
             """)
     int update(Map<String, String> alldata);
 
+    @Update("""
+            UPDATE VACATION_LOG
+            SET
+            DEL_YN='Y'
+            WHERE NO=#{no}
+            """)
+    int delete(String no);
 }

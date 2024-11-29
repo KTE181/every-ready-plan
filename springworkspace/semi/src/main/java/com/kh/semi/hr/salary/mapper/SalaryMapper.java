@@ -186,4 +186,12 @@ public interface SalaryMapper {
             WHERE NO = #{no}
             """)
     int edit(HashMap<String, String> editdata);
+
+    @Update("""
+            UPDATE SALARY
+            SET
+            DEL_YN='Y'
+            WHERE NO =#{no}
+            """)
+    int delete(String no);
 }
