@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
-    <link rel="stylesheet" href="./account.css">
+    <link rel="stylesheet" href="/css/finance/account/list.css">
     <script defer src="./account.js"></script>
 
 
