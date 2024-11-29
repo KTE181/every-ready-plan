@@ -25,9 +25,9 @@
             <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
             <!-- Contents Area -->
-                <div class="content-area">
+            <div class="content-area">
 
-            <!-- Search Area -->
+                <!-- Search Area -->
                 <div class="top-title-area">
                     <form action="" class="top-title-area-form">
                     <!-- <div class="search-bar"><label for="">날짜&nbsp&nbsp</label><input type="text" name="year" maxlength="4">년
