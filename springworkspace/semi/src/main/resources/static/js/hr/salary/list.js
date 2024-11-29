@@ -208,103 +208,110 @@ tbodyTag.addEventListener("click", (evt) => {
       const closeSalaryselectmodal = document.querySelector('.salaryselectmodal-close');
 
 
-      
+
       //모달에다가 값 가져오기
-      
-        const empNo = document.querySelector(".salaryselectmodal-cont input[name=empNo]");
-        const ename = document.querySelector(".salaryselectmodal-cont input[name=name]");
-        const dname = document.querySelector(".salaryselectmodal-cont input[name=dname]");
-        const pname = document.querySelector(".salaryselectmodal-cont input[name=pname]");
-        const salary = document.querySelector(".salaryselectmodal-cont input[name=salary]");
-        const basic = document.querySelector(".salaryselectmodal-cont input[name=basic]");
-        const payment = document.querySelector(".salaryselectmodal-second input[name=payment]");
-        const payYearmonth = document.querySelector(".salaryselectmodal-second input[name=payYearmonth]");
-        const nationalPension = document.querySelector(".salaryselectmodal-third input[name=nationalPension]");
-        const healthInsurance = document.querySelector(".salaryselectmodal-third input[name=healthInsurance]");
-        const employmentInsurance = document.querySelector(".salaryselectmodal-third input[name=employmentInsurance]");
-        const longtermCareInsurance = document.querySelector(".salaryselectmodal-third input[name=longtermCareInsurance]");
-        const incomeTax = document.querySelector(".salaryselectmodal-third input[name=incomeTax]");
-        const localTaxes = document.querySelector(".salaryselectmodal-third input[name=localTaxes]");
-        const deductions = document.querySelector(".salaryselectmodal-third input[name=deductions]");
-        const netPayment = document.querySelector(".salaryselectmodal-third input[name=netPayment]");
+
+      const empNo = document.querySelector(".salaryselectmodal-cont input[name=empNo]");
+      const selectbtn = document.querySelector(".salaryselectmodal-cont .employee-select-btn");
+      const ename = document.querySelector(".salaryselectmodal-cont input[name=name]");
+      const dname = document.querySelector(".salaryselectmodal-cont input[name=dname]");
+      const pname = document.querySelector(".salaryselectmodal-cont input[name=pname]");
+      const salary = document.querySelector(".salaryselectmodal-cont input[name=salary]");
+      const basic = document.querySelector(".salaryselectmodal-cont input[name=basic]");
+      const payment = document.querySelector(".salaryselectmodal-second input[name=payment]");
+      const mealAllowance = document.querySelector(".salaryselectmodal-second input[name=mealAllowance]");
+      const communicationCost = document.querySelector(".salaryselectmodal-second input[name=communicationCost]");
+      const payYearmonth = document.querySelector(".salaryselectmodal-second input[name=payYearmonth]");
+      const nationalPension = document.querySelector(".salaryselectmodal-third input[name=nationalPension]");
+      const healthInsurance = document.querySelector(".salaryselectmodal-third input[name=healthInsurance]");
+      const employmentInsurance = document.querySelector(".salaryselectmodal-third input[name=employmentInsurance]");
+      const longtermCareInsurance = document.querySelector(".salaryselectmodal-third input[name=longtermCareInsurance]");
+      const incomeTax = document.querySelector(".salaryselectmodal-third input[name=incomeTax]");
+      const localTaxes = document.querySelector(".salaryselectmodal-third input[name=localTaxes]");
+      const deductions = document.querySelector(".salaryselectmodal-third input[name=deductions]");
+      const netPayment = document.querySelector(".salaryselectmodal-third input[name=netPayment]");
 
 
 
-        empNo.setAttribute("value",data.empNo);
-        ename.value=data.ename;
-        dname.value=data.dname;
-        pname.value=data.pname;
-        salary.value=data.salary;
-        basic.value = data.basic;
-        payment.value = data.payment;
-        payYearmonth.value=data.payYearmonth;
-        nationalPension.value = data.nationalPension;
-        healthInsurance.value = data.healthInsurance;
-        employmentInsurance.value = data.employmentInsurance;
-        longtermCareInsurance.value = data.longtermCareInsurance;
-        incomeTax.value = data.incomeTax;
-        localTaxes.value = data.localTaxes;
-        deductions.value = data.deductions;
-        netPayment.value = data.netPayment;
-
-
-
-
-        empNo.setAttribute("disabled","false");
-        ename.setAttribute("disabled","false");
-        dname.setAttribute("disabled","false");
-        pname.setAttribute("disabled","false");
-        salary.setAttribute("disabled","false");
-        basic.setAttribute("disabled","false");
-        payment.setAttribute("disabled","false");
-        payYearmonth.setAttribute("disabled","false");
-        nationalPension.setAttribute("disabled","false");
-        healthInsurance.setAttribute("disabled","false");
-        employmentInsurance.setAttribute("disabled","false");
-        longtermCareInsurance.setAttribute("disabled","false");
-        incomeTax.setAttribute("disabled","false");
-        localTaxes.setAttribute("disabled","false");
-        deductions.setAttribute("disabled","false");
-        netPayment.setAttribute("disabled","false");
-      
-    
+      empNo.setAttribute("value", data.empNo);
+      ename.value = data.ename;
+      dname.value = data.dname;
+      pname.value = data.pname;
+      salary.value = data.salary;
+      basic.value = data.basic;
+      payment.value = data.payment;
+      payYearmonth.value = data.payYearmonth;
+      nationalPension.value = data.nationalPension;
+      healthInsurance.value = data.healthInsurance;
+      employmentInsurance.value = data.employmentInsurance;
+      longtermCareInsurance.value = data.longtermCareInsurance;
+      incomeTax.value = data.incomeTax;
+      localTaxes.value = data.localTaxes;
+      deductions.value = data.deductions;
+      netPayment.value = data.netPayment;
 
 
 
 
-
-
-
-        
-        const btnDivTag = document.querySelector(".btn-class");
-        const editbtn = document.createElement("input");
-        editbtn.setAttribute("type","button");
-        editbtn.setAttribute("value","수정하기");
-        btnDivTag.appendChild(editbtn);
-       
-
-        salaryselectmodal.style.display = 'block'; // 모달 표시
+      empNo.setAttribute("disabled", "false");
+      ename.setAttribute("disabled", "false");
+      dname.setAttribute("disabled", "false");
+      pname.setAttribute("disabled", "false");
+      salary.setAttribute("disabled", "false");
+      selectbtn.setAttribute("disabled", "false");
+      basic.setAttribute("disabled", "false");
+      payment.setAttribute("disabled", "false");
+      payYearmonth.setAttribute("disabled", "false");
+      communicationCost.setAttribute("disabled", "false");
+      mealAllowance.setAttribute("disabled", "false");
+      nationalPension.setAttribute("disabled", "false");
+      healthInsurance.setAttribute("disabled", "false");
+      employmentInsurance.setAttribute("disabled", "false");
+      longtermCareInsurance.setAttribute("disabled", "false");
+      incomeTax.setAttribute("disabled", "false");
+      localTaxes.setAttribute("disabled", "false");
+      deductions.setAttribute("disabled", "false");
+      netPayment.setAttribute("disabled", "false");
 
 
 
 
 
 
-        
+
+
+
+
+      const btnDivTag = document.querySelector(".btn-class");
+      const editbtn = document.createElement("input");
+      editbtn.setAttribute("type", "button");
+      editbtn.setAttribute("value", "수정하기");
+      const delbtn = document.createElement("input");
+      delbtn.setAttribute("type", "button");
+      delbtn.setAttribute("value", "삭제하기");
+      btnDivTag.appendChild(editbtn);
+      btnDivTag.appendChild(delbtn);
+
+
+      salaryselectmodal.style.display = 'block'; // 모달 표시
+
+
+
+
+
+
+
       // "X" 버튼 클릭 시 모달 닫기
       closeSalaryselectmodal.addEventListener('click', () => {
         salaryselectmodal.style.display = 'none'; // 모달 숨기기
       });
 
-      editbtn.addEventListener("click",()=>{
-          
-        empNo.removeAttribute("disabled");
-        ename.removeAttribute("disabled");
-        dname.removeAttribute("disabled");
-        pname.removeAttribute("disabled");
-        salary.removeAttribute("disabled");
-        basic.removeAttribute("disabled");
-        payment.removeAttribute("disabled");
+      editbtn.addEventListener("click", () => {
+
+        
+       
+        mealAllowance.removeAttribute("disabled");
+       
         payYearmonth.removeAttribute("disabled");
         nationalPension.removeAttribute("disabled");
         healthInsurance.removeAttribute("disabled");
@@ -312,9 +319,53 @@ tbodyTag.addEventListener("click", (evt) => {
         longtermCareInsurance.removeAttribute("disabled");
         incomeTax.removeAttribute("disabled");
         localTaxes.removeAttribute("disabled");
-        deductions.removeAttribute("disabled");
-        netPayment.removeAttribute("disabled");
-      
+        
+        
+
+        editbtn.remove();
+        delbtn.remove();
+        const editbtn2 = document.createElement("input");
+        editbtn2.setAttribute("type", "button");
+        editbtn2.setAttribute("value", "수정하기2");
+        btnDivTag.appendChild(editbtn2);
+
+        editbtn2.addEventListener("click", () => {
+
+          const editdata = {
+            no:selectNo,
+            payYearmonth:payYearmonth.value,
+            nationalPension:nationalPension.value,
+            healthInsurance:healthInsurance.value,
+            employmentInsurance:employmentInsurance.value,
+            longtermCareInsurance:longtermCareInsurance.value,
+            incomeTax:incomeTax.value,
+            localTaxes:localTaxes.value,
+        
+          };
+          $.ajax({
+
+
+            url: "/api/hr/salary/edit",
+            method: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(editdata),
+            success: function (data) {
+  
+  
+              console.log("성공");
+              console.log(data);
+
+              alert("수정성공~~");
+              location.href="/api/hr/salary/list";
+  
+  
+            },
+            fail: function () { }
+          })
+
+        })
+       
+
 
       })
       console.log(data);

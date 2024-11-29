@@ -6,6 +6,7 @@ import com.kh.semi.hr.salary.vo.SalaryVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -39,5 +40,9 @@ public class SalaryService {
         String finishData = year + "-" + month;
         vo.setPayYearmonth(finishData);
         return vo;
+    }
+
+    public int edit(HashMap<String, String> editdata) {
+        return mapper.edit(editdata);
     }
 }

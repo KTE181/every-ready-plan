@@ -5,14 +5,16 @@ import com.kh.semi.hr.salary.vo.SalaryVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
 public interface SalaryMapper {
 
     @Select("""
-            SELECT\s
+            SELECT
                 A.NO ,
                 A.PAY_YEARMONTH ,
                 A.EMP_NO ,
@@ -35,7 +37,7 @@ public interface SalaryMapper {
                 JOIN EMPLOYEE B ON (A.EMP_NO = B.NO)
                 JOIN POSITION C ON (B.POSITION_CODE= C.NO)
                 JOIN DEPARTMENT D ON (B.DEPT_CODE = D.NO)
-                WHERE DEL_YN = 'N'
+                WHERE A.DEL_YN = 'N'
             """)
     List<SalaryVo> listAll();
 
@@ -166,7 +168,22 @@ public interface SalaryMapper {
                 JOIN EMPLOYEE B ON (A.EMP_NO = B.NO)
                 JOIN POSITION C ON (B.POSITION_CODE= C.NO)
                 JOIN DEPARTMENT D ON (B.DEPT_CODE = D.NO)
-                WHERE A.NO=#{selectNo} AND DEL_YN = 'N'
+                WHERE A.NO=#{selectNo} AND A.DEL_YN = 'N'
             """)
     SalaryVo detail(String selectNo);
+
+    @Update("""
+            UPDATE SALARY
+            SET
+            PAY_YEARMONTH = #{payYearmonth},
+            NATIONAL_PENSION=#{nationalPension},
+            MEAL_ALLOWANCE=#{payYearmonth},
+            HEALTH_INSURANCE = #{healthInsurance},
+            EMPLOYMENT_INSURANCE = #{employmentInsurance},
+            LONGTERM_CARE_INSURANCE=#{longtermCareInsurance},
+            INCOME_TAX=#{incomeTax},
+            LOCAL_TAXES = #{localTaxes}
+            WHERE NO = #{no}
+            """)
+    int edit(HashMap<String, String> editdata);
 }

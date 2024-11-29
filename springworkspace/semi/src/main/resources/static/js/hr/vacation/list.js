@@ -165,23 +165,12 @@ tbodyTag.addEventListener("click",(evt)=>{
 
        
         editBtn.addEventListener("click",()=>{
-          const empNo= document.querySelector(".vacationselectmodal-cont > div > input[name=empNo]");
-          const ename = document.querySelector(".vacationselectmodal-cont input[name=name]");
-          const dname = document.querySelector(".vacationselectmodal-cont  input[name=dname]");
-          const pname = document.querySelector(".vacationselectmodal-cont input[name=pname]");
-          const thisDate = document.querySelector(".vacationselectmodal-cont input[name=thisDate]");
-          const code = document.querySelector(".vacationselectmodal-cont select[name=code]");
-          const reason = document.querySelector(".vacationselectmodal-cont textarea[name=reason]");
-          const employeebtn = document.querySelector(".vacationselectmodal-cont input[value='사번선택']");
-  
-          empNo.removeAttribute("disabled");
-          ename.removeAttribute("disabled");
-          dname.removeAttribute("disabled");
-          pname.removeAttribute("disabled");
+        
+         
           code.removeAttribute("disabled");
           thisDate.removeAttribute("disabled");
           reason.removeAttribute("disabled");
-          employeebtn.removeAttribute("disabled");
+         
 
 
           editBtn.remove();

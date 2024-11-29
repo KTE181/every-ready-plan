@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -72,7 +73,26 @@ public class SalaryController {
 
         SalaryVo vo = service.detail(selectNo);
 
-        System.out.println(vo);
+
         return vo;
+    }
+
+    //수정하기
+    @PostMapping("edit")
+    @ResponseBody
+    public String edit(@RequestBody HashMap<String,String> editdata){
+
+        System.out.println(editdata.get("payYearmonth"));
+
+        String resetdate=editdata.get("payYearmonth");
+        String formattedPayYearmonth = resetdate.replace("-", "");
+        System.out.println(formattedPayYearmonth);
+
+        editdata.put("payYearmonth",formattedPayYearmonth);
+
+        System.out.println("editdata=="+editdata);
+
+        int result = service.edit(editdata);
+        return "수정~~";
     }
 }
