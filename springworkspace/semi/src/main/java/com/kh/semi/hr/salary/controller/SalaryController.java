@@ -95,4 +95,14 @@ public class SalaryController {
         int result = service.edit(editdata);
         return "수정~~";
     }
+
+    @PostMapping("del")
+    @ResponseBody
+    public int del(String no){
+        System.out.println(no);
+
+        int result = service.delete(no);
+        
+        return result;
+    }
 }

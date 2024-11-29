@@ -368,9 +368,28 @@ tbodyTag.addEventListener("click", (evt) => {
 
 
       })
+      delbtn.addEventListener("click",()=>{
+
+        $.ajax({
+          url:"/api/hr/salary/del",
+          method:"POST",
+          data:({
+            no:selectNo,
+          }),
+          success:function(killdata){
+                alert("삭제 되었습니다.")
+                location.reload();
+                
+          },
+          error:function(){
+
+          }
+          
+
+        })
+      })
       
-      console.log(data);
-      console.log(data.salary);
+   
 
 
 
