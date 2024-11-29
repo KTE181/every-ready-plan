@@ -368,6 +368,7 @@ tbodyTag.addEventListener("click", (evt) => {
 
 
       })
+      
       console.log(data);
       console.log(data.salary);
 
