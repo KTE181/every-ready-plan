@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/common/index.css">
-    <link rel="stylesheet" href="/css/defective/defectiveCode.css">
+    <link rel="stylesheet" href="/css/defective/defectivecode.css">
+    <link rel="stylesheet" href="/css/defective/write.css">
+    <script defer src="/js/defectiveCode/list.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -86,9 +89,47 @@
                     </table>
 
                 </div>
+                
+                <div class="modal-overlay" id="modalOverlay">
+                    <div class="modal">
+                        <div class = "modal-close">
+                            <button onclick="closeModal()">×</button>
+                        </div>
+                        <h2>불량코드 등록</h2>
+                        <label for="code-number">불량유형명</label>
+                        <input type="text" id="code-number">
+                        <div class="modal-buttons">
+                            <button class="primary">등록</button>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Bottom Area -->
-                <%@ include file="/WEB-INF/views/common/bottom.jsp" %>
+                <div class="bottom-content-area">
+                    <div><button class="crud-button-white">삭제</button></div>
+                    <div>
+                        <div class="pagination">
+                            <!-- 이전 페이지 버튼 -->
+                            <a href="#" class="page-button previous">&laquo;</a>
+
+                            <!-- 페이지 번호 버튼들 -->
+                            <a href="#" class="page-button active">1</a>
+                            <a href="#" class="page-button">2</a>
+                            <a href="#" class="page-button">3</a>
+                            <a href="#" class="page-button">4</a>
+                            <a href="#" class="page-button">5</a>
+                            <a href="#" class="page-button">6</a>
+                            <a href="#" class="page-button">7</a>
+                            <a href="#" class="page-button">8</a>
+                            <a href="#" class="page-button">9</a>
+                            <a href="#" class="page-button">10</a>
+                            <!-- 다음 페이지 버튼 -->
+                            <a href="#" class="page-button next">&raquo;</a>
+                         </div>
+                    </div>
+                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">등록</button></div>
+                </div>
+            </div>
 
         </div>
     </div>

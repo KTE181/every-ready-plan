@@ -5,6 +5,7 @@ import com.kh.semi.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -18,12 +19,23 @@ public class ProductService {
         return mapper.getProductList();
     }
 
-    public List<ProductVo> getProductDetail() {
-        return mapper.getProductDetail();
-    }
 
-    @Transactional
     public int write(ProductVo vo) {
         return mapper.write(vo);
+    }
+
+
+    public List<ProductVo> getProductDetail(String bno, Model model) {
+        return mapper.getProductDetail(bno, model);
+    }
+
+    public int edit(ProductVo vo) {
+        return mapper.edit(vo);
+    }
+
+    public int delete(List<String> productNoList) {
+        String x = String.join("," , productNoList);
+        System.out.println("x = " + x);
+        return mapper.delete(x);
     }
 }

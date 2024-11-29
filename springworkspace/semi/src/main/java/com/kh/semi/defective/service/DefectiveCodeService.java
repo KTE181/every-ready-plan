@@ -4,6 +4,7 @@ import com.kh.semi.defective.mapper.DefectiveCodeMapper;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -18,7 +19,20 @@ public class DefectiveCodeService {
         return mapper.getDefectiveCode();
     }
 
-    public List<DefectiveCodeVo> getdcVoList() {
-        return mapper.getdcVoList();
+
+    public int write(DefectiveCodeVo vo) {
+        return mapper.write(vo);
+    }
+
+    public int delete(String bno) {
+        return mapper.delete(bno);
+    }
+
+    public List<DefectiveCodeVo> getdcVoList(String bno, Model model) {
+        return mapper.getdcVoList(bno, model);
+    }
+
+    public int edit(DefectiveCodeVo vo) {
+        return mapper.edit(vo);
     }
 }
