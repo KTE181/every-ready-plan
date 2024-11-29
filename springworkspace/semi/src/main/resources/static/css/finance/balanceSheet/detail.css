@@ -1,9 +1,11 @@
+/* 기본 테이블 스타일 */
 table {
     width: 90%;
     border-collapse: collapse;
     text-align: left;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    place-items: center;
   }
 
   /* 헤더 스타일 */
@@ -17,14 +19,16 @@ table {
   }
 
   /* 강조된 행 스타일 */
-  tr.highlight {
-    background-color: #eaf6fd;
+  tr.highlight-gray {
+    background-color: #;
   }
+  tr.highlight-skyblue{
+      background-color: #87BDFA;
+  }
+  tr.highlight- {
+       background-color: #eaf6fd;
+     }
 
-  /* 홀수 행 스타일 (대체 색상) */
-  tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-  }
 
   /* 강조 스타일 */
   td:first-child {
@@ -32,10 +36,16 @@ table {
   }
 
   /* 숫자 금액은 오른쪽 정렬 */
-  td:nth-child(3), td:nth-child(5) {
+  td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5) {
     text-align: right;
   }
 
   .bold{
     font-weight : bold;
   }
+
+.table-area{
+display: flex;
+justify-content: center; /* 가로 중앙 정렬 */
+align-items: center;    /* 세로 중앙 정렬 */
+}

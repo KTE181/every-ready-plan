@@ -1,171 +1,102 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+        <!DOCTYPE html>
+        <html lang="en">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EVERY READY PLAN</title>
-    <link rel="stylesheet" href="./account.css">
-    <script defer src="./account.js"></script>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>EVERY READY PLAN</title>
+            <link rel="stylesheet" href="/css/common/index.css">
+            <link rel="stylesheet" href="/css/finance/account/list.css">
+            <link rel="stylesheet" href="/css/finance/account/detail.css">
+            <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+            <script defer src="/js/finance/account/list.js"></script>
 
+        </head>
 
-</head>
-<body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="menu-item active"><img src = "./logo.png"></div>
-            <div class="menu-item dropdown">
-                <div class = "title-menu">공용</div>
-                <ul class="dropdown-menu">
-                  <li>회사 조직도</li>
-                  <li>회사 연혁도</li>
-                  <li>직원 검색</li>
-                </ul>
-            </div>
-            <div class="menu-item dropdown1">
-                <div class = "title-menu">개인</div>
-                <ul class="dropdown-menu1">
-                  <li>마이페이지</li>
-                  <li>휴가 내역 조회</li>
-                  <li>출·퇴근내역 조회</li>
-                  <li>급여명세서 조회</li>
-                </ul>
-            </div>
-            <div class="menu-item dropdown2">
-                <div class = "title-menu">인사</div>
-                <ul class="dropdown-menu2">
-                  <li>사원 관리</li>
-                  <li>근태 관리</li>
-                  <li>초과 근무 관리</li>
-                  <li>휴가 관리</li>
-                  <li>급여 관리</li>
-                </ul>
-            </div>
-            <div class="menu-item dropdown3">
-                <div class = "title-menu">품질</div>
-                <ul class="dropdown-menu3">
-                  <li>상품 관리</li>
-                  <li>재고 현황 조회</li>
-                  <li>불량상품 관리</li>
-                  <li>AS 요청 관리</li>
-                  <li>AS 작업 관리</li>
-                  <li>품질 관리</li>
-                  <li>담당자 관리</li>
-                  <li>불량코드 관리</li>
-                  <li>고장코드 관리</li>
-                </ul>
-            </div>
-            <div class="menu-item dropdown4">
-                <div class = "title-menu">재무</div>
-                <ul class="dropdown-menu4">
-                  <li>거래처 관리</li>
-                  <li>회사 계좌 관리</li>
-                  <li>매출 관리</li>
-                  <li>매입 관리</li>
-                  <li>경비 관리</li>
-                  <li>급여 지급 관리</li>
-                  <li>재무상태표 관리</li>
-                  <li>손익계산서 조회</li>
-                </ul>
-            </div>
-        </div>
+        <body>
+            <div class="container">
+
+                <!-- Sidebar -->
+                <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
+
+                    <!-- Main Content -->
+                    <div class="main-content">
+
+                        <!-- Header -->
+                        <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+                            <!-- Contents Area -->
+                            <div class="content-area">
+
+                                <!-- Search Area -->
+                                <div class="top-title-area">
+                                    <!-- <div class="menu-name">은행계좌관리</div> -->
+                                    <div>
+                                        <form action="" class="top-title-area-form">
+                                            <!-- <div class="search-bar"><label for="">날짜&nbsp&nbsp</label><input type="text" name="year" maxlength="4">년
+                            <input type="text" name="month" maxlength="2">월
+                            <input type="text" name="day" maxlength="2">일</div> -->
+
+                                            <div class="search-bar">
+                                                <label
+                                                    for="select">&nbsp&nbsp&nbsp&nbsp&nbsp카테고리&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                                                <select name="" id="">
+                                                    <option value="1">은행코드</option>
+                                                    <option value="2">은행명</option>
+                                                    <option value="3">계좌명</option>
+                                                    <option value="4">계좌번호</option>
+                                                </select>
+                                            </div>
+                                            <div class="search-bar"><label for="">내용검색&nbsp&nbsp</label><input
+                                                    type="search" id="longbar"></div>
+                                            <div class="search-bar"><button class="crud-button-white">검색</button></div>
+                                        </form>
 
 
-        <!-- Main Content -->
-		<div class="main-content">
-            <div class="top-bar">
-                <button class="button">글쓴이</button>
-                <div class="image-circle">IMAGE</div>
-            </div>
+                                        <!-- List Area -->
+                                        <div class="middle-content-area">
+                                            <table class="list-area">
+                                                <thead>
+                                                    <tr>
+                                                        <th><input type="checkbox" name=""></th>
+                                                        <th>번호</th>
+                                                        <th>은행코드</th>
+                                                        <th>은행명</th>
+                                                        <th>계좌번호</th>
+                                                        <th>계좌별명</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${accountVoList}" var="accountVo">
+                                                        <tr id ="account-list" onclick="accountDetail('${accountVo.no}');">
+                                                            <td><input type="checkbox" name=""></td>
+                                                            <td>${accountVo.no}</td>
+                                                            <td>${accountVo.bankCode}</td>
+                                                            <td>${accountVo.bankName}</td>
+                                                            <td>${accountVo.accountNo}</td>
+                                                            <td>${accountVo.accountName}</td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Bottom Area -->
+                                <%@ include file="/WEB-INF/views/common/bottom.jsp" %>
 
-            <div class="content-area">
-                <div class="top-content-area">
-                    <div id="navigator">navi</div>
-                    <div></div>
+                            </div>
 
-                </div>
+                            <!-- Modal Area -->
 
-                <div class="table-area">
-                            <table border="1">
-                                <thead>
-                                    <tr>
-                                        <th>제목</th>
-                                        <th>카테고리</th>
-                                        <th>조회수</th>
-                                        <th>작성자</th>
-                                        <th>작성일시</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td>로딩중...</td>
-                                </tbody>
-                            </table>
-                        </div>
+                            <!-- Small modal -->
+                            <%@ include file="/WEB-INF/views/common/modal.jsp" %>
 
-                    <div class="search-bar"><label for="">내용검색&nbsp&nbsp</label><input type="search" id="longbar"></div>
-                    <div class="search-bar"><button class="crud-button-white">검색</button></div>
-                    </form>
-                </div>
-
-
-                <div class="middle-content-area">
-
-                    <div class="table">
-
-
-                      </div>
-                </div>
-
-
-
-                <div class="bottom-content-area">
-                    <div>
-                        <button class="crud-button-white">삭제</button>
 
                     </div>
-                    <div>
-                        <!-- <button class="ok-button">확인</button> -->
-
-                    </div>
-
-                    <div>
-                        <!-- <button class="cancle-button">취소</button> -->
-
-                    </div>
-                    <div>
-
-                        <div class="pagination">
-
-                            <a href="#" class="page-button previous">&laquo;</a>
-
-
-                            <a href="#" class="page-button">1</a>
-                            <a href="#" class="page-button">2</a>
-                            <a href="#" class="page-button">3</a>
-                            <a href="#" class="page-button">4</a>
-                            <a href="#" class="page-button">5</a>
-                            <a href="#" class="page-button">6</a>
-                            <a href="#" class="page-button">7</a>
-                            <a href="#" class="page-button">8</a>
-                            <a href="#" class="page-button">9</a>
-                            <a href="#" class="page-button">10</a>
-                            <a href="#" class="page-button active ">88</a>
-
-                            <a href="#" class="page-button next">&raquo;</a>
-
-
-                         </div>
-                    </div>
-                    <div class="bottom-content-area-5"><button class="crud-button-white">수정</button></div>
-                    <div><button id="write" class="crud-button-white">등록</button></div>
-                </div>
-
             </div>
+        </body>
 
-
-        </div>
-</body>
-</html>
+        </html>

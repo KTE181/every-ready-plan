@@ -62,14 +62,14 @@
                             <tr class="highlight">
                               <td>1. 유동자산</td>
                               <td></td>
-                              <td>당좌자산+재고자산</td>
+                              <td>${vo.deposit+vo.prepaidTax+vo.merchadise+vo.rawMaterial}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
                             <tr>
                               <td>당좌자산</td>
                               <td></td>
-                              <td>보통예금+부가세대급금</td>
+                              <td>${vo.deposit+vo.prepaidTax}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
@@ -90,7 +90,7 @@
                             <tr>
                               <td>(2) 재고자산</td>
                               <td></td>
-                              <td>상품+원재료</td>
+                              <td>${vo.merchadise+vo.rawMaterial}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
@@ -118,7 +118,7 @@
                             <tr>
                               <td>[자산총계]</td>
                               <td></td>
-                              <td>유동자산+비유동자산인데 비유동은 없어</td>
+                              <td>${vo.deposit+vo.prepaidTax+vo.merchadise+vo.rawMaterial}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
@@ -132,7 +132,7 @@
                             <tr>
                               <td>1. 유동부채</td>
                               <td></td>
-                              <td>예수금+부가세예수금</td>
+                              <td>${vo.withholdings+vo.withheldTax}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
@@ -160,7 +160,7 @@
                             <tr class="highlight">
                               <td>[부채 총계]</td>
                               <td></td>
-                              <td>-</td>
+                              <td>${vo.withholdings+vo.withheldTax}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
@@ -174,7 +174,7 @@
                             <tr>
                               <td>1. 자본금</td>
                               <td></td>
-                              <td>-</td>
+                              <td>${vo.capitalStock}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
@@ -216,14 +216,14 @@
                             <tr>
                               <td>[자본총계]</td>
                               <td></td>
-                              <td>자본금들고오기</td>
+                              <td>${vo.capitalStock}</td>
                               <td></td>
                               <td>-</td>
                             </tr>
                             <tr>
                               <td>[부채와자본총계]</td>
                               <td></td>
-                              <td>부채와자본총계</td>
+                              <td>${vo.capitalStock-vo.withholdings-vo.withheldTax}</td>
                               <td></td>
                               <td>-</td>
                             </tr>

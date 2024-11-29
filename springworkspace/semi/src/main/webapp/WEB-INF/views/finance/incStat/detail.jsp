@@ -31,7 +31,7 @@
                        <div class="table-area">
                            <table>
                                <thead>
-                                 <tr>
+                                 <tr class=highlight-gray>
                                    <th></th>
                                    <th></th>
                                    <th></th>
@@ -51,49 +51,51 @@
                                    <th colspan="2"></th>
                                  </tr>
                                </thead>
+
                                <tbody>
-                                 <tr class="highlight">
-                                   <td>1. 매출액</td>
+                                 <tr class="highlight-skyblue">
+                                   <td >1. 매출액</td>
                                    <td></td>
-                                   <td>${vo.salesMerchandise}</td>
+                                   <td class="bold">${vo.salesMerchandise}</td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr>
                                    <td>상품매출</td>
                                    <td>${vo.salesMerchandise}</td>
                                    <td></td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr>
                                    <td>제품매출</td>
                                    <td>${vo.salesGoods}</td>
                                    <td></td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>2. 매출원가</td>
                                    <td></td>
                                    <td>-</td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>3. 매출총이익</td>
                                    <td></td>
-                                   <td>${vo.salesGoods + vo.salesMerchandise}</td>
+                                   <td class="bold">${vo.salesGoods + vo.salesMerchandise}</td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>4. 판매비와 관리비</td>
                                    <td></td>
-                                   <td>${vo.salariesExpense +vo.travelExpense + vo.taxesDues+vo.suppliesExpense + vo.advertising}</td>
+                                   <td class="bold">${vo.salariesExpense +vo.travelExpense + vo.taxesDues+vo.suppliesExpense + vo.advertising}</td>
                                    <td>-</td>
                                    <td>-</td>
-                                 </tr><tr class="highlight">
+                                 </tr>
+                                 <tr>
                                    <td>직원급여</td>
                                    <td>${vo.salariesExpense}</td>
                                    <td></td>
@@ -135,35 +137,35 @@
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>5. 영업손익</td>
                                    <td></td>
-                                   <td></td>
+                                   <td class="bold">${vo.salesGoods + vo.salesMerchandise - vo.salariesExpense - vo.travelExpense - vo.taxesDues+vo.suppliesExpense - vo.advertising}</td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>6. 영업외수익</td>
                                    <td></td>
                                    <td>-</td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>7. 영업외비용</td>
                                    <td></td>
                                    <td>-</td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>8. 법인세비용차감전순손익</td>
                                    <td></td>
                                    <td>-</td>
                                    <td>-</td>
                                    <td>-</td>
                                  </tr>
-                                 <tr class="highlight">
+                                 <tr class="highlight-skyblue">
                                    <td>9. 당기순이익</td>
                                    <td></td>
                                    <td class="bold">${vo.salesGoods + vo.salesMerchandise + vo.salariesExpense +vo.travelExpense + vo.taxesDues+vo.suppliesExpense + vo.advertising}</td>

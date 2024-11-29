@@ -23,16 +23,13 @@ table {
     background-color: #;
   }
   tr.highlight-skyblue{
-      background-color: #eaf6fd;
-  }tr.highlight- {
+      background-color: #87BDFA;
+  }
+  tr.highlight- {
        background-color: #eaf6fd;
      }
-  
-  /* 홀수 행 스타일 (대체 색상) */
-  tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-  }
-  
+
+
   /* 강조 스타일 */
   td:first-child {
     font-weight: bold;

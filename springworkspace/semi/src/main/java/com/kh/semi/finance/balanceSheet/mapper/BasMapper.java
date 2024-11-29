@@ -20,7 +20,7 @@ public interface BasMapper {
                 , WITHHELD_TAX
                 , CAPITAL_STOCK
             FROM BALANCESHEET
-            WHERE NO = '2'
+            WHERE NO = '4'
             """)
     BasVo getBasByNo(String no);
 }
