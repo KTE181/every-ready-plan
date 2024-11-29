@@ -4,6 +4,8 @@ import com.kh.semi.product.vo.ProductVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ public interface ProductMapper {
             """)
     List<ProductVo> getProductList();
 
+
     @Select("""
             SELECT
                  ITEM_CODE
@@ -37,14 +40,13 @@ public interface ProductMapper {
                 ,WARRANTY_PERIOD
                 ,RECEIVED_DATE
                 FROM PRODUCT_REGISTRATION
-                WHERE ITEM_CODE = 1
+                WHERE ITEM_CODE = #{bno}
             """)
-    List<ProductVo> getProductDetail();
-
+    List<ProductVo> getProductDetail(String bno, Model model);
 
     @Insert("""
             INSERT INTO PRODUCT_REGISTRATION
-                (
+                (  
                  NO
                 ,ITEM_CODE
                 ,PRICE
@@ -58,9 +60,9 @@ public interface ProductMapper {
                 VALUES
                 (
                 SEQ_PRODUCT_REGISTRATION.NEXTVAL
-                ,#{no}
                 ,#{itemCode}
                 ,#{price}
+                ,#{name}
                 ,SEQ_SERIAL_NUMBER.NEXTVAL
                 ,#{factoryName}
                 ,#{factoryLocation}
@@ -69,4 +71,27 @@ public interface ProductMapper {
                 )
             """)
     int write(ProductVo vo);
+
+
+
+    @Update("""
+            UPDATE PRODUCT_REGISTRATION
+                SET
+                DEL_YN = 'Y'
+                WHERE NO IN(${x})
+            """)
+    int delete(String x);
+
+
+    @Update("""
+            UPDATE PRODUCT_REGISTRATION
+                SET
+                PRICE = #{price}
+                ,FACTORY_NAME = #{factoryName}
+                ,FACTORY_LOCATION = #{factoryLocation}
+                ,WARRANTY_PERIOD = #{warrantyPeriod}
+                ,RECEIVED_DATE = #{receivedDate}
+                WHERE NO = #{no}
+            """)
+    int edit(ProductVo vo);
 }

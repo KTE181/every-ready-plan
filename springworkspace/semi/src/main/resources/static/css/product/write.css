@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6fc;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: white;
+    width: 500px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+#closeModalBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #4f8ef7;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.form-group label {
+    width: 100px;
+    font-size: 14px;
+}
+
+.form-group input {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group.inline {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group.inline > div {
+    flex: 1;
+}
+
+.form-group.inline > div:not(:last-child) {
+    margin-right: 10px;
+}
+
+.image-placeholder {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.image-upload-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.modal-buttons {
+    text-align: right;
+}
+
+.modal-buttons button {
+    padding: 8px 12px;
+    margin-left: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.modal-buttons button:hover {
+    background-color: #f0f0f0;
+}
+
+.modal-buttons button.primary {
+    background-color: #4f8ef7;
+    color: white;
+    border: none;
+}
+
+.modal-buttons button.primary:hover {
+    background-color: #3b6dcc;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
