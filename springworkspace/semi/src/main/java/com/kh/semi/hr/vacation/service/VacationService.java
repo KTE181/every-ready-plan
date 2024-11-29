@@ -38,4 +38,8 @@ public class VacationService {
     public int update(Map<String, String> alldata) {
         return mapper.update(alldata);
     }
+
+    public int delete(String no) {
+        return mapper.delete(no);
+    }
 }

@@ -102,7 +102,7 @@ public class SalaryController {
         System.out.println(no);
 
         int result = service.delete(no);
-        
+
         return result;
     }
 }

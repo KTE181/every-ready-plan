@@ -82,5 +82,14 @@ public class VacationController {
         }
         return "good";
     }
+    @PostMapping("del")
+    @ResponseBody
+    public int del(String no){
+        System.out.println(no);
+
+        int result = service.delete(no);
+
+        return result;
+    }
 
 }
