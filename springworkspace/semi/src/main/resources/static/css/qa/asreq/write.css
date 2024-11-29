@@ -96,7 +96,7 @@
 }
 
 #asreq-write .modal-content input[name=issueTitle] {
-    width: 700px;
+    width: 90%;
 }
 
 #asreq-write .modal-content .search-button {
@@ -116,7 +116,7 @@
 
 #asreq-write textarea[name=issueDescription]{
     margin-top: 2px;
-    width: 720px;
+    width: 95%;
     height: 110px;
     border: 1px solid rgb(0, 0, 0);;
     padding: 5px 10px;
@@ -132,8 +132,8 @@
     border: 1px solid #416DFF; ;
     width: 70px;
     height: 38px;
-    margin-top: 5px;
-    margin-bottom: 12px;
+    margin-top: 13px;
+    margin-bottom: 7px;
 }
 
 #asreq-write .modal-content input[type=submit]:hover {

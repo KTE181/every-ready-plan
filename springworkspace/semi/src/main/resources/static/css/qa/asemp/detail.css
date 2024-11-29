@@ -1,6 +1,6 @@
 
 /* 모달 전체 배경 */
-#asreq-detail{
+#asemp-detail{
     display: none; /* 기본적으로 숨김 */
     position: fixed;
     top: 0;
@@ -9,25 +9,10 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
     z-index: 1000; /* 다른 요소 위에 표시 */
-
-}
-
-/* 닫기 버튼 */
-#asreq-detail .detail-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: gray;
-}
-
-#asreq-detail .detail-close:hover {
-    color: black;
 }
 
 /* 모달 창 본체 */
-#asreq-detail .detail-content {
+#asemp-detail .detail-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content min-content;;
@@ -40,23 +25,23 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: fit-content;
     height: fit-content;
-    column-gap: 5px;
+    column-gap: 45px;
 }
 
 
-#asreq-detail #required-text {
+#asemp-detail #required-text {
     font-size: 14px;
     color: red;
     text-align: right;
 }
 
-#asreq-detail .modal-title{
+#asemp-detail .modal-title{
     font-size: 23px;
     font-weight: bold;
     text-align: left;
 }
 
-#asreq-detail .title-text{
+#asemp-detail .title-text{
     grid-column: 1 / -1;
     font-size: 16px;
     margin-top: 17px;
@@ -65,7 +50,7 @@
     font-weight: bold;
 }
 
-#asreq-detail .modal-cont{
+#asemp-detail .modal-cont{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -77,7 +62,7 @@
     margin-bottom: 12px;
 }
 
-#asreq-detail .modal-cont div {
+#asemp-detail .modal-cont div {
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -85,39 +70,25 @@
     justify-content: center;
 }
 
-#asreq-detail .detail-content input {
+#asemp-detail .detail-content input {
     padding: 5px 10px;
     font-size: 13px;
     width: 200px;
     height: 18px;
     border-radius: 8px;
     border: 1px solid black;
-    color: black;
 }
 
-#asreq-detail .detail-content select{
-    height: 26px;
-    width: 78px;
+#asemp-detail .detail-content select{
+    height: 30px;
+    width: 210px;
     font-family: '맑은 고딕';
+    font-size: 14px;
     border: 1px solid black;
     padding-left: 5px;
-    color: black;
 }
 
-#asreq-detail .detail-content input[type=radio] {
-    width: 20px;
-}
-
-#asreq-detail .detail-content input[name=customerAdress] {
-    width: 250px;
-}
-
-#asreq-detail .detail-content input[name=issueTitle] {
-    width: 90%;
-}
-
-
-#asreq-detail .detail-content .search-button {
+#asemp-detail .detail-content .search-button {
     font-size: 13px; 
     background-color: #f5f5f5; 
     color: black; 
@@ -128,20 +99,7 @@
     margin: 0px;
 }
 
-#asreq-detail .modal-cont.long-textbox {
-    grid-column: 1 / -1;
-}
-
-#asreq-detail textarea[name=issueDescription]{
-    margin-top: 2px;
-    width: 95%;
-    height: 110px;
-    border: 1px solid rgb(0, 0, 0);;
-    padding: 5px 10px;
-    color: black;
-}
-
-#asreq-detail .detail-content .button-container input{
+#asemp-detail .detail-content input[type=button] {
     font-size: 15px; /* 작은 글씨 크기 */
     padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
     background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
@@ -155,38 +113,30 @@
     margin-bottom: 7px;
 }
 
-#asreq-detail .detail-content .button-container #asreq-receive-button {
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
-    border: 1px solid #416DFF; ;
-    width: 88px;
-    height: 38px;
-    margin-top: 13px;
-    margin-bottom: 7px;
-}
-
-#asreq-detail .detail-content .button-container #asreq-receive-button:hover {
-    background-color: #416DFF;
-    color: white; 
-    font-weight: bold;
-}
-
-#asreq-detail .detail-content .button-container input:hover {
+#asemp-detail .detail-content input[type=button]:hover {
     background-color: #416DFF;
     color: white; 
     font-weight: bold;
 }
 
 /* 버튼을 우측 정렬 */
-#asreq-detail .button-container {
+#asemp-detail .button-container {
     display: flex; /* 플렉스 컨테이너 */
-    justify-content: end; /* 우측 정렬 */
-    align-items: end;
+    justify-content: right; /* 우측 정렬 */
+    align-items: center;
     gap: 10px;
 }
 
+/* 닫기 버튼 */
+#asemp-detail .detail-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+}
 
+#asemp-detail .detail-close:hover {
+    color: black;
+}
