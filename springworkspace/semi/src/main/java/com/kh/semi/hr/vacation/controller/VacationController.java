@@ -45,7 +45,17 @@ public class VacationController {
 
 
     @GetMapping("list")
-    public String list(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage) {
+    public String list(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
+                       String searchMonth,String searchYear,String searchOption,String searchType, String searchValue) {
+        String str = "";
+        System.out.println("searchMonth :" +searchMonth);
+        System.out.println("searchYear : "+ searchYear);
+        System.out.println("searchOption : "+searchOption);
+        System.out.println("searchType :"+searchType);
+        System.out.println("searchValue :"+searchValue);
+
+
+
         int listCount = service.getVacationCnt();
         int pageLimit = 5;
         int boardLimit = 14;
@@ -67,7 +77,6 @@ public class VacationController {
         model.addAttribute("pvo2",pvo2);
         model.addAttribute("pvo",pvo);
         model.addAttribute("vacationListVo", listVo);
-
         model.addAttribute("empVoList", empVoList);
 
         return "hr/vacation/list";

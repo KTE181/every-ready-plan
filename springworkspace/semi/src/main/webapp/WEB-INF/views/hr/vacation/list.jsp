@@ -35,24 +35,24 @@
                                 <div class="top-title-area">
                                     <div class="menu-name">휴가 관리</div>
                                     <div>
-                                        <form action="" class="top-title-area-form">
+                                        <form action="/api/hr/vacation/list" method="get" class="top-title-area-form">
                                             <!-- <label for="">연월일</label> -->
                                             <!-- <div class="search-bar"><input type="text" name="year" maxlength="4" placeholder="연도"></div>
                                                 <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
                                                 <div class="search-bar"><input type="text" name="day" maxlength="2" placeholder="일"></div> -->
 
                                             <label for="연월 date"></label>
-                                            <div class="search-bar"><input type="month" name=""></div>
+                                            <div class="search-bar"><input type="month" name="searchMonth"></div>
 
                                             <label for="연월일 date"></label>
-                                            <div class="search-bar"><input type="date" name=""></div>
+                                            <div class="search-bar"><input type="date" name="searchYear"></div>
 
                                             <label for="select"></label>
                                             <div class="search-bar">
-                                                <select name="" id="">
-                                                    <option value="1">소속부서 전체</option>
-                                                    <option value="2">재무팀</option>
+                                                <select name="searchOption" id="">
+                                                    <option value="1">재무팀</option>
                                                     <option value="2">인사팀</option>
+                                                    <option value="3">품질팀</option>
                                                 </select>
                                             </div>
 
@@ -64,8 +64,8 @@
                                                     <option value="2">제목+내용</option>
                                                 </select>
                                             </div>
-                                            <div class="search-bar"><input type="search" id="longbar"></div>
-                                            <div class="search-bar"><button class="button">검색</button></div>
+                                            <div class="search-bar"><input type="searchValue" id="longbar" name="searchValue"></div>
+                                            <div class="search-bar"><button class="searchbutton">검색</button></div>
                                         </form>
                                     </div>
                                 </div>
