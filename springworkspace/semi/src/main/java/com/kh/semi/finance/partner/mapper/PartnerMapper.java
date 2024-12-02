@@ -24,7 +24,7 @@ public interface PartnerMapper {
             )
             VALUES
             (
-            SEQ_BOARD.NEXTVAL
+            #{no}
             , #{businessCode}
             , #{name}
             , #{bizRegistNo}
@@ -73,26 +73,44 @@ public interface PartnerMapper {
     List<PartnerVo> getPartnerList();
 
 
+//    @Select("""
+//            SELECT
+//            BUSINESS_CODE
+//            ,NAME
+//            ,BIZ_REGIST_NO
+//            ,CEO_NAME
+//            ,ADDRESS
+//            ,DEL_YN
+//            FROM PARTNER
+//            WHERE NO = #{no}
+//            AND DEL_YN ='N'
+//            """)
     @Select("""
             SELECT
-            BUSINESS_CODE
-            ,NAME
-            ,BIZ_REGIST_NO
-            ,CEO_NAME
-            ,ADDRESS
-            ,DEL_YN
-            FROM PARTNER
-            WHERE NO = #{no}
+            P.NO,
+            P.BUSINESS_CODE,
+            P.NAME,
+            P.BIZ_REGIST_NO,
+            P.CEO_NAME,
+            P.ADDRESS,
+            P.DEL_YN,
+            BT.BIZ_TYPE,
+            BT.BIZ_CATEGORY
+            FROM PARTNER P
+            JOIN BUSINESS_TYPE BT
+                ON P.BUSINESS_CODE = BT.NO
+            WHERE P.NO = #{no}
+            AND DEL_YN ='N'
             """)
-    PartnerVo getPartnerDetail(String partnerNo, Model model);
+    PartnerVo getPartnerDetail(String no, Model model);
+
 
     @Update("""
-            UPDATE PARTNER
-            SET
-                DEL_YN = 'Y'
-                , MODIFY_DATE = SYSDATE
-            WHERE NO IN (#{no})
-            """)
+        UPDATE PARTNER
+        SET
+            DEL_YN = 'Y'
+        WHERE NO = #{no}
+        """)
     int delete(String no);
 
     @Update("""

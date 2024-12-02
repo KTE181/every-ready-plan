@@ -9,32 +9,28 @@ pageEncoding="UTF-8"%>
 </head>
 
     <div class="account-write">
-    <form action="/finance/account/write" method="post" onsubmit="return confirm('등록하시겠습니까?');">
+    <form action="/fi/account/write" method="post" onsubmit="return confirm('등록하시겠습니까?');">
         <div class="modal-content">
             <span class="write-close">&times;</span>
 
             <div class="modal-title">회사 계좌 등록</div>
             <div id="required-text"> * 는 필수 입력 사항입니다.</div>
 
-            <input type="hidden" name="productNo" value="1">
-
-            <div>
-            </div>
-
+<!--            <input type="hidden" name="productNo" value="1"> -->
             <div class="modal-cont">
                 <label for="bankCode">은행코드</label>
-                <input type="text" id="bankCode" /></div>
+                <input type="text" id="bankCode" name="bankCode"  /></div>
             <div class="modal-cont">
                 <label for="bankname">은행명</label>
-                <input type="text" id="bankname" />
+                <input type="text" id="bankname" name="bankName" />
             </div>
             <div class="modal-cont">
                 <label for="accountNo">계좌번호</label>
-                <input type="text" id="accountNo" />
+                <input type="text" id="accountNo" name="accountNo"/>
             </div>
             <div class="modal-cont">
                 <label for="accountName">계좌 별명</label>
-                <input type="text" id="accountName" />
+                <input type="text" id="accountName"name="accountName"  />
             </div>
 
         <div class="modal-cont"></div>

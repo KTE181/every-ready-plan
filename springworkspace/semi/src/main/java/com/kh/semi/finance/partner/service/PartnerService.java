@@ -7,12 +7,14 @@ import com.kh.semi.finance.partner.vo.PartnerVo;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PartnerService {
 
     private final PartnerMapper mapper;

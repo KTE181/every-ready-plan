@@ -1,24 +1,3 @@
-//function loadAccountList(){
-//    const tbodyTag = document.querySelector("main>table>tbody");
-//
-//    //tbodyTag 내용
-//
-//    $.ajax({
-//        url: "list/data",
-////        method :,
-//        success : function(accountVoList){
-//            console.log(accountVoList);
-//
-//        },
-//        fail : function() {
-//            alert("게시글 목록 조회 실패");
-//        },
-//
-//    })
-//}
-//
-//loadAccountList();
-///////////////////////////////////////////////////////////////
 function accountWrite() {
     
     // 모달 요소 가져오기
@@ -35,7 +14,7 @@ function accountWrite() {
 }
 
 //tr 클릭시 동작
-function accountDetail(accountNo) {
+function accountDetail(no) {
 
     // 모달 요소 가져오기
     const accountDetailModal = document.getElementById('account-detail');
@@ -43,23 +22,26 @@ function accountDetail(accountNo) {
 
     console.log(accountDetailModal);
     console.log(modalContent);
-
+    console.log("1번");
+    // accountDetailModal.style.display = 'block'; // 모달 표시
+//    console.log(data);
     accountDetailModal.style.display = 'block'; // 모달 표시
 
     $.ajax({
         url: "/fi/account/detail",
         method: "get",
         data: {
-            accountNo : accountNo 
+            no : no
         } ,
         success: function(data) {
-            // console.log(data);
+            console.log(data);
+            console.log("1231234");
             modalContent.innerHTML = data; 
 
-            const receiveButton = document.querySelector("#account-receive-button");
+//            const receiveButton = document.querySelector("#account-receive-button");
 
             receiveButton.addEventListener("click", function () {
-                accountReceive(accountNo);
+                accountReceive(no);
             });
 
         },
@@ -76,7 +58,7 @@ function accountDetailClose() {
 }
 
 //수정 눌렀을 때 동작
-function accountEdit(accountNo) {
+function accountEdit(no) {
 
     const accountEditModal = document.getElementById('account-edit');
     const editModalContent = document.querySelector('.edit-content');
@@ -91,7 +73,7 @@ function accountEdit(accountNo) {
         url: "/fi/account/edit",
         method: "get",
         data: {
-            accountNo : accountNo 
+            no : no 
         } ,
         success: function(data) {
             // console.log(data);
@@ -155,7 +137,7 @@ function accountEditSave() {
     //     } ,
     //     success: function(response) {
     //             accountEditClose();
-    //             // openaccountDetailModal(response.updatedaccountNo);
+    //             // openaccountDetailModal(response.updatedno);
     //     },
     //     fail: function() {
     //         alert("통신실패...");
@@ -192,4 +174,36 @@ function accountReceive(no) {
         }
     });
 
+}
+//삭제
+
+/*function deleteBoardAjax(bno) {
+    $.ajax({
+        url: `/board/del1?bno=${bno}`,
+        type: 'DELETE',
+        success: function(result) {
+            alert('삭제 성공!');
+            location.href = '/board/list'; // 목록 페이지로 리다이렉트
+        },
+        error: function(xhr, status, error) {
+            alert('삭제 실패...');
+            console.error(error);
+        }
+    });
+}
+*/
+
+function deleteBoardAjax(no) {
+    $.ajax({
+        url: `/fi/account/del?no=${no}`, // URL 수정
+        type: 'DELETE',
+        success: function (result) {
+            alert('삭제 성공!');
+            location.href = '/fi/account/list'; // 목록 페이지로 리다이렉트
+        },
+        error: function (xhr, status, error) {
+            alert('삭제 실패... 서버와 통신에 실패했습니다.');
+            console.error('Error:', error, 'Status:', status);
+        }
+    });
 }

@@ -4,18 +4,18 @@ import com.kh.semi.finance.partner.service.PartnerService;
 import com.kh.semi.finance.partner.vo.PartnerVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
-@RequestMapping("fi/partner")
+@RequestMapping("finance/partner")
 @RequiredArgsConstructor
+@Slf4j
 public class PartnerController {
 
     private final PartnerService service;
@@ -29,7 +29,10 @@ public class PartnerController {
     //게시글 작성(데이터)
     @PostMapping("write")
     public String write(PartnerVo vo , HttpSession session) throws Exception{
+        System.out.println("vo = " + vo);
+
         int result = service.write(vo);
+
         if(result != 1) {
             throw new Exception("게시글 작성 에러");
         }
@@ -56,13 +59,11 @@ public class PartnerController {
     }
     // 거래처 상세 조회
     @GetMapping("detail")
-    public String getPartnerDetail(String partnerNo , Model model) {
-        PartnerVo partnerVo = service.getPartnerDetail(partnerNo , model);
+    @ResponseBody
+    public String getPartnerDetail(@RequestParam("no")String no , Model model) {
+        PartnerVo partnerVo = service.getPartnerDetail(no , model);
 
-        if(partnerVo == null ) {
-            return "redirect:/error";
-        }
-
+        System.out.println("요청받은 no: " + no);
         model.addAttribute("partnerVo" , partnerVo);
         System.out.println("partnerVo = " + partnerVo);
 
@@ -72,17 +73,22 @@ public class PartnerController {
 
     //거래처 수정(화면)
     @GetMapping("edit")
-    public String edit(String partnerNo, Model model) throws Exception {
+    @ResponseBody
+    public PartnerVo edit(@RequestParam("no")String no, Model model) throws Exception {
 
-        PartnerVo partnerVo = service.getPartnerDetail(partnerNo , model);
+        PartnerVo partnerVo = service.getPartnerDetail(no , model);
+
+
+        System.out.println("partnerVo = " + partnerVo);
 
         if(partnerVo == null) {
-            return "redirect:/error";
+            throw new IllegalStateException("ERROR");
         }
 
         model.addAttribute("partnerVo" , partnerVo);
 
-        return "finance/partner/edit";
+
+        return partnerVo;
     }
     //거래처 수정(데이터)
     @PostMapping("edit")
@@ -104,7 +110,9 @@ public class PartnerController {
 
 
     @GetMapping("delete")
-    public String delete(String no ,HttpSession session) throws Exception {
+    public String delete(@RequestParam("no") String no ,HttpSession session) throws Exception {
+
+        System.out.println("no = " + no);
 
         int result = service.delete(no);
 

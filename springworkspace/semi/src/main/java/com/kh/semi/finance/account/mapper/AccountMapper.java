@@ -1,10 +1,7 @@
 package com.kh.semi.finance.account.mapper;
 
 import com.kh.semi.finance.account.vo.AccountVo;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -51,7 +48,7 @@ public interface AccountMapper {
             DELETE FROM ACCOUNT
             WHERE NO = #{no}
             """)
-    int del(String bno);
+    int del(String no);
 
     @Select("""
             SELECT
@@ -68,5 +65,11 @@ public interface AccountMapper {
                 ACCOUNT.BANK_CODE = BANK.NO
             WHERE BANK.NO = #{no}
             """)
-    AccountVo getAcccountDetail();
+    AccountVo getAccountDetail();
+
+//    @Update("""
+//           Update
+//            """)
+//    int edit(AccountVo vo);
+
 }

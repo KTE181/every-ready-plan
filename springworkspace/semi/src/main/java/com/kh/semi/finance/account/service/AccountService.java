@@ -1,15 +1,20 @@
 package com.kh.semi.finance.account.service;
 
+import com.kh.semi.asreq.vo.AsreqVo;
 import com.kh.semi.finance.account.mapper.AccountMapper;
 import com.kh.semi.finance.account.vo.AccountVo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class AccountService {
 
     private final AccountMapper mapper;
@@ -22,13 +27,17 @@ public class AccountService {
         return mapper.selectAccountVoList();
     }
 
-    public int del(String bno) {
-        return mapper.del(bno);
+    public int del(String no) {
+        return mapper.del(no);
     }
 
-    public AccountVo getAccountDetail(String accountNo, Model model) {
-        return mapper.getAcccountDetail();
+    public AccountVo getAccountDetail(String no, Model model) {
+        return mapper.getAccountDetail();
     }
+
+//    public int edit(AccountVo vo) {
+//        return mapper.edit(vo);
+//    }
 
 
 }
