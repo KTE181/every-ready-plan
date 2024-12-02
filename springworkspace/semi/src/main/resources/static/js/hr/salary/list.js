@@ -441,7 +441,7 @@ function deleteNotice(){
       data: JSON.stringify(dataArr),
       success:function(data){
               console.log(data); 
-
+              alert("삭제완료");
               location.reload();
       },
       fail:function(){
@@ -451,3 +451,47 @@ function deleteNotice(){
 
   })
 }
+
+function loadPage(pageNumber) {
+  // 검색 값이 있다면 함께 보내도록 처리
+  // const searchValue = document.querySelector('input[name="searchValue"]').value;
+  console.log(pageNumber);
+  console.log(pageNumber.dataset.page);
+  
+
+  $.ajax({
+      url: `/api/hr/salary/getEmplistdata`,  // 서버에서 페이징 데이터를 가져오는 엔드포인트
+      method: 'GET',  // GET 요청
+      data: {
+          pno: pageNumber.dataset.page  ,  // 페이지 번호
+          // searchValue: searchValue  // 검색값 (필요한 경우)
+      },
+      success: function(data) {
+          // 서버에서 받은 데이터로 테이블 업데이트
+          console.log("통신성공");
+          console.log(data);
+          updateTable(data);
+         
+      },
+      error: function(xhr, status, error) {
+          console.error("페이징 데이터 로드 실패:", error);
+      }
+  });
+}
+function updateTable(data) {
+  const tableBody = document.querySelector('.btnmodal-main table tbody');
+  tableBody.innerHTML = ''; // 테이블 내용 초기화
+
+  // 받은 데이터로 테이블 행 추가
+      for(let i = 0; i<data.length;i++){
+      const row = document.createElement('tr');
+      row.innerHTML = `
+          <td><a href="#" id="empNo_${data[i].no}" onclick="changeEmpNo(this);">${data[i].no}</a></td>
+          <td>${data[i].name}</td>
+          <td>${data[i].dname}</td>
+          <td>${data[i].pname}</td>
+      `;
+      tableBody.appendChild(row);
+    }
+}
+

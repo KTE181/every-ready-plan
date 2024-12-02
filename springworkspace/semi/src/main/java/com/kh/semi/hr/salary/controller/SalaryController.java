@@ -3,6 +3,7 @@ package com.kh.semi.hr.salary.controller;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.hr.salary.service.SalaryService;
 import com.kh.semi.hr.salary.vo.SalaryVo;
+import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +20,24 @@ public class SalaryController {
     private final SalaryService service;
 
     @GetMapping("list")
-    public String listAll(Model model){
+    public String listAll(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage){
 
-        List<SalaryVo> SalaryVoList = service.listAll();
-        List<EmployeeVo> empVoList = service.empVoList();
+        int listCount = service.getSalaryCnt();
+        int pageLimit = 5;
+        int boardLimit = 14;
+        PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+
+        List<SalaryVo> SalaryVoList = service.listAll(pvo);
+
+
+
+        int listCount2 = service.getEmpCnt();
+        int currentPage2 = 1;
+        int pageLimit2 = 5;
+        int boardLimit2 = 10;
+        PageVo pvo2 = new PageVo(listCount2, currentPage2, pageLimit2, boardLimit2);
+        List<EmployeeVo> empVoList = service.empVoList(pvo2);
 
 //        for (EmployeeVo vo : empVoList) {
 //            System.out.println("vo = " + vo);
@@ -30,6 +45,8 @@ public class SalaryController {
 //        for (SalaryVo vo : SalaryVoList) {
 //            System.out.println("vo    :" +vo);
 //        }
+        model.addAttribute("pvo2",pvo2);
+        model.addAttribute("pvo",pvo);
         model.addAttribute("SalaryVoList",SalaryVoList);
         model.addAttribute("empVoList",empVoList);
         return "hr/salary/list";
@@ -115,4 +132,25 @@ public class SalaryController {
         int result = service.editAll(dataArr);
         return "통신성공";
     }
+
+    @GetMapping("getEmplistdata")
+    @ResponseBody
+    public  List<EmployeeVo> getEmplistdata(String pno){
+        System.out.println(pno);
+        int currentPage = Integer.parseInt(pno);
+        int listCount2 = service.getEmpCnt();
+        int pageLimit2 = 5;
+        int boardLimit2 = 10;
+        PageVo pvo = new PageVo(listCount2, currentPage, pageLimit2, boardLimit2);
+
+        List<EmployeeVo> empVoList = service.getEmplistdata(pvo);
+
+        for (EmployeeVo employeeVo : empVoList) {
+            System.out.println("employeeVo = " + employeeVo);
+            
+        }
+        return empVoList;
+    }
+
+
 }

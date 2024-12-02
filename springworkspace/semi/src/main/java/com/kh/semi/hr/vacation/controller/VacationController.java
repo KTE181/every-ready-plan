@@ -3,6 +3,7 @@ package com.kh.semi.hr.vacation.controller;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.hr.vacation.service.VacationService;
 import com.kh.semi.hr.vacation.vo.VacationVo;
+import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,12 +45,27 @@ public class VacationController {
 
 
     @GetMapping("list")
-    public String list(Model model) {
-        List<VacationVo> listVo = service.list();
-        List<EmployeeVo> empVoList = service.empVoList();
+    public String list(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage) {
+        int listCount = service.getVacationCnt();
+        int pageLimit = 5;
+        int boardLimit = 14;
+        PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+        System.out.println(pvo);
+
+        List<VacationVo> listVo = service.list(pvo);
+
+        int listCount2 = service.getEmpCnt();
+        int currentPage2 = 1;
+        int pageLimit2 = 5;
+        int boardLimit2 = 10;
+        PageVo pvo2 = new PageVo(listCount2, currentPage2, pageLimit2, boardLimit2);
+        List<EmployeeVo> empVoList = service.empVoList(pvo2);
 
 
 
+        model.addAttribute("pvo2",pvo2);
+        model.addAttribute("pvo",pvo);
         model.addAttribute("vacationListVo", listVo);
 
         model.addAttribute("empVoList", empVoList);
@@ -99,6 +115,24 @@ public class VacationController {
 //        }
         int result = service.editAll(dataArr);
         return "통신성공";
+    }
+    @GetMapping("getEmplistdata")
+    @ResponseBody
+    public  List<EmployeeVo> getEmplistdata(String pno){
+        System.out.println(pno);
+        int currentPage = Integer.parseInt(pno);
+        int listCount2 = service.getEmpCnt();
+        int pageLimit2 = 5;
+        int boardLimit2 = 10;
+        PageVo pvo = new PageVo(listCount2, currentPage, pageLimit2, boardLimit2);
+
+        List<EmployeeVo> empVoList = service.getEmplistdata(pvo);
+
+        for (EmployeeVo employeeVo : empVoList) {
+            System.out.println("employeeVo = " + employeeVo);
+
+        }
+        return empVoList;
     }
 
 }
