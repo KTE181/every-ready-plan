@@ -37,12 +37,10 @@ public class LoginController {
     }
 
     // 로그아웃 처리
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpSession session) {
-        if (session != null) {
-            session.invalidate(); // 세션 무효화
-        }
-        log.info("로그아웃 완료");
-        return "redirect:/login"; // 로그아웃 후 로그인 페이지로 리다이렉트
+        // 세션에서 loginEmployeeVo 제거
+        session.removeAttribute("loginEmployeeVo");
+        return "redirect:/login"; // 로그인 페이지로 리다이렉트
     }
 }

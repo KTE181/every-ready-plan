@@ -13,9 +13,19 @@ pageEncoding="UTF-8"%>
 
 	<div class="top-bar">
         <button class="button">출근</button>
-        <div class="image-circle">IMAGE</div>
-        <div class="display-none" id="profile-menu" >
-             <div>마이페이지</div>
-             <div>로그아웃</div>
+        <div class="image-circle">
+            <c:choose>
+                <c:when test="${not empty loginEmployeeVo}">
+                    <img src="${pageContext.request.contextPath}${loginEmployeeVo.profileImage}" alt="프로필 이미지">
+                </c:when>
+                <c:otherwise>
+                    IMAGE
+                </c:otherwise>
+            </c:choose>
+        </div>
+        
+        <div class="display-none" id="profile-menu">
+            <div onclick="redirectToMypage()">마이페이지</div>
+            <div onclick="logout()">로그아웃</div>
         </div>
     </div>

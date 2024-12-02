@@ -21,4 +21,20 @@ public interface MyPageMapper {
         WHERE NO = #{employeeId}
     """)
     void updateProfileImage(@Param("employeeId") String employeeId, @Param("newProfilePath") String newProfilePath);
+
+    @Select("""
+        SELECT PWD
+        FROM EMPLOYEE
+        WHERE NO = #{employeeId}
+    """)
+    String getCurrentPassword(String employeeId);
+
+    @Update("""
+        UPDATE EMPLOYEE
+        SET PWD = #{newPassword}
+        WHERE NO = #{employeeId}
+    """)
+    void updatePassword(@Param("employeeId") String employeeId, @Param("newPassword") String newPassword);
 }
+
+

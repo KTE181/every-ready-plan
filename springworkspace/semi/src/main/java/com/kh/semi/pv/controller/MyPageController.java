@@ -60,6 +60,44 @@ public class MyPageController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/changePassword")
+    public ResponseEntity<Map<String, Object>> changePassword(
+            @RequestBody Map<String, String> passwordData,
+            HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            String currentPassword = passwordData.get("currentPassword");
+            String newPassword = passwordData.get("newPassword");
+
+            // 로그인된 사용자 정보 가져오기
+            LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+            if (loginEmployeeVo == null) {
+                throw new IllegalStateException("사용자 세션이 만료되었습니다.");
+            }
+
+            // 비밀번호 변경 로직 처리
+            boolean isUpdated = myPageService.changePassword(
+                    loginEmployeeVo.getNo(),
+                    currentPassword,
+                    newPassword);
+
+            if (isUpdated) {
+                // 세션 초기화 및 성공 응답
+                session.invalidate();
+                response.put("success", true);
+            } else {
+                response.put("success", false);
+                response.put("message", "현재 비밀번호가 일치하지 않습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("message", "비밀번호 변경 실패: " + e.getMessage());
+        }
+        return ResponseEntity.ok(response);
+    }
+
+
 
 
 }

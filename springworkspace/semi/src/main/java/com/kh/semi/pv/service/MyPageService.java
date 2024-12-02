@@ -42,6 +42,21 @@ public class MyPageService {
 
         return newProfilePath;
     }
+
+    public boolean changePassword(String employeeId, String currentPassword, String newPassword) {
+        // DB에서 현재 비밀번호 가져오기
+        String dbPassword = myPageMapper.getCurrentPassword(employeeId);
+
+        // 현재 비밀번호 일치 여부 확인
+        if (!dbPassword.equals(currentPassword)) {
+            return false;
+        }
+
+        // 새 비밀번호로 업데이트
+        myPageMapper.updatePassword(employeeId, newPassword);
+        return true;
+    }
+
 }
 
 

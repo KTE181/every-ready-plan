@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/pv/mypage.css">
+    <link rel="stylesheet" href="/css/pv/newpassword.css">
     <script>
         const contextPath = "${pageContext.request.contextPath}";
     </script>
@@ -116,9 +117,23 @@
                     </div>
                     <div id="employeeData" data-employee-id="${loginEmployeeVo.no}"></div>
                     <div class="button-container">
-                        <button class="crud-button" onclick="">비밀번호 변경</button>
+                        <button class="crud-button" onclick="showPasswordModal()">비밀번호 변경</button>
                         <button class="crud-button" onclick="openFileInput()">프로필 수정</button>
                         <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage()" />
+                    </div>
+                    <!-- 비밀번호 변경 모달 -->
+                    <div id="passwordModal" class="modal" style="display: none;">
+                        <div class="modal-password">
+                            <span class="close-button" onclick="closePasswordModal()">×</span>
+                            <h2>비밀번호 변경</h2>
+                            <label for="currentPassword">기존 비밀번호</label>
+                            <input type="password" id="currentPassword" placeholder="기존 비밀번호 입력">
+                            <label for="newPassword">새 비밀번호</label>
+                            <input type="password" id="newPassword" placeholder="새 비밀번호 입력">
+                            <label for="confirmPassword">비밀번호 확인</label>
+                            <input type="password" id="confirmPassword" placeholder="새 비밀번호 확인">
+                            <button onclick="changePassword()">확인</button>
+                        </div>
                     </div>
                 </div>   
             </div>

@@ -51,4 +51,57 @@ function uploadProfileImage() {
         });
 
 }
+/****************************************/
+// 모달 열기
+function showPasswordModal() {
+    document.getElementById("passwordModal").style.display = "flex";
+}
+
+// 모달 닫기
+function closePasswordModal() {
+    document.getElementById("passwordModal").style.display = "none";
+}
+
+// 비밀번호 변경 요청
+function changePassword() {
+    const currentPassword = document.getElementById("currentPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // 유효성 검사
+    if (newPassword !== confirmPassword) {
+        alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        return;
+    }
+
+    // 서버로 요청
+    fetch(`${contextPath}/mypage/changePassword`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            currentPassword: currentPassword,
+            newPassword: newPassword,
+        }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("서버 응답 실패");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert("비밀번호가 성공적으로 변경되었습니다.");
+                window.location.href = `${contextPath}/login`; // 로그인 페이지로 리다이렉트
+            } else {
+                alert(data.message || "비밀번호 변경 중 문제가 발생했습니다.");
+            }
+        })
+        .catch(error => {
+            console.error("비밀번호 변경 실패:", error);
+            alert("비밀번호 변경 중 문제가 발생했습니다.");
+        });
+}
 
