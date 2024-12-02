@@ -32,4 +32,20 @@ public class OverTimeService {
     public List<OverTimeVo> list() {
         return mapper.selectAll();
     }
+
+    public OverTimeVo detail(String no) {
+        return mapper.detail(no);
+    }
+
+    public int edit(OverTimeVo alldata) {
+        return mapper.edit(alldata);
+    }
+
+    public int delete(String no) {
+        return mapper.delete(no);
+    }
+
+    public int editAll(String[] dataArr) {
+        return mapper.editAll(dataArr);
+    }
 }
