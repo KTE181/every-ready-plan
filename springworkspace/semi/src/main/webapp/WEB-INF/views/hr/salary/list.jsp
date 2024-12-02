@@ -142,21 +142,21 @@
                                     <div>
                                         <div class="pagination">
                                             <!-- 이전 페이지 버튼 -->
-                                            <a href="#" class="page-button previous">&laquo;</a>
+                                           
 
                                             <!-- 페이지 번호 버튼들 -->
-                                            <a href="#" class="page-button active">1</a>
-                                            <a href="#" class="page-button">2</a>
-                                            <a href="#" class="page-button">3</a>
-                                            <a href="#" class="page-button">4</a>
-                                            <a href="#" class="page-button">5</a>
-                                            <a href="#" class="page-button">6</a>
-                                            <a href="#" class="page-button">7</a>
-                                            <a href="#" class="page-button">8</a>
-                                            <a href="#" class="page-button">9</a>
-                                            <a href="#" class="page-button">10</a>
-                                            <!-- 다음 페이지 버튼 -->
-                                            <a href="#" class="page-button next">&raquo;</a>
+                                            <div class="pagination">
+                                                <c:if test="${pvo.startPage != 1}">
+                                                    <a href="/api/hr/salary/list?pno=${pvo.startPage-1}&searchValue=${searchValue}" class="page-button previous">&laquo;</a>
+                                                </c:if>
+                                                <c:forEach begin="${pvo.startPage}" end="${pvo.endPage}" var="i" step="1">
+                                                    <a href="/api/hr/salary/list?pno=${i}&searchValue=${searchValue}" class="page-button">${i}</a>
+                                                </c:forEach>
+                                                <c:if test="${pvo.endPage != pvo.maxPage}">
+                                                    <a href="/api/hr/salary/list?pno=${pvo.endPage+1}&searchValue=${searchValue}" class="page-button next">&raquo;</a>
+                                                </c:if>
+                                            </div>
+                                           
                                         </div>
                                     </div>
 
@@ -450,13 +450,25 @@
                                                         </c:forEach>
                                                     </tbody>
                                                 </table>
+                                                <div class="pagination">
+                                                    <c:if test="${pvo2.startPage != 1}">
+                                                        <a href="" class="page-button previous">&laquo;</a>
+                                                    </c:if>
+                                                    <c:forEach begin="${pvo2.startPage}" end="${pvo2.endPage}" var="i" step="1">
+                                                        <a href="#" class="page-button"  data-page="${i}" onclick="loadPage(this);">${i}</a>
+                                                    </c:forEach>
+                                                    <c:if test="${pvo2.endPage != pvo2.maxPage}">
+                                                        <a href="#" class="page-button next">&raquo;</a>
+                                                    </c:if>
+                                                </div>
                                             </div>
+                                            
 
 
 
                                             <div class="btnmodal-cont"></div>
                                             <div class="btn-area">
-                                                <div class="button-container"><button>선택</button></div>
+                                                <div class="button-container"></div>
                                             </div>
                                         </div>
                                     </form>

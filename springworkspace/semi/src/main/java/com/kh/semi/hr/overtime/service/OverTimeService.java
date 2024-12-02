@@ -3,6 +3,7 @@ package com.kh.semi.hr.overtime.service;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.hr.overtime.mapper.OverTimeMapper;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
+import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,10 @@ import java.util.List;
 public class OverTimeService {
     private final OverTimeMapper mapper;
 
-    public List<OverTimeVo> selectAll() {
-        return mapper.selectAll();
-    }
 
-    public List<EmployeeVo> empVoList() {
-        return mapper.empVoList();
+
+    public List<EmployeeVo> empVoList(PageVo pvo) {
+        return mapper.empVoList(pvo);
     }
 
     public int insert(OverTimeVo vo) {
@@ -29,8 +28,8 @@ public class OverTimeService {
         return mapper.selectvolist(empNo);
     }
 
-    public List<OverTimeVo> list() {
-        return mapper.selectAll();
+    public List<OverTimeVo> list(PageVo pvo) {
+        return mapper.selectAll(pvo);
     }
 
     public OverTimeVo detail(String no) {
@@ -47,5 +46,17 @@ public class OverTimeService {
 
     public int editAll(String[] dataArr) {
         return mapper.editAll(dataArr);
+    }
+
+    public int getOverTimeCnt() {
+        return mapper.getOverTimeCnt();
+    }
+
+    public int getEmpCnt() {
+        return mapper.getEmpCnt();
+    }
+
+    public List<EmployeeVo> getEmplistdata(PageVo pvo) {
+        return mapper.getEmplistdata(pvo);
     }
 }

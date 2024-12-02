@@ -3,6 +3,7 @@ package com.kh.semi.hr.salary.service;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.hr.salary.mapper.SalaryMapper;
 import com.kh.semi.hr.salary.vo.SalaryVo;
+import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +16,17 @@ public class SalaryService {
     private final SalaryMapper mapper;
 
 
-    public List<SalaryVo> listAll() {
-        return mapper.listAll();
+    public List<SalaryVo> listAll(PageVo pvo) {
+        System.out.println(pvo);
+        return mapper.listAll(pvo);
     }
 
     public EmployeeVo selectvolist(String empNo) {
         return mapper.selectvolist(empNo);
     }
 
-    public List<EmployeeVo> empVoList() {
-        return mapper.empVoList();
+    public List<EmployeeVo> empVoList(PageVo pvo2) {
+        return mapper.empVoList(pvo2);
     }
 
     public int write(SalaryVo vo) {
@@ -52,5 +54,17 @@ public class SalaryService {
 
     public int editAll(String[] dataArr) {
         return mapper.editAll(dataArr);
+    }
+
+    public int getSalaryCnt() {
+        return mapper.getSalaryCnt();
+    }
+
+    public int getEmpCnt() {
+        return mapper.getEmpCnt();
+    }
+
+    public List<EmployeeVo> getEmplistdata(PageVo pvo) {
+        return mapper.getEmplistdata(pvo);
     }
 }
