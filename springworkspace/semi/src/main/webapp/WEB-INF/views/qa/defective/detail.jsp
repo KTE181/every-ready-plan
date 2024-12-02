@@ -9,6 +9,7 @@
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/defective/defective.css">
+    <link rel="stylesheet" href="/css/defective/detail.css">
     <script defer src="/js/defective/defective.js"></script>
 </head>
 <body>

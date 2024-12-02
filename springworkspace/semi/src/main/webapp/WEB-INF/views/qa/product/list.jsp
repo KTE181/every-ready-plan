@@ -10,9 +10,14 @@
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/product/product.css">
     <link rel="stylesheet" href="/css/product/write.css">
+    <link rel="stylesheet" href="/css/product/detail.css">
+    <link rel="stylesheet" href="/css/product/update.css">
     <script defer src="/js/product/list.js"></script>
+
+    
 </head>
 <body>
+
 
     <div class="container">
 
@@ -38,36 +43,28 @@
                                 <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
                                 <div class="search-bar"><input type="text" name="day" maxlength="2" placeholder="일"></div> -->
 
-                                <label for="연월 date"></label>
+                                <!-- <label for="연월 date"></label>
                                 <div class="search-bar"><input type="month" name=""></div>
 
                                 <label for="연월일 date"></label>
-                                <div class="search-bar"><input type="date" name=""></div>
+                                <div class="search-bar"><input type="date" name=""></div> -->
 
-                                <label for="select"></label>
+                                 <!-- <div class="search-bar"><input type="search" id="longbar"></div> 
+                                 <label>상품명: <input type="text" id="searchName"></label>
+                                <label>일련번호: <input type="text" id="searchSerialNumber"></label>
+                                <div class="search-bar"><button id="searchButton">검색</button></div>  -->
                                 <div class="search-bar">
-                                    <select name="" id="">
-                                        <option value="1">소속부서 전체</option>
-                                        <option value="2">재무팀</option>
-                                        <option value="2">인사팀</option>
-                                    </select>
+                                    <form action="/qa/product/list">
+                                        <label>상품이름 : <input type="text" id = "longbar" name="searchValueName" value="${searchValueName}" placeholder="검색할 상품이름을 입력하세요"></label>
+                                        <label>일련번호 : <input type="text" id = "longbar" name="searchValue" value="${searchValue}" placeholder="검색할 일련번호를 입력하세요"></label>
+                                        <div class="search-bar"><button id="searchButton">검색</button></div>
+                                    </form>
                                 </div>
-
-                                <label for="검색어"></label>
-                                <div class="search-bar">
-                                    <select name="searchType" id="">
-                                        <option value="1">제목</option>
-                                        <option value="2">내용</option>
-                                        <option value="2">제목+내용</option>
-                                    </select>
-                                </div>
-                                <div class="search-bar"><input type="search" id="longbar"></div>
-                                <div class="search-bar"><button class="button">검색</button></div>
                             </form>
                         </div>
                     </div>
 
-
+                  
             
 
                 <!--<h1>Board List</h1> -->
@@ -90,23 +87,139 @@
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="productTableBody">
                         <c:forEach items = "${productVo}" var = "product">
                             <tr>
                                 <td class = "checkbox-td"><input type = "checkbox" name = "del"></td>
-                                <td>${product.no}</td>
-                                <td>${product.itemCode}</td>
-                                <td>${product.name}</td>
-                                <td>${product.price}</td>
-                                <td>${product.serialNumber}</td>
-                                <td>${product.receivedDate}</td>
-                                <td>${product.factoryName}</td>
-                                <td>${product.enrollDate}</td>
- 
+                                <td class="product-row" data-product-no="${product.no}">${product.no}</td>
+                                <td class="product-row" data-product-no="${product.no}">${product.itemCode}</td>
+                                <td class="product-row" data-product-no="${product.no}">${product.name}</td>
+                                <td class="product-row" data-product-no="${product.no}">${product.price}</td>
+                                <td class="product-row" data-product-no="${product.no}">${product.serialNumber}</td>
+                                <td class="product-row" data-product-no="${product.no}">${product.receivedDate}</td>
+                                <td class="product-row" data-product-no="${product.no}">${product.factoryName}</td>
+                                <td class="product-row" data-product-no="${product.no}">${product.enrollDate}</td>
+                                
+                                    <!-- 검색 결과가 이곳에 출력됩니다 -->
+                               
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
+
+                <div class="modal-detail" id="modalDetail">
+                    <div class="modal">
+                        <button id="closeModal">×</button>
+                        <h2>상품 상세 조회</h2>
+                        <div class="form-container">
+                            <div class="section-title">상품정보</div>
+            
+                            <div class="image-upload-container">
+                                <div id="image">제품 이미지</div>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="product-code">품목코드</label>
+                                <input type="text" id="item-code" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-name">상품명</label>
+                                <input type="text" id="product-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">가격</label>
+                                <input type="text" id="product-price" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-quantity">수량</label>
+                                <input type="text" id="product-quantity" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="serial-number">일련번호</label>
+                                <input type="text" id="serial-number" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="manufacturer">생산공정</label>
+                                <input type="text" id="factoryName"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="manufacturer-address">생산공장</label>
+                                <input type="text" id="factory-address"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="warranty">보증기간</label>
+                                <input type="text" id="warranty"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="import-date">입고일</label>
+                                <input type="text" id="import-date" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="primary" id = "openEditModal">수정</button>
+                            <button>삭제</button>
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+                
+
+                <div class="modal2" id="modalEdit">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>상품 수정</h2>
+                        <div class="form-container">
+                            <div class="section-title">상품정보</div>
+            
+                            <div class="image-upload-container">
+                                <div class="image-placeholder">제품 이미지</div>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="product-code">품목코드</label>
+                                <input type="text" id="product-code" value="0001">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-name">상품명</label>
+                                <input type="text" id="product-name" value="LG트윈냉장고">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">가격</label>
+                                <input type="text" id="product-price" value="1500000">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-quantity">수량</label>
+                                <input type="text" id="product-quantity" value="32">
+                            </div>
+                            <div class="form-group">
+                                <label for="serial-number">일련번호</label>
+                                <input type="text" id="serial-number" value="자동부여">
+                            </div>
+                            <div class="form-group">
+                                <label for="manufacturer">생산공정</label>
+                                <input type="text" id="manufacturer" value="파주(주)">
+                            </div>
+                            <div class="form-group">
+                                <label for="manufacturer-address">생산공장</label>
+                                <input type="text" id="manufacturer-address" value="서울특별시 둘리구 호이동">
+                            </div>
+                            <div class="form-group">
+                                <label for="warranty">보증기간</label>
+                                <input type="text" id="warranty" value="3년">
+                            </div>
+                            <div class="form-group">
+                                <label for="import-date">입고일</label>
+                                <input type="date" id="import-date" value="2014-11-01">
+                            </div>
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="primary">등록</button>
+                            <button>삭제</button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="modal-overlay" id="modalOverlay">
@@ -120,52 +233,48 @@
                         <div class="section-title">상품정보</div>
         
                         <div class="image-upload-container">
+
                             <div class="image-placeholder">제품 이미지</div>
                         </div>
         
                         <div class="form-group">
                             <label for="product-code">품목코드</label>
-                            <input type="text" id="product-code" value="0001">
+                            <input type="text" id="item-code1">
                         </div>
                         <div class="form-group">
                             <label for="product-name">상품명</label>
-                            <input type="text" id="product-name" value="LG트윈냉장고">
+                            <input type="text" id="product-name1">
                         </div>
                         <div class="form-group">
                             <label for="product-price">가격</label>
-                            <input type="text" id="product-price" value="1500000">
-                        </div>
-                        <div class="form-group">
-                            <label for="product-quantity">수량</label>
-                            <input type="text" id="product-quantity" value="32">
-                        </div>
-                        <div class="form-group">
-                            <label for="serial-number">일련번호</label>
-                            <input type="text" id="serial-number" value="자동부여">
+                            <input type="text" id="product-price1">
                         </div>
                         <div class="form-group">
                             <label for="manufacturer">생산공정</label>
-                            <input type="text" id="manufacturer" value="파주(주)">
+                            <input type="text" id="manufacturer1">
                         </div>
                         <div class="form-group">
                             <label for="manufacturer-address">생산공장</label>
-                            <input type="text" id="manufacturer-address" value="서울특별시 둘리구 호이동">
+                            <input type="text" id="manufacturer-address1">
                         </div>
                         <div class="form-group">
                             <label for="warranty">보증기간</label>
-                            <input type="text" id="warranty" value="3년">
+                            <input type="text" id="warranty1">
                         </div>
                         <div class="form-group">
                             <label for="import-date">입고일</label>
-                            <input type="date" id="import-date" value="2014-11-01">
+                            <input type="date" id="import-date1">
                         </div>
                     </div>
                     <div class="modal-buttons">
-                        <button class="primary">등록</button>
+                        <button class="primary" id ="registerProduct">등록</button>
                         <button>삭제</button>
                     </div>
                 </div>
             </div>
+
+            
+
                 <!-- Bottom Area -->
                 <div class="bottom-content-area">
                                     <div><button class="crud-button-white" onclick = "delProduct()">삭제</button></div>

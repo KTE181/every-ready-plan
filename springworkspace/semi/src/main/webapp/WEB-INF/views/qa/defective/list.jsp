@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/defective/defective.css">
     <link rel="stylesheet" href="/css/defective/write.css">
+    <link rel="stylesheet" href="/css/defective/detail.css">
     <script defer src="/js/defective/list.js"></script>
 
 </head>
@@ -38,7 +39,7 @@
                                 <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
                                 <div class="search-bar"><input type="text" name="day" maxlength="2" placeholder="일"></div> -->
 
-                                <label for="연월 date"></label>
+                                <!-- <label for="연월 date"></label>
                                 <div class="search-bar"><input type="month" name=""></div>
 
                                 <label for="연월일 date"></label>
@@ -62,7 +63,14 @@
                                     </select>
                                 </div>
                                 <div class="search-bar"><input type="search" id="longbar"></div>
-                                <div class="search-bar"><button class="button">검색</button></div>
+                                <div class="search-bar"><button class="button">검색</button></div> -->
+                                <div class="search-bar">
+                                    <form action="/qa/defective/list">
+                                        <label>상품이름 : <input type="text" id = "longbar" name="searchValue" value="${searchValue}" placeholder="검색할 상품이름을 입력하세요"></label>
+                                        <label>불량코드 : <input type="text" id = "longbar" name="searchValueError" value="${searchValueError}" placeholder="불량코드를 입력하세요"></label>
+                                        <div class="search-bar"><button id="searchButton">검색</button></div>
+                                    </form>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -88,14 +96,14 @@
                                 <c:forEach items = "${defectiveVo}" var = "defective">
                                     <tr>
                                         <td class = "checkbox-td"><input type = "checkbox" name = "del"></td>
-                                        <td>${defective.no}</td>
-                                        <td>${defective.itemCode}</td>
-                                        <td>${defective.productName}</td>
-                                        <td>${defective.serialNumber}</td>
-                                        <td>${defective.defectiveCode}</td>
-                                        <td>${defective.receivedDate}</td>
-                                        <td>${defective.factoryLocation}</td>
-                                        <td>${defective.enrollDate}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.no}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.itemCode}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.productName}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.serialNumber}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.defectiveCode}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.receivedDate}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.factoryLocation}</td>
+                                        <td class="product-row" data-product-no="${defective.no}">${defective.enrollDate}</td>
     
                                     </tr>
                                 </c:forEach>
@@ -116,34 +124,35 @@
                             <div class="image-upload-container">
                                 <div class="image-placeholder">제품 이미지</div>
                             </div>
-            
+                            
                             <div class="form-group">
-                                <label for="productno">상품코드</label>
-                                <input type="text" id="productno" value="0001" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="price">가격</label>
-                                <input type="text" id="price" value="0001" readonly>
+                                <label for="serialno">일련번호</label>
+                                <input type="text" id="dfserialno">
                             </div>
                             <div class="form-group">
                                 <label for="product-name">상품명</label>
-                                <input type="text" id="product-name" value="150000" readonly>
+                                <input type="text" id="dfproduct-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="price">가격</label>
+                                <input type="text" id="dfprice">
+                            </div>
+                            <div class="form-group">
+                                <label for="productno">상품코드</label>
+                                <input type="text" id="dfproductno">
                             </div>
                             <div class="form-group">
                                 <label for="defective-code">불량코드</label>
-                                <input type="text" id="defective-code" value="1500000" readonly>
+                                <input type="text" id="dfdefective-code">
                             </div>
-                            <div class="form-group">
-                                <label for="serialno">일련번호</label>
-                                <input type="text" id="serialno" value="1500000" readonly>
-                            </div>
+                           
                             <div class="form-group">
                                 <label for="defective-name">불량명</label>
-                                <input type="text" id="defective-name" value="오염" readonly>
+                                <input type="text" id="dfdefective-name">
                             </div>
                             <div class="form-group">
                                 <label for="defective-content">불량 내용</label>
-                                <textarea class= "text-area" readonly></textarea>
+                                <textarea class= "dftext-area"></textarea>
                             </div>
             
                         </div>
@@ -153,6 +162,56 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="modal-defectivedetail" id="modalDetail">
+                    <div class="modal">
+                        <button id="closeDetailModal">×</button>
+                        <h2>불량 상품 상세 조회</h2>
+                        <div class="form-container">
+                            <div class="section-title">상품정보</div>
+            
+                            <div class="image-upload-container">
+                                <div class="image-placeholder">제품 이미지</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="productno">상품NO</label>
+                                <input type="text" id="productno1" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">가격</label>
+                                <input type="text" id="price1" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-name">상품명</label>
+                                <input type="text" id="product-name1" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="defective-code">불량코드</label>
+                                <input type="text" id="defective-code1" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="serialno">일련번호</label>
+                                <input type="text" id="serial-no1" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="defective-name">불량명</label>
+                                <input type="text" id="defective-name1" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="defective-content">불량 내용</label>
+                                <textarea class= "text-area" id = "textarea1"></textarea>
+                            </div>
+            
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="primary">수정</button>
+                            <button>삭제</button>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <!-- Bottom Area -->
                 <div class="bottom-content-area">
