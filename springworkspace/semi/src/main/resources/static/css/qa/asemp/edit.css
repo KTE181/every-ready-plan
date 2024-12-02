@@ -12,7 +12,7 @@
 }
 
 /* 모달 창 본체 */
-#asemp-edit .edit-content {
+#asemp-edit .modal-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content min-content;;
@@ -70,7 +70,7 @@
     justify-content: center;
 }
 
-#asemp-edit .edit-content input {
+#asemp-edit .modal-content input {
     padding: 5px 10px;
     font-size: 13px;
     width: 200px;
@@ -79,7 +79,7 @@
     border: 1px solid black;
 }
 
-#asemp-edit .edit-content select{
+#asemp-edit .modal-content select{
     height: 30px;
     width: 190px;
     font-family: '맑은 고딕';
@@ -88,19 +88,19 @@
     padding-left: 5px;
 }
 
-#asemp-edit .edit-content input[type=radio] {
+#asemp-edit .modal-content input[type=radio] {
     width: 20px;
 }
 
-#asemp-edit .edit-content input[name=customerAdress] {
+#asemp-edit .modal-content input[name=customerAdress] {
     width: 250px;
 }
 
-#asemp-edit .edit-content input[name=issueTitle] {
+#asemp-edit .modal-content input[name=issueTitle] {
     width: 90%;
 }
 
-#asemp-edit .edit-content .emp-search-button {
+#asemp-edit .modal-content .search-button {
     font-size: 13px; 
     background-color: #f5f5f5; 
     color: black; 
@@ -123,7 +123,7 @@
     padding: 5px 10px;
 }
 
-#asemp-edit .edit-content input[type=submit] {
+#asemp-edit .modal-content input[type=submit] {
     font-size: 15px; /* 작은 글씨 크기 */
     padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
     background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
@@ -137,7 +137,7 @@
     margin-bottom: 7px;
 }
 
-#asemp-edit .edit-content input[type=submit]:hover {
+#asemp-edit .modal-content input[type=submit]:hover {
     background-color: #416DFF;
     color: white; 
     font-weight: bold;

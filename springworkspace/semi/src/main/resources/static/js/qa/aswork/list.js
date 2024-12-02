@@ -15,6 +15,8 @@ function asworkDetail(asworkNo) {
         } ,
         success: function(asworkVo) {
 
+            // console.log(asworkVo);
+            
             document.querySelector("#aswork-detail input[name=no]").value = asworkVo.no;
             document.querySelector("#aswork-detail input[name=productNo]").value = asworkVo.productNo;
             document.querySelector("#aswork-detail input[name=serialNumber]").value = asworkVo.serialNumber;

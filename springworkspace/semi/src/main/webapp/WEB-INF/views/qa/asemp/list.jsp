@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/css/qa/asemp/enroll.css">
     <link rel="stylesheet" href="/css/qa/asemp/edit.css">
     <link rel="stylesheet" href="/css/qa/asemp/detail.css">
-    <link rel="stylesheet" href="/css/qa/asemp/searchemp.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script defer src="/js/qa/asemp/list.js"></script>
 </head>
@@ -139,7 +138,7 @@
                             <label for="">사번</label>
                             <div>
                                 <input type="text" name="no"> 
-                                <input type="button" class="emp-search-button" value="사원검색">
+                                <button class="search-button" name="">사원검색</button>
                             </div>
                         </div>
                         <div class="modal-cont">
@@ -189,6 +188,7 @@
                             <label for="">사번</label>
                             <div>
                                 <input type="text" name="no" readonly> 
+                                <button class="search-button" name="">사원검색</button>
                             </div>
                         </div>
                         <div class="modal-cont">
@@ -220,25 +220,28 @@
                         <div></div>
                         <div class="button-container">
                             <div><input id="asemp-edit-bnt" type="button" value="수정"></div>
-                            <div><input id="asemp-delete-bnt" type="button" value="삭제"></div>
+                            <div><input id="ademp-delete-bnt" type="button" value="삭제"></div>
                         </div>
                     </div>
             </div>
 
             <!-- Edit Modal -->
             <div id="asemp-edit">
-                <form action="/qa/asemp/edit" method="post" onsubmit="return confirm('저장하시겠습니까?');">
+                <form action="/qa/asemp/edit" method="get" onsubmit="return confirm('저장하시겠습니까?');"></form>
                     <div class="edit-content">
-                        <span class="edit-close">&times;</span>
+                        <span class="detail-close">&times;</span>
             
-                        <div class="modal-title">AS 담당자 수정</div>
+                        <div class="modal-title">AS 담당자 상세</div>
                         <div id="required-text"></div>
             
                         <div class="title-text">AS담당자정보</div>
             
                         <div class="modal-cont">
                             <label for="">사번</label>
-                            <input type="text" name="no" readonly> 
+                            <div>
+                                <input type="text" name="no" readonly> 
+                                <button class="search-button" name="">사원검색</button>
+                            </div>
                         </div>
                         <div class="modal-cont">
                             <label for="">사원명</label>
@@ -271,34 +274,6 @@
                         <div class="button-container"><input type="submit" value="저장" ></div>
                     </div>
                 </form>
-            </div>
-
-            <!-- SearchEmp Modal -->
-            <div id="search-emp">
-                <div class="modal-content">
-                    <span class="modal-close">&times;</span>
-        
-                    <div class="modal-title">사원검색</div>
-                    <div></div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>선택</th>
-                                <th>사번</th>
-                                <th>사원명</th>
-                                <th>연락처</th>
-                                <th>소속부서</th>
-                                <th>직급</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                        </tbody>
-                    </table>
-
-                    <div class="button-container"><input type="button" id="emp-select-btn" value="선택"></div>
-
-                </div>
             </div>
 
 
