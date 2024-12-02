@@ -42,4 +42,8 @@ public class VacationService {
     public int delete(String no) {
         return mapper.delete(no);
     }
+
+    public int editAll(String[] dataArr) {
+        return mapper.editAll(dataArr);
+    }
 }

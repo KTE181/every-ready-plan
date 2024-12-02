@@ -194,4 +194,6 @@ public interface SalaryMapper {
             WHERE NO =#{no}
             """)
     int delete(String no);
+
+    int editAll(String[] dataArr);
 }
