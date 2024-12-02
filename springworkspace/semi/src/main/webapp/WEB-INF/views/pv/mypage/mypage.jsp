@@ -26,7 +26,7 @@
             <!-- Contents Area -->
             <div class="content-area">
                 <div class="modal-first"><!--크게 두 덩이로 나눴습니다-->
-                    <div class="modal-title">사원 등록</div>
+                    <div class="modal-title">마이페이지</div>
                     <div class="modal-subtitle">기본정보</div>
                     <div class="modal-profile">
                         <div class="modal-profile-index">
@@ -36,35 +36,35 @@
                     
                     <div class="modal-cont">
                         <label>사번</label>
-                        <input type="text" id="price" />
+                        <input type="text" id="no" value="${loginEmployeeVo.no}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>사원명</label>
-                        <input type="text" id="price" />
+                        <input type="text" id="name" value="${loginEmployeeVo.name}"readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>생년월일</label>
-                        <input type="text" id="price" />
+                        <input type="text" id="birth" value="${loginEmployeeVo.birth}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>성별</label>
-                        <input type="text" id="price" />
+                        <input type="text" id="gender" value="${loginEmployeeVo.gender}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>전화번호</label>
-                        <input type="text" id="price" />
+                        <input type="text" id="phone" value="${loginEmployeeVo.phone}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>비상연락처</label>
-                        <input type="text" id="price" />
+                        <input type="text" id="emergencyPhone" value="${loginEmployeeVo.emergencyPhone}" readonly/>
                     </div>
                     <div class="modal-long">
                         <label></label>이메일</label>
-                        <input type="text" id="factoryAdress" />
+                        <input type="text" id="email" value="${loginEmployeeVo.email}" readonly/>
                     </div>
                     <div class="modal-long">
                         <label></label>주소</label>
-                        <input type="text" id="factoryAdress" />
+                        <input type="text" id="address" value="${loginEmployeeVo.address}" readonly/>
                     </div>
         
                 </div>
@@ -72,43 +72,47 @@
                     <div class="modal-subtitle">인사정보</div>
                     <div class="modal-cont">
                         <label>소속부서</label>
-                        <input type="text" id="deptN" />
+                        <input type="text" id="deptName" value="${loginEmployeeVo.deptName}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>직급</label>
-                        <input type="text" id="positionN" />
+                        <input type="text" id="positionN" value="${loginEmployeeVo.positionName}" readonly/>
                     </div>
                     <div></div>
                     <div class="modal-cont">
                         <label>입사일</label>
-                        <input type="text" id="enterDate" />
+                        <input type="text" id="enterDate"  value="${loginEmployeeVo.enterDate}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>재직상태</label>
-                        <input type="text" id="status" />
+                        <input type="text" id="empStatus" value="${loginEmployeeVo.statusName}" readonly/>
                     </div>
                     <div></div>
                     <div class="modal-cont">
                         <label>퇴사일</label>
-                        <input type="text" id="outDate" />
+                        <input type="text" id="outDate" value="${loginEmployeeVo.outDate}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>연봉</label>
-                        <input type="text" id="salary" />
+                        <input type="text" id="salary" value="${loginEmployeeVo.salary}" readonly/>
                     </div>
                     <div></div>
                     <div class="modal-cont">
                         <label>은행명</label>
-                        <input type="text" id="bankN" />
+                        <input type="text" id="bankName" value="${loginEmployeeVo.bankName}" readonly/>
                     </div>
                     <div class="modal-cont">
                         <label>계좌번호</label>
-                        <input type="text" id="accountNume" />
+                        <input type="text" id="accountNo" value="${loginEmployeeVo.accountNo}" readonly/>
                     </div>
                     <div></div>
                     <div class="modal-cont">
                         <label>총휴가일수</label>
-                        <input type="text" id="totalVacationDays" />
+                        <input type="text" id="totalVacationDays" value="${loginEmployeeVo.totalVacationDays}" readonly/>
+                    </div>
+                    <div class="button-container">
+                        <button class="crud-button">비밀번호 변경</button>
+                        <button class="crud-button">프로필 수정</button>
                     </div>
                 </div>   
             </div>
