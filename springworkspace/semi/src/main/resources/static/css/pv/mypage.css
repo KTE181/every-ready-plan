@@ -652,7 +652,7 @@ body {
 }
 
 .crud-button {
-    font-size: 16px; /* 작은 글씨 크기 */
+    font-size: 14px; /* 작은 글씨 크기 */
     padding: 3px 10px; /* 버튼 안의 여백 */
     background-color: #416DFF; /* 버튼 배경색 */
     color: white; /* 버튼 글자색 */

@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/pv/mypage.css">
+    <script>
+        const contextPath = "${pageContext.request.contextPath}";
+    </script>
+    <script defer src="/js/pv/mypage.js"></script>
 </head>
 <body>
     <div class="container">
@@ -30,7 +34,7 @@
                     <div class="modal-subtitle">기본정보</div>
                     <div class="modal-profile">
                         <div class="modal-profile-index">
-                            <img src="${pageContext.request.contextPath}${loginEmployeeVo.profileImage}" alt="기본이미지" />
+                            <img src="${pageContext.request.contextPath}${loginEmployeeVo.profileImage}?${System.currentTimeMillis()}" alt="프로필 이미지">
                         </div>
                     </div>
                     
@@ -110,9 +114,11 @@
                         <label>총휴가일수</label>
                         <input type="text" id="totalVacationDays" value="${loginEmployeeVo.totalVacationDays}" readonly/>
                     </div>
+                    <div id="employeeData" data-employee-id="${loginEmployeeVo.no}"></div>
                     <div class="button-container">
-                        <button class="crud-button">비밀번호 변경</button>
-                        <button class="crud-button">프로필 수정</button>
+                        <button class="crud-button" onclick="">비밀번호 변경</button>
+                        <button class="crud-button" onclick="openFileInput()">프로필 수정</button>
+                        <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage()" />
                     </div>
                 </div>   
             </div>
