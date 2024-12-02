@@ -5,6 +5,7 @@ import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -119,4 +120,40 @@ public interface OverTimeMapper {
             WHERE E.NO=#{empNo}
             """)
     EmployeeVo selectvolist(String empNo);
+
+    @Select("""
+            SELECT
+            A.NO  ,
+            A.THISDATE  ,
+            A.EMP_NO  ,
+            B.NAME  NAME,
+            C.NAME  DNAME,
+            D.NAME  PNAME,
+            A.TYPE,
+            A.WORK_HOUR 
+             FROM OVERTIME A
+             JOIN EMPLOYEE B ON(A.EMP_NO = B.NO)
+             JOIN DEPARTMENT C ON (B.DEPT_CODE = C.NO)
+             JOIN POSITION D ON (B.POSITION_CODE = D.NO)
+             WHERE A.NO =#{no} AND A.DEL_YN='N'
+            """)
+    OverTimeVo detail(String no);
+
+    @Update("""
+            UPDATE OVERTIME
+            SET THISDATE = #{thisDate},
+            TYPE=#{type},
+            WORK_HOUR = TO_DATE(#{workHour}, 'HH24:MI')
+            WHERE NO = #{no}
+            """)
+    int edit(OverTimeVo alldata);
+
+    @Update("""
+            UPDATE OVERTIME
+            SET DEL_YN ='Y'
+            WHERE NO = #{no}
+            """)
+    int delete(String no);
+
+    int editAll(String[] dataArr);
 }

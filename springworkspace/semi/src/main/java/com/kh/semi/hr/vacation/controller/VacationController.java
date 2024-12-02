@@ -91,5 +91,14 @@ public class VacationController {
 
         return result;
     }
+    @DeleteMapping("del")
+    @ResponseBody
+    public String del(@RequestBody String[] dataArr){
+//        for (String s : dataArr) {
+//            System.out.println(s);
+//        }
+        int result = service.editAll(dataArr);
+        return "통신성공";
+    }
 
 }

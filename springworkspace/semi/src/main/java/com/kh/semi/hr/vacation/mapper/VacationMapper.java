@@ -211,4 +211,6 @@ public interface VacationMapper {
             WHERE NO=#{no}
             """)
     int delete(String no);
+
+    int editAll(String[] dataArr);
 }
