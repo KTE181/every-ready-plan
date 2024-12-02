@@ -9,6 +9,7 @@ public class ProductVo {
     private String itemCode;
     private String name;
     private String serialNumber;
+    private String quantity;
     private String price;
     private String warrantyPeriod;
     private String receivedDate;

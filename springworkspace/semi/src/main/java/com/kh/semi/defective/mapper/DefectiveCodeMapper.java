@@ -12,14 +12,6 @@ import java.util.List;
 @Mapper
 public interface DefectiveCodeMapper {
 
-    @Select("""
-            SELECT
-                NO,
-                NAME
-                FROM DEFECTIVE_CODE
-                ORDER BY NO ASC
-            """)
-    List<DefectiveCodeVo> getDefectiveCode();
 
     @Select("""
             SELECT
@@ -51,9 +43,9 @@ public interface DefectiveCodeMapper {
             UPDATE DEFECTIVE_CODE
                 SET
                 DEL_YN = 'Y'
-                WHERE NO IN (#{no})
+                WHERE NO IN (${x})
             """)
-    int delete(String bno);
+    int delete(String x);
 
 
 
@@ -64,4 +56,26 @@ public interface DefectiveCodeMapper {
                 WHERE NO = #{no}
             """)
     int edit(DefectiveCodeVo vo);
+
+
+    @Select("""
+            SELECT
+                NO
+                ,NAME
+                FROM DEFECTIVE_CODE
+                WHERE NO = #{no}
+            """)
+    DefectiveCodeVo findByNo(String defectiveCodeNo);
+
+
+    @Select("""
+            SELECT
+                NO,
+                NAME
+                FROM DEFECTIVE_CODE
+                WHERE DEL_YN = 'N'
+                ${str}
+                ORDER BY NO ASC
+            """)
+    List<DefectiveCodeVo> getDefectiveCodeList(String string);
 }
