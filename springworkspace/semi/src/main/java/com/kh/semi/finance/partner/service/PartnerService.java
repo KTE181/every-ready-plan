@@ -27,12 +27,18 @@ public class PartnerService {
         return mapper.getPartnerList();
     }
 
-//    public List<PartnerVo> getPartnerVoList() {
-//        return mapper.getPartnerVoList();
-//    }
-//
-//
-//    public List<PartnerVo> getPartnerList(Model model) {
-//        return mapper.getPartnerList();
-//    }
+    public PartnerVo getPartnerDetail(String partnerNo, Model model) {
+
+        PartnerVo vo = mapper.getPartnerDetail(partnerNo ,model);
+
+        return vo;
+    }
+
+    public int edit(PartnerVo vo) {
+        return mapper.edit(vo);
+    }
+
+    public int delete(String no) {
+        return mapper.delete(no);
+    }
 }

@@ -10,6 +10,9 @@
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/finance/partner/list.css">
+    <link rel="stylesheet" href="/css/finance/partner/detail.css">
+    <link rel="stylesheet" href="/css/finance/partner/edit.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script defer src="/js/finance/partner/list.js"></script>
 </head>
 <body>
@@ -46,6 +49,8 @@
                 </div>
 
 
+
+                <!-- List Area -->
                 <div class="middle-content-area">
                     <table class="list-area">
                         <thead>
@@ -59,27 +64,70 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach begin="1" end="14">
-                                <tr>
+                            <c:forEach items="${partnerVoList}" var="partnerVo">
+                                <tr id="partner-list" onclick="partnerDetail('${partnerVo}');">
                                     <td><input type="checkbox" name=""></td>
-                                    <td>111</td>
-                                    <td>456</td>
-                                    <td>정보통신업</td>
-                                    <td>KH 정보 아카데미</td>
-                                    <td>1234567890</td>
+                                    <td>${partnerVo.no}</td>
+                                    <td>${partnerVo.BUSINESS_CODE}</td>
+                                    <td>${partnerVo.BUSINESS_CODE}</td>
+                                    <td>${partnerVo.NAME}</td>
+                                    <td>${partnerVo.BIZ_REGIST_NO}</td>
+                                    <!-- 쿼리문 이름 포함해서 다시하기 아마 조인해서 업종을 신경써야할것-->
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                 </div>
 
-            <!-- Modal Area -->
 
-            <!-- Small modal -->
-            <%@ include file="/WEB-INF/views/common/modal.jsp" %> 
+             <!-- Bottom Area -->
+                <div class="bottom-content-area">
+                    <div><button class="crud-button-white">삭제</button></div>
+                    <div>
+                        <div class="pagination">
+                            <!-- 이전 페이지 버튼 -->
+                            <a href="#" class="page-button previous">&laquo;</a>
 
+                            <!-- 페이지 번호 버튼들 -->
+                            <a href="#" class="page-button active">1</a>
+                            <a href="#" class="page-button">2</a>
+                            <a href="#" class="page-button">3</a>
+                            <a href="#" class="page-button">4</a>
+                            <a href="#" class="page-button">5</a>
+                            <a href="#" class="page-button">6</a>
+                            <a href="#" class="page-button">7</a>
+                            <a href="#" class="page-button">8</a>
+                            <a href="#" class="page-button">9</a>
+                            <a href="#" class="page-button">10</a>
+                            <!-- 다음 페이지 버튼 -->
+                            <a href="#" class="page-button next">&raquo;</a>
+                         </div>
+                    </div>
+                    <div><button class="crud-button-white" id="partner-write-btn" onclick="partnerWrite();">등록</button>
+                </div>
+            </div>
 
+            <!-- Write Modal -->
+                <%@ include file="/WEB-INF/views/finance/partner/write.jsp" %>
+            <!-- Detail Modal -->
+            <div id = "partner-detail">
+                <form action='/finance/partner/delete' method="get" onsubmit="return confirm('삭제하시겠습니까?');">
+                <div class="detail-content">
+                </div>
+
+            <!-- Edit Modal -->
+            <div id="partner-edit">
+                <form id="partner-edit-form" action='/finance/partner/edit' method="post" onsubmit="return confirm('수정하시겠습니까?');">
+                <div class="edit-content">
+                </div>
+            </div>
+            </form>
+            </div>
+            
+            </div>
         </div>
     </div>
+            
+
 </body>
 </html>

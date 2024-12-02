@@ -4,6 +4,8 @@ import com.kh.semi.finance.partner.vo.PartnerVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -69,4 +71,43 @@ public interface PartnerMapper {
             ORDER BY P.NO DESC
             """)
     List<PartnerVo> getPartnerList();
+
+
+    @Select("""
+            SELECT
+            BUSINESS_CODE
+            ,NAME
+            ,BIZ_REGIST_NO
+            ,CEO_NAME
+            ,ADDRESS
+            ,DEL_YN
+            FROM PARTNER
+            WHERE NO = #{no}
+            """)
+    PartnerVo getPartnerDetail(String partnerNo, Model model);
+
+    @Update("""
+            UPDATE PARTNER
+            SET
+                DEL_YN = 'Y'
+                , MODIFY_DATE = SYSDATE
+            WHERE NO IN (#{no})
+            """)
+    int delete(String no);
+
+    @Update("""
+            UPDATE PARTNER
+            SET
+                BUSINESS_CODE = #{businessCode}
+                ,NAME = #{name}
+                ,BIZ_REGIST_NO = #{bizRegistNo}
+                ,CEO_NAME = #{ceoName}
+                ,ADDRESS = #{address}
+                FROM PARTNER
+            WHERE NO = #{no}
+            """)
+    int edit(PartnerVo vo);
+
+
+
 }

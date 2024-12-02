@@ -18,7 +18,7 @@ public class AccountService {
         return mapper.write(vo);
     }
 
-    public List<AccountVo> getAccountVoList() {
+    public List<AccountVo> getAccountList() {
         return mapper.selectAccountVoList();
     }
 
@@ -29,4 +29,6 @@ public class AccountService {
     public AccountVo getAccountDetail(String accountNo, Model model) {
         return mapper.getAcccountDetail();
     }
+
+
 }
