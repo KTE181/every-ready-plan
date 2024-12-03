@@ -1,6 +1,7 @@
 package com.kh.semi.hr.overtime.mapper;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import com.kh.semi.pb.vo.PageVo;
 import org.apache.ibatis.annotations.Insert;
@@ -13,25 +14,8 @@ import java.util.List;
 @Mapper
 public interface OverTimeMapper {
 
-    @Select("""
-            SELECT
-            A.NO  ,
-            A.THISDATE  ,
-            A.EMP_NO  ,
-            B.NAME  NAME,
-            C.NAME  DNAME,
-            D.NAME  PNAME,
-            A.TYPE,
-            A.WORK_HOUR 
-             FROM OVERTIME A
-             JOIN EMPLOYEE B ON(A.EMP_NO = B.NO)
-             JOIN DEPARTMENT C ON (B.DEPT_CODE = C.NO)
-             JOIN POSITION D ON (B.POSITION_CODE = D.NO)
-             WHERE A.DEL_YN='N'
-             ORDER BY A.NO DESC
-            OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
-            """)
-    List<OverTimeVo> selectAll(PageVo pvo);
+
+    List<OverTimeVo> selectAll(PageVo pvo, SearchVo searchVo);
 
     @Select("""
             

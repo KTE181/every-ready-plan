@@ -1,6 +1,7 @@
 package com.kh.semi.hr.overtime.controller;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.overtime.service.OverTimeService;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import com.kh.semi.pb.vo.PageVo;
@@ -53,7 +54,9 @@ public class OverTimeController{
 
 
     @GetMapping("list")
-    public String list(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage){
+    public String list(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
+                       SearchVo searchVo){
+
 
         int listCount = service.getOverTimeCnt();
         int pageLimit = 5;
@@ -62,7 +65,7 @@ public class OverTimeController{
 
         System.out.println(pvo);
 
-        List<OverTimeVo> listVo = service.list(pvo);
+        List<OverTimeVo> listVo = service.list(pvo,searchVo);
 
 
         int listCount2 = service.getEmpCnt();
