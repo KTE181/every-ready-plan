@@ -102,3 +102,78 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+//조직도 이동
+document.querySelector('.dropdown-menu li:nth-child(1)').addEventListener("click",()=>{
+  location.href="/organization";
+})
+//연혁도 이동
+document.querySelector('.dropdown-menu li:nth-child(2)').addEventListener("click",()=>{
+  location.href="/history";
+})
+//직원 검색
+document.querySelector('.dropdown-menu li:nth-child(3)').addEventListener("click",()=>{
+  location.href="/employee";
+})
+
+
+
+
+
+//사이드바 마이페이지 이동
+document.querySelector('.dropdown-menu1 li:nth-child(1)').addEventListener("click",()=>{
+  location.href="/mypage";
+})
+//초과근무 이동
+document.querySelector('.dropdown-menu2 li:nth-child(3)').addEventListener("click",()=>{
+  location.href="/api/hr/overtime/list";
+})
+//휴가 이동
+document.querySelector('.dropdown-menu2 li:nth-child(4)').addEventListener("click",()=>{
+  location.href="/api/hr/vacation/list";
+})
+//급여 이동
+document.querySelector('.dropdown-menu2 li:nth-child(5)').addEventListener("click",()=>{
+  location.href="/api/hr/salary/list";
+})
+
+
+
+
+
+//상품관리 이동
+document.querySelector('.dropdown-menu3 li:nth-child(1)').addEventListener("click",()=>{
+  location.href="/qa/product/list";
+})
+//재고 현황 조회 이동
+document.querySelector('.dropdown-menu3 li:nth-child(2)').addEventListener("click",()=>{
+  location.href="/qa/productcnt/list";
+})
+//AS요청관리 이동
+document.querySelector('.dropdown-menu3 li:nth-child(4)').addEventListener("click",()=>{
+  location.href="/qa/asreq/list";
+})
+//담당자 관리 이동
+document.querySelector('.dropdown-menu3 li:nth-child(7)').addEventListener("click",()=>{
+  location.href="/qa/asemp/list";
+})
+//불량코드 관리 이동
+document.querySelector('.dropdown-menu3 li:nth-child(8)').addEventListener("click",()=>{
+  location.href="/qa/defectivecode/list";
+})
+
+
+
+
+
+
+//거래처 관리 이동
+document.querySelector('.dropdown-menu4 li:nth-child(1)').addEventListener("click",()=>{
+  location.href="/finance/partner/list";
+})
+//회사계좌 관리 이동
+document.querySelector('.dropdown-menu4 li:nth-child(2)').addEventListener("click",()=>{
+  location.href="/finance/account/list";
+})
+
+

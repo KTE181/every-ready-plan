@@ -152,6 +152,7 @@ public class SalaryController {
         int currentPage = Integer.parseInt(pno);
         int listCount2 = service.getEmpCnt();
         int pageLimit2 = 5;
+
         int boardLimit2 = 10;
         PageVo pvo = new PageVo(listCount2, currentPage, pageLimit2, boardLimit2);
 
