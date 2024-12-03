@@ -34,40 +34,48 @@
                                 <div class="top-title-area">
                                     <div class="menu-name">급여 관리</div>
                                     <div>
-                                        <form action="" class="top-title-area-form">
+                                        <form action="/api/hr/salary/list" method="get" class="top-title-area-form">
                                             <!-- <label for="">연월일</label> -->
                                             <!-- <div class="search-bar"><input type="text" name="year" maxlength="4" placeholder="연도"></div>
                                                 <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
                                                 <div class="search-bar"><input type="text" name="day" maxlength="2" placeholder="일"></div> -->
 
-                                            <label for="연월 date"></label>
-                                            <div class="search-bar"><input type="month" name=""></div>
-
-                                            <label for="연월일 date"></label>
-                                            <div class="search-bar"><input type="date" name=""></div>
-
-                                            <label for="select"></label>
-                                            <div class="search-bar">
-                                                <select name="" id="">
-                                                    <option value="1">소속부서 전체</option>
-                                                    <option value="2">재무팀</option>
-                                                    <option value="2">인사팀</option>
-                                                </select>
-                                            </div>
-
-                                            <label for="검색어"></label>
-                                            <div class="search-bar">
-                                                <select name="searchType" id="">
-                                                    <option value="1">제목</option>
-                                                    <option value="2">내용</option>
-                                                    <option value="2">제목+내용</option>
-                                                </select>
-                                            </div>
-                                            <div class="search-bar"><input type="search" id="longbar"></div>
-                                            <div class="search-bar"><button class="button">검색</button></div>
-                                        </form>
+                                                <label for="연월 date"></label>
+                                                <div class="search-bar"><input type="month" name="searchMonth"></div>
+    
+                                                <label for="연월일 date"></label>
+                                                <div class="search-bar"></div>
+    
+                                                <label for="select"></label>
+                                                <div class="search-bar">
+                                                    <select name="searchOption" id="">
+                                                        <option value="" selected>부서</option>
+                                                        <option value="1">인사팀</option>
+                                                        <option value="2">품질팀</option>
+                                                        <option value="3">재무팀</option>
+                                                        <option value="4">마케팅</option>
+                                                        <option value="5">CS</option>
+                                                        <option value="6">헬프데스크</option>
+                                                        <option value="7">경영</option>
+                                                        <option value="8">기획</option>
+                                                        <option value="9">디자인</option>
+                                                
+                                                    </select>
+                                                </div>
+    
+                                                <label for="검색어"></label>
+                                                <div class="search-bar">
+                                                    <select name="searchType" id="">
+                                                        <option value="" selected>카테고리</option>
+                                                        <option value="A.EMP_NO">사원번호</option>
+                                                        <option value="B.NAME">이름</option>
+                                                    </select>
+                                                </div>
+                                                <div class="search-bar"><input type="searchValue" id="longbar" name="searchValue"></div>
+                                                <div class="search-bar"><button class="searchbutton">검색</button></div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
 
                                 <!-- List Area -->
 
@@ -147,13 +155,13 @@
                                             <!-- 페이지 번호 버튼들 -->
                                             <div class="pagination">
                                                 <c:if test="${pvo.startPage != 1}">
-                                                    <a href="/api/hr/salary/list?pno=${pvo.startPage-1}&searchValue=${searchValue}" class="page-button previous">&laquo;</a>
+                                                    <a href="/api/hr/salary/list?pno=${pvo.startPage-1}" class="page-button previous">&laquo;</a>
                                                 </c:if>
                                                 <c:forEach begin="${pvo.startPage}" end="${pvo.endPage}" var="i" step="1">
-                                                    <a href="/api/hr/salary/list?pno=${i}&searchValue=${searchValue}" class="page-button">${i}</a>
+                                                    <a href="/api/hr/salary/list?pno=${i}" class="page-button">${i}</a>
                                                 </c:forEach>
                                                 <c:if test="${pvo.endPage != pvo.maxPage}">
-                                                    <a href="/api/hr/salary/list?pno=${pvo.endPage+1}&searchValue=${searchValue}" class="page-button next">&raquo;</a>
+                                                    <a href="/api/hr/salary/list?pno=${pvo.endPage+1}" class="page-button next">&raquo;</a>
                                                 </c:if>
                                             </div>
                                            

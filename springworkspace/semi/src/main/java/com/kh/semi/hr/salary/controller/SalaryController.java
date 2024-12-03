@@ -1,6 +1,7 @@
 package com.kh.semi.hr.salary.controller;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.salary.service.SalaryService;
 import com.kh.semi.hr.salary.vo.SalaryVo;
 import com.kh.semi.pb.vo.PageVo;
@@ -20,7 +21,18 @@ public class SalaryController {
     private final SalaryService service;
 
     @GetMapping("list")
-    public String listAll(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage){
+    public String listAll(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
+                          SearchVo searchVo){
+
+        if(searchVo.getSearchMonth()!=null){
+            String resetdate=searchVo.getSearchMonth();
+            String formattedPayYearmonth = resetdate.replace("-", "");
+            System.out.println(formattedPayYearmonth);
+            searchVo.setSearchMonth(formattedPayYearmonth);
+        }
+
+
+        System.out.println(searchVo);
 
         int listCount = service.getSalaryCnt();
         int pageLimit = 5;
@@ -28,7 +40,7 @@ public class SalaryController {
         PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
 
-        List<SalaryVo> SalaryVoList = service.listAll(pvo);
+        List<SalaryVo> SalaryVoList = service.listAll(pvo,searchVo);
 
 
 

@@ -1,6 +1,7 @@
 package com.kh.semi.hr.salary.mapper;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.salary.vo.SalaryVo;
 import com.kh.semi.pb.vo.PageVo;
 import org.apache.ibatis.annotations.Insert;
@@ -14,35 +15,8 @@ import java.util.List;
 @Mapper
 public interface SalaryMapper {
 
-    @Select("""
-            SELECT
-                A.NO ,
-                A.PAY_YEARMONTH ,
-                A.EMP_NO ,
-                B.NAME ENAME,
-                D.NAME DNAME,
-                C.NAME PNAME,
-                A.BASIC ,
-                A.MEAL_ALLOWANCE ,
-                A.COMMUNICATION_COST ,
-                (A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) AS PAYMENT,
-                A.NATIONAL_PENSION ,
-                A.HEALTH_INSURANCE ,
-                A.EMPLOYMENT_INSURANCE ,
-                A.LONGTERM_CARE_INSURANCE ,
-                A.INCOME_TAX ,
-                A.LOCAL_TAXES ,
-                (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)AS DEDUCTIONS,
-                ((A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) - (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)) AS NETPAYMENT
-                FROM SALARY A
-                JOIN EMPLOYEE B ON (A.EMP_NO = B.NO)
-                JOIN POSITION C ON (B.POSITION_CODE= C.NO)
-                JOIN DEPARTMENT D ON (B.DEPT_CODE = D.NO)
-                WHERE A.DEL_YN = 'N'
-                ORDER BY A.NO DESC
-                OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
-            """)
-         List<SalaryVo> listAll(PageVo pvo);
+
+         List<SalaryVo> listAll(PageVo pvo, SearchVo searchVo);
 
 
     //사원정보 가져오기
