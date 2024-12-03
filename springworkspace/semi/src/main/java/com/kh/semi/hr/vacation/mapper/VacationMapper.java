@@ -107,7 +107,7 @@ public interface VacationMapper {
             JOIN DEPARTMENT D ON(E.DEPT_CODE = D.NO)
             JOIN POSITION P ON(E.POSITION_CODE = P.NO)
             JOIN EMP_STATUS ES ON(E.STATUS_CODE =ES.NO)
-            WHERE E.NO=#{empNo}
+            WHERE E.NO=#{empNo} AND DEL_YN='N'
             """)
     EmployeeVo selectvolist(String empNo);
 
@@ -225,4 +225,7 @@ public interface VacationMapper {
                         OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
             """)
     List<EmployeeVo> getEmplistdata(PageVo pvo);
+
+
+    EmployeeVo selectEmpVo(String searchEmpNo, String searchEname);
 }

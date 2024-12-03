@@ -58,4 +58,44 @@
     ORDER BY A.NO DESC
     OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
     </select>
+    <select id="selectEmpVo">
+        SELECT
+        E.NO,
+        PROFILE_IMAGE,
+        PWD,
+        E.NAME,
+        BIRTH,
+        GENDER,
+        EMAIL,
+        PHONE,
+        EMERGENCY_PHONE,
+        ADDRESS,
+        DEPT_CODE,
+        D.NAME AS DNAME,
+        POSITION_CODE,
+        P.NAME AS PNAME,
+        SALARY,
+        BANK_CODE,
+        ACCOUNT_NO,
+        TOTAL_VACATION_DAYS,
+        STATUS_CODE,
+        ES.NAME AS ESNAME,
+        ENTER_DATE,
+        OUT_DATE,
+        ENROLL_DATE,
+        MODIFY_DATE,
+        DEL_YN
+        FROM EMPLOYEE  E
+        JOIN DEPARTMENT D ON(E.DEPT_CODE = D.NO)
+        JOIN POSITION P ON(E.POSITION_CODE = P.NO)
+        JOIN EMP_STATUS ES ON(E.STATUS_CODE =ES.NO)
+        WHERE 1=1 AND DEL_YN='N'
+
+        <if test="searchEmpNo != null and searchEmpNo !='' ">
+            AND E.NO = #{searchEmpNo}
+        </if>
+        <if test="searchEname != null and searchEname !='' ">
+            AND E.NAME = #{searchEname}
+        </if>
+    </select>
 </mapper>

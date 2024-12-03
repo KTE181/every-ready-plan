@@ -193,4 +193,6 @@ public interface OverTimeMapper {
                         OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
             """)
     List<EmployeeVo> getEmplistdata(PageVo pvo);
+
+    EmployeeVo selectEmpVo(String searchEmpNo, String searchEname);
 }

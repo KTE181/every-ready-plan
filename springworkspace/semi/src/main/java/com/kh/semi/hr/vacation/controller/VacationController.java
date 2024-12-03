@@ -135,11 +135,20 @@ public class VacationController {
 
         List<EmployeeVo> empVoList = service.getEmplistdata(pvo);
 
-        for (EmployeeVo employeeVo : empVoList) {
-            System.out.println("employeeVo = " + employeeVo);
-
-        }
+//        for (EmployeeVo employeeVo : empVoList) {
+//            System.out.println("employeeVo = " + employeeVo);
+//
+//        }
         return empVoList;
+    }
+    @PostMapping("getEmplistdata")
+    @ResponseBody
+    public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
+        System.out.println(searchEmpNo);
+        System.out.println(searchEname);
+
+        EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
+        return vo;
     }
 
 }

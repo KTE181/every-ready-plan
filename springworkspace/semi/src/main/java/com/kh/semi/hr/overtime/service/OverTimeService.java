@@ -60,4 +60,8 @@ public class OverTimeService {
     public List<EmployeeVo> getEmplistdata(PageVo pvo) {
         return mapper.getEmplistdata(pvo);
     }
+
+    public EmployeeVo selectEmpVo(String searchEmpNo, String searchEname) {
+        return mapper.selectEmpVo(searchEmpNo,searchEname);
+    }
 }

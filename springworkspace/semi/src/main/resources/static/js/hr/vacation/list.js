@@ -330,16 +330,23 @@ tbodyTag.addEventListener("click",(evt)=>{
     function loadPage(pageNumber) {
       // 검색 값이 있다면 함께 보내도록 처리
       // const searchValue = document.querySelector('input[name="searchValue"]').value;
-      console.log(pageNumber);
-      console.log(pageNumber.dataset.page);
+      // console.log(pageNumber);
+      // console.log(pageNumber.dataset.page);
+      let pno=0;
+      if(pageNumber==1){
+
+        pno = 1;
+      }else{
+        pno =pageNumber.dataset.page;
+      }
       
     
       $.ajax({
           url: `/api/hr/vacation/getEmplistdata`,  // 서버에서 페이징 데이터를 가져오는 엔드포인트
           method: 'GET',  // GET 요청
           data: {
-              pno: pageNumber.dataset.page  ,  // 페이지 번호
-              // searchValue: searchValue  // 검색값 (필요한 경우)
+              pno: pno  ,  // 페이지 번호
+             
           },
           success: function(data) {
               // 서버에서 받은 데이터로 테이블 업데이트
@@ -372,7 +379,61 @@ tbodyTag.addEventListener("click",(evt)=>{
    
    
 
+
+    //조회버튼 클릭시에 요청보내고 값가져오기
   
+    const choiceBtn = document.querySelector("#searchEmpbar #choice");
+    const searchEmpNo = document.querySelector(".btnmodal-title input[name=searchEmpNo]");
+    const searchEname = document.querySelector(".btnmodal-title input[name=searchEname]");
+    choiceBtn.addEventListener("click",()=>{
+     
+      console.log(searchEmpNo.value);
+      console.log(searchEname.value);
+      
+      if(searchEmpNo.value=='' && searchEname.value==''){
+        loadPage(1);
+        return;
+      }
+    
+      
+      $.ajax({
+        url: `/api/hr/vacation/getEmplistdata`,  // 서버에서 페이징 데이터를 가져오는 엔드포인트
+        method: 'POST',  // GET 요청
+        data: {
+          searchEmpNo:searchEmpNo.value,
+          searchEname:searchEname.value, // 페이지 번호
+           
+        },
+        success: function(data) {
+            // 서버에서 받은 데이터로 테이블 업데이트
+            console.log("통신성공");
+            console.log(data);
+            updateTable2(data);
+           
+        },
+        error: function(xhr, status, error) {
+            console.error("페이징 데이터 로드 실패:", error);
+        }
+    });
+      
+    })
+    function updateTable2(data) {
+      const tableBody = document.querySelector('.btnmodal-main table tbody');
+      tableBody.innerHTML = ''; // 테이블 내용 초기화
+    
+      // 받은 데이터로 테이블 행 추가
+          
+          const row = document.createElement('tr');
+          row.innerHTML = `
+              <td><a href="#" id="empNo_${data.no}" onclick="changeEmpNo(this);">${data.no}</a></td>
+              <td>${data.name}</td>
+              <td>${data.dname}</td>
+              <td>${data.pname}</td>
+          `;
+          tableBody.appendChild(row);
+       
+    }
+    
   
   // $.ajax({
   //   url:,
