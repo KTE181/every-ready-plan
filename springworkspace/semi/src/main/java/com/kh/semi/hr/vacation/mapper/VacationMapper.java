@@ -1,6 +1,7 @@
 package com.kh.semi.hr.vacation.mapper;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.vacation.vo.VacationVo;
 import com.kh.semi.pb.vo.PageVo;
 import org.apache.ibatis.annotations.Insert;
@@ -16,52 +17,8 @@ public interface VacationMapper {
 
 
 
-    @Select("""
-            SELECT
-                    A.NO ,
-                    A.THISDATE,
-                    A.EMP_NO,
-                    B.NAME AS ENAME,
-                    C.NAME  AS DNAME,
-                    D.NAME AS PNAME,
-                    E.NAME AS TYPE,
-                    B.TOTAL_VACATION_DAYS AS ALL_VACATION,
-                    (SELECT
-                    SUM(CASE
-                    WHEN CODE = 2 THEN 0.5
-                    ELSE 1               
-                    END) AS TOTAL_COUNT
-                    FROM VACATION_LOG
-                    WHERE EMP_NO = A.EMP_NO
-                    AND CODE NOT IN (3)
-                    GROUP BY EMP_NO) AS USE_VACATION,
-                    B.TOTAL_VACATION_DAYS - COALESCE(
-                        (SELECT
-                            SUM(
-                                CASE
-                                    WHEN CODE = 2 THEN 0.5
-                                    ELSE 1
-                                END
-                            ) AS TOTAL_COUNT
-                        FROM VACATION_LOG
-                        WHERE EMP_NO = A.EMP_NO
-                          AND CODE NOT IN (3)
-                        GROUP BY EMP_NO),
-                            0
-                        ) AS VACATION,
-                    A.REASON ,
-                    A.ENROLL_DATE,
-                    A.MODIFY_DATE,
-                    A.DEL_YN FROM VACATION_LOG A
-                    JOIN EMPLOYEE B ON(A.EMP_NO = B.NO)
-                    JOIN DEPARTMENT C ON (B.DEPT_CODE = C.NO)
-                    JOIN POSITION D ON (B.POSITION_CODE = D.NO)
-                    JOIN VACATION_TYPE E ON(A.CODE =E.NO)
-                    WHERE A.DEL_YN ='N'
-                    ORDER BY A.NO DESC
-                    OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
-            """)
-    List<VacationVo> list(PageVo pvo);
+
+    List<VacationVo> list(PageVo pvo, SearchVo searchVo);
 
     @Insert("""
             INSERT INTO VACATION_LOG(

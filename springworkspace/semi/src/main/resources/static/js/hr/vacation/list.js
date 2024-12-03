@@ -371,24 +371,7 @@ tbodyTag.addEventListener("click",(evt)=>{
     }
    
    
-const searchBtn = document.querySelector(".searchbutton");
 
-searchBtn.addEventListener("click",()=>{
-  
-  const searchMonth = document.querySelector("input[name=search-month]");
-  const searchYear = document.querySelector("input[name=search-year]");
-  const searchOption = document.querySelector("input[name=search-option]");
-  const searchType = document.querySelector("input[name=searchType]");
-  const searchValue = document.querySelector("input[name=searchValue]");
-
-
-
-  console.log(searchMonth.value);
-  console.log(searchYear.value);
-  console.log(searchOption.value);
-  console.log(searchType.value);
-  console.log(searchValue.value);
-  return false;
   
   
   // $.ajax({
@@ -406,5 +389,3 @@ searchBtn.addEventListener("click",()=>{
   // })
   
 
-  
-})

@@ -42,7 +42,7 @@
                                                 <div class="search-bar"><input type="text" name="day" maxlength="2" placeholder="일"></div> -->
 
                                             <label for="연월 date"></label>
-                                            <div class="search-bar"><input type="month" name="searchMonth"></div>
+                                            <div class="search-bar"></div>
 
                                             <label for="연월일 date"></label>
                                             <div class="search-bar"><input type="date" name="searchYear"></div>
@@ -50,18 +50,26 @@
                                             <label for="select"></label>
                                             <div class="search-bar">
                                                 <select name="searchOption" id="">
-                                                    <option value="1">재무팀</option>
-                                                    <option value="2">인사팀</option>
-                                                    <option value="3">품질팀</option>
+                                                    <option value="" selected>부서</option>
+                                                    <option value="1">인사팀</option>
+                                                    <option value="2">품질팀</option>
+                                                    <option value="3">재무팀</option>
+                                                    <option value="4">마케팅</option>
+                                                    <option value="5">CS</option>
+                                                    <option value="6">헬프데스크</option>
+                                                    <option value="7">경영</option>
+                                                    <option value="8">기획</option>
+                                                    <option value="9">디자인</option>
+                                            
                                                 </select>
                                             </div>
 
                                             <label for="검색어"></label>
                                             <div class="search-bar">
                                                 <select name="searchType" id="">
-                                                    <option value="1">제목</option>
-                                                    <option value="2">내용</option>
-                                                    <option value="2">제목+내용</option>
+                                                    <option value="" selected>카테고리</option>
+                                                    <option value="A.EMP_NO">사원번호</option>
+                                                    <option value="B.NAME">이름</option>
                                                 </select>
                                             </div>
                                             <div class="search-bar"><input type="searchValue" id="longbar" name="searchValue"></div>

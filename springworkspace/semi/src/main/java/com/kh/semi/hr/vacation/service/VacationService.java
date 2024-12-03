@@ -1,6 +1,7 @@
 package com.kh.semi.hr.vacation.service;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.vacation.mapper.VacationMapper;
 import com.kh.semi.hr.vacation.vo.VacationVo;
 import com.kh.semi.pb.vo.PageVo;
@@ -17,8 +18,8 @@ public class VacationService {
 
     private final VacationMapper mapper;
 
-    public List<VacationVo> list(PageVo pvo) {
-        return mapper.list(pvo);
+    public List<VacationVo> list(PageVo pvo, SearchVo searchVo) {
+        return mapper.list(pvo,searchVo);
     }
 
     public int insert(VacationVo vo) {

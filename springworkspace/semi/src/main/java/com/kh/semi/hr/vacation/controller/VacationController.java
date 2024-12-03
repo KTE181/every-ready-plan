@@ -1,6 +1,7 @@
 package com.kh.semi.hr.vacation.controller;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.vacation.service.VacationService;
 import com.kh.semi.hr.vacation.vo.VacationVo;
 import com.kh.semi.pb.vo.PageVo;
@@ -45,14 +46,11 @@ public class VacationController {
 
 
     @GetMapping("list")
-    public String list(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
-                       String searchMonth,String searchYear,String searchOption,String searchType, String searchValue) {
-        String str = "";
-        System.out.println("searchMonth :" +searchMonth);
-        System.out.println("searchYear : "+ searchYear);
-        System.out.println("searchOption : "+searchOption);
-        System.out.println("searchType :"+searchType);
-        System.out.println("searchValue :"+searchValue);
+    public String list(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
+                       SearchVo searchVo) {
+
+        System.out.println(searchVo);
+
 
 
 
@@ -63,7 +61,7 @@ public class VacationController {
 
         System.out.println(pvo);
 
-        List<VacationVo> listVo = service.list(pvo);
+        List<VacationVo> listVo = service.list(pvo,searchVo);
 
         int listCount2 = service.getEmpCnt();
         int currentPage2 = 1;
