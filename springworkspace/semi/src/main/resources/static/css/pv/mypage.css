@@ -320,13 +320,7 @@ body {
 
 /*********************** 하단 버튼/페이징 영역 시작 **************************/
 
-.bottom-content-area{
-    display: grid;
-    grid-template-columns: 8% 8% 8% 50% 12% 12%;
-    justify-content: center; /* 전체 그리드 정렬 (선택 사항) */
-    justify-items: center;  /* 각 칸 안의 수평 정렬 */
-    align-items: center;    /* 각 칸 안의 수직 정렬 */
-}
+
 
 
 
@@ -525,6 +519,7 @@ body {
     font-weight: bold;
     justify-content: center;
     text-align: left;
+    margin-left: 20px;
   
   }
   
@@ -536,6 +531,7 @@ body {
     justify-content: flex-start; /* 수평 정렬: 왼쪽 정렬 */
     align-items: center; /* 수직 정렬: 중앙 정렬 */
     text-align: left;
+    margin-left: 20px;
     color: rgb(41, 102, 216);
   }
   
@@ -568,13 +564,13 @@ body {
     justify-content: flex-end;
     align-items: center;
     font-size: 1.2em;
-    margin-bottom: 1.5em; /* 행 간 간격 */
-    margin-left: 20px;
-    
+    margin-right: 30px;
+
   }
   
+  
   .modal-long{
-    display: grid;
+    display: flex;
     grid-column: 2 / 4;
     justify-content: center;
     position: relative;
@@ -588,6 +584,15 @@ body {
   .modal-long input {
     width: 500px; /* 원하는 너비 값으로 수정 */
     background-color: rgb(223, 223, 223);
+    margin-right: 10px; /* 라벨과 입력 필드 간격 설정 */
+  }
+  .modal-long label {
+    margin-right: 10px; /* 라벨과 입력 필드 간격 설정 */
+    text-align: left; /* 텍스트 좌측 정렬 */
+  }
+  input[readonly] {
+    background-color: rgb(223, 223, 223);
+      pointer-events: none; /* 포인터 비활성화 */
   }
 
   
@@ -614,16 +619,7 @@ body {
   }
 
   
-  /* 버튼을 우측 정렬 */
-  .button-container {
-    display: flex; /* 플렉스 컨테이너 */
-    width: 130px; /* 버튼 너비 */
-    height: 50px; /* 버튼 높이 */
-    font-size: 1.5em; /* 폰트 크기 (기본 크기의 1.5배) */
-    margin-top: 20px; /* 버튼 위쪽 간격 */
-    cursor: pointer; /* 마우스 커서 모양 변경 */
-    justify-content: right; /* 우측 정렬 */
-  }
+
   
   
   /* 닫기 버튼 */
@@ -639,4 +635,53 @@ body {
   .modal-close:hover {
     color: black;
   }
+
+  /****************버튼관련********************/
+  /* 버튼을 우측 정렬 */
+  .button-container {
+    display: flex; /* 플렉스 컨테이너 */
+    justify-content: flex-end;
+    align-items: center; /* 수직 가운데 정렬 */
+    gap: 40px; /* 버튼 간의 간격 */
+    margin-right: 80px;
+
+  }
+  
+.crud-button:focus {
+    background-color: #416DFF; /* 더 어두운 파란색으로 변경 */
+}
+
+.crud-button {
+    font-size: 14px; /* 작은 글씨 크기 */
+    padding: 3px 10px; /* 버튼 안의 여백 */
+    background-color: #416DFF; /* 버튼 배경색 */
+    color: white; /* 버튼 글자색 */
+    border: none; /* 테두리 제거 */
+    border-radius: 15px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 포인터 모양 */
+    width: 120px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    font-weight: bold; /* 글자 굵게 */
+    
+}
+
+/* 등록 수정 삭제 버튼 */
+.crud-button-white {
+    font-size: 15px; /* 작은 글씨 크기 */
+    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
+    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
+    color: black; /* 버튼 글자색 (흰색) */
+    border-radius: 20px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    border: 1px solid #416DFF; ;
+    width: 70px;
+    height: 38px;
+    margin-bottom: 8px;
+}
+
+.crud-button-white:hover {
+    background-color: #416DFF; /* 회색 배경 */
+    color: white; 
+    font-weight: bold;
+}
   

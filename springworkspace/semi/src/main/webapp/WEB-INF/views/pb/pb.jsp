@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/pb/pb.css">
+    <link rel="stylesheet" href="/css/common/index.css">
 </head>
 <body>
     <div class="container">

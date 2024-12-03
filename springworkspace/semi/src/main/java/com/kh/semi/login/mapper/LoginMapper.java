@@ -8,33 +8,42 @@ import org.apache.ibatis.annotations.Select;
 public interface LoginMapper {
 
     @Select("""
-            SELECT
-                NO
-                ,PROFILE_IMAGE
-                ,PWD
-                ,NAME
-                ,BIRTH
-                ,GENDER
-                ,EMAIL
-                ,PHONE
-                ,EMERGENCY_PHONE
-                ,ADDRESS
-                ,DEPT_CODE
-                ,POSITION_CODE
-                ,SALARY
-                ,BANK_CODE
-                ,ACCOUNT_NO
-                ,TOTAL_VACATION_DAYS
-                ,STATUS_CODE
-                ,ENTER_DATE
-                ,OUT_DATE
-                ,ENROLL_DATE
-                ,MODIFY_DATE
-                ,DEL_YN
-            FROM EMPLOYEE
-            WHERE EMAIL = #{email}
-            AND PWD = #{pwd}
-            AND DEL_YN = 'N'
-            """)
+SELECT
+            e.NO
+            ,e.PROFILE_IMAGE
+            ,e.PWD
+            ,e.NAME
+            ,e.BIRTH
+            ,e.GENDER
+            ,e.EMAIL
+            ,e.PHONE
+            ,e.EMERGENCY_PHONE
+            ,e.ADDRESS
+            ,e.DEPT_CODE
+            ,d.NAME AS DEPT_NAME
+            ,e.POSITION_CODE
+            ,p.NAME AS POSITION_NAME
+            ,e.SALARY
+            ,e.BANK_CODE
+            ,b.NAME AS BANK_NAME
+            ,e.ACCOUNT_NO
+            ,e.TOTAL_VACATION_DAYS
+            ,e.STATUS_CODE
+            ,s.NAME AS STATUS_NAME
+            ,e.ENTER_DATE
+            ,e.OUT_DATE
+            ,e.ENROLL_DATE
+            ,e.MODIFY_DATE
+            ,e.DEL_YN
+        FROM EMPLOYEE e
+        LEFT JOIN DEPARTMENT d ON e.DEPT_CODE = d.NO
+        LEFT JOIN POSITION p ON e.POSITION_CODE = p.NO
+        LEFT JOIN EMP_STATUS s ON e.STATUS_CODE = s.NO
+        LEFT JOIN BANK b ON e.BANK_CODE = b.NO
+        WHERE e.EMAIL = #{email}
+        AND e.PWD = #{pwd}
+        AND e.DEL_YN = 'N'
+        """)
     LoginVo login(LoginVo vo);
+
 }
