@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("fi/inc/")
+@RequestMapping("finance/inc/")
 public class IncController {
 
     private final IncService service;

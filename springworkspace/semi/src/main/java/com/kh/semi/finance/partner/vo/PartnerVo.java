@@ -8,6 +8,7 @@ public class PartnerVo {
     private String businessCode;
     private String name;
     private String bizRegistNo;
+    private String bizType;
     private String ceoName;
     private String address;
     private String delYn;

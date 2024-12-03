@@ -1,10 +1,8 @@
 package com.kh.semi.finance.account.mapper;
 
 import com.kh.semi.finance.account.vo.AccountVo;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -51,7 +49,35 @@ public interface AccountMapper {
             DELETE FROM ACCOUNT
             WHERE NO = #{no}
             """)
-    int del(String bno);
+    int del(String no);
+
+//    @Select("""
+//            SELECT
+//                ACCOUNT.NO,
+//                ACCOUNT.ACCOUNT_NAME,
+//                ACCOUNT.ACCOUNT_NO,
+//                ACCOUNT.BANK_CODE AS BANK_CODE,
+//                BANK.NAME AS BANKNAME
+//            FROM
+//                ACCOUNT ACCOUNT
+//            JOIN
+//                BANK BANK
+//            ON
+//                ACCOUNT.BANK_CODE = BANK.NO
+//            WHERE BANK.NO = #{no}
+//            """)
+//    AccountVo getAccountDetail();
+
+
+    @Update("""
+            UPDATE ACCOUNT
+            SET
+            BANK_CODE = #{bankCode}
+            ,ACCOUNT_NAME = #{accountName}
+            ,ACCOUNT_NO = #{accountNo}
+            WHERE NO = #{no}
+            """)
+    int edit(AccountVo vo);
 
     @Select("""
             SELECT
@@ -66,7 +92,7 @@ public interface AccountMapper {
                 BANK BANK
             ON
                 ACCOUNT.BANK_CODE = BANK.NO
-            WHERE BANK.NO = #{no}
+            WHERE ACCOUNT.NO = #{no}
             """)
-    AccountVo getAcccountDetail();
+    AccountVo getAccountDetail(String no, Model model);
 }

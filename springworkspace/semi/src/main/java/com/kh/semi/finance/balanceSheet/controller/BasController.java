@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("fi/bas/")
+@RequestMapping("finance/bas/")
 public class BasController {
     private final BasService service;
 
