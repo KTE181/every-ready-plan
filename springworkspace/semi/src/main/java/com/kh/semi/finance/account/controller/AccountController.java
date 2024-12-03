@@ -64,7 +64,7 @@ public class AccountController {
     // 은행 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public AccountVo getAccountDetail(String no, Model model) {
+    public AccountVo getAccountDetail(String no, Model model) throws Exception {
 
         AccountVo accountVo = service.getAccountDetail(no, model);
 
@@ -97,6 +97,7 @@ public class AccountController {
         return accountVo;
     }
 
+    //은행계좌 수정(데이터)
     @PostMapping("edit")
     public String edit(AccountVo vo , HttpSession session , Model model) throws Exception {
 
@@ -117,7 +118,7 @@ public class AccountController {
     }
 
     //은행 삭제(DB에서도 삭제함)
-    @DeleteMapping("del")
+    @DeleteMapping("delete")
     public ResponseEntity<String> del(@RequestParam("no") String no, HttpSession session) {
         int result = service.del(no);
 
