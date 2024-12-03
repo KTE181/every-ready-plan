@@ -2,7 +2,6 @@ package com.kh.semi.product.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kh.semi.asreq.vo.AsreqVo;
 import com.kh.semi.product.service.ProductService;
 import com.kh.semi.product.vo.ProductVo;
 import jakarta.servlet.http.HttpSession;
