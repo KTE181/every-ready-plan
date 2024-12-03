@@ -10,6 +10,7 @@ public class SalaryVo {
     private String salary;// 연봉
     private String ename;//사원명
     private String dname; // 부서명
+    private String deptCode;//부서코드
     private String pname; // 직급
     private String basic; // 기본급
     private String mealAllowance; //식대

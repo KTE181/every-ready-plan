@@ -9,6 +9,7 @@ public class VacationVo {
     private String empNo;
     private String ename;
     private String dname;
+    private String deptCode;
     private String pname;
     private String code;
     private String type;

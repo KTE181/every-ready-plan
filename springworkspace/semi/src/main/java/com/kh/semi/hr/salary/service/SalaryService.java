@@ -1,6 +1,7 @@
 package com.kh.semi.hr.salary.service;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.salary.mapper.SalaryMapper;
 import com.kh.semi.hr.salary.vo.SalaryVo;
 import com.kh.semi.pb.vo.PageVo;
@@ -16,9 +17,10 @@ public class SalaryService {
     private final SalaryMapper mapper;
 
 
-    public List<SalaryVo> listAll(PageVo pvo) {
-        System.out.println(pvo);
-        return mapper.listAll(pvo);
+    public List<SalaryVo> listAll(PageVo pvo, SearchVo searchVo) {
+
+
+        return mapper.listAll(pvo,searchVo);
     }
 
     public EmployeeVo selectvolist(String empNo) {

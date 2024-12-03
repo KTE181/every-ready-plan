@@ -1,6 +1,7 @@
 package com.kh.semi.hr.overtime.service;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.overtime.mapper.OverTimeMapper;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import com.kh.semi.pb.vo.PageVo;
@@ -28,8 +29,8 @@ public class OverTimeService {
         return mapper.selectvolist(empNo);
     }
 
-    public List<OverTimeVo> list(PageVo pvo) {
-        return mapper.selectAll(pvo);
+    public List<OverTimeVo> list(PageVo pvo, SearchVo searchVo) {
+        return mapper.selectAll(pvo,searchVo);
     }
 
     public OverTimeVo detail(String no) {

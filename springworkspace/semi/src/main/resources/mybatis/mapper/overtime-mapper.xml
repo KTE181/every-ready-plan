@@ -19,6 +19,37 @@
             </if>
         </where>
 
+
+
     </update>
+
+    <select id="selectAll">
+        SELECT
+        A.NO  ,
+        A.THISDATE  ,
+        A.EMP_NO  ,
+        B.NAME  NAME,
+        B.DEPT_CODE,
+        C.NAME  DNAME,
+        D.NAME  PNAME,
+        A.TYPE,
+        A.WORK_HOUR
+        FROM OVERTIME A
+        JOIN EMPLOYEE B ON(A.EMP_NO = B.NO)
+        JOIN DEPARTMENT C ON (B.DEPT_CODE = C.NO)
+        JOIN POSITION D ON (B.POSITION_CODE = D.NO)
+        WHERE A.DEL_YN='N'
+        <if test="searchVo.searchYear != null and searchVo.searchYear !='' ">
+            AND A.THISDATE =#{searchVo.searchYear}
+        </if>
+        <if test="searchVo.searchOption != null and searchVo.searchOption !='' ">
+            AND B.DEPT_CODE =#{searchVo.searchOption}
+        </if>
+        <if test="searchVo.searchType != '' and searchVo.searchValue != '' and searchVo.searchType != null and searchVo.searchValue != null">
+            AND ${searchVo.searchType} =#{searchVo.searchValue}
+        </if>
+        ORDER BY A.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
 
 </mapper>

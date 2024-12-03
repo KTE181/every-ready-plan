@@ -1,6 +1,7 @@
 package com.kh.semi.hr.vacation.controller;
 
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.vacation.service.VacationService;
 import com.kh.semi.hr.vacation.vo.VacationVo;
 import com.kh.semi.pb.vo.PageVo;
@@ -45,7 +46,14 @@ public class VacationController {
 
 
     @GetMapping("list")
-    public String list(Model model,@RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage) {
+    public String list(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
+                       SearchVo searchVo) {
+
+        System.out.println(searchVo);
+
+
+
+
         int listCount = service.getVacationCnt();
         int pageLimit = 5;
         int boardLimit = 14;
@@ -53,7 +61,7 @@ public class VacationController {
 
         System.out.println(pvo);
 
-        List<VacationVo> listVo = service.list(pvo);
+        List<VacationVo> listVo = service.list(pvo,searchVo);
 
         int listCount2 = service.getEmpCnt();
         int currentPage2 = 1;
@@ -67,7 +75,6 @@ public class VacationController {
         model.addAttribute("pvo2",pvo2);
         model.addAttribute("pvo",pvo);
         model.addAttribute("vacationListVo", listVo);
-
         model.addAttribute("empVoList", empVoList);
 
         return "hr/vacation/list";

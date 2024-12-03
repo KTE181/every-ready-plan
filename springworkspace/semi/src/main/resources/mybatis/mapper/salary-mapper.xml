@@ -20,5 +20,42 @@
         </where>
 
     </update>
-
+    <select id="listAll">
+    SELECT
+    A.NO ,
+    A.PAY_YEARMONTH ,
+    A.EMP_NO ,
+    B.NAME ENAME,
+    D.NAME DNAME,
+    B.DEPT_CODE,
+    C.NAME PNAME,
+    A.BASIC ,
+    A.MEAL_ALLOWANCE ,
+    A.COMMUNICATION_COST ,
+    (A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) AS PAYMENT,
+    A.NATIONAL_PENSION ,
+    A.HEALTH_INSURANCE ,
+    A.EMPLOYMENT_INSURANCE ,
+    A.LONGTERM_CARE_INSURANCE ,
+    A.INCOME_TAX ,
+    A.LOCAL_TAXES ,
+    (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)AS DEDUCTIONS,
+    ((A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) - (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)) AS NETPAYMENT
+    FROM SALARY A
+    JOIN EMPLOYEE B ON (A.EMP_NO = B.NO)
+    JOIN POSITION C ON (B.POSITION_CODE= C.NO)
+    JOIN DEPARTMENT D ON (B.DEPT_CODE = D.NO)
+    WHERE A.DEL_YN = 'N'
+        <if test="searchVo.searchMonth != null and searchVo.searchMonth !='' ">
+            AND A.PAY_YEARMONTH =#{searchVo.searchMonth}
+        </if>
+        <if test="searchVo.searchOption != null and searchVo.searchOption !='' ">
+            AND B.DEPT_CODE =#{searchVo.searchOption}
+        </if>
+        <if test="searchVo.searchType != '' and searchVo.searchValue != '' and searchVo.searchType != null and searchVo.searchValue != null">
+            AND ${searchVo.searchType} =#{searchVo.searchValue}
+        </if>
+    ORDER BY A.NO DESC
+    OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
 </mapper>

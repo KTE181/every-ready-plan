@@ -372,3 +372,20 @@ tbodyTag.addEventListener("click",(evt)=>{
    
    
 
+  
+  
+  // $.ajax({
+  //   url:,
+  //   method:,
+  //   data:,
+  //   success:function(data){
+  //     console.log("성공");
+  //     console.log(data);
+      
+  //   },
+  //   error:function(){
+
+  //   }
+  // })
+  
+
