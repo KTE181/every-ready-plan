@@ -238,20 +238,7 @@ body {
     
 }
 
-.button {
-    background-color: #447dff;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-}
 
-.button:hover {
-    background-color: #3668cc;
-}
 
 
 

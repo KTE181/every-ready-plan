@@ -10,6 +10,7 @@
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/pv/mypage.css">
     <link rel="stylesheet" href="/css/pv/newpassword.css">
+    <link rel="stylesheet" href="/css/common/index.css">
     <script>
         const contextPath = "${pageContext.request.contextPath}";
     </script>

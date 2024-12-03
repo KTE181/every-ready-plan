@@ -8,6 +8,7 @@
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/pb/employee.css">
     <link rel="stylesheet" href="/css/common/search.css">
+    <link rel="stylesheet" href="/css/common/index.css">
 </head>
 <body>
     <div class="container">

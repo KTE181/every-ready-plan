@@ -30,4 +30,6 @@ public class LoginVo {
     private String enrollDate;
     private String modifyDate;
     private String delYn;
+
+
 }
