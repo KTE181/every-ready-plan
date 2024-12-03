@@ -6,7 +6,10 @@
     cursor: pointer;
 }
 
-
+.list-area th:nth-child(2),
+.list-area td:nth-child(2) {
+    width: 40px;
+}
 
 /* 모달 전체 배경 */
 .overmodal1 {
@@ -132,7 +135,7 @@
 .btnmodal-content{
   display: grid;
     grid-template-columns:1fr;
-    grid-template-rows: 1fr 6fr 1fr;
+    grid-template-rows: 1fr 6fr ;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -544,4 +547,27 @@ textarea{
 
 .employeeId{
   width: 180px;
+}
+#searchEmpbar{
+  font-size: 20px;
+  margin-left: 140px;
+  display: inline-flex;  /* 수평으로 나열되도록 설정 */
+  align-items: center;   /* 수직 중앙 정렬 */
+}
+#searchEmpbar input[type=text]{
+ 
+  vertical-align: middle; /* 수직 가운데 정렬 */
+
+  margin-right: 20px;
+  margin-left: 5px;
+  width: 100px;
+  height: 25px;
+  padding-left: 7px;
+  font-size: 14px;
+}
+
+.btnmodal-content table{
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
 }

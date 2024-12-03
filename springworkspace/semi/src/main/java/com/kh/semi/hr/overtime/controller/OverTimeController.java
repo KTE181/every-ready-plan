@@ -173,4 +173,14 @@ public class OverTimeController{
         return empVoList;
     }
 
+    @PostMapping("getEmplistdata")
+    @ResponseBody
+    public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
+        System.out.println(searchEmpNo);
+        System.out.println(searchEname);
+
+        EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
+        return vo;
+    }
+
 }

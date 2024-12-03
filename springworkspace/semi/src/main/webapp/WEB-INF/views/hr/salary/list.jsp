@@ -428,59 +428,55 @@
                                     </form>
                                 </div>
                                 <!--                                    사원조회 모달          -->
-                                <div>
-                                    <form action="" method="post" id="btnmodal" class="btnmodal">
-                                        <div class="btnmodal-content">
-                                            <span class="btnmodal-close">&times;</span>
-                                            <div class="btnmodal-title">사원번호 조회</div>
+                                <div id="btnmodal" class="btnmodal">
+                                    
+                                    <div class="btnmodal-content">
+                                        <span class="btnmodal-close">&times;</span>
+                                        <div class="btnmodal-title">사원번호 조회<span id="searchEmpbar">사번<input type="text" placeholder="사번을 입력" name="searchEmpNo">이름<input type="text"placeholder="이름을 입력" name="searchEname"><button id="choice">조회</button></span></div>
+                                        
 
 
-                                            <div class="btnmodal-main">
-                                                <table border="1">
-                                                    <thead>
+                                        <div class="btnmodal-main">
+                                            <table border="1">
+                                                <thead>
+                                                    <tr>
+                                                        <th>사번</th>
+                                                        <th>사원명</th>
+                                                        <th>소속</th>
+                                                        <th>직급</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach var="vo" items="${empVoList}">
                                                         <tr>
-                                                            <th>사번</th>
-                                                            <th>사원명</th>
-                                                            <th>소속</th>
-                                                            <th>직급</th>
+                                                            <td><a href="#" id="empNo_${vo.no}"
+                                                                    onclick="changeEmpNo(this);">${vo.no}</a>
+                                                            </td>
+                                                            <td>${vo.name}</td>
+                                                            <td>${vo.dname}</td>
+                                                            <td>${vo.pname}</td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <c:forEach var="vo" items="${empVoList}">
-                                                            <tr>
-                                                                <td><a href="#" id="empNo_${vo.no}"
-                                                                        onclick="changeEmpNo(this);">${vo.no}</a>
-                                                                </td>
-                                                                <td>${vo.name}</td>
-                                                                <td>${vo.dname}</td>
-                                                                <td>${vo.pname}</td>
-                                                            </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table>
-                                                <div class="pagination">
-                                                    <c:if test="${pvo2.startPage != 1}">
-                                                        <a href="" class="page-button previous">&laquo;</a>
-                                                    </c:if>
-                                                    <c:forEach begin="${pvo2.startPage}" end="${pvo2.endPage}" var="i" step="1">
-                                                        <a href="#" class="page-button"  data-page="${i}" onclick="loadPage(this);">${i}</a>
                                                     </c:forEach>
-                                                    <c:if test="${pvo2.endPage != pvo2.maxPage}">
-                                                        <a href="#" class="page-button next">&raquo;</a>
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                            
-
-
-
-                                            <div class="btnmodal-cont"></div>
-                                            <div class="btn-area">
-                                                <div class="button-container"></div>
+                                                </tbody>
+                                            </table>
+                                            <div class="pagination">
+                                                <c:if test="${pvo2.startPage != 1}">
+                                                    <a href="" class="page-button previous">&laquo;</a>
+                                                </c:if>
+                                                <c:forEach begin="${pvo2.startPage}" end="${pvo2.endPage}" var="i" step="1">
+                                                    <a href="#" class="page-button"  data-page="${i}" onclick="loadPage(this);">${i}</a>
+                                                </c:forEach>
+                                                <c:if test="${pvo2.endPage != pvo2.maxPage}">
+                                                    <a href="#" class="page-button next">&raquo;</a>
+                                                </c:if>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+
+
+
+                                        
+                                    </div>
+                            </div>
 
 
 

@@ -481,3 +481,27 @@ textarea{
 .employeeId{
   width: 180px;
 }
+
+#searchEmpbar{
+  font-size: 20px;
+  margin-left: 140px;
+  display: inline-flex;  /* 수평으로 나열되도록 설정 */
+  align-items: center;   /* 수직 중앙 정렬 */
+}
+#searchEmpbar input[type=text]{
+ 
+  vertical-align: middle; /* 수직 가운데 정렬 */
+
+  margin-right: 20px;
+  margin-left: 5px;
+  width: 100px;
+  height: 25px;
+  padding-left: 7px;
+  font-size: 14px;
+}
+
+.btnmodal-content table{
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+}

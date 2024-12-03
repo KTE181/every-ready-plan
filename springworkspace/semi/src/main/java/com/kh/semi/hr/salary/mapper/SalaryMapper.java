@@ -229,4 +229,5 @@ public interface SalaryMapper {
             """)
     List<EmployeeVo> getEmplistdata(PageVo pvo);
 
+    EmployeeVo selectEmpVo(String searchEmpNo, String searchEname);
 }

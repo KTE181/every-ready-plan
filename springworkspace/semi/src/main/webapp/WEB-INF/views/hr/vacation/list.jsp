@@ -274,11 +274,12 @@
                                     </form>
                                 </div>
                                 <!--                                    사원조회 모달          -->
-                                <div>
-                                    <form action="" method="post" id="btnmodal" class="btnmodal">
+                                <div id="btnmodal" class="btnmodal">
+                                    
                                         <div class="btnmodal-content">
                                             <span class="btnmodal-close">&times;</span>
-                                            <div class="btnmodal-title">사원번호 조회</div>
+                                            <div class="btnmodal-title">사원번호 조회<span id="searchEmpbar">사번<input type="text" placeholder="사번을 입력" name="searchEmpNo">이름<input type="text"placeholder="이름을 입력" name="searchEname"><button id="choice">조회</button></span></div>
+                                            
 
 
                                             <div class="btnmodal-main">
@@ -319,12 +320,8 @@
 
 
 
-                                            <div class="btnmodal-cont"></div>
-                                            <div class="btn-area">
-                                                <div class="button-container"></div>
-                                            </div>
+                                            
                                         </div>
-                                    </form>
                                 </div>
 
 
