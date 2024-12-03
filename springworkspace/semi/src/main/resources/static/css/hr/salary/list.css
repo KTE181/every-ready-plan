@@ -434,7 +434,8 @@ textarea{
     font-size: 18px;
   }
 
-  input[type = date]{
+
+  input[type = month]{
     width: 290px;
   }
   .select-option{
