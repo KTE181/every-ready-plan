@@ -30,7 +30,10 @@ public class AccountController {
     // 은행 계좌 작성 (데이터)
     @PostMapping("write")
     public String write(AccountVo vo , HttpSession session) throws Exception {
+        System.out.println("vo = " + vo);
+
         int result = service.write(vo);
+
         if(result != 1) {
             throw new Exception("은행계좌 Error");
         }
@@ -40,7 +43,7 @@ public class AccountController {
 
     //은행 목록 조회(화면)
     @GetMapping("list")
-    public String getAccountlist(Model model) {
+    public String getAccountList(Model model) {
         // 서비스 호출로 데이터 가져오기
         List<AccountVo> accountVoList = service.getAccountList();
 
@@ -60,32 +63,57 @@ public class AccountController {
 
     // 은행 상세 조회
     @GetMapping("detail")
-    public String getAccountDetail(String no, Model model) {
+    @ResponseBody
+    public AccountVo getAccountDetail(String no, Model model) {
+
         AccountVo accountVo = service.getAccountDetail(no, model);
 
         if (accountVo == null) {
-            return "redirect:/error";
+            throw new IllegalStateException("ERROR");
         }
 
+        System.out.println("요청 받은 no = " + no);
         model.addAttribute("accountVo", accountVo);
         System.out.println("accountVo = " + accountVo);
 
-        return "finance/account/detail";
+        return accountVo;
     }
 
     //은행 수정
     @GetMapping("edit")
-    public String edit(String no, Model model) throws Exception {
+    @ResponseBody
+    public AccountVo edit(String no, Model model) throws Exception {
+
         AccountVo accountVo = service.getAccountDetail(no, model);
 
+        System.out.println("accountVo = " + accountVo);
+
         if (accountVo == null) {
-            return "redirect:/error";
+            throw new IllegalStateException("ERROR");
         }
 
         model.addAttribute("accountVo", accountVo);
-        System.out.println("accountVo = " + accountVo);
 
-        return "finance/account/edit";
+        return accountVo;
+    }
+
+    @PostMapping("edit")
+    public String edit(AccountVo vo , HttpSession session , Model model) throws Exception {
+
+        int result = service.edit(vo);
+
+        if (result != 1) {
+            throw new Exception("error");
+        }
+
+        session.setAttribute("alertMsg", "account 수정완료.");
+
+        AccountVo accountVo = service.getAccountDetail(vo.getNo(), model);
+        model.addAttribute("accountVo", accountVo);
+
+        return "redirect:/finance/account/list";
+
+
     }
 
     //은행 삭제(DB에서도 삭제함)

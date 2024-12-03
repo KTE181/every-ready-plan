@@ -35,25 +35,6 @@ public interface PartnerMapper {
             """)
     int write(PartnerVo vo);
 
-//    @Select("""
-//            SELECT
-//                P.NO,
-//                P.BUSINESS_CODE,
-//                P.NAME,
-//                P.BIZ_REGIST_NO,
-//                P.CEO_NAME,
-//                P.ADDRESS,
-//                P.DEL_YN,
-//                BT.BIZ_TYPE,
-//                BT.BIZ_CATEGORY
-//            FROM PARTNER P
-//            JOIN BUSINESS_TYPE BT
-//                ON P.BUSINESS_CODE = BT.NO
-//            ORDER BY P.NO DESC;
-//
-//            """)
-//    List<PartnerVo> getPartnerVoList();
-
     @Select("""
             SELECT
                 P.NO,
@@ -68,23 +49,12 @@ public interface PartnerMapper {
             FROM PARTNER P
             JOIN BUSINESS_TYPE BT
                 ON P.BUSINESS_CODE = BT.NO
+            WHERE P.DEL_YN = 'N'
             ORDER BY P.NO DESC
             """)
     List<PartnerVo> getPartnerList();
 
 
-//    @Select("""
-//            SELECT
-//            BUSINESS_CODE
-//            ,NAME
-//            ,BIZ_REGIST_NO
-//            ,CEO_NAME
-//            ,ADDRESS
-//            ,DEL_YN
-//            FROM PARTNER
-//            WHERE NO = #{no}
-//            AND DEL_YN ='N'
-//            """)
     @Select("""
             SELECT
             P.NO,
@@ -121,7 +91,6 @@ public interface PartnerMapper {
                 ,BIZ_REGIST_NO = #{bizRegistNo}
                 ,CEO_NAME = #{ceoName}
                 ,ADDRESS = #{address}
-                FROM PARTNER
             WHERE NO = #{no}
             """)
     int edit(PartnerVo vo);

@@ -57,24 +57,29 @@ public class PartnerController {
         return "finance/partner/list";
 
     }
+
     // 거래처 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public String getPartnerDetail(@RequestParam("no")String no , Model model) {
+    public PartnerVo getPartnerDetail(String no , Model model) {
+
         PartnerVo partnerVo = service.getPartnerDetail(no , model);
 
+        if(partnerVo == null) {
+            throw new IllegalStateException("ERROR");
+        }
         System.out.println("요청받은 no: " + no);
         model.addAttribute("partnerVo" , partnerVo);
         System.out.println("partnerVo = " + partnerVo);
 
-        return "finance/partner/detail";
+        return partnerVo;
 
     }
 
     //거래처 수정(화면)
     @GetMapping("edit")
     @ResponseBody
-    public PartnerVo edit(@RequestParam("no")String no, Model model) throws Exception {
+    public PartnerVo edit(String no, Model model) throws Exception {
 
         PartnerVo partnerVo = service.getPartnerDetail(no , model);
 

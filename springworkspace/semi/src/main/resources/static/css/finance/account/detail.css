@@ -41,8 +41,37 @@
     width: fit-content;
     height: fit-content;
     column-gap: 5px;
+    max-height: 85vh; 
+    column-gap: 5px;
+    overflow-y: auto;
 }
 
+/* 여기서 부터 name값 맞추기 */
+
+#account-detail select[name=statusCode]{
+    height: 28px;
+    width: 220px;
+    font-family: '맑은 고딕';
+    border: 1px solid black;
+    padding-left: 5px;
+}
+
+
+#account-detail select[name=empNo]{
+    height: 28px;
+    width: 220px;
+    font-family: '맑은 고딕';
+    border: 1px solid black;
+    padding-left: 5px;
+}
+
+#account-detail select[name=faultCode]{
+    height: 28px;
+    width: 220px;
+    font-family: '맑은 고딕';
+    border: 1px solid black;
+    padding-left: 5px;
+}
 
 #account-detail #required-text {
     font-size: 14px;
@@ -95,7 +124,7 @@
     color: black;
 }
 
-#account-detail .detail-content select{
+#account-detail select{
     height: 26px;
     width: 78px;
     font-family: '맑은 고딕';
@@ -118,10 +147,10 @@
 
 
 #account-detail .detail-content .search-button {
-    font-size: 13px;
-    background-color: #f5f5f5;
-    color: black;
-    border-radius: 5px;
+    font-size: 13px; 
+    background-color: #f5f5f5; 
+    color: black; 
+    border-radius: 5px; 
     width: 72px;
     height: 30px;
     border: 1px solid rgb(177, 177, 177);
@@ -141,6 +170,14 @@
     color: black;
 }
 
+#account-detail textarea[name=repairDetalis]{
+    margin-top: 2px;
+    width: 95%;
+    height: 110px;
+    border: 1px solid rgb(0, 0, 0);;
+    padding: 5px 10px;
+}
+
 #account-detail .detail-content .button-container input{
     font-size: 15px; /* 작은 글씨 크기 */
     padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
@@ -155,29 +192,10 @@
     margin-bottom: 7px;
 }
 
-#account-detail .detail-content .button-container #account-receive-button {
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
-    border: 1px solid #416DFF; ;
-    width: 88px;
-    height: 38px;
-    margin-top: 13px;
-    margin-bottom: 7px;
-}
-
-#account-detail .detail-content .button-container #account-receive-button:hover {
-    background-color: #416DFF;
-    color: white;
-    font-weight: bold;
-}
 
 #account-detail .detail-content .button-container input:hover {
     background-color: #416DFF;
-    color: white;
+    color: white; 
     font-weight: bold;
 }
 

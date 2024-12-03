@@ -13,6 +13,7 @@ function partnerWrite() {
 
 }
 
+//tr 클릭시 동작
 function partnerDetail(no) {
 
      // 모달 요소 가져오기
@@ -34,7 +35,6 @@ function partnerDetail(no) {
             no : no 
         } ,
         success: function(partnerVo) {
-            
             console.log("partnerVo.area:", partnerVo.area);
             console.log(document.querySelector("#partner-detail select[name=area]"));
 
@@ -46,20 +46,17 @@ function partnerDetail(no) {
             document.querySelector("#partner-detail input[name=address]").value = partnerVo.address;
 
             const editButton = document.querySelector("#partner-edit-btn");
-            const deleteButton = documnet.querySelector("#partner-delete-btn");
+            const deleteButton = document.querySelector("#partner-delete-btn");
 
             editButton.addEventListener("click" , function () {
                 partnerEdit(partnerVo.no);
             });
-            editButton.addEventListener("click" , function () {
+            deleteButton.addEventListener("click" , function () {
                 partnerDelete(partnerVo.no);
             });
-
-
         },
-
         fail:function() {
-            alert("통신실패 ...")
+            alert("통신실패 ...");
         }
     });
 }
@@ -112,3 +109,22 @@ function partnerEditClose(){
 
 
 
+function partnerDelete(no) {
+    if (!confirm("정말 삭제하시겠습니까?")) {
+        return; // 사용자가 취소를 누르면 함수 종료
+    }
+
+    $.ajax({
+        url: `/finance/partner/delete`, // 서버의 삭제 엔드포인트
+        method: "get", // HTTP DELETE 메서드 사용
+        data: { no: no }, // 삭제할 no 전달
+        success: function (response) {
+            alert("삭제되었습니다.");
+            location.reload(); // 페이지 새로고침
+        },
+        error: function (xhr) {
+            alert("삭제에 실패했습니다.");
+            console.error("오류:", xhr.responseText);
+        }
+    });
+}

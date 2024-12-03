@@ -1,6 +1,5 @@
 package com.kh.semi.finance.account.service;
 
-import com.kh.semi.asreq.vo.AsreqVo;
 import com.kh.semi.finance.account.mapper.AccountMapper;
 import com.kh.semi.finance.account.vo.AccountVo;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +30,19 @@ public class AccountService {
         return mapper.del(no);
     }
 
-    public AccountVo getAccountDetail(String no, Model model) {
-        return mapper.getAccountDetail();
-    }
-
-//    public int edit(AccountVo vo) {
-//        return mapper.edit(vo);
+//    public AccountVo getAccountDetail(String no, Model model) {
+//        return mapper.getAccountDetail();
 //    }
 
+    public AccountVo getAccountDetail(String no, Model model) {
 
+        AccountVo vo = mapper.getAccountDetail(no ,model);
+
+        return vo;
+    }
+
+
+    public int edit(AccountVo vo) {
+        return mapper.edit(vo);
+    }
 }
