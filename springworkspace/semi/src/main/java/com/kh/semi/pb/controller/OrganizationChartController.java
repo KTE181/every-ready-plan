@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class OrganizationChartController {
-    @GetMapping("" +
-            "")
+    @GetMapping("organization")
     public String organization(HttpSession session) {
         // 세션에서 로그인 정보 확인
 //        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
