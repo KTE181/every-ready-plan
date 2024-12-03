@@ -134,13 +134,13 @@
                                             <!-- 페이지 번호 버튼들 -->
                                             <div class="pagination">
                                                 <c:if test="${pvo.startPage != 1}">
-                                                    <a href="/api/hr/overtime/list?pno=${pvo.startPage-1}&searchValue=${searchValue}" class="page-button previous">&laquo;</a>
+                                                    <a href="/api/hr/overtime/list?pno=${pvo.startPage-1}" class="page-button previous">&laquo;</a>
                                                 </c:if>
                                                 <c:forEach begin="${pvo.startPage}" end="${pvo.endPage}" var="i" step="1">
-                                                    <a href="/api/hr/overtime/list?pno=${i}&searchValue=${searchValue}" class="page-button">${i}</a>
+                                                    <a href="/api/hr/overtime/list?pno=${i}" class="page-button">${i}</a>
                                                 </c:forEach>
                                                 <c:if test="${pvo.endPage != pvo.maxPage}">
-                                                    <a href="/api/hr/overtime/list?pno=${pvo.endPage+1}&searchValue=${searchValue}" class="page-button next">&raquo;</a>
+                                                    <a href="/api/hr/overtime/list?pno=${pvo.endPage+1}" class="page-button next">&raquo;</a>
                                                 </c:if>
                                             </div>
                                            
