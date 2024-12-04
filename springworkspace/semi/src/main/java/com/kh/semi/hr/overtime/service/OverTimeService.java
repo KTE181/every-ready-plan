@@ -21,8 +21,33 @@ public class OverTimeService {
         return mapper.empVoList(pvo);
     }
 
-    public int insert(OverTimeVo vo) {
-        return mapper.insert(vo);
+    public String insert(OverTimeVo vo) {
+        String errorMsg = "";
+        if(vo.getEmpNo()==null||vo.getEmpNo().equals("")){
+            errorMsg="[ERROR_OVERTIME_001]사번을 선택하지 않았습니다";
+            return errorMsg;
+        }
+        if(vo.getThisDate()==null||vo.getThisDate().equals("")){
+            errorMsg="[ERROR_OVERTIME_002]초과근무 일자를 선택하지 않았습니다";
+            return errorMsg;
+        }
+        if(vo.getType()==null){
+            errorMsg="[ERROR_OVERTIME_003]초과근무구분을 선택하지 않았습니다";
+            return errorMsg;
+        }
+        if(vo.getWorkHour()==null||vo.getWorkHour().equals("")){
+            errorMsg="[ERROR_OVERTIME_004]초과근무시간을 선택하지 않았습니다";
+            return errorMsg;
+        }
+        int result = mapper.insert(vo);
+
+
+        if(result == 1){
+            return "1";
+        }else{
+            return "0";
+        }
+
     }
 
     public EmployeeVo selectvolist(String empNo) {

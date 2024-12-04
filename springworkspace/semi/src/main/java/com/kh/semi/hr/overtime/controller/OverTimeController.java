@@ -5,6 +5,7 @@ import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.overtime.service.OverTimeService;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import com.kh.semi.pb.vo.PageVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ public class OverTimeController{
 
 
     @PostMapping("write")
-    public String write(OverTimeVo vo){
+    public String write(OverTimeVo vo, HttpSession session){
 
 //        System.out.println("vo.hour =="+vo.getHour());
 //        System.out.println("vo.minute =="+vo.getMinute());
@@ -35,7 +36,12 @@ public class OverTimeController{
         vo.setWorkHour(overtime);
 
 //        System.out.println(vo);
-        int result = service.insert(vo);
+        String result = service.insert(vo);
+        if (result.equals("1")) {
+            session.setAttribute("alertMsg","초과근무 등록 성공");
+        }else{
+            session.setAttribute("alertMsg",result);
+        }
 
         return "redirect:/api/hr/overtime/list";
     }
@@ -55,7 +61,7 @@ public class OverTimeController{
 
     @GetMapping("list")
     public String list(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
-                       SearchVo searchVo){
+                       SearchVo searchVo,HttpSession session){
 
 
         int listCount = service.getOverTimeCnt();

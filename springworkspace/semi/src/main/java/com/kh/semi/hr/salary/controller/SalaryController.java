@@ -5,6 +5,7 @@ import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.salary.service.SalaryService;
 import com.kh.semi.hr.salary.vo.SalaryVo;
 import com.kh.semi.pb.vo.PageVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +69,7 @@ public class SalaryController {
 
 
     @PostMapping("write")
-    public String write(SalaryVo vo){
+    public String write(SalaryVo vo, HttpSession session){
         System.out.println("payYearmonth  == " +vo.getPayYearmonth());
 
         String payYearmonth = vo.getPayYearmonth();
@@ -78,6 +79,10 @@ public class SalaryController {
 
         int result = service.write(vo);
 
+        if(result != 1){
+            session.setAttribute("alertMsg","급여등록 실패");
+        }
+        session.setAttribute("alerMsg","급여 등록 성공");
         return "redirect:/api/hr/salary/list";
     }
 
@@ -90,6 +95,10 @@ public class SalaryController {
 
         System.out.println(empNo);
         EmployeeVo selectvolist = service.selectvolist(empNo);
+        if(selectvolist ==null){
+
+        }
+
         return selectvolist;
     }
 
