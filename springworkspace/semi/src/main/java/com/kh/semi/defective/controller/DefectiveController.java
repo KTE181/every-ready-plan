@@ -99,8 +99,6 @@ public class DefectiveController {
     @PostMapping("edit")
     public String edit(DefectiveVo vo, Model model) throws Exception {
 
-        System.out.println("vo = " + vo);
-
         int result = service.edit(vo);
 
         if(result != 1){
