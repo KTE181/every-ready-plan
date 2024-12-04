@@ -22,8 +22,30 @@ public class VacationService {
         return mapper.list(pvo,searchVo);
     }
 
-    public int insert(VacationVo vo) {
-        return mapper.insert(vo);
+    public String insert(VacationVo vo) {
+
+        String errorMsg="";
+        if(vo.getEmpNo()==null|vo.getEmpNo().equals("")){
+            errorMsg="[ERROR_VACATION_001]사번을 선택해주세요";
+            return errorMsg;
+        }if(vo.getThisDate()==null|vo.getThisDate().equals("")){
+            errorMsg="[ERROR_VACATION_002]일자를 입력해주세요";
+            return errorMsg;
+        }if(vo.getCode()==null|vo.getCode().equals("")){
+            errorMsg="[ERROR_VACATION_003]휴가유형을 선택해주세요";
+            return errorMsg;
+        }if(vo.getReason()==null|vo.getReason().equals("")){
+            errorMsg="[ERROR_VACATION_004]휴가사유를 입력해주세요";
+            return errorMsg;
+        }if(vo.getReason().length()<=3) {
+            errorMsg = "[ERROR_VACATION_005]휴가사유는 4글자 이상 작성해주세요";
+            return errorMsg;
+        }
+        int result = mapper.insert(vo);
+            if(result ==1){
+                return "1";
+            }
+        return "0";
     }
 
     public List<EmployeeVo> empVoList(PageVo pvo2) {
@@ -38,8 +60,28 @@ public class VacationService {
         return  mapper.getVacationVo(selectNo);
     }
 
-    public int update(VacationVo alldata) {
-        return mapper.update(alldata);
+    public String update(VacationVo alldata) {
+        String errorMsg="";
+        if(alldata.getThisDate()==null|alldata.getThisDate().equals("")){
+            errorMsg="[ERROR_VACATION_EDIT_006]일자를 입력해주세요";
+            return errorMsg;
+        }if(alldata.getCode()==null|alldata.getCode().equals("")){
+            errorMsg="[ERROR_VACATION_EDIT_007]휴가유형을 선택해주세요";
+            return errorMsg;
+        }if(alldata.getReason()==null|alldata.getReason().equals("")){
+            errorMsg="[ERROR_VACATION_EDIT_008]휴가사유를 입력해주세요";
+            return errorMsg;
+        }if(alldata.getReason().length()<=3) {
+            errorMsg = "[ERROR_VACATION_EDIT_009]휴가사유는 4글자 이상 작성해주세요";
+            return errorMsg;
+        }
+        int result= mapper.update(alldata);
+
+        if(result==1){
+            return "1";
+        }
+
+        return "0";
     }
 
     public int delete(String no) {

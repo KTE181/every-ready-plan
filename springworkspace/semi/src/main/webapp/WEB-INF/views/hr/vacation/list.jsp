@@ -189,8 +189,8 @@
                                             </div>
                                             <div class="vacationmodal-cont">
                                                 <label for="region"><span class="title-span">*</span>일자
-                                                    ex)2024-11-26</label>
-                                                <input type="text" name="thisDate" />
+                                                    </label>
+                                                <input type="date" name="thisDate" />
                                             </div>
                                             <div class="vacationmodal-cont">
                                                 <label for="region"><span class="title-span">*</span>휴가유형
@@ -203,6 +203,7 @@
                                             </div>
                                             <div class="vacationmodal-cont" id="content-area">
                                                 <label for="position"><span class="title-span">*</span>휴가사유
+                                                    ex)4글자 이상
                                                 </label>
                                                 <textarea name="reason"></textarea>
 
@@ -247,7 +248,7 @@
                                             <div class="vacationselectmodal-cont">
                                                 <label for="region"><span class="title-span">*</span>일자
                                                     ex)2024-11-26</label>
-                                                <input type="text" name="thisDate" />
+                                                <input type="date" name="thisDate" />
                                             </div>
                                             <div class="vacationselectmodal-cont">
                                                 <label for="region"><span class="title-span">*</span>휴가유형

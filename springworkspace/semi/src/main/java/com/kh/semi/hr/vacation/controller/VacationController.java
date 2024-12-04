@@ -26,12 +26,14 @@ public class VacationController {
     @PostMapping("write")
     public String write(VacationVo vo, HttpSession session) {
 
-        int result = service.insert(vo);
+        System.out.println(vo);
+        String result = service.insert(vo);
 
-        if(result != 1){
-            session.setAttribute("alertMsg","휴가 등록 실패");
+        if(result.equals("1")){
+            session.setAttribute("alertMsg","휴가 등록 성공");
+        }else {
+        session.setAttribute("alertMsg",result);
         }
-        session.setAttribute("alertMsg","휴가 등록 성공");
         return "redirect:/api/hr/vacation/list";
     }
 
@@ -97,15 +99,17 @@ public class VacationController {
     //휴가 수정
     @PostMapping("update")
     @ResponseBody
-    public String update(VacationVo alldata,HttpSession session){
+    public void update(VacationVo alldata,HttpSession session){
         System.out.println(alldata);
 
-        int result= service.update(alldata);
+        String result= service.update(alldata);
 
-        if(result != 1){
-            session.setAttribute("alertMsg","수정 실패 ~~");
+        if(result.equals("1")){
+            session.setAttribute("alertMsg","수정 성공 ~~");
+        }else {
+            session.setAttribute("alertMsg",result);
         }
-        return "good";
+
     }
     @PostMapping("del")
     @ResponseBody

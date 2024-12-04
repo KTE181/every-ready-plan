@@ -205,7 +205,6 @@ tbodyTag.addEventListener("click",(evt)=>{
               data:(alldata),
   
               success:function(data2){
-                  alert("수정 성공");
                   console.log(data2);
                   location.href="/api/hr/vacation/list";
                   
