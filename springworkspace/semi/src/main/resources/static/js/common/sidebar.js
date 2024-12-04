@@ -124,6 +124,13 @@ document.querySelector('.dropdown-menu li:nth-child(3)').addEventListener("click
 document.querySelector('.dropdown-menu1 li:nth-child(1)').addEventListener("click",()=>{
   location.href="/mypage";
 })
+//사이드바 개인휴가내역 이동
+document.querySelector('.dropdown-menu1 li:nth-child(2)').addEventListener("click",()=>{
+  location.href="/pv/vacation";
+})
+
+
+
 //초과근무 이동
 document.querySelector('.dropdown-menu2 li:nth-child(3)').addEventListener("click",()=>{
   location.href="/api/hr/overtime/list";

@@ -33,7 +33,7 @@
                 <div class="top-title-area">
                     <div class="menu-name">휴가 내역 조회</div>
                     <div>
-                        <form action="" class="top-title-area-form">
+                        <form action="/pv/vacation" method="get" class="top-title-area-form">
                             <!-- <label for="">연월일</label> -->
                             <!-- <div class="search-bar"><input type="text" name="year" maxlength="4" placeholder="연도"></div>
                             <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
@@ -54,7 +54,7 @@
                             <div class="search-bar">
                             
                             </div> 
-                            <div class="search-bar"><input type="date" name=""></div>
+                            <div class="search-bar"><input type="date" name="date"></div>
                             <div class="search-bar"><button class="button">검색</button></div>
                         </form>
                     </div>

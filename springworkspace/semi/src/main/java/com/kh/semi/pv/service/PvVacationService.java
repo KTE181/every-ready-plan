@@ -16,8 +16,8 @@ import java.util.List;
 public class PvVacationService {
     private final PvVacationMapper mapper;
 
-    public List<PvVacationVo> getVacationList(String no) {
-        return mapper.getVacationList(no);
+    public List<PvVacationVo> getVacationList(String no,String date) {
+        return mapper.getVacationList(no,date);
     }
 
     public PvVacationVo getVacationVo(String no) {
