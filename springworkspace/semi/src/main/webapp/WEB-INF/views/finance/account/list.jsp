@@ -172,12 +172,12 @@
 
                                         <div class="title-text"></div>
 
-                                        <!-- <div class="modal-cont">
-                                    <label for="">번호</label>
-                                    <div>
-                                        <input type="text" name="no" disabled>
-                                    </div>
-                                </div> -->
+                                        <div class="modal-cont" style="display:none;" >
+                                            <label for="">번호</label>
+                                            <div>
+                                                <input type="text" name="no" style="display:none;">
+                                            </div>
+                                        </div>
 
                                         <div class="modal-cont">
                                             <label for="">은행코드</label>
@@ -226,38 +226,38 @@
                                         <div class="modal-title">은행 수정</div>
                                         <div id="required-text">* 는 필수입력사항입니다.</div>
 
-                                        <div class="modal-cont">
+                                        <div class="modal-cont" style="display:none;">
                                             <label for="">번호</label>
                                             <div>
-                                                <input type="text" name="no" disabled>
+                                                <input type="text" name="no" >
                                             </div>
                                         </div>
 
                                         <div class="modal-cont">
                                             <label for="">은행코드</label>
                                             <div>
-                                                <input type="text" name="bankCode" disabled>
+                                                <input type="text" name="bankCode" >
                                             </div>
                                         </div>
 
                                         <div class="modal-cont">
                                             <label for="">은행명</label>
                                             <div>
-                                                <input type="text" name="bankName" disabled>
+                                                <input type="text" name="bankName" >
                                             </div>
                                         </div>
 
                                         <div class="modal-cont">
                                             <label for="">계좌번호</label>
                                             <div>
-                                                <input type="text" name="accountNo" disabled>
+                                                <input type="text" name="accountNo" >
                                             </div>
                                         </div>
 
                                         <div class="modal-cont">
                                             <label for="">계좌별명</label>
                                             <div>
-                                                <input type="text" name="accountName" disabled>
+                                                <input type="text" name="accountName" >
                                             </div>
                                         </div>
 

@@ -36,19 +36,13 @@ function accountDetail(no) {
         } ,
         success: function(accountVo) {
             
-            console.log("AJAX 응답 데이터:", accountVo);
 
-            if (!accountVo) {
-                console.error("accountVo가 null입니다.");
-                alert("계좌 정보를 가져오지 못했습니다.");
-                return;
-            }
-        
-            if (!accountVo.no || !accountVo.bankCode) {
-                console.error("accountVo에 필요한 데이터가 없습니다:", accountVo);
-                alert("계좌 정보를 가져오지 못했습니다.");
-                return;
-            }
+            const noInput = document.querySelector("#account-detail input[name=no]");
+if (noInput) {
+    noInput.value = accountVo.no;
+} else {
+    console.error("DOM 요소를 찾을 수 없습니다: input[name=no]");
+}
 
             console.log("accountVo.area:", accountVo.area);
             console.log(document.querySelector("#account-detail select[name=area]"));
@@ -100,11 +94,11 @@ function accountEdit(no) {
         } ,
         success: function(accountVo) {
 
-            document.querySelector("#account-detail input[name=no]").value = accountVo.no;
-            document.querySelector("#account-detail input[name=bankCode]").value = accountVo.bankCode;
-            document.querySelector("#account-detail input[name=bankName]").value = accountVo.bankName;
-            document.querySelector("#account-detail input[name=accountNo]").value = accountVo.accountNo;
-            document.querySelector("#account-detail input[name=accountName]").value = accountVo.accountName;
+            document.querySelector("#account-edit input[name=no]").value = accountVo.no;
+            document.querySelector("#account-edit input[name=bankCode]").value = accountVo.bankCode;
+            document.querySelector("#account-edit input[name=bankName]").value = accountVo.bankName;
+            document.querySelector("#account-edit input[name=accountNo]").value = accountVo.accountNo;
+            document.querySelector("#account-edit input[name=accountName]").value = accountVo.accountName;
        },
 
         fail:function() {
@@ -128,7 +122,7 @@ function accountDelete(no) {
 
     $.ajax({
         url: `/finance/account/delete`, // 서버의 삭제 엔드포인트
-        method: "get", // HTTP DELETE 메서드 사용
+        method: "DELETE", // HTTP DELETE 메서드 사용
         data: { no: no }, // 삭제할 no 전달
         success: function (response) {
             alert("삭제되었습니다.");
