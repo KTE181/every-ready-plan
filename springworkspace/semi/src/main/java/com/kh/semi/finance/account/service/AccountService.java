@@ -30,10 +30,6 @@ public class AccountService {
         return mapper.del(no);
     }
 
-//    public AccountVo getAccountDetail(String no, Model model) {
-//        return mapper.getAccountDetail();
-//    }
-
     public AccountVo getAccountDetail(String no, Model model) {
 
         AccountVo vo = mapper.getAccountDetail(no ,model);
