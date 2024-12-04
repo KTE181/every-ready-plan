@@ -28,12 +28,12 @@ public class SalaryController {
         if(searchVo.getSearchMonth()!=null){
             String resetdate=searchVo.getSearchMonth();
             String formattedPayYearmonth = resetdate.replace("-", "");
-            System.out.println(formattedPayYearmonth);
+//            System.out.println(formattedPayYearmonth);
             searchVo.setSearchMonth(formattedPayYearmonth);
         }
 
 
-        System.out.println(searchVo);
+//        System.out.println(searchVo);
 
         int listCount = service.getSalaryCnt();
         int pageLimit = 5;
@@ -70,19 +70,20 @@ public class SalaryController {
 
     @PostMapping("write")
     public String write(SalaryVo vo, HttpSession session){
-        System.out.println("payYearmonth  == " +vo.getPayYearmonth());
+//        System.out.println("payYearmonth  == " +vo.getPayYearmonth());
 
         String payYearmonth = vo.getPayYearmonth();
         String formattedPayYearmonth = payYearmonth.replace("-", "");
 
         vo.setPayYearmonth(formattedPayYearmonth);
 
-        int result = service.write(vo);
+        String result = service.write(vo);
 
-        if(result != 1){
-            session.setAttribute("alertMsg","급여등록 실패");
+        if(result.equals("1")){
+            session.setAttribute("alertMsg","급여 등록 성공");
+        }else{
+        session.setAttribute("alertMsg",result);
         }
-        session.setAttribute("alerMsg","급여 등록 성공");
         return "redirect:/api/hr/salary/list";
     }
 
@@ -91,12 +92,12 @@ public class SalaryController {
     //////사원 선택 버튼클릭후  모달창에 있는 정보를 받아오는 ajax
     @PostMapping("getEmployeeData")
     @ResponseBody
-    public EmployeeVo getEmployeeData(@RequestParam("empNo") String empNo){
+    public EmployeeVo getEmployeeData(@RequestParam("empNo") String empNo,HttpSession session){
 
-        System.out.println(empNo);
+//        System.out.println(empNo);
         EmployeeVo selectvolist = service.selectvolist(empNo);
-        if(selectvolist ==null){
-
+        if(selectvolist ==null||selectvolist.getNo().isEmpty()){
+            session.setAttribute("alertMsg","사원정보 불러오기 실패..");
         }
 
         return selectvolist;
@@ -112,52 +113,74 @@ public class SalaryController {
         SalaryVo vo = service.detail(selectNo);
 
 
+
         return vo;
     }
 
     //수정하기
     @PostMapping("edit")
     @ResponseBody
-    public String edit(@RequestBody HashMap<String,String> editdata){
+    public void edit(@RequestBody HashMap<String,String> editdata,HttpSession session){
 
-        System.out.println(editdata.get("payYearmonth"));
+//        System.out.println(editdata.get("payYearmonth"));
 
         String resetdate=editdata.get("payYearmonth");
         String formattedPayYearmonth = resetdate.replace("-", "");
-        System.out.println(formattedPayYearmonth);
+//        System.out.println(formattedPayYearmonth);
 
         editdata.put("payYearmonth",formattedPayYearmonth);
 
-        System.out.println("editdata=="+editdata);
+//        System.out.println("editdata=="+editdata);
 
         int result = service.edit(editdata);
-        return "수정~~";
+        
+        if(result == 1){
+          session.setAttribute("alertMsg","수정 성공");  
+        }else{
+            session.setAttribute("alertMsg","수정 실패");
+        }
+        
+  
     }
 
     @PostMapping("del")
     @ResponseBody
-    public int del(String no){
-        System.out.println(no);
+    public void del(String no,HttpSession session){
+//        System.out.println(no);
 
         int result = service.delete(no);
 
-        return result;
+        if(result ==1){
+            session.setAttribute("alertMsg","삭제 성공");
+        }else{
+            session.setAttribute("alertMsg","삭제 실패");
+        }
+        
     }
 
     @DeleteMapping("del")
     @ResponseBody
-    public String del(@RequestBody String[] dataArr){
+    public void del(@RequestBody String[] dataArr,HttpSession session){
 //        for (String s : dataArr) {
 //            System.out.println(s);
 //        }
+        if(dataArr.length==0){
+            return;
+        }
         int result = service.editAll(dataArr);
-        return "통신성공";
+        
+        if(result>0){
+            session.setAttribute("alertMsg","삭제 성공");
+        }else{
+            session.setAttribute("alertMsg","삭제 실패");
+        }
+       
     }
 
     @GetMapping("getEmplistdata")
     @ResponseBody
     public  List<EmployeeVo> getEmplistdata(String pno){
-        System.out.println(pno);
+//        System.out.println(pno);
         int currentPage = Integer.parseInt(pno);
         int listCount2 = service.getEmpCnt();
         int pageLimit2 = 5;
@@ -167,19 +190,22 @@ public class SalaryController {
 
         List<EmployeeVo> empVoList = service.getEmplistdata(pvo);
 
-        for (EmployeeVo employeeVo : empVoList) {
-            System.out.println("employeeVo = " + employeeVo);
-            
-        }
+//        for (EmployeeVo employeeVo : empVoList) {
+//            System.out.println("employeeVo = " + employeeVo);
+//
+//        }
         return empVoList;
     }
     @PostMapping("getEmplistdata")
     @ResponseBody
     public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
-        System.out.println(searchEmpNo);
-        System.out.println(searchEname);
+//        System.out.println(searchEmpNo);
+//        System.out.println(searchEname);
 
         EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
+        if(vo == null||vo.getNo().isEmpty()){
+            return null;
+        }
         return vo;
     }
 

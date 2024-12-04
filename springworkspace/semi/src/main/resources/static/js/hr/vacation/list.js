@@ -304,7 +304,10 @@ tbodyTag.addEventListener("click",(evt)=>{
         console.log(delallData);
         // 최종적으로 완성된 키:벨류 값의 배열  
         console.log(dataArr);
-      
+        if(dataArr.length==0){
+          alert("삭제할 게시글 체크박스를 선택해주세요");
+          return;
+        }
      
     
         $.ajax({
@@ -314,7 +317,6 @@ tbodyTag.addEventListener("click",(evt)=>{
           data: JSON.stringify(dataArr),
           success:function(data){
                   console.log(data); 
-                  alert("삭제완료");
                   location.reload();
           },
           fail:function(){
@@ -406,6 +408,11 @@ tbodyTag.addEventListener("click",(evt)=>{
         },
         success: function(data) {
             // 서버에서 받은 데이터로 테이블 업데이트
+            if(data == ""){
+              alert("사원의 정보가 없습니다");
+              loadPage(1);
+              return;
+            }
             console.log("통신성공");
             console.log(data);
             updateTable2(data);

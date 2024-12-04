@@ -159,17 +159,25 @@ public class OverTimeController{
 
     @DeleteMapping("del")
     @ResponseBody
-    public String del(@RequestBody String[] dataArr){
+    public void del(@RequestBody String[] dataArr,HttpSession session){
 //        for (String s : dataArr) {
 //            System.out.println(s);
 //        }
+        if(dataArr.length==0){
+            return;
+        }
         int result = service.editAll(dataArr);
-        return "통신성공";
+        
+        if(result>0){
+            session.setAttribute("alertMsg","삭제하기 성공");
+        }else{
+            session.setAttribute("alertMsg","삭제하기 실패");
+        }
     }
 
     @GetMapping("getEmplistdata")
     @ResponseBody
-    public  List<EmployeeVo> getEmplistdata(String pno){
+    public  List<EmployeeVo> getEmplistdata(String pno,HttpSession session){
         System.out.println(pno);
         int currentPage = Integer.parseInt(pno);
         int listCount2 = service.getEmpCnt();
@@ -179,9 +187,12 @@ public class OverTimeController{
 
         List<EmployeeVo> empVoList = service.getEmplistdata(pvo);
 
-        for (EmployeeVo employeeVo : empVoList) {
-            System.out.println("employeeVo = " + employeeVo);
-
+//        for (EmployeeVo employeeVo : empVoList) {
+//            System.out.println("employeeVo = " + employeeVo);
+//
+//        }
+        if(empVoList.isEmpty()){
+            session.setAttribute("alertMsg","사원정보 불러오기 실패");
         }
         return empVoList;
     }
@@ -189,10 +200,15 @@ public class OverTimeController{
     @PostMapping("getEmplistdata")
     @ResponseBody
     public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
-        System.out.println(searchEmpNo);
-        System.out.println(searchEname);
+//        System.out.println(searchEmpNo);
+//        System.out.println(searchEname);
 
         EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
+
+        System.out.println("vo = "+vo);
+        if(vo == null||vo.getNo().isEmpty()){
+            return null;
+        }
         return vo;
     }
 

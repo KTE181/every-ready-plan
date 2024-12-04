@@ -31,8 +31,24 @@ public class SalaryService {
         return mapper.empVoList(pvo2);
     }
 
-    public int write(SalaryVo vo) {
-        return mapper.write(vo);
+    public String write(SalaryVo vo) {
+        String errorMsg="";
+        if(vo.getEmpNo()==null||vo.getEmpNo().isEmpty()){
+            errorMsg="[ERROR_SALARY_001]사번을 선택하지 않았습니다";
+            return errorMsg;
+        }
+        if(vo.getPayYearmonth()==null||vo.getPayYearmonth().isEmpty()){
+            errorMsg="[ERROR_SALARY_002]지급연월을 선택하지 않았습니다";
+            return errorMsg;
+        }
+
+         int result = mapper.write(vo);
+        if(result == 1){
+            return "1";
+        }else{
+            return "0";
+        }
+
     }
 
     public SalaryVo detail(String selectNo) {

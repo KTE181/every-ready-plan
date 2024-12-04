@@ -124,12 +124,19 @@ public class VacationController {
     }
     @DeleteMapping("del")
     @ResponseBody
-    public String del(@RequestBody String[] dataArr){
+    public void del(@RequestBody String[] dataArr,HttpSession session){
+        if(dataArr.length==0){
+            return;
+        }
 //        for (String s : dataArr) {
 //            System.out.println(s);
 //        }
         int result = service.editAll(dataArr);
-        return "통신성공";
+        if(result>0){
+            session.setAttribute("alertMsg","삭제 성공");
+        }else{
+            session.setAttribute("alertMsg","삭제 실패");
+        }
     }
     @GetMapping("getEmplistdata")
     @ResponseBody
@@ -148,12 +155,12 @@ public class VacationController {
     @PostMapping("getEmplistdata")
     @ResponseBody
     public EmployeeVo getEmpVo(String searchEmpNo, String searchEname,HttpSession session){
-        System.out.println(searchEmpNo);
-        System.out.println(searchEname);
+//        System.out.println(searchEmpNo);
+//        System.out.println(searchEname);
 
         EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
-        if(vo == null){
-            session.setAttribute("alertMsg","사원정보 가져오기 실패");
+        if(vo == null||vo.getNo().isEmpty()){
+            return null;
         }
         return vo;
     }
