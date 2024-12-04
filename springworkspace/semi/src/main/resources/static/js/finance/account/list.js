@@ -6,6 +6,10 @@ function accountWrite() {
 
     accountWriteModal.style.display = 'block'; // 모달 표시
 
+    // if(accountNo != null) {
+    //     document.querySelector("#account-write input[name=no]").value = empNo;
+    // }
+
     // "X" 버튼 클릭 시 모달 닫기
     closeModal.addEventListener('click', () => {
         accountWriteModal.style.display = 'none'; // 모달 숨기기

@@ -42,6 +42,7 @@ public interface AccountMapper {
                 BANK BANK
             ON
                 ACCOUNT.BANK_CODE = BANK.NO
+            ORDER BY ACCOUNT.NO DESC
             """)
     List<AccountVo> selectAccountVoList();
 
