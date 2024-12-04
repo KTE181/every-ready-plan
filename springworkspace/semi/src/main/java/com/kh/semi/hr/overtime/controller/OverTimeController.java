@@ -32,7 +32,7 @@ public class OverTimeController{
 
         String overtime = vo.getHour()+":"+vo.getMinute();
 
-//        System.out.println("overtime : " +overtime);
+        System.out.println("overtime : " +overtime);
         vo.setWorkHour(overtime);
 
 //        System.out.println(vo);

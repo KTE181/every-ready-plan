@@ -31,11 +31,11 @@ public class OverTimeService {
             errorMsg="[ERROR_OVERTIME_002]초과근무 일자를 선택하지 않았습니다";
             return errorMsg;
         }
-        if(vo.getType()==null){
+        if(vo.getType()==null||vo.getType().equals("")){
             errorMsg="[ERROR_OVERTIME_003]초과근무구분을 선택하지 않았습니다";
             return errorMsg;
         }
-        if(vo.getWorkHour()==null||vo.getWorkHour().equals("")){
+        if(vo.getWorkHour()==null||vo.getWorkHour().equals("00:00")){
             errorMsg="[ERROR_OVERTIME_004]초과근무시간을 선택하지 않았습니다";
             return errorMsg;
         }
@@ -72,7 +72,7 @@ public class OverTimeService {
             errorMsg="[ERROR_OVERTIME_003]초과근무구분을 선택하지 않았습니다";
             return errorMsg;
         }
-        if(alldata.getWorkHour()==null||alldata.getWorkHour().equals("")){
+        if(alldata.getWorkHour()==null||alldata.getWorkHour().equals("00:00")){
             errorMsg="[ERROR_OVERTIME_004]초과근무시간을 선택하지 않았습니다";
             return errorMsg;
         }

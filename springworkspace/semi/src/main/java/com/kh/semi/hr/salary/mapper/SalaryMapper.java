@@ -157,9 +157,8 @@ public interface SalaryMapper {
             SET
             PAY_YEARMONTH = #{payYearmonth},
             NATIONAL_PENSION=#{nationalPension},
-            MEAL_ALLOWANCE=#{payYearmonth},
             COMMUNICATION_COST=#{communicationCost},
-            MEAL_ALLOWANCE=#{mealAllowance}
+            MEAL_ALLOWANCE=#{mealAllowance},
             HEALTH_INSURANCE = #{healthInsurance},
             EMPLOYMENT_INSURANCE = #{employmentInsurance},
             LONGTERM_CARE_INSURANCE=#{longtermCareInsurance},
