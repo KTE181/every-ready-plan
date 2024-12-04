@@ -33,7 +33,7 @@
                 <div class="top-title-area">
                     <div class="menu-name">휴가 내역 조회</div>
                     <div>
-                        <form action="/pv/vacation" method="get" class="top-title-area-form">
+                        <form action="/pv/vacation/list" method="get" class="top-title-area-form">
                             <!-- <label for="">연월일</label> -->
                             <!-- <div class="search-bar"><input type="text" name="year" maxlength="4" placeholder="연도"></div>
                             <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
@@ -98,37 +98,37 @@
                 <!-- Bottom Area -->
                 <div class="bottom-content-area">
                     <div>
-                        
+                    
                     </div>
-            
+
                     <!-- <div>
-                        <button class="ok-button">확인</button>
-                    </div>
-            
-                    <div>
-                        <button class="cancle-button">취소</button>
-                    </div> -->
-            
-                    <div>
-                        <div class="pagination">
-                            <!-- 이전 페이지 버튼 -->
-                            <a href="#" class="page-button previous">&laquo;</a>
-            
-                            <!-- 페이지 번호 버튼들 -->
-                            <a href="#" class="page-button active">1</a>
-                            <a href="#" class="page-button">2</a>
-                            <a href="#" class="page-button">3</a>
-                            <a href="#" class="page-button">4</a>
-                            <a href="#" class="page-button">5</a>
-                            <a href="#" class="page-button">6</a>
-                            <a href="#" class="page-button">7</a>
-                            <a href="#" class="page-button">8</a>
-                            <a href="#" class="page-button">9</a>
-                            <a href="#" class="page-button">10</a>
-                            <!-- 다음 페이지 버튼 -->
-                            <a href="#" class="page-button next">&raquo;</a>
-                         </div>
-                    </div>
+                                <button class="ok-button">확인</button>
+                            </div>
+                    
+                            <div>
+                                <button class="cancle-button">취소</button>
+                            </div> -->
+
+                            <div>
+                                <div class="pagination">
+                                    <!-- 이전 페이지 버튼 -->
+                                   
+
+                                    <!-- 페이지 번호 버튼들 -->
+                                    <div class="pagination">
+                                        <c:if test="${pvo.startPage != 1}">
+                                            <a href="/pv/vacation/list?pno=${pvo.startPage-1}" class="page-button previous">&laquo;</a>
+                                        </c:if>
+                                        <c:forEach begin="${pvo.startPage}" end="${pvo.endPage}" var="i" step="1">
+                                            <a href="/pv/vacation/list?pno=${i}" class="page-button">${i}</a>
+                                        </c:forEach>
+                                        <c:if test="${pvo.endPage != pvo.maxPage}">
+                                            <a href="/pv/vacation/list?pno=${pvo.endPage+1}" class="page-button next">&raquo;</a>
+                                        </c:if>
+                                    </div>
+                                   
+                                </div>
+                            </div>
             
                     <!-- <div class="bottom-content-area-5"><button class="crud-button-white">수정</button></div> -->
                      

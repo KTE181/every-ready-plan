@@ -1,6 +1,7 @@
 package com.kh.semi.pv.controller;
 
 import com.kh.semi.login.vo.LoginVo;
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.pv.service.PvVacationService;
 import com.kh.semi.pv.vo.PvVacationVo;
 import jakarta.servlet.http.HttpSession;
@@ -16,15 +17,15 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("pv")
+@RequestMapping("pv/vacation")
 @Slf4j
-public class PvVacation {
+public class PvVacationController {
     private final PvVacationService service;
 
-    @GetMapping("vacation")
-    public String list(Model model, HttpSession session,String date){
+    @GetMapping("list")
+    public String list(Model model, HttpSession session,String date,@RequestParam(name = "pno" , required = false, defaultValue = "1")int currentPage){
 
-        System.out.println(date);
+
 
         LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
         if(loginEmployeeVo==null){
@@ -32,8 +33,16 @@ public class PvVacation {
             return "redirect:/login";
         }
         String no = ((LoginVo) session.getAttribute("loginEmployeeVo")).getNo();
-        List<PvVacationVo> voList=service.getVacationList(no,date);
+
+        int listCount = service.getVacationCnt(no);
+        int pageLimit = 5;
+        int boardLimit = 14;
+        PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+
+        List<PvVacationVo> voList=service.getVacationList(no,date,pvo);
         PvVacationVo vacationVo=service.getVacationVo(no);
+        model.addAttribute("pvo",pvo);
         model.addAttribute("voList",voList);
         model.addAttribute("vacationVo",vacationVo);
         return "pv/vacation/list";

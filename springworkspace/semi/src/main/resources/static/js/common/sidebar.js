@@ -126,7 +126,7 @@ document.querySelector('.dropdown-menu1 li:nth-child(1)').addEventListener("clic
 })
 //사이드바 개인휴가내역 이동
 document.querySelector('.dropdown-menu1 li:nth-child(2)').addEventListener("click",()=>{
-  location.href="/pv/vacation";
+  location.href="/pv/vacation/list";
 })
 
 

@@ -51,5 +51,7 @@ SELECT
         <if test="date != null and date !='' ">
             AND A.THISDATE= #{date}
         </if>
+        ORDER BY A.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
     </select>
         </mapper>

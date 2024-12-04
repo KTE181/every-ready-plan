@@ -1,5 +1,6 @@
 package com.kh.semi.pv.mapper;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.pv.vo.PvVacationVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -9,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface PvVacationMapper {
 
-    List<PvVacationVo> getVacationList(String no,String date);
+    List<PvVacationVo> getVacationList(String no, String date, PageVo pvo);
 
     @Select("""
                    SELECT *
@@ -63,4 +64,10 @@ public interface PvVacationMapper {
             WHERE ROWNUM = 1
             """)
     PvVacationVo getVacationVo(String no);
+
+    @Select("""
+            SELECT COUNT(NO) FROM VACATION_LOG
+                        WHERE EMP_NO=#{no} AND DEL_YN='N'
+            """)
+    int gerVacationCnt(String no);
 }

@@ -1,5 +1,6 @@
 package com.kh.semi.pv.service;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.pv.mapper.PvVacationMapper;
 import com.kh.semi.pv.vo.PvVacationVo;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,15 @@ import java.util.List;
 public class PvVacationService {
     private final PvVacationMapper mapper;
 
-    public List<PvVacationVo> getVacationList(String no,String date) {
-        return mapper.getVacationList(no,date);
+    public List<PvVacationVo> getVacationList(String no, String date, PageVo pvo) {
+        return mapper.getVacationList(no,date,pvo);
     }
 
     public PvVacationVo getVacationVo(String no) {
         return mapper.getVacationVo(no);
+    }
+
+    public int getVacationCnt(String no) {
+        return mapper.gerVacationCnt(no);
     }
 }
