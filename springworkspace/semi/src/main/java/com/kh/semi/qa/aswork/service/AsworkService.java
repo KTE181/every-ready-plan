@@ -1,8 +1,11 @@
 package com.kh.semi.qa.aswork.service;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.aswork.mapper.AsworkMapper;
+import com.kh.semi.qa.aswork.vo.AsworkStatusVo;
 import com.kh.semi.qa.aswork.vo.AsworkVo;
+import com.kh.semi.qa.faultcode.vo.FaultcodeVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,9 +22,9 @@ public class AsworkService {
 
     private final AsworkMapper mapper;
 
-    public List<AsworkVo> getAsworkList(Model model) {
+    public List<AsworkVo> getAsworkList(Model model, PageVo pvo, String area, String status, String type, String searchType, String searchValue) {
 
-        List<AsworkVo> asworkList = mapper.getAsworkList(model);
+        List<AsworkVo> asworkList = mapper.getAsworkList(model, pvo, area, status, type, searchType, searchValue);
 
         for (AsworkVo vo : asworkList) {
             if(vo.getRepairDate() != null) {
@@ -30,6 +33,10 @@ public class AsworkService {
         }
         return asworkList;
 
+    }
+
+    public int getAsworkListCnt(String area, String status, String type, String searchType, String searchValue) {
+        return mapper.getAsworkListCnt(area, status, type, searchType, searchValue);
     }
 
     public AsworkVo getAsworkDetail(String asworkNo, Model model) {
@@ -70,5 +77,13 @@ public class AsworkService {
 
     public int delete(String no) {
         return mapper.delete(no);
+    }
+
+    public List<AsworkStatusVo> getStatusList(Model model) {
+        return mapper.getStatusList(model);
+    }
+
+    public List<FaultcodeVo> getTypeList(Model model) {
+        return mapper.getTypeList(model);
     }
 }

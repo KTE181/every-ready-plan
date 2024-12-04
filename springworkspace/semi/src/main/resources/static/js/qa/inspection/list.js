@@ -1,26 +1,31 @@
 // 등록 모달
-function inspectionWrite() {
+function loadWriteModal() {
 
-    // 모달 요소 가져오기
-    const inspectionWriteModal = document.querySelector("#inspection-write");
-    const closeModal = document.querySelector('#inspection-write .modal-close');
+    const modal = document.querySelector("#inspection-modal");
+    const modalForm = document.querySelector("#inspection-form");
 
-    inspectionWriteModal.style.display = 'block'; // 모달 표시
+    // 모달 표시
+    modalForm.reset();
+    modal.style.display = 'block'; 
 
-    // "X" 버튼 클릭 시 모달 닫기
-    closeModal.addEventListener('click', () => {
-        inspectionWriteClose();
-    }, { once: true } );
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "품질 검사 등록";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'block';
+    }
+    document.querySelector("#search-button").setAttribute("type", "button");
+    document.querySelector("select[name=inspectionCode]").removeAttribute("disabled");
+    document.querySelector("select[name=statusCode]").removeAttribute("disabled");
+    document.querySelector("#inspection-date").innerHTML = `<label>검사일자</label><input type="date" name="inspectionDate">`
+    document.querySelector("#success-yn").innerHTML = `<input type="radio" name="successYn" value="P">PASS <input type="radio" name="successYn" value="F">FAIL`;
+    document.querySelector("#enroll-date").style.display = 'none';
+    document.querySelector("#modify-date").style.display = 'none';
+    document.querySelector(".button-container").innerHTML = `<input type="button" id="inspection-write-button" value="등록">`;
 
-    // 상품 검색 버튼 클릭 시 동작
-    const searchButton = document.querySelector('#write-modal-product-search');
-    searchButton.addEventListener('click', () => {
-        searchProduct('inspectionWrite');
-    });
-
-    // 등록 버튼 클릭 시 동작
-    const writeButton = document.querySelector('#inspection-write-btn');
-    writeButton.addEventListener('click', () => {
+    // 등록 버튼 클릭 시 동작 
+    const writeButton = document.querySelector("#inspection-write-button");
+    writeButton.addEventListener("click", function () {
         write();
     });
 
@@ -29,12 +34,12 @@ function inspectionWrite() {
 // 등록 처리
 function write() {
 
-    const productNo = document.querySelector('#inspection-write input[name=productNo]').value;
-    const inspectionCode = document.querySelector('#inspection-write select[name=inspectionCode]').value;
-    const statusCode = document.querySelector('#inspection-write select[name=statusCode]').value;
-    const successYnElement = document.querySelector('#inspection-write input[name=successYn]:checked');
+    const productNo = document.querySelector('#inspection-modal input[name=productNo]').value;
+    const inspectionCode = document.querySelector('#inspection-modal select[name=inspectionCode]').value;
+    const statusCode = document.querySelector('#inspection-modal select[name=statusCode]').value;
+    const successYnElement = document.querySelector('#inspection-modal input[name=successYn]:checked');
     const successYn = successYnElement ? successYnElement.value : null;
-    const inspectionDateElement = document.querySelector('#inspection-write input[name=inspectionDate]');
+    const inspectionDateElement = document.querySelector('#inspection-modal input[name=inspectionDate]');
     const inspectionDate = inspectionDateElement ? inspectionDateElement.value : null;
 
     if (!productNo) {
@@ -74,42 +79,35 @@ function write() {
             else {
                 alert("등록실패...");
             }
-            location.reload();
+            location.href = "/qa/inspection/list";
         },
         error: function() {
             alert("통신실패...");
-            location.reload();
+            location.href = "/qa/inspection/list";
         }
     });
 }
 
-// 등록 모달 닫기 
-function inspectionWriteClose() {
-    const inspectionDetailModal = document.querySelector("#inspection-detail");
-    const form = document.querySelector("#inspection-write-form");
-    inspectionDetailModal.style.display = 'none'; // 모달 숨기기
-    form.reset(); // 모달 내용 초기화
-}
-
 // 상품 검색 모달
-function searchProduct(caller) {
+function productList() {
 
-    const searchProductModal = document.querySelector("#search-product");
-    const closeModal = document.querySelector("#search-product .modal-close");
+    const productModal = document.querySelector("#product-modal");
+    const closeModal = document.querySelector("#product-modal .modal-close");
 
-    searchProductModal.style.display = 'block'; 
+    productModal.style.display = 'block'; 
 
     closeModal.addEventListener('click', () => {
-        searchProductClose();
+        productModal.style.display = 'none';
     } , { once: true });
 
-    const tbodyTag = document.querySelector("#search-product table>tbody");
-    tbodyTag.innerHTML = ""; 
+    const tbodyTag = document.querySelector("#product-modal table>tbody");
 
     $.ajax({
         url : "/qa/asreq/productlist",
         method : "GET" ,
         success : function(productVoList){
+
+            tbodyTag.innerHTML = ""; 
 
             for(const vo of productVoList) {
 
@@ -151,75 +149,63 @@ function searchProduct(caller) {
     })
 
     // 상품 선택 시 동작
-    const selectButton = document.querySelector("#product-select-btn");
+    const selectButton = document.querySelector("#product-select-button");
     selectButton.addEventListener('click', () => {
-        selectProduct(caller);
-    } , { once: true });
+
+        const selectedProduct = document.querySelector("#product-modal input[type=radio]:checked");
+        if (selectedProduct === null) {
+            alert("상품이 선택되지 않았습니다.");
+            return;
+        }
         
+        selectProduct(selectedProduct);
+        productModal.style.display = 'none';
+
+    });
+
 }
 
 // 상품 선택 처리
-function selectProduct(caller) {
+function selectProduct(selectedProduct) {
 
-        const radioArr = document.querySelectorAll("input[name=product-radio-btn]");
-        const productNoArr = document.querySelectorAll("input[name=productNo]");
+    const no = selectedProduct.nextSibling.value;
+    const serialNumber = selectedProduct.parentNode.parentNode.children[1].innerText;
+    const productName = selectedProduct.parentNode.parentNode.children[2].innerText;
+    const price = selectedProduct.parentNode.parentNode.children[3].innerText;
+    const warrantyPeriod = selectedProduct.parentNode.parentNode.children[4].innerText;
 
-        let serialNumber = null;
-        let productName = null;
-        let price = null;
-        let warrantyPeriod = null;
-        let no = null;
+    document.querySelector("#inspection-modal input[name=productNo]").value = no;
+    document.querySelector("#inspection-modal input[name=serialNumber]").value = serialNumber;
+    document.querySelector("#inspection-modal input[name=productName]").value = productName;
 
-        for(let i=0; i<radioArr.length; i++) {
-            if (radioArr[i].checked) {
-                no = radioArr[i].nextSibling.value;
-                serialNumber = radioArr[i].parentNode.parentNode.children[1].innerText;
-                productName = radioArr[i].parentNode.parentNode.children[2].innerText;
-                price = radioArr[i].parentNode.parentNode.children[3].innerText;
-                warrantyPeriod = radioArr[i].parentNode.parentNode.children[4].innerText;
-            }
-        }
-
-        if (serialNumber === null) {
-            alert("상품이 선택되지 않았습니다.");
-        }
-        
-        if(caller == 'inspectionWrite') {
-            searchProductClose();
-            document.querySelector("#inspection-write input[name=productNo]").value = no;
-            document.querySelector("#inspection-write input[name=serialNumber]").value = serialNumber;
-            document.querySelector("#inspection-write input[name=productName]").value = productName;
-            console.log("inspectionwrite호출");
-        }
-        // else if(caller == 'asreqEdit') {
-        //     searchProductClose();
-        //     document.querySelector("#asreq-edit input[name=productNo]").value = no;
-        //     document.querySelector("#asreq-edit input[name=serialNumber]").value = serialNumber;
-        //     document.querySelector("#asreq-edit input[name=productName]").value = name;
-
-        // }
-
-}
-
-// 상품 검색 모달 닫기
-function searchProductClose() {
-    const searchProductModal = document.getElementById('search-product');
-    searchProductModal.style.display = 'none'; // 모달 숨기기
 }
 
 // 상세 모달 
-function inspectionDetail(no) {
-    // 모달 요소 가져오기
-    const inspectionDetailModal = document.querySelector('#inspection-detail');
-    const modalContent = document.querySelector('#inspection-detail .modal-content');
-    const closeModal = document.querySelector('#inspection-detail .modal-close');
+function loadDetailModal(no) {
 
-    inspectionDetailModal.style.display = 'block'; // 모달 표시
+    const modal = document.querySelector("#inspection-modal");
+    const modalForm = document.querySelector("#inspection-form");
 
-    // "X" 버튼 클릭 시 모달 닫기
-    closeModal.addEventListener('click', () => {
-        inspectionDetailClose();
-    });
+    // 모달 표시
+    modalForm.reset();
+    modal.style.display = 'block'; 
+
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "품질 검사 상세";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'none';
+    }
+    document.querySelector("#search-button").setAttribute("type", "hidden");
+    document.querySelector("select[name=inspectionCode]").setAttribute("disabled", "true");
+    document.querySelector("select[name=statusCode]").setAttribute("disabled", "true");
+    document.querySelector("#inspection-date").innerHTML = `<label>검사일자</label><input type="text" name="inspectionDate" disabled>`
+    document.querySelector("#success-yn").innerHTML = `<input type="text" name="successYn" disabled>`;
+    document.querySelector("#enroll-date").style.display = 'flex';
+    document.querySelector("#modify-date").style.display = 'flex';
+    document.querySelector(".button-container").innerHTML = 
+        `<input type="button" id="inspection-edit-button" value="수정">
+        <input type="button" id="inspection-delete-button" value="삭제">`;
 
     $.ajax({
         url: "/qa/inspection/detail",
@@ -229,22 +215,22 @@ function inspectionDetail(no) {
         } ,
         success: function(inspectionVo) {
 
-            document.querySelector("#inspection-detail input[name=no]").value = inspectionVo.no;
-            document.querySelector("#inspection-detail input[name=productNo]").value = inspectionVo.productNo;
-            document.querySelector("#inspection-detail input[name=serialNumber]").value = inspectionVo.serialNumber;
-            document.querySelector("#inspection-detail input[name=productName]").value = inspectionVo.productName;
-            document.querySelector("#inspection-detail select[name=inspectionCode]").value = inspectionVo.inspectionCode;
-            document.querySelector("#inspection-detail select[name=statusCode]").value = inspectionVo.statusCode;
-            document.querySelector("#inspection-detail input[name=inspectionDate]").value = inspectionVo.inspectionDate;
-            document.querySelector("#inspection-detail input[name=successYn]").value = inspectionVo.successYn;
-            document.querySelector("#inspection-detail input[name=enrollDate]").value = inspectionVo.enrollDate;
-            document.querySelector("#inspection-detail input[name=modifyDate]").value = inspectionVo.modifyDate;
+            document.querySelector("#inspection-modal input[name=no]").value = inspectionVo.no;
+            document.querySelector("#inspection-modal input[name=productNo]").value = inspectionVo.productNo;
+            document.querySelector("#inspection-modal input[name=serialNumber]").value = inspectionVo.serialNumber;
+            document.querySelector("#inspection-modal input[name=productName]").value = inspectionVo.productName;
+            document.querySelector("#inspection-modal select[name=inspectionCode]").value = inspectionVo.inspectionCode;
+            document.querySelector("#inspection-modal select[name=statusCode]").value = inspectionVo.statusCode;
+            document.querySelector("#inspection-modal input[name=inspectionDate]").value = inspectionVo.inspectionDate;
+            document.querySelector("#inspection-modal input[name=successYn]").value = inspectionVo.successYn;
+            document.querySelector("#inspection-modal input[name=enrollDate]").value = inspectionVo.enrollDate;
+            document.querySelector("#inspection-modal input[name=modifyDate]").value = inspectionVo.modifyDate;
             
-            const editButton = document.querySelector("#inspection-edit-btn");
-            const deleteButton = document.querySelector("#inspection-delete-btn");
+            const editButton = document.querySelector("#inspection-edit-button");
+            const deleteButton = document.querySelector("#inspection-delete-button");
 
             editButton.addEventListener("click", function () {
-                inspectionEdit(inspectionVo.no);
+                loadEditModal(inspectionVo.no);
             });
 
             deleteButton.addEventListener("click", function () {
@@ -260,87 +246,77 @@ function inspectionDetail(no) {
 
 }
 
-// 상세 모달 닫기
-function inspectionDetailClose() {
-    const inspectionDetailModal = document.getElementById('inspection-detail');
-    inspectionDetailModal.style.display = 'none'; // 모달 숨기기
-}
-
 // 수정 모달
-function inspectionEdit(no) {
+function loadEditModal() {
 
-    inspectionDetailClose();
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "품질 검사 수정";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'block';
+    }
+    document.querySelector("#search-button").setAttribute("type", "button");
+    document.querySelector("select[name=inspectionCode]").removeAttribute("disabled");
+    document.querySelector("select[name=statusCode]").removeAttribute("disabled");
+    document.querySelector("#inspection-modal input[name=inspectionDate]").setAttribute("type", "date");
+    document.querySelector("#inspection-modal input[name=inspectionDate]").removeAttribute("disabled");
 
-    // 모달 요소 가져오기
-    const inspectionEditModal = document.querySelector('#inspection-edit');
-    const modalContent = document.querySelector('#inspection-edit .modal-content');
-    const closeModal = document.querySelector('#inspection-edit .modal-close');
+    const successYn = document.querySelector("#inspection-modal input[name=successYn]").value;
 
-    inspectionEditModal.style.display = 'block'; // 모달 표시
+    if (successYn == 'PASS') {
+        document.querySelector("#success-yn").innerHTML = `<input type="radio" name="successYn" value="P" checked>PASS <input type="radio" name="successYn" value="F">FAIL`;
+    }
+    else if (successYn == 'FAIL') {
+        document.querySelector("#success-yn").innerHTML = `<input type="radio" name="successYn" value="P">PASS <input type="radio" name="successYn" value="F" checked>FAIL`;
+    }
+    else {
+        document.querySelector("#success-yn").innerHTML = `<input type="radio" name="successYn" value="P">PASS <input type="radio" name="successYn" value="F">FAIL`;
+    }
 
-    // "X" 버튼 클릭 시 모달 닫기
-    closeModal.addEventListener('click', () => {
-        inspectionEditModal.style.display = 'none'; // 모달 숨기기
+    document.querySelector("#enroll-date").style.display = 'none';
+    document.querySelector("#modify-date").style.display = 'none';
+    document.querySelector(".button-container").innerHTML = 
+        `<input type="button" id="inspection-save-button" value="저장">`;
+
+
+    // 저장 버튼 클릭 시 동작 
+    const saveButton = document.querySelector("#inspection-save-button");
+    saveButton.addEventListener("click", function () {
+        inspectionEditSave();
     });
 
-    $.ajax({
-        url: "/qa/inspection/detail",
-        method: "get",
-        data: {
-            no : no 
-        } ,
-        success: function(inspectionVo) {
-
-            console.log(inspectionVo);
-
-            document.querySelector("#inspection-edit input[name=no]").value = inspectionVo.no;
-            document.querySelector("#inspection-edit input[name=productNo]").value = inspectionVo.productNo;
-            document.querySelector("#inspection-edit input[name=serialNumber]").value = inspectionVo.serialNumber;
-            document.querySelector("#inspection-edit input[name=productName]").value = inspectionVo.productName;
-            document.querySelector("#inspection-edit select[name=inspectionCode]").value = inspectionVo.inspectionCode;
-            document.querySelector("#inspection-edit select[name=statusCode]").value = inspectionVo.statusCode;
-            document.querySelector("#inspection-edit input[name=inspectionDate]").value = inspectionVo.inspectionDate;
-
-            const successYn = document.querySelectorAll("#inspection-edit input[name=successYn]");
-            for(let i=0; i<successYn.length; i++) {
-                if(successYn[i].value == inspectionVo.successYn) {
-                    successYn[i].checked = true;
-                }
-            }
-            
-            const saveButton = document.querySelector("#inspection-save-btn");
-
-            saveButton.addEventListener("click", function () {
-                inspectionEditSave();
-            });
-
-        },
-
-        error: function() {
-            alert("통신실패...");
-        }
-    });
-}
-
-// 수정 모달 닫기
-function inspectionEditClose() {
-    const inspectionEditModal = document.getElementById('inspection-edit');
-    inspectionEditModal.style.display = 'none'; // 모달 숨기기
 }
 
 // 수정 처리
 function inspectionEditSave() {
-    
-    inspectionEditClose();
 
-    const no = document.querySelector("#inspection-edit input[name=no]").value;
-    const productNo = document.querySelector("#inspection-edit input[name=productNo]").value;
-    const serialNumber = document.querySelector("#inspection-edit input[name=serialNumber]").value;
-    const productName = document.querySelector("#inspection-edit input[name=productName]").value;
-    const inspectionCode = document.querySelector("#inspection-edit select[name=inspectionCode]").value;
-    const inspectionDate = document.querySelector("#inspection-edit input[name=inspectionDate]").value;
-    const statusCode = document.querySelector("#inspection-edit select[name=statusCode]").value;
-    const successYn = document.querySelector("#inspection-edit input[name=successYn]:checked").value;
+    const no = document.querySelector('#inspection-modal input[name=no]').value;
+    const productNo = document.querySelector('#inspection-modal input[name=productNo]').value;
+    const inspectionCode = document.querySelector('#inspection-modal select[name=inspectionCode]').value;
+    const statusCode = document.querySelector('#inspection-modal select[name=statusCode]').value;
+    const successYnElement = document.querySelector('#inspection-modal input[name=successYn]:checked');
+    const successYn = successYnElement ? successYnElement.value : null;
+    const inspectionDateElement = document.querySelector('#inspection-modal input[name=inspectionDate]');
+    const inspectionDate = inspectionDateElement ? inspectionDateElement.value : null;
+
+    if (!productNo) {
+        alert("상품을 선택하세요.");
+        return;
+    }
+    if (inspectionCode == "") {
+        alert("검사유형을 선택하세요.");
+        return;
+    }
+    if (statusCode == "") {
+        alert("진행상태코드를 선택하세요.");
+        return;
+    }
+
+    const result = confirm("저장하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
 
     $.ajax({
         url: "/qa/inspection/edit",
@@ -348,8 +324,6 @@ function inspectionEditSave() {
         data: {
             no : no ,
             productNo : productNo ,
-            serialNumber : serialNumber ,
-            productName : productName ,
             inspectionCode : inspectionCode ,
             statusCode : statusCode ,
             inspectionDate : inspectionDate ,
@@ -418,7 +392,7 @@ function handelCheckbox(checkAll) {
 }
 
 // 다중 삭제 처리
-function inspectionDeleteMultiple() {
+function deleteMultiple() {
         
     const checkedArr = document.querySelectorAll("input[name=listCheckbox]:checked");
     const noArr = [];
@@ -463,3 +437,18 @@ function inspectionDeleteMultiple() {
     });
 
 }
+
+// 모달 닫기
+function closeModal() {
+
+    const modal = document.querySelector("#inspection-modal");
+    const closeModal = document.querySelector('#inspection-modal .modal-close');
+    
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+}
+
+closeModal();
+

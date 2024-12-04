@@ -136,39 +136,7 @@ function asempEditClose() {
     asempEditModal.style.display = 'none'; // 모달 숨기기
 }
 
-function asempDelete(no) {
 
-    const result = confirm("삭제하시겠습니까?");
-
-    if(result == false) {
-        return;
-    }
-
-    $.ajax({
-        url: "/qa/asemp/delete",
-        method: "get",
-        dataType: 'json',
-        data: {
-            no : no 
-        } ,
-        success: function(result) {
-
-            if(result == 1) {
-                alert("삭제되었습니다.");
-            }
-            else {
-                alert("삭제 실패...");
-            }
-
-            location.reload();
-        },
-
-        fail: function() {
-            alert("통신실패...");
-        }
-    });
-
-}
 
 
 const selectButton = document.querySelector("#emp-select-btn");
@@ -270,4 +238,94 @@ function searchEmp() {
 function searchEmpClose() {
     const searchEmpModal = document.getElementById('search-emp');
     searchEmpModal.style.display = 'none'; // 모달 숨기기
+}
+
+function asempDelete(no) {
+
+    const result = confirm("삭제하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/qa/asemp/delete",
+        method: "POST",
+        data: {
+            no : no 
+        } ,
+        success: function(result) {
+
+            if(result == 1) {
+                alert("삭제되었습니다.");
+            }
+            else {
+                alert("삭제 실패...");
+            }
+
+            location.reload();
+        },
+
+        fail: function() {
+            alert("통신실패...");
+        }
+    });
+
+}
+
+// 전체 선택 
+function handelCheckbox(checkAll) {
+
+    const checkBoxArr = document.querySelectorAll("input[name=listCheckbox]");
+
+    for(let i=0; i<checkBoxArr.length; i++) {
+        checkBoxArr[i].checked = checkAll.checked;
+    }
+}
+
+// 다중 삭제 처리
+function asempDeleteMultiple() {
+        
+    const checkedArr = document.querySelectorAll("input[name=listCheckbox]:checked");
+    const noArr = [];
+
+    for(const checkBox of checkedArr) {
+        const no = checkBox.parentNode.parentNode.children[1].innerText;
+        noArr.push(no);
+    }
+
+    if (noArr.length == 0) {
+        alert("선택된 건이 없습니다.");
+        return;
+    }
+
+    const result = confirm("선택한 건을 삭제하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/qa/asemp/delete",
+        method: "POST",
+        data : {
+            no : noArr
+        },
+
+        success: function(result) {
+            if(result > 0) {
+                alert("삭제되었습니다.");
+            }
+            else {
+                alert("삭제실패...");
+            }
+
+            location.reload();
+
+        },
+        error: function() {
+            alert("통신실패...");
+        }
+    });
+
 }

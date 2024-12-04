@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.semi.qa.asreq.mapper.AsreqMapper">
+
+    <select id="getAsreqList">
+        SELECT
+            A.NO
+            , A.P_NO    AS PRODUCT_NO
+            , P.SERIAL_NUMBER
+            , P.NAME    AS PRODUCT_NAME
+            , A.CUSTOMER_NAME
+            , A.CUSTOMER_AREA
+            , A.CUSTOMER_ADRESS
+            , A.CUSTOMER_PHONE
+            , A.PURCHASE_DATE
+            , A.WARRANTY_YN
+            , A.ISSUE_TITLE
+            , A.ISSUE_DESCRIPTION
+            , A.PREFERRED_SERVICE_DATE
+            , A.STATUS_CODE
+            , A.ENROLL_DATE
+            , A.MODIFY_DATE
+            , A.DEL_YN
+        FROM AS_REQUEST A
+        JOIN PRODUCT_REGISTRATION P ON (A.P_NO = P.NO)
+        WHERE A.STATUS_CODE = 1
+        AND A.DEL_YN = 'N'
+
+        <if test="area != '' and area != null">
+            AND A.CUSTOMER_AREA = #{area}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
+            AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'productName'">
+            AND P.NAME LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'title'">
+            AND A.ISSUE_TITLE LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'customerName'">
+            AND A.CUSTOMER_NAME LIKE '%${searchValue}%'
+        </if>
+
+        ORDER BY A.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+
+    <select id="getAsreqListCnt">
+        SELECT COUNT(A.NO)
+        FROM AS_REQUEST A
+        JOIN PRODUCT_REGISTRATION P ON (A.P_NO = P.NO)
+        WHERE A.STATUS_CODE = 1
+        AND A.DEL_YN = 'N'
+
+        <if test="area != '' and area != null">
+            AND A.CUSTOMER_AREA = #{area}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
+            AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'productName'">
+            AND P.NAME LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'title'">
+            AND A.ISSUE_TITLE LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'customerName'">
+            AND A.CUSTOMER_NAME LIKE '%${searchValue}%'
+        </if>
+
+    </select>
+</mapper>

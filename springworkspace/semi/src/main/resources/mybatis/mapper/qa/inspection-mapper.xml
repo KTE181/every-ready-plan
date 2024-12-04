@@ -49,8 +49,28 @@
     </select>
 
     <select id="getInspectionListCnt">
-        SELECT COUNT(*)
-        FROM INSPECTION_HISTORY
-        WHERE DEL_YN = 'N'
+        SELECT COUNT(I.NO)
+        FROM INSPECTION_HISTORY I
+        JOIN PRODUCT_REGISTRATION P ON (I.PRODUCT_NO = P.NO)
+        JOIN INSPECTION_TYPE C ON (I.INSPECTION_CODE = C.NO)
+        JOIN INSPECTION_STATUS S ON (I.STATUS_CODE = S.NO)
+        WHERE I.DEL_YN = 'N'
+
+        <if test="inspectionType != '' and inspectionType != null">
+            AND I.INSPECTION_CODE = #{inspectionType}
+        </if>
+        <if test="status != '' and status != null">
+            AND I.STATUS_CODE = #{status}
+        </if>
+        <if test="passYn != '' and passYn != null">
+            AND I.SUCCESS_YN = #{passYn}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
+            AND P.SERIAL_NUMBER = #{searchValue}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'productName'">
+            AND P.NAME = #{searchValue}
+        </if>
+
     </select>
 </mapper>

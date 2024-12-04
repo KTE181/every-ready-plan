@@ -1,5 +1,6 @@
 package com.kh.semi.qa.asemp.service;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.mapper.AsempMapper;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
@@ -19,8 +20,8 @@ public class AsempService {
 
     private final AsempMapper mapper;
 
-    public List<AsempVo> getAsempList(Model model) {
-        return mapper.getAsempList(model);
+    public List<AsempVo> getAsempList(Model model, PageVo pvo, String area, String searchType, String searchValue) {
+        return mapper.getAsempList(model, pvo, area, searchType, searchValue);
     }
 
     public int enroll(AsempVo vo) {
@@ -41,5 +42,9 @@ public class AsempService {
 
     public List<EmployeeVo> getEmpList() {
         return mapper.getEmpList();
+    }
+
+    public int getAsempListCnt(String area, String searchType, String searchValue) {
+        return mapper.getAsempListCnt(area, searchType, searchValue);
     }
 }

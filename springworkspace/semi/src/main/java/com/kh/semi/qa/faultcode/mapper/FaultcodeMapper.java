@@ -1,5 +1,6 @@
 package com.kh.semi.qa.faultcode.mapper;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.faultcode.vo.FaultcodeVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,14 +13,9 @@ import java.util.List;
 @Mapper
 public interface FaultcodeMapper {
 
-    @Select("""
-            SELECT
-                NO
-                , NAME  AS FAULT_NAME
-            FROM FAULT_CODE
-            WHERE DEL_YN = 'N'
-            """)
-    List<FaultcodeVo> getFaultCodeList(Model model);
+    List<FaultcodeVo> getFaultCodeList(Model model, PageVo pvo, String searchType, String searchValue);
+
+    int getFaultCodeListCnt(String searchType, String searchValue);
 
     @Select("""
             SELECT
@@ -55,7 +51,8 @@ public interface FaultcodeMapper {
     @Update("""
             UPDATE FAULT_CODE
             SET DEL_YN = 'Y'
-            WHERE NO = #{no}
+            WHERE NO IN (${no})
             """)
     int delete(String no);
+
 }

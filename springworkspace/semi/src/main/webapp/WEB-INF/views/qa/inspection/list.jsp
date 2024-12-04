@@ -55,7 +55,7 @@
 
                             <label for="select"></label>
                             <div class="search-bar">
-                                <select name="passYn" id="">
+                                <select name="passYn">
                                     <option value="">합격여부 전체</option>
                                     <option value="P" <c:if test='${passYn == "P"}'>selected</c:if>>PASS</option>
                                     <option value="F" <c:if test='${passYn == "F"}'>selected</c:if>>FAIL</option>
@@ -95,7 +95,7 @@
                         </thead>
                         <tbody>
                             <c:forEach items="${inspectionVoList}" var="inspectionVo">
-                                <tr onclick="inspectionDetail('${inspectionVo.no}');">
+                                <tr onclick="loadDetailModal('${inspectionVo.no}');">
                                     <td onclick="event.stopPropagation();"><input type="checkbox" name="listCheckbox"></td>
                                     <td>${inspectionVo.no}</td>
                                     <td>${inspectionVo.serialNumber}</td>
@@ -113,7 +113,7 @@
 
                 <!-- Bottom Area -->
                 <div class="bottom-content-area">
-                    <div><button class="crud-button-white" onclick="inspectionDeleteMultiple();">삭제</button></div>
+                    <div><button class="crud-button-white" onclick="deleteMultiple();">삭제</button></div>
                     <div>
                         <div class="pagination">
                             <c:if test="${pvo.startPage != 1}"> 
@@ -127,37 +127,38 @@
                             </c:if>   
                          </div>
                     </div>
-                    <div><button class="crud-button-white" onclick="inspectionWrite();">등록</button></div>
+                    <div><button class="crud-button-white" onclick="loadWriteModal();">등록</button></div>
                 </div>
             </div>
 
-            <!-- Write Modal -->
-            <div id="inspection-write">
-                <form id="inspection-write-form">
+            <!-- 품질검사 모달 -->
+            <div id="inspection-modal">
+                <form id="inspection-form">
                     <div class="modal-content">
                         <span class="modal-close">&times;</span>
 
-                        <div class="modal-title">품질 검사 등록</div>
+                        <div class="modal-title"></div>
                         <div class="required-text">* 는 필수입력사항입니다.</div>
-
                         <div class="title-text">품질검사정보</div>
 
+                        <input type="hidden" name="no">
                         <input type="hidden" name="productNo">
 
                         <div class="modal-cont">
-                            <label for=""><span class="required-text">*</span> 상품일련번호</label>
+                            <div><span class="required-text">*</span>상품일련번호</div>
                             <div>
                                 <input type="text" name="serialNumber" disabled> 
-                                <input type="button" class="product-search-button" id="write-modal-product-search" value="상품검색">
+                                <input type="button" id="search-button" onclick="productList();" value="상품검색">
                             </div>
-                            
                         </div>
+
                         <div class="modal-cont">
-                            <label for=""><span class="required-text">*</span> 상품명</label>
+                            <div><span class="required-text">*</span> 상품명</div>
                             <input type="text" name="productName" disabled> 
                         </div>
+
                         <div class="modal-cont">
-                            <label><span class="required-text">*</span> 검사유형</label>
+                            <div><span class="required-text">*</span> 검사유형</div>
                             <select name="inspectionCode">
                                 <option value="">-- 선택 --</option>
                                 <c:forEach items="${typeVoList}" var="vo">
@@ -165,8 +166,9 @@
                                 </c:forEach>
                             </select>
                         </div>
+
                         <div class="modal-cont">
-                            <label><span class="required-text">*</span> 진행상태</label>
+                            <div><span class="required-text">*</span> 진행상태</div>
                             <select name="statusCode">
                                 <option value="">-- 선택 --</option>
                                 <c:forEach items="${statusVoList}" var="vo">
@@ -175,157 +177,38 @@
                             </select>
                         </div>
 
-                        <div class="modal-cont">
-                            <label>검사일자</label>
-                            <input type="date" name="inspectionDate">
+                        <div id="inspection-date" class="modal-cont">
                         </div>
                         
                         <div class="modal-cont">
                             <label for="">합격여부</label>
-                            <div>
-                                <input type="radio" name="successYn" value="P">PASS
-                                <input type="radio" name="successYn" value="F">FAIL
+                            <div id="success-yn">
                             </div>
+                        </div>
+                        
+                        <div class="modal-cont" id="enroll-date">
+                            <label for="">등록일자</label>
+                            <input type="text" name="enrollDate" disabled>
+                        </div>
+
+                        <div class="modal-cont" id="modify-date">
+                            <label for="">수정일자</label>
+                            <input type="text" name="modifyDate" disabled>
                         </div>
 
                         <div></div>
-                        <div class="button-container"><input type="button" id="inspection-write-btn" value="등록"></div>
+                        <div class="button-container"></div>
                     </div>
                 </form>
             </div>
 
-            <!-- Detail Modal -->
-            <div id="inspection-detail">
+
+             <!-- 상품검색 모달 -->
+             <div id="product-modal">
                 <div class="modal-content">
                     <span class="modal-close">&times;</span>
-
-                    <div class="modal-title">품질 검사 상세</div>
-                    <div id="required-text"></div>
-
-                    <div class="title-text">품질검사정보</div>
-
-                    <input type="hidden" name="no">
-                    <input type="hidden" name="productNo">
-
-                    <div class="modal-cont">
-                        <label for="">상품일련번호</label>
-                        <input type="text" name="serialNumber" disabled> 
-                        
-                    </div>
-                    <div class="modal-cont">
-                        <label for="">상품명</label>
-                        <input type="text" name="productName" disabled>
-                    </div>
-                    <div class="modal-cont">
-                        <label>검사유형</label>
-                        <select name="inspectionCode" disabled>
-                            <option value="1">내열성</option>
-                            <option value="2">충격</option>
-                        </select>
-                    </div>
-                    <div class="modal-cont">
-                        <label>진행상태</label>
-                        <select name="statusCode" disabled>
-                            <option value="1">미검사</option>
-                            <option value="2">검사완료</option>
-                        </select>
-                    </div>
-
-                    <div class="modal-cont">
-                        <label>검사일자</label>
-                        <input type="text" name="inspectionDate" disabled>
-                    </div>
-                    
-                    <div class="modal-cont">
-                        <label for="">합격여부</label>
-                        <input type="text" name="successYn" disabled>
-                    </div>
-
-                    <div class="modal-cont">
-                        <label for="">등록일자</label>
-                        <input type="text" name="enrollDate" disabled>
-                    </div>
-
-                    <div class="modal-cont">
-                        <label for="">수정일자</label>
-                        <input type="text" name="modifyDate" disabled>
-                    </div>
-                    
-                    <div></div>
-                    <div class="button-container">
-                        <div><input type="button" id="inspection-edit-btn" value="수정"></div>
-                        <div><input type="button" id="inspection-delete-btn" value="삭제"></div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Edit Modal -->
-            <div id="inspection-edit">
-                <div class="modal-content">
-                    <span class="modal-close">&times;</span>
-
-                    <div class="modal-title">품질 검사 수정</div>
-                    <div class="required-text">* 는 필수입력사항입니다.</div>
-
-                    <div class="title-text">품질검사정보</div>
-
-                    <input type="hidden" name="no">
-                    <input type="hidden" name="productNo">
-
-                    <div class="modal-cont">
-                        <label for="">상품일련번호</label>
-                        <div>
-                            <input type="text" name="serialNumber" disabled> 
-                            <input type="button" class="product-search-button" value="상품검색">
-                        </div>
-                        
-                    </div>
-                    <div class="modal-cont">
-                        <label for="">상품명</label>
-                        <input type="text" name="productName" disabled>
-                    </div>
-                    <div class="modal-cont">
-                        <label>검사유형</label>
-                        <select name="inspectionCode">
-                            <option value="1">내열성</option>
-                            <option value="2">충격</option>
-                        </select>
-                    </div>
-                    <div class="modal-cont">
-                        <label>진행상태</label>
-                        <select name="statusCode">
-                            <option value="1">미검사</option>
-                            <option value="2">검사완료</option>
-                        </select>
-                    </div>
-
-                    <div class="modal-cont">
-                        <label>검사일자</label>
-                        <input type="text" name="inspectionDate">
-                    </div>
-                    
-                    <div class="modal-cont">
-                        <label for="">합격여부</label>
-                        <div>
-                            <input type="radio" name="successYn" value="P">PASS
-                            <input type="radio" name="successYn" value="F">FAIL
-                        </div>
-                    </div>
-
-                    <div></div>
-                    <div class="button-container"><input type="button" id="inspection-save-btn" value="저장"></div>
-                </div>
-            </div>
-
-            <!-- SearchProduct Modal -->
-            <div id="search-product">
-                <div class="modal-content">
-                    <span class="modal-close">&times;</span>
-        
                     <div class="modal-title">상품검색</div>
                     <div></div>
-
                     <table>
                         <thead>
                             <tr>
@@ -337,9 +220,8 @@
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        </tbody>
                     </table>
-                    <div class="button-container"><input type="button" id="product-select-btn" value="선택"></div>
+                    <div class="button-container"><input type="button" id="product-select-button" value="선택"></div>
                 </div>
             </div>
 

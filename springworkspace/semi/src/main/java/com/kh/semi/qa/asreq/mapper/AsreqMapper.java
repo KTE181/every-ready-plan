@@ -1,5 +1,6 @@
 package com.kh.semi.qa.asreq.mapper;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.product.vo.ProductVo;
 import org.apache.ibatis.annotations.Insert;
@@ -45,32 +46,9 @@ public interface AsreqMapper {
             """)
     int write(AsreqVo vo);
 
-    @Select("""
-            SELECT
-                A.NO
-                , A.P_NO    AS PRODUCT_NO
-                , P.SERIAL_NUMBER
-                , P.NAME    AS PRODUCT_NAME
-                , A.CUSTOMER_NAME
-                , A.CUSTOMER_AREA
-                , A.CUSTOMER_ADRESS
-                , A.CUSTOMER_PHONE
-                , A.PURCHASE_DATE
-                , A.WARRANTY_YN
-                , A.ISSUE_TITLE
-                , A.ISSUE_DESCRIPTION
-                , A.PREFERRED_SERVICE_DATE
-                , A.STATUS_CODE
-                , A.ENROLL_DATE
-                , A.MODIFY_DATE
-                , A.DEL_YN
-            FROM AS_REQUEST A
-            JOIN PRODUCT_REGISTRATION P ON (A.P_NO = P.NO)
-            WHERE A.STATUS_CODE = 1
-            AND A.DEL_YN = 'N'
-            ORDER BY A.NO DESC
-            """)
-    List<AsreqVo> getAsreqList(Model model);
+    List<AsreqVo> getAsreqList(Model model, PageVo pvo, String area, String searchType, String searchValue);
+
+    int getAsreqListCnt(String area, String searchType, String searchValue);
 
     @Select("""
             SELECT
@@ -121,7 +99,7 @@ public interface AsreqMapper {
             SET
                 DEL_YN = 'Y'
                 , MODIFY_DATE = SYSDATE
-            WHERE NO IN (#{no})
+            WHERE NO IN (${no})
             """)
     int delete(String no);
 
@@ -159,4 +137,5 @@ public interface AsreqMapper {
             WHERE DEL_YN = 'N'
             """)
     List<ProductVo> getProductList();
+
 }

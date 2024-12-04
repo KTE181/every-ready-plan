@@ -21,7 +21,7 @@ public class InspectionController {
 
     private final InspectionService service;
 
-    // 품질 검사 목록 조회 (화면)
+    // 품질 검사 목록 조회
     @GetMapping("list")
     public String getInspectionList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
                                     String inspectionType, String status, String passYn, String searchType, String searchValue)
@@ -47,13 +47,24 @@ public class InspectionController {
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchValue", searchValue);
 
-        List<InspectionStatusVo> statusVoList =service.getStatusList(model);
-        model.addAttribute("statusVoList", statusVoList);
-
-        List<InspectionTypeVo> typeVoList =service.getInspectionTypeList(model);
-        model.addAttribute("typeVoList", typeVoList);
+        getStatus(model);
+        getType(model);
 
         return "qa/inspection/list";
+    }
+
+    // 진행상태 가져오기
+    @GetMapping("data/status")
+    public void getStatus(Model model) {
+        List<InspectionStatusVo> statusVoList =service.getStatusList(model);
+        model.addAttribute("statusVoList", statusVoList);
+    }
+
+    // 검사유형 가져오기
+    @GetMapping("data/type")
+    public void getType(Model model) {
+        List<InspectionTypeVo> typeVoList =service.getInspectionTypeList(model);
+        model.addAttribute("typeVoList", typeVoList);
     }
 
     // 품질 검사 등록
