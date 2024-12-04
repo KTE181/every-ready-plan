@@ -25,7 +25,7 @@
 		<div class="main-content">
 
             <!-- Header -->
-            <%@ include file="/WEB-INF/views/common/header.jsp" %>
+            <%@ include file="/WEB-INF/views/qa/product/siheader.jsp" %>
 
             <!-- Contents Area -->
             <div class="content-area">
