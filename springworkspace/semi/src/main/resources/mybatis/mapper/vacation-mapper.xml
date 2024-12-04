@@ -38,6 +38,7 @@
         END) AS TOTAL_COUNT
         FROM VACATION_LOG
         WHERE EMP_NO = A.EMP_NO
+        AND DEL_YN='N'
         AND CODE NOT IN (3)
         GROUP BY EMP_NO) AS USE_VACATION,
         B.TOTAL_VACATION_DAYS - COALESCE(
@@ -50,6 +51,7 @@
         ) AS TOTAL_COUNT
         FROM VACATION_LOG
         WHERE EMP_NO = A.EMP_NO
+        AND DEL_YN='N'
         AND CODE NOT IN (3)
         GROUP BY EMP_NO),
         0

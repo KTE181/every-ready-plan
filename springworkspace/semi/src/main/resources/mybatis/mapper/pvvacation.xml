@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.semi.pv.mapper.PvVacationMapper">
+    <select id="getVacationList">
+SELECT
+        A.NO ,
+        A.THISDATE,
+        A.EMP_NO,
+        B.NAME AS ENAME,
+        C.NAME  AS DNAME,
+        B.DEPT_CODE,
+        D.NAME AS PNAME,
+        E.NAME AS TYPE,
+        B.TOTAL_VACATION_DAYS AS ALL_VACATION,
+        (SELECT
+        SUM(CASE
+        WHEN CODE = 2 THEN 0.5
+        ELSE 1
+        END) AS TOTAL_COUNT
+        FROM VACATION_LOG
+        WHERE EMP_NO = A.EMP_NO
+        AND DEL_YN='N'
+        AND CODE NOT IN (3)
+        GROUP BY EMP_NO) AS USE_VACATION,
+        B.TOTAL_VACATION_DAYS - COALESCE(
+        (SELECT
+        SUM(
+        CASE
+        WHEN CODE = 2 THEN 0.5
+        ELSE 1
+        END
+        ) AS TOTAL_COUNT
+        FROM VACATION_LOG
+        WHERE EMP_NO = A.EMP_NO
+        AND CODE NOT IN (3)
+        GROUP BY EMP_NO),
+        0
+        ) AS VACATION,
+        A.REASON ,
+        A.ENROLL_DATE,
+        A.MODIFY_DATE,
+        A.DEL_YN FROM VACATION_LOG A
+        JOIN EMPLOYEE B ON(A.EMP_NO = B.NO)
+        JOIN DEPARTMENT C ON (B.DEPT_CODE = C.NO)
+        JOIN POSITION D ON (B.POSITION_CODE = D.NO)
+        JOIN VACATION_TYPE E ON(A.CODE =E.NO)
+        WHERE B.NO=#{no} AND A.DEL_YN ='N'
+        <if test="date != null and date !='' ">
+            AND A.THISDATE= #{date}
+        </if>
+        ORDER BY A.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+        </mapper>
