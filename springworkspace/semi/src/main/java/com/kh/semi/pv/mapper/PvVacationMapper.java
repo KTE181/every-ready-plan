@@ -58,7 +58,7 @@ public interface PvVacationMapper {
                         JOIN DEPARTMENT C ON (B.DEPT_CODE = C.NO)
                         JOIN POSITION D ON (B.POSITION_CODE = D.NO)
                         JOIN VACATION_TYPE E ON(A.CODE =E.NO)
-                        WHERE A.DEL_YN ='N'
+                        WHERE B.NO=#{no} AND A.DEL_YN ='N'
                 ORDER BY A.ENROLL_DATE DESC
             )
             WHERE ROWNUM = 1
