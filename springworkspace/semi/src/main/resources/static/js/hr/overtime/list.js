@@ -75,7 +75,7 @@ tbodyTag.addEventListener("click", (evt) => {
   if (evt.target.tagName != "TD") { return; }
 
   const overmodal2 = document.querySelector('.overselectmodal1');
-  console.log(overmodal2);
+
   
   const closeOverModal2 = document.querySelector('.overselectmodal1-close');
   const no = evt.target.parentNode.children[1].innerText;
@@ -95,6 +95,7 @@ tbodyTag.addEventListener("click", (evt) => {
       no
     }),
     success: function (data) {
+      document.querySelector(".overselectmodal1-content .button-container").innerHTML = '';
       console.log(data);
       const empNo = document.querySelector(".overselectmodal1-cont input[name=empNo]");
       const ename = document.querySelector(".overselectmodal1-cont input[name=name]");
@@ -157,7 +158,6 @@ tbodyTag.addEventListener("click", (evt) => {
             no:no,
           }),
           success:function(killdata){
-                alert("삭제 되었습니다.")
                 location.reload();
                 
           },
@@ -187,7 +187,7 @@ tbodyTag.addEventListener("click", (evt) => {
 
 
       const editBtn2 = document.createElement("button");
-      editBtn2.innerText="수정하기2";
+      editBtn2.innerText="수정하기";
       btnTag.appendChild(editBtn2);
 
       
@@ -206,12 +206,10 @@ tbodyTag.addEventListener("click", (evt) => {
         $.ajax({
           url:"/api/hr/overtime/edit",
           method:"POST",
-          
           data:(alldata),
           success:function(data){
             console.log("통신성공");
-            alert("수정하기 성공~~");
-            location.href="/api/hr/overtime/list";
+            location.reload();
             
             
           },
@@ -261,7 +259,10 @@ function deleteNotice(){
     console.log(delallData);
     // 최종적으로 완성된 키:벨류 값의 배열  
     console.log(dataArr);
-  
+    if(dataArr.length==0){
+      alert("삭제할 게시글 체크박스를 선택해주세요");
+      return;
+    }
  
 
     $.ajax({
@@ -271,7 +272,6 @@ function deleteNotice(){
       data: JSON.stringify(dataArr),
       success:function(data){
               console.log(data); 
-              alert("삭제완료");
               location.reload();
       },
       fail:function(){
@@ -304,6 +304,7 @@ function loadPage(pageNumber) {
       },
       success: function(data) {
           // 서버에서 받은 데이터로 테이블 업데이트
+          
           console.log("통신성공");
           console.log(data);
           updateTable(data);
@@ -360,6 +361,11 @@ choiceBtn.addEventListener("click",()=>{
     },
     success: function(data) {
         // 서버에서 받은 데이터로 테이블 업데이트
+        if(data == ""){
+          alert("사원의 정보가 없습니다");
+          loadPage(1);
+          return;
+        }
         console.log("통신성공");
         console.log(data);
         updateTable2(data);

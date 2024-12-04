@@ -5,6 +5,7 @@ import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.vacation.service.VacationService;
 import com.kh.semi.hr.vacation.vo.VacationVo;
 import com.kh.semi.pb.vo.PageVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +24,16 @@ public class VacationController {
 
 
     @PostMapping("write")
-    public String write(VacationVo vo) {
+    public String write(VacationVo vo, HttpSession session) {
 
-        int result = service.insert(vo);
+        System.out.println(vo);
+        String result = service.insert(vo);
 
+        if(result.equals("1")){
+            session.setAttribute("alertMsg","휴가 등록 성공");
+        }else {
+        session.setAttribute("alertMsg",result);
+        }
         return "redirect:/api/hr/vacation/list";
     }
 
@@ -92,36 +99,45 @@ public class VacationController {
     //휴가 수정
     @PostMapping("update")
     @ResponseBody
-    public String update(@RequestBody Map<String, String> alldata){
+    public void update(VacationVo alldata,HttpSession session){
         System.out.println(alldata);
-        for (String key : alldata.keySet()) {
-            String value = alldata.get(key);
-            System.out.println("Key: " + key + ", Value: " + value);
-        }
-        int result= service.update(alldata);
 
-        if(result != 1){
-            throw new IllegalStateException("업데이트 실패했다~~");
+        String result= service.update(alldata);
+
+        if(result.equals("1")){
+            session.setAttribute("alertMsg","수정 성공 ~~");
+        }else {
+            session.setAttribute("alertMsg",result);
         }
-        return "good";
+
     }
     @PostMapping("del")
     @ResponseBody
-    public int del(String no){
+    public int del(String no,HttpSession session){
         System.out.println(no);
 
         int result = service.delete(no);
+        if(result != 1){
+            session.setAttribute("alertMsg","삭제하기 실패");
+        }
 
         return result;
     }
     @DeleteMapping("del")
     @ResponseBody
-    public String del(@RequestBody String[] dataArr){
+    public void del(@RequestBody String[] dataArr,HttpSession session){
+        if(dataArr.length==0){
+            return;
+        }
 //        for (String s : dataArr) {
 //            System.out.println(s);
 //        }
         int result = service.editAll(dataArr);
-        return "통신성공";
+        if(result>0){
+            session.setAttribute("alertMsg","삭제 성공");
+        }else{
+            session.setAttribute("alertMsg","삭제 실패");
+        }
     }
     @GetMapping("getEmplistdata")
     @ResponseBody
@@ -135,19 +151,18 @@ public class VacationController {
 
         List<EmployeeVo> empVoList = service.getEmplistdata(pvo);
 
-//        for (EmployeeVo employeeVo : empVoList) {
-//            System.out.println("employeeVo = " + employeeVo);
-//
-//        }
         return empVoList;
     }
     @PostMapping("getEmplistdata")
     @ResponseBody
-    public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
-        System.out.println(searchEmpNo);
-        System.out.println(searchEname);
+    public EmployeeVo getEmpVo(String searchEmpNo, String searchEname,HttpSession session){
+//        System.out.println(searchEmpNo);
+//        System.out.println(searchEname);
 
         EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
+        if(vo == null||vo.getNo().isEmpty()){
+            return null;
+        }
         return vo;
     }
 

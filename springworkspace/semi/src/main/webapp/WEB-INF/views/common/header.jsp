@@ -9,8 +9,16 @@
     <link rel="stylesheet" href="/css/common/header.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer src="/js/common/header.js"></script>
+    <script>
+        <c:if test="${not empty sessionScope.alertMsg}">
+            alert('${sessionScope.alertMsg}');
+        </c:if>
+        <c:remove var="alertMsg" scope="session" />
+    </script>
+    
 </head>
 <body>
+    
     <div class="top-bar">
         <button class="button" onclick="openAttendanceModal()">출근</button>
         <div id="attendance-modal" class="modal" style="display: none;">

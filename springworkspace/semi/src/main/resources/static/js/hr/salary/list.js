@@ -200,7 +200,7 @@ tbodyTag.addEventListener("click", (evt) => {
     }),
     success: function (data) {
       console.log("통신성공");
-
+      document.querySelector(".salaryselectmodal .btn-class").innerHTML = '';
 
 
       // 모달 요소 가져오기
@@ -326,7 +326,7 @@ tbodyTag.addEventListener("click", (evt) => {
         delbtn.remove();
         const editbtn2 = document.createElement("input");
         editbtn2.setAttribute("type", "button");
-        editbtn2.setAttribute("value", "수정하기2");
+        editbtn2.setAttribute("value", "수정하기");
         btnDivTag.appendChild(editbtn2);
 
         editbtn2.addEventListener("click", () => {
@@ -338,24 +338,26 @@ tbodyTag.addEventListener("click", (evt) => {
             healthInsurance:healthInsurance.value,
             employmentInsurance:employmentInsurance.value,
             longtermCareInsurance:longtermCareInsurance.value,
+            mealAllowance:mealAllowance.value,
+            communicationCost:communicationCost.value,
             incomeTax:incomeTax.value,
             localTaxes:localTaxes.value,
         
           };
+
           $.ajax({
 
 
             url: "/api/hr/salary/edit",
             method: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(editdata),
+            data: (editdata),
             success: function (data) {
   
   
               console.log("성공");
               console.log(data);
 
-              alert("수정성공~~");
+             
               location.href="/api/hr/salary/list";
   
   
@@ -377,7 +379,7 @@ tbodyTag.addEventListener("click", (evt) => {
             no:selectNo,
           }),
           success:function(killdata){
-                alert("삭제 되었습니다.")
+              
                 location.reload();
                 
           },
@@ -431,7 +433,10 @@ function deleteNotice(){
     console.log(delallData);
     // 최종적으로 완성된 키:벨류 값의 배열  
     console.log(dataArr);
-  
+    if(dataArr.length==0){
+      alert("삭제할 게시글 체크박스를 선택해주세요");
+      return;
+    }
  
 
     $.ajax({
@@ -441,7 +446,6 @@ function deleteNotice(){
       data: JSON.stringify(dataArr),
       success:function(data){
               console.log(data); 
-              alert("삭제완료");
               location.reload();
       },
       fail:function(){
@@ -531,6 +535,11 @@ choiceBtn.addEventListener("click",()=>{
     },
     success: function(data) {
         // 서버에서 받은 데이터로 테이블 업데이트
+        if(data == ""){
+          alert("사원의 정보가 없습니다");
+          loadPage(1);
+          return;
+        }
         console.log("통신성공");
         console.log(data);
         updateTable2(data);

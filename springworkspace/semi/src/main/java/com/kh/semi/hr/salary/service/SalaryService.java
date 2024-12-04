@@ -31,8 +31,24 @@ public class SalaryService {
         return mapper.empVoList(pvo2);
     }
 
-    public int write(SalaryVo vo) {
-        return mapper.write(vo);
+    public String write(SalaryVo vo) {
+        String errorMsg="";
+        if(vo.getEmpNo()==null||vo.getEmpNo().isEmpty()){
+            errorMsg="[ERROR_SALARY_001]사번을 선택하지 않았습니다";
+            return errorMsg;
+        }
+        if(vo.getPayYearmonth()==null||vo.getPayYearmonth().isEmpty()){
+            errorMsg="[ERROR_SALARY_002]지급연월을 선택하지 않았습니다";
+            return errorMsg;
+        }
+
+         int result = mapper.write(vo);
+        if(result == 1){
+            return "1";
+        }else{
+            return "0";
+        }
+
     }
 
     public SalaryVo detail(String selectNo) {
@@ -46,8 +62,46 @@ public class SalaryService {
         return vo;
     }
 
-    public int edit(HashMap<String, String> editdata) {
-        return mapper.edit(editdata);
+    public String edit(SalaryVo editdata) {
+        String errorMsg="";
+
+        if(editdata.getPayYearmonth()==null||editdata.getPayYearmonth().isEmpty()){
+            errorMsg="[ERROR_SALARY_003_EDIT]지급연월을 입력하지 않았습니다";
+            return errorMsg;
+        }
+        if(editdata.getMealAllowance()==null||editdata.getMealAllowance().isEmpty()){
+            errorMsg="[ERROR_SALARY_004_EDIT]식대를 입력하지 않았습니다";
+            return errorMsg;
+        }
+        if(editdata.getNationalPension()==null||editdata.getNationalPension().isEmpty()){
+            errorMsg="[ERROR_SALARY_005_EDIT]국민연금을 입력하지 않았습니다";
+            return errorMsg;
+        }
+        if(editdata.getHealthInsurance()==null||editdata.getHealthInsurance().isEmpty()){
+            errorMsg="[ERROR_SALARY_006_EDIT]건강보험을 입력하지 않았습니다";
+            return errorMsg;
+        }if(editdata.getEmploymentInsurance()==null||editdata.getEmploymentInsurance().isEmpty()){
+            errorMsg="[ERROR_SALARY_007_EDIT]고용보험을 입력하지 않았습니다";
+            return errorMsg;
+        }if(editdata.getLongtermCareInsurance()==null||editdata.getLongtermCareInsurance().isEmpty()){
+            errorMsg="[ERROR_SALARY_008_EDIT]국민연금을 입력하지 않았습니다";
+            return errorMsg;
+        }if(editdata.getIncomeTax()==null||editdata.getIncomeTax().isEmpty()){
+            errorMsg="[ERROR_SALARY_009_EDIT]소득세를 입력하지 않았습니다";
+            return errorMsg;
+        }if(editdata.getLocalTaxes()==null||editdata.getLocalTaxes().isEmpty()){
+            errorMsg="[ERROR_SALARY_010_EDIT]지방소득세를 입력하지 않았습니다";
+            return errorMsg;
+        }
+
+
+        int result = mapper.edit(editdata);
+        if(result == 1){
+            return "1";
+        }else{
+            return "0";
+        }
+
     }
 
     public int delete(String no) {

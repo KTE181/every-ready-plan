@@ -5,6 +5,7 @@ import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.overtime.service.OverTimeService;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import com.kh.semi.pb.vo.PageVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ public class OverTimeController{
 
 
     @PostMapping("write")
-    public String write(OverTimeVo vo){
+    public String write(OverTimeVo vo, HttpSession session){
 
 //        System.out.println("vo.hour =="+vo.getHour());
 //        System.out.println("vo.minute =="+vo.getMinute());
@@ -35,7 +36,12 @@ public class OverTimeController{
         vo.setWorkHour(overtime);
 
 //        System.out.println(vo);
-        int result = service.insert(vo);
+        String result = service.insert(vo);
+        if (result.equals("1")) {
+            session.setAttribute("alertMsg","초과근무 등록 성공");
+        }else{
+            session.setAttribute("alertMsg",result);
+        }
 
         return "redirect:/api/hr/overtime/list";
     }
@@ -55,7 +61,7 @@ public class OverTimeController{
 
     @GetMapping("list")
     public String list(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
-                       SearchVo searchVo){
+                       SearchVo searchVo,HttpSession session){
 
 
         int listCount = service.getOverTimeCnt();
@@ -121,42 +127,57 @@ public class OverTimeController{
 
     @PostMapping("edit")
     @ResponseBody
-    public int edit(OverTimeVo alldata){
+    public void edit(OverTimeVo alldata,HttpSession session){
 
         String overtime = alldata.getHour()+":"+alldata.getMinute();
         alldata.setWorkHour(overtime);
         System.out.println(alldata);
-        int result = service.edit(alldata);
+        String result = service.edit(alldata);
 
-        if(result != 1){
-            return 0;
+        if(result.equals("1")){
+          session.setAttribute("alertMsg","수정 완료");
+        }else{
+            session.setAttribute("alertMsg",result);
         }
-        return result;
     }
 
     @PostMapping("del")
     @ResponseBody
-    public int del(String no){
+    public void del(String no,HttpSession session){
         System.out.println(no);
 
         int result = service.delete(no);
+        if(result == 1){
+            session.setAttribute("alertMsg","삭제 완료");
+        }else{
+            session.setAttribute("alertMsg","삭제 실패");
 
-        return result;
+        }
+
+        
     }
 
     @DeleteMapping("del")
     @ResponseBody
-    public String del(@RequestBody String[] dataArr){
+    public void del(@RequestBody String[] dataArr,HttpSession session){
 //        for (String s : dataArr) {
 //            System.out.println(s);
 //        }
+        if(dataArr.length==0){
+            return;
+        }
         int result = service.editAll(dataArr);
-        return "통신성공";
+        
+        if(result>0){
+            session.setAttribute("alertMsg","삭제하기 성공");
+        }else{
+            session.setAttribute("alertMsg","삭제하기 실패");
+        }
     }
 
     @GetMapping("getEmplistdata")
     @ResponseBody
-    public  List<EmployeeVo> getEmplistdata(String pno){
+    public  List<EmployeeVo> getEmplistdata(String pno,HttpSession session){
         System.out.println(pno);
         int currentPage = Integer.parseInt(pno);
         int listCount2 = service.getEmpCnt();
@@ -166,9 +187,12 @@ public class OverTimeController{
 
         List<EmployeeVo> empVoList = service.getEmplistdata(pvo);
 
-        for (EmployeeVo employeeVo : empVoList) {
-            System.out.println("employeeVo = " + employeeVo);
-
+//        for (EmployeeVo employeeVo : empVoList) {
+//            System.out.println("employeeVo = " + employeeVo);
+//
+//        }
+        if(empVoList.isEmpty()){
+            session.setAttribute("alertMsg","사원정보 불러오기 실패");
         }
         return empVoList;
     }
@@ -176,10 +200,15 @@ public class OverTimeController{
     @PostMapping("getEmplistdata")
     @ResponseBody
     public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
-        System.out.println(searchEmpNo);
-        System.out.println(searchEname);
+//        System.out.println(searchEmpNo);
+//        System.out.println(searchEname);
 
         EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
+
+        System.out.println("vo = "+vo);
+        if(vo == null||vo.getNo().isEmpty()){
+            return null;
+        }
         return vo;
     }
 

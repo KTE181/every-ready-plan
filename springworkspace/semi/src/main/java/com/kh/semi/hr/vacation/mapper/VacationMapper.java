@@ -163,9 +163,9 @@ public interface VacationMapper {
                THISDATE =#{thisDate},
                REASON=#{reason},
                MODIFY_DATE= SYSDATE
-               WHERE  NO=#{selectNo} AND DEL_YN ='N'
+               WHERE NO=#{no} AND DEL_YN ='N'
             """)
-    int update(Map<String, String> alldata);
+    int update(VacationVo alldata);
 
     @Update("""
             UPDATE VACATION_LOG
