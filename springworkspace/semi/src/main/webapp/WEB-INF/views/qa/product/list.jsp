@@ -7,11 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
-    <link rel="stylesheet" href="/css/common/index.css">
-    <link rel="stylesheet" href="/css/product/product.css">
-    <link rel="stylesheet" href="/css/product/write.css">
-    <link rel="stylesheet" href="/css/product/detail.css">
-    <link rel="stylesheet" href="/css/product/update.css">
+    
     <script defer src="/js/product/list.js"></script>
 
     
@@ -28,7 +24,7 @@
 		<div class="main-content">
 
             <!-- Header -->
-            <%@ include file="/WEB-INF/views/common/header.jsp" %>
+            <%@ include file="/WEB-INF/views/qa/product/siheader.jsp" %>
 
             <!-- Contents Area -->
             <div class="content-area">
@@ -316,3 +312,10 @@
     </div>
 </body>
 </html>
+
+
+<link rel="stylesheet" href="/css/common/index.css">
+<link rel="stylesheet" href="/css/product/product.css">
+<link rel="stylesheet" href="/css/product/write.css">
+<link rel="stylesheet" href="/css/product/detail.css">
+<link rel="stylesheet" href="/css/product/update.css">
