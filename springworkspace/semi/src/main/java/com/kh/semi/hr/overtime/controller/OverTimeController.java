@@ -32,7 +32,7 @@ public class OverTimeController{
 
         String overtime = vo.getHour()+":"+vo.getMinute();
 
-//        System.out.println("overtime : " +overtime);
+        System.out.println("overtime : " +overtime);
         vo.setWorkHour(overtime);
 
 //        System.out.println(vo);
@@ -83,9 +83,9 @@ public class OverTimeController{
         List<EmployeeVo> empVoList = service.empVoList(pvo2);
 
 
-        for (OverTimeVo vo : listVo) {
-            System.out.println(vo);
-        }
+//        for (OverTimeVo vo : listVo) {
+//            System.out.println(vo);
+//        }
 //        for (EmployeeVo vo : empVoList) {
 //            System.out.println("vo = " + vo);
 //        }
