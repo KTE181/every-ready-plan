@@ -33,7 +33,7 @@
         C.NAME  DNAME,
         D.NAME  PNAME,
         A.TYPE,
-        A.WORK_HOUR
+        TO_CHAR(A.WORK_HOUR, 'HH24:MI') AS WORK_HOUR
         FROM OVERTIME A
         JOIN EMPLOYEE B ON(A.EMP_NO = B.NO)
         JOIN DEPARTMENT C ON (B.DEPT_CODE = C.NO)
