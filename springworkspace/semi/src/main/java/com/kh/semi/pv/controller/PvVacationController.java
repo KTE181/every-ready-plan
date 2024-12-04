@@ -29,7 +29,7 @@ public class PvVacationController {
 
         LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
         if(loginEmployeeVo==null){
-            session.setAttribute("alertMsg","로그인후 이용하세요");
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
             return "redirect:/login";
         }
         String no = ((LoginVo) session.getAttribute("loginEmployeeVo")).getNo();
