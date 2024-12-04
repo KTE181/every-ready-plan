@@ -81,12 +81,8 @@ public class DefectiveCodeController {
     @PostMapping("edit")
     public String edit(DefectiveCodeVo vo, Model model) throws Exception {
 
-        System.out.println("@@@@@@@");
-        System.out.println("vo = " + vo);
 
         int result = service.edit(vo);
-
-
 
         if(result != 1){
             throw new IllegalStateException("수정하기 중 에러...");
