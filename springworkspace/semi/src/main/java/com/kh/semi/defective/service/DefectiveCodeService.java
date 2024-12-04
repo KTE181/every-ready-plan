@@ -19,10 +19,6 @@ public class DefectiveCodeService {
     }
 
 
-    public List<DefectiveCodeVo> getdcVoList(String bno, Model model) {
-        return mapper.getdcVoList(bno, model);
-    }
-
     public int edit(DefectiveCodeVo vo) {
         return mapper.edit(vo);
     }
@@ -51,5 +47,9 @@ public class DefectiveCodeService {
 
         return mapper.getDefectiveCodeList(str.toString());
 
+    }
+
+    public DefectiveCodeVo getDefectiveCodeDetail(String defectiveCodeNo) {
+        return mapper.getDefectiveCodeDetail(defectiveCodeNo);
     }
 }

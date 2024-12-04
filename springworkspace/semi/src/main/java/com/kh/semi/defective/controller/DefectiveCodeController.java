@@ -32,14 +32,15 @@ public class DefectiveCodeController {
     }
 
     //불량 코드 상세 조회
-    @GetMapping("/detail")
-    public ResponseEntity<DefectiveCodeVo> getDefectiveCodeDetail(@RequestParam("no") String defectiveCodeNo) {
-        DefectiveCodeVo defectiveCode = service.getCodeByNo(defectiveCodeNo);
-        if (defectiveCode != null) {
-            return ResponseEntity.ok(defectiveCode);
-        } else {
-            return ResponseEntity.notFound().build();
+    @GetMapping("detail")
+    @ResponseBody
+    public DefectiveCodeVo getDefectiveCodeDetail(@RequestParam("no") String defectiveCodeNo) {
+        DefectiveCodeVo defectiveCodeVo = service.getDefectiveCodeDetail(defectiveCodeNo);
+        System.out.println("defectiveVo = " + defectiveCodeVo);
+        if (defectiveCodeVo == null) {
+            throw new IllegalStateException();
         }
+        return defectiveCodeVo;
     }
 
     //불량 코드 등록(처리)
@@ -68,34 +69,35 @@ public class DefectiveCodeController {
     }
 
 
-    //불량 코드 수정 (화면)
+    //상품 수정(화면)
     @GetMapping("edit")
-    public String edit(String bno, Model model) throws Exception {
-        List<DefectiveCodeVo> dcVoList = service.getdcVoList(bno, model);
-
-        if (dcVoList == null){
-            throw new Exception("redirect:/error");
-        }else{
-            model.addAttribute("dcVoList",dcVoList);
-            return "redirect:/qa/defectiveCode/edit";
-        }
+    public void edit(String defectiveCodeNo, Model model){
+        DefectiveCodeVo defectiveCodeVo  = service.getDefectiveCodeDetail(defectiveCodeNo);
+        model.addAttribute("defectiveCodeVo",defectiveCodeVo);
     }
 
+
+    //상품 수정(처리)
     @PostMapping("edit")
-    public String edit(DefectiveCodeVo vo, HttpSession session, Model model){
+    public String edit(DefectiveCodeVo vo, Model model) throws Exception {
+
+        System.out.println("@@@@@@@");
+        System.out.println("vo = " + vo);
+
         int result = service.edit(vo);
 
+
+
         if(result != 1){
-            return "redirect:/error";
-        }else{
-            session.setAttribute("alertMsg","수정 완료 되었습니다.");
-
-            List<DefectiveCodeVo> defectiveCodeVoList = service.getdcVoList(vo.getNo(), model);
-            model.addAttribute("defectiveCodeVoList", defectiveCodeVoList);
-
-            return "qa/defectiveCode/detail";
+            throw new IllegalStateException("수정하기 중 에러...");
         }
 
+        DefectiveCodeVo defectiveCodeVo = service.getDefectiveCodeDetail(vo.getNo());
+        model.addAttribute("defectiveCodeVo", defectiveCodeVo);
+        return "redirect:/qa/defectivecode/list";
+
     }
+
+
 
 }

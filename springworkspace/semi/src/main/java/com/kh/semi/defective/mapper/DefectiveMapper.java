@@ -1,11 +1,9 @@
 package com.kh.semi.defective.mapper;
 
+import com.kh.semi.defective.vo.DefectiveCodeVo;
 import com.kh.semi.defective.vo.DefectiveVo;
 import com.kh.semi.product.vo.ProductVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -30,21 +28,8 @@ public interface DefectiveMapper {
             """)
     List<DefectiveVo> getDefective();
 
-    @Select("""
-            SELECT
-                     DP.NO
-                    ,P.PRICE
-                    ,P.NAME AS PRODUCT_NAME
-                    ,DP.DEFECTIVE_CODE
-                    ,P.SERIAL_NUMBER
-                    ,DC.NAME AS DEFECTIVE_NAME
-                    ,DP.DESCRIPTION
-                    FROM PRODUCT_REGISTRATION P
-                    JOIN DEFECTIVE_PRODUCT DP ON (P.NO = DP.P_NO)
-                    JOIN DEFECTIVE_CODE DC ON (DP.DEFECTIVE_CODE = DC.NO)
-                    WHERE P.SERIAL_NUMBER = #{serialNumber}
-            """)
-    List<DefectiveVo> getDefectiveDetail(String bno, Model model);
+
+
 
 
     @Insert("""
@@ -52,13 +37,16 @@ public interface DefectiveMapper {
                 (
                  NO
                 ,P_NO
+                ,DEFECTIVE_NO
                 ,DEFECTIVE_CODE
                 ,DESCRIPTION
+                ,
                 )
                 VALUES
                 (
                 SEQ_DEFECTIVE_PRODUCT.NEXTVAL
                 ,#{no}
+                ,#{defectiveNo}
                 ,#{defectiveCode}
                 ,#{description}
                 )
@@ -121,4 +109,37 @@ public interface DefectiveMapper {
                 ORDER BY ENROLL_DATE DESC
             """)
     List<DefectiveVo> getProductList(String str);
+
+
+
+    @Select("""
+            SELECT
+                     DP.NO
+                    ,P.PRICE
+                    ,P.NAME AS PRODUCT_NAME
+                    ,DP.DEFECTIVE_CODE
+                    ,P.SERIAL_NUMBER
+                    ,DC.NAME AS DEFECTIVE_NAME
+                    ,DP.DESCRIPTION
+                    FROM PRODUCT_REGISTRATION P
+                    JOIN DEFECTIVE_PRODUCT DP ON (P.NO = DP.P_NO)
+                    JOIN DEFECTIVE_CODE DC ON (DP.DEFECTIVE_CODE = DC.NO)
+                    WHERE DP.NO = #{defectiveNo}
+            """)
+    DefectiveVo getDefectiveDetail(String defectiveNo);
+
+    @Select("""
+            SELECT *
+            FROM DEFECTIVE_CODE
+            """)
+    List<DefectiveCodeVo> getdefectiveCodeVoList();
+
+
+
+    @Select("""
+            SELECT *
+            FROM DEFECTIVE_CODE
+            WHERE NO = #{defectiveCode}
+            """)
+    DefectiveCodeVo getDefectiveName(String defectiveCode);
 }

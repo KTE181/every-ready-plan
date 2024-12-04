@@ -12,18 +12,6 @@ import java.util.List;
 @Mapper
 public interface DefectiveCodeMapper {
 
-
-    @Select("""
-            SELECT
-                NO
-                ,NAME
-                FROM DEFECTIVE_CODE
-                WHERE NO = #{no}
-            """)
-    List<DefectiveCodeVo> getdcVoList(String bno, Model model);
-
-
-
     @Insert("""
             INSERT INTO DEFECTIVE_CODE
                 (
@@ -78,4 +66,15 @@ public interface DefectiveCodeMapper {
                 ORDER BY NO ASC
             """)
     List<DefectiveCodeVo> getDefectiveCodeList(String string);
+
+
+
+    @Select("""
+            SELECT
+                NO
+                ,NAME
+                FROM DEFECTIVE_CODE
+                WHERE NO = #{defectiveCodeNo}
+            """)
+    DefectiveCodeVo getDefectiveCodeDetail(String defectiveCodeNo);
 }

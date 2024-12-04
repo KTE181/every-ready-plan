@@ -40,9 +40,7 @@ public class ProductService {
 //    }
 
 
-    public List<ProductVo> getProductDetail(String bno, Model model) {
-        return mapper.getProductDetail(bno, model);
-    }
+
 
     public int edit(ProductVo vo) {
         return mapper.edit(vo);
@@ -68,4 +66,8 @@ public class ProductService {
         return mapper.insertProduct(vo);
     }
 
+
+    public ProductVo getProductDetail(String productNo) {
+        return mapper.getProductDetail(productNo);
+    }
 }

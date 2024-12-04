@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/defective/defective.css">
     <link rel="stylesheet" href="/css/defective/write.css">
+    <link rel="stylesheet" href="/css/defective/update.css">
     <link rel="stylesheet" href="/css/defective/detail.css">
     <script defer src="/js/defective/list.js"></script>
 
@@ -92,7 +93,7 @@
                                 </tr>
                             </thead>
     
-                            <tbody>
+                            <tbody id="defectiveTable">
                                 <c:forEach items = "${defectiveVo}" var = "defective">
                                     <tr>
                                         <td class = "checkbox-td"><input type = "checkbox" name = "del"></td>
@@ -110,7 +111,8 @@
                             </tbody>
                     </table>
                 </div>
-
+                
+            <!-- <form action = "/qa/defective/write" method = "post"> -->
                 <div class="modal-overlay" id="modalOverlay">
                     <div class="modal">
                         <h2>불량 상품 등록</h2>
@@ -138,21 +140,22 @@
                                 <input type="text" id="dfprice">
                             </div>
                             <div class="form-group">
-                                <label for="productno">상품코드</label>
+                                <label for="productno">상품번호</label>
                                 <input type="text" id="dfproductno">
                             </div>
                             <div class="form-group">
                                 <label for="defective-code">불량코드</label>
-                                <input type="text" id="dfdefective-code">
+                                <select id = defectivecode-select>
+                                    
+                                </select>
                             </div>
-                           
                             <div class="form-group">
                                 <label for="defective-name">불량명</label>
-                                <input type="text" id="dfdefective-name">
+                                <input type="text" id="dfdefective-name" value = "" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="defective-content">불량 내용</label>
-                                <textarea class= "dftext-area"></textarea>
+                                <textarea id= "dftext-area"></textarea>
                             </div>
             
                         </div>
@@ -162,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-
+            <!-- </form> -->
 
                 <div class="modal-defectivedetail" id="modalDetail">
                     <div class="modal">
@@ -205,8 +208,60 @@
             
                         </div>
                         <div class="modal-buttons">
-                            <button class="primary">수정</button>
+                            <button class="primary" id = "edit-button">수정</button>
                             <button>삭제</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal-defective-edit" id="modaldefectiveEdit">
+                    <div class="modal">
+                        <button id="closeDefectiveUpdateModal">×</button>
+                        <h2>불량 상품 수정</h2>
+                        <div class="form-container">
+                            <div class="section-title">상품정보</div>
+            
+                            <div class="image-upload-container">
+                                <div class="image-placeholder">제품 이미지</div>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="productno">상품번호</label>
+                                <input type="text" id="edit-productno" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">가격</label>
+                                <input type="text" id="edit-price" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="productname">상품명</label>
+                                <input type="text" id="edit-productname" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="serialno">일련번호</label>
+                                <input type="text" id="edit-serialNumber" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="defectivecode">불량코드</label>
+                                <select id = defectivecode-select-edit>
+
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="defectivename">불량명</label>
+                                <input type="text" id="edit-defectivename" value = "" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="defectivecontent">불량 내용</label>
+                                <textarea id= "edit-text-area"></textarea>
+                            </div>
+            
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="primary">저장</button>
                         </div>
                     </div>
                 </div>
