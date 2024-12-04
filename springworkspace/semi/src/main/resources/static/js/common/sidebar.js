@@ -183,4 +183,27 @@ document.querySelector('.dropdown-menu4 li:nth-child(2)').addEventListener("clic
   location.href="/finance/account/list";
 })
 
+//매출 관리 이동
+document.querySelector('.dropdown-menu4 li:nth-child(3)').addEventListener("click",()=>{
+  location.href="/finance/sale/list";
+})
+//매입 관리 이동
+document.querySelector('.dropdown-menu4 li:nth-child(4)').addEventListener("click",()=>{
+  location.href="/finance/purchase/list";
+})
+//경비 관리 이동
+document.querySelector('.dropdown-menu4 li:nth-child(5)').addEventListener("click",()=>{
+  location.href="/finance/expense/list";
+})
+//재무상태표 관리 이동
+document.querySelector('.dropdown-menu4 li:nth-child(7)').addEventListener("click",()=>{
+  location.href="/finance/bas/detail";
+})
+//손인계산서 관리 이동
+document.querySelector('.dropdown-menu4 li:nth-child(8)').addEventListener("click",()=>{
+  location.href="/finance/inc/detail";
+})
+
+
+
 
