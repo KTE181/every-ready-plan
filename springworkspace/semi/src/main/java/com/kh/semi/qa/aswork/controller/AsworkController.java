@@ -1,17 +1,19 @@
 package com.kh.semi.qa.aswork.controller;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.aswork.service.AsworkService;
+import com.kh.semi.qa.aswork.vo.AsworkStatusVo;
 import com.kh.semi.qa.aswork.vo.AsworkVo;
+import com.kh.semi.qa.faultcode.vo.FaultcodeVo;
+import com.kh.semi.qa.inspection.vo.InspectionStatusVo;
+import com.kh.semi.qa.inspection.vo.InspectionTypeVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,15 +27,37 @@ public class AsworkController {
 
     // AS 작업 목록 조회
     @GetMapping("list")
-    public String getAsworkList(Model model) {
+    public String getAsworkList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
+                                String area, String status, String type, String searchType, String searchValue)
+    {
+        // pno = currentPage
+        int listCount = service.getAsworkListCnt(area, status, type, searchType, searchValue);
+        int pageLimit = 10;
+        int boardLimit = 14;
 
-        List<AsworkVo> asworkVoList = service.getAsworkList(model);
+        PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+        List<AsworkVo> asworkVoList = service.getAsworkList(model, pvo, area, status, type, searchType, searchValue);
 
         if (asworkVoList == null) {
             return "redirect:/error";
         }
 
         model.addAttribute("asworkVoList", asworkVoList);
+        model.addAttribute("pvo", pvo);
+        model.addAttribute("area", area);
+        model.addAttribute("status", status);
+        model.addAttribute("type", type);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchValue", searchValue);
+
+        List<AsworkStatusVo> statusVoList =service.getStatusList(model);
+        model.addAttribute("statusVoList", statusVoList);
+
+        List<FaultcodeVo> typeVoList =service.getTypeList(model);
+        model.addAttribute("typeVoList", typeVoList);
+
+        System.out.println("typeVoList = " + typeVoList);
 
         return "qa/aswork/list";
     }
@@ -89,18 +113,16 @@ public class AsworkController {
     }
 
     // AS 작업 삭제
-    @GetMapping("delete")
-    public String delete(String no, HttpSession session) throws Exception {
-
-        System.out.println("no = " + no);
+    @PostMapping("delete")
+    @ResponseBody
+    public int delete(String no) throws Exception {
 
         int result = service.delete(no);
 
-        if(result != 1) {
+        if(result < 1) {
             throw new Exception("Error");
         }
 
-        session.setAttribute("alertMsg", "삭제되었습니다.");
-        return "redirect:/qa/aswork/list";
+        return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.kh.semi.qa.asreq.service;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.asreq.mapper.AsreqMapper;
 import com.kh.semi.product.vo.ProductVo;
@@ -32,9 +33,9 @@ public class AsreqService {
         return mapper.write(vo);
     }
 
-    public List<AsreqVo> getAsreqList(Model model) {
+    public List<AsreqVo> getAsreqList(Model model, PageVo pvo, String area, String searchType, String searchValue) {
 
-        List<AsreqVo> asreqList = mapper.getAsreqList(model);
+        List<AsreqVo> asreqList = mapper.getAsreqList(model, pvo, area, searchType, searchValue);
 
         for (AsreqVo vo : asreqList) {
             if(vo.getPreferredServiceDate() != null) {
@@ -42,6 +43,10 @@ public class AsreqService {
             }
         }
         return asreqList;
+    }
+
+    public int getAsreqListCnt(String area, String searchType, String searchValue) {
+        return mapper.getAsreqListCnt(area, searchType, searchValue);
     }
 
     public AsreqVo getAsreqDetail(String asreqNo, Model model) {
@@ -78,4 +83,5 @@ public class AsreqService {
     public List<ProductVo> getProductList() {
         return mapper.getProductList();
     }
+
 }

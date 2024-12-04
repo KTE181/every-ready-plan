@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.semi.qa.aswork.mapper.AsworkMapper">
+
+    <select id="getAsworkList">
+        SELECT
+            W.NO
+            , W.AS_NO
+            , R.P_NO        AS PRODUCT_NO
+            , P.SERIAL_NUMBER
+            , P.NAME        AS PRODUCT_NAME
+            , R.CUSTOMER_NAME
+            , R.CUSTOMER_AREA
+            , R.CUSTOMER_ADRESS
+            , R.CUSTOMER_PHONE
+            , R.PURCHASE_DATE
+            , R.WARRANTY_YN
+            , R.ISSUE_TITLE
+            , R.ISSUE_DESCRIPTION
+            , R.PREFERRED_SERVICE_DATE
+            , R.STATUS_CODE
+            , S.NAME        AS STATUS_NAME
+            , W.FAULT_CODE
+            , F.NAME        AS FAULT_NAME
+            , W.EMP_NO
+            , E.NAME        AS EMP_NAME
+            , TO_DATE (W.REPAIR_DATE, 'YYYY-MM-DD') AS REPAIR_DATE
+            , W.REPAIR_DETALIS
+            , W.ENROLL_DATE
+            , W.MODIFY_DATE
+            , W.DEL_YN
+        FROM AS_WORK W
+        JOIN AS_REQUEST R ON (W.AS_NO = R.NO)
+        JOIN PRODUCT_REGISTRATION P ON (R.P_NO = P.NO)
+        JOIN AS_STATUS S ON (R.STATUS_CODE = S.NO)
+        LEFT JOIN EMPLOYEE E ON (W.EMP_NO = E.NO)
+        LEFT JOIN FAULT_CODE F ON (W.FAULT_CODE = F.NO)
+        WHERE W.DEL_YN = 'N'
+
+        <if test="area != '' and area != null">
+            AND R.CUSTOMER_AREA = #{area}
+        </if>
+        <if test="status != '' and status != null">
+            AND R.STATUS_CODE = #{status}
+        </if>
+        <if test="type != '' and type != null">
+            AND W.FAULT_CODE = #{type}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'title'">
+            AND R.ISSUE_TITLE LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'customerName'">
+            AND R.CUSTOMER_NAME LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
+            AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'productName'">
+            AND P.NAME LIKE '%${searchValue}%'
+        </if>
+
+        ORDER BY W.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+
+    <select id="getAsworkListCnt">
+        SELECT COUNT(W.NO)
+        FROM AS_WORK W
+        JOIN AS_REQUEST R ON (W.AS_NO = R.NO)
+        JOIN PRODUCT_REGISTRATION P ON (R.P_NO = P.NO)
+        JOIN AS_STATUS S ON (R.STATUS_CODE = S.NO)
+        LEFT JOIN EMPLOYEE E ON (W.EMP_NO = E.NO)
+        LEFT JOIN FAULT_CODE F ON (W.FAULT_CODE = F.NO)
+        WHERE W.DEL_YN = 'N'
+
+        <if test="area != '' and area != null">
+            AND R.CUSTOMER_AREA = #{area}
+        </if>
+        <if test="status != '' and status != null">
+            AND R.STATUS_CODE = #{status}
+        </if>
+        <if test="type != '' and type != null">
+            AND W.FAULT_CODE = #{type}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'title'">
+            AND R.ISSUE_TITLE LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'customerName'">
+            AND R.CUSTOMER_NAME LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
+            AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'productName'">
+            AND P.NAME LIKE '%${searchValue}%'
+        </if>
+
+    </select>
+</mapper>

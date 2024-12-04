@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.semi.qa.asemp.mapper.AsempMapper">
+
+    <select id="getAsempList">
+        SELECT
+            A.NO
+            , E.EMP_NAME
+            , A.AREA
+            , E.PHONE
+            , E.DEPT_NAME
+            , E.POSITION_NAME
+            , A.DEL_YN
+        FROM AS_ENGINEERS A
+        JOIN EMPLOYEE_INFO E ON (A.NO = E.NO)
+        WHERE A.DEL_YN='N'
+
+        <if test="area != '' and area != null">
+            AND A.AREA = #{area}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'empNo'">
+            AND A.NO = #{searchValue}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'empName'">
+            AND E.EMP_NAME LIKE '%${searchValue}%'
+        </if>
+
+        ORDER BY A.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+
+    <select id="getAsempListCnt">
+        SELECT COUNT(A.NO)
+        FROM AS_ENGINEERS A
+        JOIN EMPLOYEE_INFO E ON (A.NO = E.NO)
+        WHERE A.DEL_YN='N'
+
+        <if test="area != '' and area != null">
+            AND A.AREA = #{area}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'empNo'">
+            AND A.NO = #{searchValue}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'empName'">
+            AND E.EMP_NAME LIKE '%${searchValue}%'
+        </if>
+
+    </select>
+</mapper>

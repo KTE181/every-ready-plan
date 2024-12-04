@@ -50,8 +50,10 @@ public interface InspectionMapper {
                 , P.SERIAL_NUMBER
                 , I.INSPECTION_CODE
                 , C.NAME    AS INSPECTION_NAME
-                , I.INSPECTION_DATE
-                , I.SUCCESS_YN
+                , TO_DATE(I.INSPECTION_DATE, 'YYYY-MM-DD') AS INSPECTION_DATE
+                , CASE  WHEN (I.SUCCESS_YN = 'P') THEN 'PASS'
+                    WHEN (I.SUCCESS_YN = 'F') THEN 'FAIL'
+                    END AS SUCCESS_YN
                 , I.STATUS_CODE
                 , S.NAME    AS STATUS_NAME
                 , I.ENROLL_DATE

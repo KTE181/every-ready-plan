@@ -154,7 +154,7 @@ function asreqDelete(no) {
 
     $.ajax({
         url: "/qa/asreq/delete",
-        method: "get",
+        method: "POST",
         data: {
             no : no 
         } ,
@@ -386,4 +386,61 @@ selectButton.addEventListener('click', () => {
 function searchProductClose() {
     const searchProductModal = document.getElementById('search-product');
     searchProductModal.style.display = 'none'; // 모달 숨기기
+}
+
+// 전체 선택 
+function handelCheckbox(checkAll) {
+
+    const checkBoxArr = document.querySelectorAll("input[name=listCheckbox]");
+
+    for(let i=0; i<checkBoxArr.length; i++) {
+        checkBoxArr[i].checked = checkAll.checked;
+    }
+}
+
+// 다중 삭제 처리
+function asreqDeleteMultiple() {
+        
+    const checkedArr = document.querySelectorAll("input[name=listCheckbox]:checked");
+    const noArr = [];
+
+    for(const checkBox of checkedArr) {
+        const no = checkBox.parentNode.parentNode.children[1].innerText;
+        noArr.push(no);
+    }
+
+    if (noArr.length == 0) {
+        alert("선택된 건이 없습니다.");
+        return;
+    }
+
+    const result = confirm("선택한 건을 삭제하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/qa/asreq/delete",
+        method: "POST",
+        data : {
+            no : noArr
+        },
+
+        success: function(result) {
+            if(result > 0) {
+                alert("삭제되었습니다.");
+            }
+            else {
+                alert("삭제실패...");
+            }
+
+            location.reload();
+
+        },
+        error: function() {
+            alert("통신실패...");
+        }
+    });
+
 }

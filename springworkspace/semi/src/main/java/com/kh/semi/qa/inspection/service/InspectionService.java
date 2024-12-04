@@ -34,6 +34,10 @@ public class InspectionService {
         return inspectionVoList;
     }
 
+    public int getInspectionListCnt(String inspectionType, String status, String passYn, String searchType, String searchValue) {
+        return mapper.getInspectionListCnt(inspectionType, status, passYn, searchType, searchValue);
+    }
+
     public int write(InspectionVo vo) {
 
         if(vo.getInspectionDate() != null) {
@@ -44,7 +48,14 @@ public class InspectionService {
     }
 
     public InspectionVo getinspectionDetail(String no, Model model) {
-        return mapper.getinspectionDetail(no, model);
+
+        InspectionVo vo = mapper.getinspectionDetail(no, model);
+
+        if(vo.getInspectionDate() != null) {
+            vo.setInspectionDate(vo.getInspectionDate().substring(0,10));
+        }
+
+        return vo;
     }
 
     public int delete(String no) {
@@ -52,6 +63,11 @@ public class InspectionService {
     }
 
     public int edit(InspectionVo vo) {
+
+        if(vo.getInspectionDate() != null) {
+            vo.setInspectionDate(vo.getInspectionDate().replace("-", ""));
+        }
+
         return mapper.edit(vo);
     }
 
@@ -63,7 +79,4 @@ public class InspectionService {
         return mapper.getInspectionTypeList(model);
     }
 
-    public int getInspectionListCnt(String inspectionType, String status, String passYn, String searchType, String searchValue) {
-        return mapper.getInspectionListCnt(inspectionType, status, passYn, searchType, searchValue);
-    }
 }

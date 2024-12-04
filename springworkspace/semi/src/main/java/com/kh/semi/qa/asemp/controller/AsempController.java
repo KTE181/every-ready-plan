@@ -1,5 +1,6 @@
 package com.kh.semi.qa.asemp.controller;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.service.AsempService;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
@@ -8,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,15 +23,27 @@ public class AsempController {
 
     // AS 담당자 목록 조회
     @GetMapping("list")
-    public String getAsempList(Model model) {
+    public String getAsempList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
+                               String area, String searchType, String searchValue)
+    {
+        // pno = currentPage
+        int listCount = service.getAsempListCnt(area, searchType, searchValue);
+        int pageLimit = 10;
+        int boardLimit = 14;
 
-        List<AsempVo> asempVoList = service.getAsempList(model);
+        PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+        List<AsempVo> asempVoList = service.getAsempList(model, pvo, area, searchType, searchValue);
 
         if(asempVoList == null) {
             return "redirect:/error";
         }
 
         model.addAttribute("asempVoList", asempVoList);
+        model.addAttribute("pvo", pvo);
+        model.addAttribute("area", area);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchValue", searchValue);
 
         return "qa/asemp/list";
     }
@@ -108,13 +118,13 @@ public class AsempController {
     }
 
     // AS 담당자 삭제
-    @GetMapping("delete")
+    @PostMapping("delete")
     @ResponseBody
     public int delete(String no) throws Exception {
 
         int result = service.delete(no);
 
-        if(result != 1) {
+        if(result < 1) {
             throw new Exception("Error");
         }
 

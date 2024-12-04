@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.semi.qa.faultcode.mapper.FaultcodeMapper">
+
+    <select id="getFaultCodeList">
+        SELECT
+        NO
+        , NAME  AS FAULT_NAME
+        FROM FAULT_CODE
+        WHERE DEL_YN = 'N'
+
+        <if test="searchValue != '' and searchValue != null and searchType == 'faultName'">
+            AND NAME LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'faultCode'">
+            AND NO = #{searchValue}
+        </if>
+
+        ORDER BY NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+
+    <select id="getFaultCodeListCnt">
+        SELECT COUNT(NO)
+        FROM FAULT_CODE
+        WHERE DEL_YN = 'N'
+
+        <if test="searchValue != '' and searchValue != null and searchType == 'faultName'">
+            AND NAME LIKE '%${searchValue}%'
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'faultCode'">
+            AND NO = #{searchValue}
+        </if>
+
+    </select>
+</mapper>

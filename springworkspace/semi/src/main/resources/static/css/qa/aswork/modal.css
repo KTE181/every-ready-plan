@@ -206,3 +206,203 @@
 }
 
 
+/* 모달 전체 배경 */
+#aswork-edit{
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+/* 모달 창 본체 */
+#aswork-edit .edit-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content min-content;;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    padding: 25px 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    height: fit-content;
+    column-gap: 5px;
+    max-height: 85vh; 
+    column-gap: 5px;
+    overflow-y: auto;
+}
+
+#aswork-edit #required-text {
+    font-size: 14px;
+    color: red;
+    text-align: right;
+}
+
+#aswork-edit .modal-title{
+    font-size: 23px;
+    font-weight: bold;
+    text-align: left;
+}
+
+#aswork-edit .title-text{
+    grid-column: 1 / -1;
+    font-size: 16px;
+    margin-top: 17px;
+    margin-bottom: 5px;
+    color: #3344FF;
+    font-weight: bold;
+}
+
+#aswork-edit .modal-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    font-size: 15px;
+    gap: 4px;
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+#aswork-edit .modal-cont div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#aswork-edit .edit-content input {
+    padding: 5px 10px;
+    font-size: 13px;
+    width: 200px;
+    height: 18px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+#aswork-edit .edit-content select{
+    height: 26px;
+    width: 78px;
+    font-family: '맑은 고딕';
+    border: 1px solid black;
+    padding-left: 5px;
+}
+
+#aswork-edit select[name=statusCode]{
+    height: 28px;
+    width: 220px;
+    font-family: '맑은 고딕';
+    border: 1px solid black;
+    padding-left: 5px;
+}
+
+
+#aswork-edit select[name=empNo]{
+    height: 28px;
+    width: 220px;
+    font-family: '맑은 고딕';
+    border: 1px solid black;
+    padding-left: 5px;
+}
+
+#aswork-edit select[name=faultCode]{
+    height: 28px;
+    width: 220px;
+    font-family: '맑은 고딕';
+    border: 1px solid black;
+    padding-left: 5px;
+}
+
+#aswork-edit .edit-content input[type=radio] {
+    width: 20px;
+}
+
+#aswork-edit .edit-content input[name=customerAdress] {
+    width: 250px;
+}
+
+#aswork-edit .edit-content input[name=issueTitle] {
+    width: 90%;
+}
+
+#aswork-edit .edit-content .search-button {
+    font-size: 13px; 
+    background-color: #f5f5f5; 
+    color: black; 
+    border-radius: 5px; 
+    width: 72px;
+    height: 30px;
+    border: 1px solid rgb(177, 177, 177);
+    margin: 0px;
+}
+
+#aswork-edit .modal-cont.long-textbox {
+    grid-column: 1 / -1;
+}
+
+#aswork-edit textarea[name=issueDescription]{
+    margin-top: 2px;
+    width: 95%;
+    height: 110px;
+    border: 1px solid rgb(0, 0, 0);;
+    padding: 5px 10px;
+}
+
+#aswork-edit textarea[name=repairDetalis]{
+    margin-top: 2px;
+    width: 95%;
+    height: 110px;
+    border: 1px solid rgb(0, 0, 0);;
+    padding: 5px 10px;
+}
+
+#aswork-edit .edit-content input[type=submit]{
+    font-size: 15px; /* 작은 글씨 크기 */
+    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
+    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
+    color: black; /* 버튼 글자색 (흰색) */
+    border-radius: 20px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    border: 1px solid #416DFF; ;
+    width: 70px;
+    height: 38px;
+    margin-top: 13px;
+    margin-bottom: 7px;
+}
+
+
+#aswork-edit .edit-content input[type=submit]:hover {
+    background-color: #416DFF;
+    color: white; 
+    font-weight: bold;
+}
+
+/* 버튼을 우측 정렬 */
+#aswork-edit .button-container {
+    display: flex; /* 플렉스 컨테이너 */
+    justify-content: right; /* 우측 정렬 */
+    align-items: center;
+}
+
+/* 닫기 버튼 */
+#aswork-edit .edit-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+}
+
+#aswork-edit .edit-close:hover {
+    color: black;
+}
+

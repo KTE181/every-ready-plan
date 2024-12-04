@@ -1,5 +1,6 @@
 package com.kh.semi.qa.asemp.mapper;
 
+import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
 import org.apache.ibatis.annotations.*;
@@ -10,21 +11,9 @@ import java.util.List;
 @Mapper
 public interface AsempMapper {
 
-    @Select("""
-            SELECT
-                A.NO
-                , E.EMP_NAME
-                , A.AREA
-                , E.PHONE
-                , E.DEPT_NAME
-                , E.POSITION_NAME
-                , A.DEL_YN
-            FROM AS_ENGINEERS A
-            JOIN EMPLOYEE_INFO E ON (A.NO = E.NO)
-            WHERE A.DEL_YN='N'
-            ORDER BY NO DESC
-            """)
-    List<AsempVo> getAsempList(Model model);
+    List<AsempVo> getAsempList(Model model, PageVo pvo, String area, String searchType, String searchValue);
+
+    int getAsempListCnt(String area, String searchType, String searchValue);
 
     @Insert("""
             INSERT INTO AS_ENGINEERS
@@ -67,7 +56,7 @@ public interface AsempMapper {
 
     @Delete("""
             DELETE FROM AS_ENGINEERS
-            WHERE NO = #{no}
+            WHERE NO IN (${no})
             """)
     int delete(String no);
 
@@ -82,4 +71,5 @@ public interface AsempMapper {
             ORDER BY NO DESC
             """)
     List<EmployeeVo> getEmpList();
+
 }
