@@ -118,6 +118,7 @@ public interface VacationMapper {
                     A.EMP_NO,
                     B.NAME AS ENAME,
                     C.NAME  AS DNAME,
+                    B.DEPT_CODE,
                     D.NAME AS PNAME,
                     E.NAME AS TYPE,
                     B.TOTAL_VACATION_DAYS AS ALL_VACATION,
@@ -128,6 +129,7 @@ public interface VacationMapper {
                     END) AS TOTAL_COUNT
                     FROM VACATION_LOG
                     WHERE EMP_NO = A.EMP_NO
+                    AND DEL_YN='N'
                     AND CODE NOT IN (3)
                     GROUP BY EMP_NO) AS USE_VACATION,
                     B.TOTAL_VACATION_DAYS - COALESCE(
@@ -140,6 +142,7 @@ public interface VacationMapper {
                             ) AS TOTAL_COUNT
                         FROM VACATION_LOG
                         WHERE EMP_NO = A.EMP_NO
+                            AND DEL_YN='N'
                           AND CODE NOT IN (3)
                         GROUP BY EMP_NO),
                             0
