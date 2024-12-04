@@ -62,8 +62,29 @@ public class OverTimeService {
         return mapper.detail(no);
     }
 
-    public int edit(OverTimeVo alldata) {
-        return mapper.edit(alldata);
+    public String edit(OverTimeVo alldata) {
+        String errorMsg = "";
+        if(alldata.getThisDate()==null||alldata.getThisDate().equals("")){
+            errorMsg="[ERROR_OVERTIME_002]초과근무 일자를 선택하지 않았습니다";
+            return errorMsg;
+        }
+        if(alldata.getType()==null){
+            errorMsg="[ERROR_OVERTIME_003]초과근무구분을 선택하지 않았습니다";
+            return errorMsg;
+        }
+        if(alldata.getWorkHour()==null||alldata.getWorkHour().equals("")){
+            errorMsg="[ERROR_OVERTIME_004]초과근무시간을 선택하지 않았습니다";
+            return errorMsg;
+        }
+        int result = mapper.edit(alldata);
+
+
+        if(result == 1){
+            return "1";
+        }else{
+            return "0";
+        }
+
     }
 
     public int delete(String no) {

@@ -200,7 +200,7 @@ tbodyTag.addEventListener("click", (evt) => {
     }),
     success: function (data) {
       console.log("통신성공");
-
+      document.querySelector(".salaryselectmodal .btn-class").innerHTML = '';
 
 
       // 모달 요소 가져오기
@@ -326,7 +326,7 @@ tbodyTag.addEventListener("click", (evt) => {
         delbtn.remove();
         const editbtn2 = document.createElement("input");
         editbtn2.setAttribute("type", "button");
-        editbtn2.setAttribute("value", "수정하기2");
+        editbtn2.setAttribute("value", "수정하기");
         btnDivTag.appendChild(editbtn2);
 
         editbtn2.addEventListener("click", () => {

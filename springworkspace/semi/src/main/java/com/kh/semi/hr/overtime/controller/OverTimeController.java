@@ -127,27 +127,34 @@ public class OverTimeController{
 
     @PostMapping("edit")
     @ResponseBody
-    public int edit(OverTimeVo alldata){
+    public void edit(OverTimeVo alldata,HttpSession session){
 
         String overtime = alldata.getHour()+":"+alldata.getMinute();
         alldata.setWorkHour(overtime);
         System.out.println(alldata);
-        int result = service.edit(alldata);
+        String result = service.edit(alldata);
 
-        if(result != 1){
-            return 0;
+        if(result.equals("1")){
+          session.setAttribute("alertMsg","수정 완료");
+        }else{
+            session.setAttribute("alertMsg",result);
         }
-        return result;
     }
 
     @PostMapping("del")
     @ResponseBody
-    public int del(String no){
+    public void del(String no,HttpSession session){
         System.out.println(no);
 
         int result = service.delete(no);
+        if(result == 1){
+            session.setAttribute("alertMsg","삭제 완료");
+        }else{
+            session.setAttribute("alertMsg","삭제 실패");
 
-        return result;
+        }
+
+        
     }
 
     @DeleteMapping("del")
