@@ -88,34 +88,97 @@ function openModal(){
 });
 
   
+let no = "";
 
-//불량코드 상세조회
-
-$(document).ready(function () {
-    // 테이블 행 클릭 이벤트
-    $(".defectivecode-row").on("click", function () {
-        const defectivecodeNo = $(this).data("product-no"); // 행에 저장된 상품 번호 가져오기
+document.querySelectorAll("#defectiveCodeTable td").forEach(row => {
+    row.addEventListener("click", function (evt) {
+        const defectiveCodeNo = this.getAttribute("data-product-no"); 
+        no = evt.target.parentNode.children[1].innerText;
 
         $.ajax({
-            url: "/qa/defectivecode/detail",
-            type: "GET",
-            data: { no: defectivecodeNo }, // 상품 번호 전송
-            success: function (response) {
-                // 응답 데이터를 모달 창에 표시
-                $("#code-number").val(response.no);
-                $("#code-name").val(response.name);
+            url: `/qa/defectivecode/detail?no=${defectiveCodeNo}`,
+            method: "GET",
+            success: function (x) {
 
-                // 모달 창 열기
-                $("#modalDetail").show();
+                document.querySelector("#code-number").value = x.no;
+                document.querySelector("#code-name").value = x.name;
+                
+
+                document.querySelector("#modalDetail").style.display = "block";
             },
             error: function () {
-                alert("상품 정보를 가져오는 데 실패했습니다.");
+                alert("상품 조회 실패..");
             }
         });
     });
+});
 
-    $("#closeDetailModal").on("click", function () {
-        $("#modalDetail").hide();
-    });
+document.querySelector("#closeDefectiveCodeDetailModal").addEventListener("click", function () {
+    document.querySelector("#modalDetail").style.display = "none";
+});
 
+
+
+// 수정 버튼 클릭 이벤트
+document.querySelector("#edit-button-defectivecode").addEventListener("click", function () {
+    document.querySelector("#modalDetail").style.display = "none";
+    document.querySelector("#modalEdit").style.display = "block";
+});
+
+document.querySelector("#modalEdit #closeDefectiveCodeUpdateModal").addEventListener("click", function (evt) {
+    evt.preventDefault();
+    document.querySelector("#modalEdit").style.display = "none";
+});
+
+// modalDetail 닫기 버튼 이벤트
+document.querySelector("#modalDetail #closeDefectiveCodeDetailModal").addEventListener("click", function (evt) {
+    evt.preventDefault();
+    document.querySelector("#modalDetail").style.display = "none";
+});
+
+
+document.querySelector("#edit-button-defectivecode").addEventListener("click",function(){
+    const no = document.querySelector("#code-number").value;
+    console.log(no);
+    const name = document.querySelector("#code-name").value;
+    console.log(name);
+
+    document.querySelector("#edit-code-number").value = no;
+    document.querySelector("#edit-code-name").value = name;
+    
+});
+
+
+
+
+
+
+
+// 수정하는 기능
+document.querySelector("#modalEdit .primary").addEventListener("click", function () {
+
+    const defectiveNo= document.querySelector("#edit-code-number").value;
+    console.log(defectiveNo);
+    const defectiveCode= document.querySelector("#edit-code-name").value;
+    console.log(defectiveCode);
+
+
+
+$.ajax({
+    url: "/qa/defectivecode/edit", 
+    method: "POST",
+    data: {
+
+        no : defectiveNo,
+        name : defectiveCode,
+
+    },
+    success: function () {
+        alert("수정되었습니다!");
+        location.reload;
+    },
+    error: function () {
+        alert("수정에 실패했습니다...");
+    }
+});
 });

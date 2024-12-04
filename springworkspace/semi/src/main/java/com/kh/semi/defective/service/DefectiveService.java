@@ -1,11 +1,10 @@
 package com.kh.semi.defective.service;
 
 import com.kh.semi.defective.mapper.DefectiveMapper;
+import com.kh.semi.defective.vo.DefectiveCodeVo;
 import com.kh.semi.defective.vo.DefectiveVo;
-import com.kh.semi.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -19,10 +18,6 @@ public class DefectiveService {
         return mapper.write(vo);
     }
 
-
-    public List<DefectiveVo> getDefectiveDetail(String bno, Model model) {
-        return mapper.getDefectiveDetail(bno, model);
-    }
 
     public int edit(DefectiveVo vo) {
         return mapper.edit(vo);
@@ -51,5 +46,17 @@ public class DefectiveService {
         return mapper.getProductList(str.toString());
 
 
+    }
+
+    public DefectiveVo getDefectiveDetail(String defectiveNo) {
+        return mapper.getDefectiveDetail(defectiveNo);
+    }
+
+    public List<DefectiveCodeVo> getdefectiveCodeVoList() {
+        return mapper.getdefectiveCodeVoList();
+    }
+
+    public DefectiveCodeVo getDefectiveName(String defectiveCode) {
+        return mapper.getDefectiveName(defectiveCode);
     }
 }

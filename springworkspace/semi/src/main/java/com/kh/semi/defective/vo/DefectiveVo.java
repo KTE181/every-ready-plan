@@ -14,6 +14,7 @@ public class DefectiveVo {
     private String factoryLocation;
     private String enrollDate;
     private String price;
+    private String defectiveNo;
     private String defectiveName;
     private String description;
 

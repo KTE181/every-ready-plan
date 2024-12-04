@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/defective/defectivecode.css">
     <link rel="stylesheet" href="/css/defective/write.css">
     <link rel="stylesheet" href="/css/defective/detail.css">
+    <link rel="stylesheet" href="/css/defective/update.css">
     <script defer src="/js/defectiveCode/list.js"></script>
 
 </head>
@@ -88,7 +89,7 @@
                                 </tr>
                             </thead>
     
-                            <tbody>
+                            <tbody id="defectiveCodeTable">
                                 <c:forEach items = "${defectiveCodeVo}" var = "defective">
                                     <tr>
                                         <td class = "checkbox-td"><input type = "checkbox" name = "del"></td>
@@ -116,19 +117,33 @@
 
                 <div class="modal-detail" id="modalDetail">
                     <div class="modal">
-                        <button id="closeDetailModal">×</button>
+                        <button id="closeDefectiveCodeDetailModal">×</button>
                         <h2>불량코드 상세 조회</h2>
                         <label for="code-number">불량유형번호</label>
                         <input type="text" id="code-number" value="1" readonly>
                         <label for="code-name">불량유형명</label>
                         <input type="text" id="code-name" value="오염" readonly>
                         <div class="modal-buttons">
-                            <button class="primary">수정</button>
+                            <button class="primary" id = "edit-button-defectivecode">수정</button>
                             <button>삭제</button>
                         </div>
                     </div>
                 </div>
 
+
+                <div class="modal-edit" id="modalEdit">
+                    <div class="modal">
+                            <button id = "closeDefectiveCodeUpdateModal">×</button>
+                        <h2>불량코드 수정</h2>
+                        <label for="code-number">불량유형번호</label>
+                        <input type="text" id="edit-code-number" readonly>
+                        <label for="code-name">불량유형명</label>
+                        <input type="text" id="edit-code-name" >
+                        <div class="modal-buttons">
+                            <button class="primary">저장</button>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Bottom Area -->
                 <div class="bottom-content-area">

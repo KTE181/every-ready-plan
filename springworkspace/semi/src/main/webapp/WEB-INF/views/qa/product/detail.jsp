@@ -23,9 +23,6 @@
             <!-- Header -->
             <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-            <!-- Contents Area -->
-            <button onclick="openModal()">모달 열기</button>
-
     <!-- 모달 오버레이 -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">

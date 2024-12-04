@@ -3,11 +3,10 @@ package com.kh.semi.defective.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.semi.defective.service.DefectiveService;
+import com.kh.semi.defective.vo.DefectiveCodeVo;
 import com.kh.semi.defective.vo.DefectiveVo;
-import com.kh.semi.product.vo.ProductVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,19 +31,39 @@ public class DefectiveController {
     }
 
     //상품 상세 조회
-    @GetMapping("/detail")
-    public ResponseEntity<DefectiveVo> getProductDetail(@RequestParam("no") String defectiveNo) {
+    @GetMapping("detail")
+    @ResponseBody
+    public DefectiveVo getDefectiveDetail(@RequestParam("no") String defectiveNo) {
+        DefectiveVo defectiveVo = service.getDefectiveDetail(defectiveNo);
 
-        DefectiveVo defectiveVo = service.getDefectiveByNo(defectiveNo);
-        if (defectiveVo != null) {
-            return ResponseEntity.ok(defectiveVo);
-        } else {
-            return ResponseEntity.notFound().build();
+        if (defectiveVo == null) {
+            throw new IllegalStateException();
         }
+        return defectiveVo;
+    }
+
+    @GetMapping("write")
+    public String write(Model model){
+        List<DefectiveCodeVo> defectiveCodeList =service.getdefectiveCodeVoList();
+        model.addAttribute("defectiveCodeList",defectiveCodeList);
+        return "qa/defective/write";
+    }
+
+    @GetMapping("dclist")
+    @ResponseBody
+    public List<DefectiveCodeVo> dclist(){
+        return service.getdefectiveCodeVoList();
+    }
+
+    @GetMapping("/getDefectiveName")
+    @ResponseBody
+    public DefectiveCodeVo getDefectiveName(@RequestParam("code") String defectiveCode) {
+        return service.getDefectiveName(defectiveCode);
     }
 
     // 상품 등록 처리
     @PostMapping("write")
+    @ResponseBody
     public String write(DefectiveVo vo, HttpSession session) throws Exception {
         int result = service.write(vo);
         if(result == 1){
@@ -69,33 +88,28 @@ public class DefectiveController {
             return "good";
     }
 
-    //불량상품 수정(화면)
     @GetMapping("edit")
-    public String edit(String bno, Model model){
-        List<DefectiveVo> productVo = service.getDefectiveDetail(bno, model);
-
-        if(productVo == null){
-            return "redirect:/error";
-        }else{
-            model.addAttribute("productVo",productVo);
-            return "redirect:/qa/product/edit";
-        }
+    public void edit(String defectiveNo, Model model){
+        DefectiveVo defectiveVo  = service.getDefectiveDetail(defectiveNo);
+        model.addAttribute("defectiveVo", defectiveVo);
     }
 
-    //불량상품 수정(출력)
+
+    //상품 수정(처리)
     @PostMapping("edit")
-    public String edit(Model model, HttpSession session, DefectiveVo vo){
+    public String edit(DefectiveVo vo, Model model) throws Exception {
 
-            int result = service.edit(vo);
+        System.out.println("vo = " + vo);
 
-            if(result != 1){
-                return "redirect:/error";
-            }else{
-                session.setAttribute("alertMsg","수정완료되었습니다.");
-                List<DefectiveVo> defectiveVo = service.getDefectiveDetail(vo.getNo(), model);
+        int result = service.edit(vo);
 
-                return "redirect:/qa/defective/edit";
-            }
+        if(result != 1){
+            throw new IllegalStateException("수정하기 중 에러...");
+        }
+
+        DefectiveVo defectiveVo = service.getDefectiveDetail(vo.getNo());
+        model.addAttribute("defectiveVo", defectiveVo);
+        return "redirect:/qa/defective/list";
 
     }
 

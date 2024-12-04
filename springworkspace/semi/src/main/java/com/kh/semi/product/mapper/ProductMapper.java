@@ -1,10 +1,7 @@
 package com.kh.semi.product.mapper;
 
 import com.kh.semi.product.vo.ProductVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -30,21 +27,6 @@ public interface ProductMapper {
     List<ProductVo> getProductList(String str);
 
 
-    @Select("""
-            SELECT
-                 ITEM_CODE
-                ,PRICE
-                ,NAME
-                ,SERIAL_NUMBER
-                ,FACTORY_NAME
-                ,FACTORY_LOCATION
-                ,WARRANTY_PERIOD
-                ,RECEIVED_DATE
-                FROM PRODUCT_REGISTRATION
-                WHERE ITEM_CODE = #{bno}
-            """
-    )
-    List<ProductVo> getProductDetail(String bno, Model model);
 
     @Insert("""
             INSERT INTO PRODUCT_REGISTRATION
@@ -88,12 +70,13 @@ public interface ProductMapper {
     @Update("""
             UPDATE PRODUCT_REGISTRATION
                 SET
-                PRICE = #{price}
+                ITEM_CODE = #{itemCode}
+                ,NAME = #{name}
+                ,PRICE = #{price}
                 ,FACTORY_NAME = #{factoryName}
                 ,FACTORY_LOCATION = #{factoryLocation}
                 ,WARRANTY_PERIOD = #{warrantyPeriod}
-                ,RECEIVED_DATE = #{receivedDate}
-                WHERE NO = #{no}
+                WHERE NO = #{no} AND DEL_YN = 'N'
             """)
     int edit(ProductVo vo);
 
@@ -105,7 +88,7 @@ public interface ProductMapper {
                 ,NAME
                 ,(SELECT COUNT(ITEM_CODE)
                              FROM PRODUCT_REGISTRATION
-                             WHERE ITEM_CODE = A.ITEM_CODE) AS QUANTITY
+                             WHERE ITEM_CODE = A.ITEM_CODE AND DEL_YN = 'N') AS QUANTITY
                 ,SERIAL_NUMBER
                 ,FACTORY_NAME
                 ,FACTORY_LOCATION
@@ -144,4 +127,22 @@ public interface ProductMapper {
             """)
     int insertProduct(ProductVo productvo);
 
+
+    @Select("""
+            SELECT
+                 ITEM_CODE
+                ,PRICE
+                ,NAME
+                ,(SELECT COUNT(ITEM_CODE)
+                             FROM PRODUCT_REGISTRATION
+                             WHERE ITEM_CODE = A.ITEM_CODE AND DEL_YN = 'N') AS QUANTITY
+                ,SERIAL_NUMBER
+                ,FACTORY_NAME
+                ,FACTORY_LOCATION
+                ,WARRANTY_PERIOD
+                ,RECEIVED_DATE
+                FROM PRODUCT_REGISTRATION A
+                WHERE NO = #{productNo}
+            """)
+    ProductVo getProductDetail(String productNo);
 }
