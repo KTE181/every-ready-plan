@@ -38,7 +38,7 @@ public class VacationService {
         return  mapper.getVacationVo(selectNo);
     }
 
-    public int update(Map<String, String> alldata) {
+    public int update(VacationVo alldata) {
         return mapper.update(alldata);
     }
 

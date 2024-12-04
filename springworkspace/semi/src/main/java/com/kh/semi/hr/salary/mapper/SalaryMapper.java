@@ -158,14 +158,16 @@ public interface SalaryMapper {
             PAY_YEARMONTH = #{payYearmonth},
             NATIONAL_PENSION=#{nationalPension},
             MEAL_ALLOWANCE=#{payYearmonth},
+            COMMUNICATION_COST=#{communicationCost},
+            MEAL_ALLOWANCE=#{mealAllowance}
             HEALTH_INSURANCE = #{healthInsurance},
             EMPLOYMENT_INSURANCE = #{employmentInsurance},
             LONGTERM_CARE_INSURANCE=#{longtermCareInsurance},
             INCOME_TAX=#{incomeTax},
             LOCAL_TAXES = #{localTaxes}
-            WHERE NO = #{no}
+            WHERE NO = #{no} AND DEL_YN='N'
             """)
-    int edit(HashMap<String, String> editdata);
+    int edit(SalaryVo editdata);
 
     @Update("""
             UPDATE SALARY

@@ -189,7 +189,7 @@ tbodyTag.addEventListener("click",(evt)=>{
             const x = document.querySelector(".vacationselectmodal-cont textarea[name=reason]");
 
             const alldata = {
-              selectNo:selectNo,
+              no:selectNo,
               empNo:empNo.value,
               ename:ename.value,
               dname:dname.value,
@@ -201,9 +201,8 @@ tbodyTag.addEventListener("click",(evt)=>{
 
             $.ajax({
               url:"/api/hr/vacation/update",
-              contentType: "application/json",
               method:"POST",
-              data:JSON.stringify(alldata),
+              data:(alldata),
   
               success:function(data2){
                   alert("수정 성공");

@@ -97,12 +97,9 @@ public class VacationController {
     //휴가 수정
     @PostMapping("update")
     @ResponseBody
-    public String update(@RequestBody Map<String, String> alldata,HttpSession session){
+    public String update(VacationVo alldata,HttpSession session){
         System.out.println(alldata);
-        for (String key : alldata.keySet()) {
-            String value = alldata.get(key);
-            System.out.println("Key: " + key + ", Value: " + value);
-        }
+
         int result= service.update(alldata);
 
         if(result != 1){

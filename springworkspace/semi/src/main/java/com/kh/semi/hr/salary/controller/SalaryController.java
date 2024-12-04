@@ -120,24 +120,25 @@ public class SalaryController {
     //수정하기
     @PostMapping("edit")
     @ResponseBody
-    public void edit(@RequestBody HashMap<String,String> editdata,HttpSession session){
+    public void edit(SalaryVo editdata,HttpSession session){
 
 //        System.out.println(editdata.get("payYearmonth"));
 
-        String resetdate=editdata.get("payYearmonth");
+        System.out.println(editdata);
+        String resetdate=editdata.getPayYearmonth();
         String formattedPayYearmonth = resetdate.replace("-", "");
-//        System.out.println(formattedPayYearmonth);
+        System.out.println(formattedPayYearmonth);
 
-        editdata.put("payYearmonth",formattedPayYearmonth);
+       editdata.setPayYearmonth(formattedPayYearmonth);
 
 //        System.out.println("editdata=="+editdata);
 
-        int result = service.edit(editdata);
+        String result = service.edit(editdata);
         
-        if(result == 1){
+        if(result.equals("1")){
           session.setAttribute("alertMsg","수정 성공");  
         }else{
-            session.setAttribute("alertMsg","수정 실패");
+            session.setAttribute("alertMsg",result);
         }
         
   

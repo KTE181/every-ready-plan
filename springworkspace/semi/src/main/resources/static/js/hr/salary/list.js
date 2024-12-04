@@ -338,17 +338,19 @@ tbodyTag.addEventListener("click", (evt) => {
             healthInsurance:healthInsurance.value,
             employmentInsurance:employmentInsurance.value,
             longtermCareInsurance:longtermCareInsurance.value,
+            mealAllowance:mealAllowance.value,
+            communicationCost:communicationCost.value,
             incomeTax:incomeTax.value,
             localTaxes:localTaxes.value,
         
           };
+
           $.ajax({
 
 
             url: "/api/hr/salary/edit",
             method: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(editdata),
+            data: (editdata),
             success: function (data) {
   
   

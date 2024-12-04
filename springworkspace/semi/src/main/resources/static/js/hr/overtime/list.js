@@ -206,7 +206,6 @@ tbodyTag.addEventListener("click", (evt) => {
         $.ajax({
           url:"/api/hr/overtime/edit",
           method:"POST",
-          
           data:(alldata),
           success:function(data){
             console.log("통신성공");
