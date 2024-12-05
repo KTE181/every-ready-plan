@@ -1,4 +1,4 @@
-package com.kh.semi.hr.employee.vo;
+package com.kh.semi.hr.employeehr.vo;
 
 import lombok.Data;
 

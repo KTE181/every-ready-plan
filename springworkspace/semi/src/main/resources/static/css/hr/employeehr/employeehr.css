@@ -1,0 +1,571 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    flex-shrink:0;
+    width: 280px;
+    min-height: 919px;
+    background-color: #447dff;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-item > img {
+    width: 200px;
+    height: 100px;
+}
+
+.sidebar h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+    margin: 0;
+}
+
+.sidebar ul li {
+    font-size: 18px;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.menu-item {
+    padding: 15px 20px;
+    font-size : 25px;
+
+}
+
+
+.menu-item > ul > li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size : 16px;
+}
+.title-menu{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.dropdown {
+    position: relative;
+
+}
+
+.dropdown1 {
+    position: relative;
+
+}
+
+.dropdown3 {
+    position: relative;
+
+}
+
+.dropdown4 {
+    position: relative;
+
+}
+
+.dropdown5 {
+    position: relative;
+
+}
+
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #D8EAFF;
+    color: black;
+    border-top: 1px solid #ffffff33;
+}
+
+.dropdown-menu.visible {
+    display: block;
+    border-radius: 10px;
+    width: 245px;
+    font-weight: 900;
+}
+
+
+.dropdown-menu li {
+    padding: 10px 20px;
+}
+
+.dropdown-menu1 {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #D8EAFF;
+    color: black;
+    border-top: 1px solid #ffffff33;
+}
+
+.dropdown-menu1.visible {
+    display: block;
+    border-radius: 10px;
+    width:245px;
+    font-weight: 900;
+}
+
+.dropdown-menu2 {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #D8EAFF;
+    color: black;
+    border-top: 1px solid #ffffff33;
+}
+
+  .dropdown-menu2.visible {
+    display: block;
+    border-radius: 10px;
+    width: 245px;
+    font-weight: 900;
+
+  }
+
+  .dropdown-menu3 {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #D8EAFF;
+    color: black;
+    border-top: 1px solid #ffffff33;
+  }
+
+  .dropdown-menu3.visible {
+    display: block;
+    border-radius: 10px;
+    width: 245px;
+    font-weight: 900;
+
+  }
+
+  .dropdown-menu4 {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #D8EAFF;
+    color: black;
+    border-top: 1px solid #ffffff33;
+  }
+
+  .dropdown-menu4.visible {
+    display: block;
+    border-radius: 10px;
+    width: 245px;
+    font-weight: 900;
+
+  }
+
+
+.sidebar ul li:hover {
+    background-color: #3668cc;
+}
+
+.submenu-content {
+    display: none;
+    background-color: #5591ff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.submenu:hover .submenu-content {
+    display: block;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    width: calc(100% - 40px);
+}
+
+.submenu-content p {
+    margin: 5px 0;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.submenu-content p:hover {
+    color: white;
+}
+
+.main-content {
+    flex-shrink:0;
+    flex-grow: 1;
+    min-width: 1200px;
+    min-height: 500px;
+    background-color: #ECF2FD;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.144);
+
+}
+
+.button {
+    background-color: #447dff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #3668cc;
+}
+
+
+
+.image-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #e5e5e5;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.content-area {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 82% 8%;
+    flex: 1;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.144);
+}
+
+.top-content-area{
+    display: grid;
+    justify-content: center; /* 전체 그리드 정렬 (선택 사항) */
+    justify-items: center;  /* 각 칸 안의 수평 정렬 */
+    align-items: center;    /* 각 칸 안의 수직 정렬 */
+}
+
+
+/*********************** 회사 연혁도 영역 **************************/
+.index1{
+    display: grid;
+
+}
+.index2{
+    display: grid;
+    font-size: 3em;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+}
+.search-bar input[type="text"] {
+    width: 90%;
+    height: 29px; /* 다른 셀렉트 박스와 동일한 높이로 설정 */
+    border: 1px solid rgb(151, 151, 151);
+    border-radius: 5px; /* 셀렉트 박스의 모서리와 일치 */
+    padding: 0 10px; /* 텍스트 입력 여백 */
+    font-size: 16px; /* 동일한 폰트 크기 */
+    box-sizing: border-box;
+}
+
+.search-bar select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+/*********************** 회사 연혁도 끝 **************************/
+
+
+.middle-content-area{
+    display: grid;
+    justify-content: center; /* 전체 그리드 정렬 (선택 사항) */
+    justify-items: center;  /* 각 칸 안의 수평 정렬 */
+    align-items: center;    /* 각 칸 안의 수직 정렬 */
+
+}
+.middle-content-area img {
+    display: grid;
+    max-width: 100%; /* div 너비에 맞게 반응형 조정 */
+    height: auto;    /* 비율 유지 */
+    width: 1200px;    /* 필요 시 고정 크기 지정 */
+}
+
+
+
+/*********************** 하단 버튼/페이징 영역 시작 **************************/
+
+.bottom-content-area{
+    display: grid;
+    grid-template-columns: 8% 8% 8% 50% 12% 12%;
+    justify-content: center; /* 전체 그리드 정렬 (선택 사항) */
+    justify-items: center;  /* 각 칸 안의 수평 정렬 */
+    align-items: center;    /* 각 칸 안의 수직 정렬 */
+}
+
+
+
+
+/* bottom 영역 */
+
+
+/* 버튼 클릭 시 또는 포커스 시 스타일 */
+.crud-button:active, .crud-button:focus {
+    background-color: #2b3bdb; /* 더 어두운 파란색으로 변경 */
+}
+
+.crud-button-blue {
+    font-size: 24px; /* 작은 글씨 크기 */
+    padding: 6px 20px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
+    background-color: #3344FF; /* 버튼 배경색 (#3344FF) */
+    color: white; /* 버튼 글자색 (흰색) */
+    border: none; /* 테두리 제거 */
+    border-radius: 15px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    width: 90px;
+    height: 50px;
+}
+/* 등록 수정 삭제 버튼 */
+.crud-button-white {
+    font-size: 24px; /* 작은 글씨 크기 */
+    padding: 6px 20px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
+    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
+    color: black; /* 버튼 글자색 (흰색) */
+    /* border: none; 테두리 제거 */
+    border-color: #3344FF;
+    border-radius: 15px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    border-width: 1px;
+    width: 90px;
+    height: 50px;
+
+}
+
+.crud-button-white:hover {
+    background-color: #3344FF; /* 회색 배경 */
+    color: white;
+}
+
+
+/* 페이징 영역 박스 크기 설정 */
+.pagination-box {
+    width: 400px;  /* 가로 크기 400px */
+    height: 150px; /* 세로 크기 150px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #3344FF; /* 박스 외곽선 */
+    border-radius: 10px;
+    background-color: #f4f4f4;
+}
+
+/* 전체 페이지네이션 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* 박스 크기에 맞춰 전체 width 설정 */
+
+
+}
+
+/* 페이징 버튼 공통 스타일 */
+.page-button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 기본 페이지 버튼 스타일 (흰색 배경, 검정색 글씨) */
+.page-button {
+    background-color: white;
+    color: black;
+    border: 1px solid #3344FF; /* 파란색 테두리 */
+    font-weight: bold;
+    height: 20px;
+    width: 10px;
+
+     /* 플렉스를 사용하여 텍스트를 수평, 수직 중앙 정렬 */
+     display: flex;
+     justify-content: center; /* 수평 중앙 정렬 */
+     align-items: center; /* 수직 중앙 정렬 */
+
+}
+
+/* 선택된 페이지 번호 버튼 스타일 */
+.page-button.active {
+    background-color: #3344FF; /* 파란색 배경 */
+    color: white; /* 흰색 글씨 */
+    font-weight: bold;
+    text-align: center; /* 글씨 가로 정렬 */
+}
+
+/* 페이지 번호 버튼에 마우스를 올렸을 때 색상 변경 */
+.page-button:hover {
+    background-color: #3344FF; /* 회색 배경 */
+    color: white;
+}
+
+/* 이전, 다음 버튼 */
+.page-button.previous, .page-button.next {
+    font-weight: bold;
+}
+
+/* 비활성화된 버튼 스타일 (예: 첫 페이지에서 '이전' 버튼 비활성화) */
+.page-button.disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+/* 등록/수정/삭제 모달창의 확인버튼 */
+.ok-button{
+    font-size: 18px; /* 작은 글씨 크기 */
+    padding: 6px 20px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
+    background-color: #3344FF; /* 버튼 배경색 (#3344FF) */
+    color: white; /* 버튼 글자색 (흰색) */
+    border: none; /* 테두리 제거 */
+    border-radius: 15px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    width: 80px;
+    height: 40px;
+
+}
+/* 등록/수정/삭제 모달창의 취소버튼 */
+.cancle-button{
+    font-size: 18px; /* 작은 글씨 크기 */
+    padding: 6px 20px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
+    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
+    color: black; /* 버튼 글자색 (흰색) */
+    /* border: none; 테두리 제거 */
+    border-color: #3344FF;
+    border-radius: 12px; /* 모서리를 둥글게 */
+    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    border-width: 1px;
+    width: 80px;
+    height: 40px;
+}
+
+
+/*********************** 하단 버튼/페이징 영역 끝 **************************/
+.display-none {
+    display: none;
+}
+
+#profile-menu {
+    position: absolute;
+    top: 70px;
+    right: 60px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.082);
+    z-index: 100;
+    width: 140px;
+    padding: 11px 20px;
+}
+
+#profile-menu>div{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+
+/*********************** 모달영역 시작 **************************/
+
+.modal-small{
+    display: grid;
+    width: 800px;
+    height: 500px;
+    border: 1px solid black;
+    grid-template-columns: 1fr 1fr;
+}
+.test
+{
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+}
+
+/*********************** 모달영역 끝 **************************/
+
+.content-area {
+    padding: 20px;
+}
+
+.content-area table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.content-area td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.content-area tr {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-area tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.content-area tr:hover {
+    background-color: #f1f1f1;
+}
+
