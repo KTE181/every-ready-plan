@@ -4,10 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.semi.defective.service.DefectiveCodeService;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
-import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.util.page.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +25,16 @@ public class DefectiveCodeController {
     @GetMapping("list")
     public void list(Model model,
                      @RequestParam(value = "searchValue", required = false) String searchValue,
-                     @RequestParam(value = "searchValueName", required = false) String searchValueName) {
-        List<DefectiveCodeVo> defectiveCodeVo = service.getDefectiveCodeList(searchValue, searchValueName);
+                     @RequestParam(value = "searchValueName", required = false) String searchValueName,
+                     @RequestParam(name = "pno", defaultValue = "1") int currentPage) {
+
+        int listCount = service.getDefectiveCodeCnt();
+        int pageLimit = 5;
+        int boardLimit = 14;
+
+        PageVo pageVo = new PageVo(listCount , currentPage, pageLimit, boardLimit);
+        List<DefectiveCodeVo> defectiveCodeVo = service.getDefectiveCodeList(searchValue, searchValueName,pageVo);
+        model.addAttribute("pageVo", pageVo);
         model.addAttribute("defectiveCodeVo", defectiveCodeVo);
     }
 
@@ -45,11 +52,11 @@ public class DefectiveCodeController {
 
     //불량 코드 등록(처리)
     @PostMapping("write")
-    public void write(DefectiveCodeVo vo, HttpSession session) throws Exception {
+    public String write(DefectiveCodeVo vo, HttpSession session) throws Exception {
         System.out.println(vo);
         int result = service.write(vo);
         if(result == 1){
-            session.setAttribute("alertMsg","등록되었습니다.");
+            return "redirect:/qa/defectivecode/list";
         }else{
             throw new Exception("redirect:/error");
         }

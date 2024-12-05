@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.semi.product.service.ProductService;
 import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.util.page.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,21 +25,22 @@ public class ProductController {
     @GetMapping("list")
     public void list(Model model,
                      @RequestParam(value = "searchValue", required = false) String searchValue,
-                     @RequestParam(value = "searchValueName", required = false) String searchValueName) {
-        List<ProductVo> productVo = service.getProductList(searchValue, searchValueName);
+                     @RequestParam(value = "searchValueName", required = false) String searchValueName
+                        , @RequestParam(name = "pno", defaultValue = "1") int currentPage) {
+
+        int listCount = service.getBoardCnt();
+        int pageLimit = 5;
+        int boardLimit = 14;
+
+        PageVo pageVo = new PageVo(listCount , currentPage, pageLimit, boardLimit);
+        List<ProductVo> productVo = service.getProductList(searchValue, searchValueName, pageVo);
+        model.addAttribute("pageVo", pageVo);
         model.addAttribute("productVo", productVo);
+
     }
 
-//    @GetMapping("/detail")
-//    public ResponseEntity<ProductVo> getProductDetail(@RequestParam("no") String productNo) {
-//        ProductVo product = service.getProductByNo(productNo);
-//        if (product != null) {
-//            return ResponseEntity.ok(product);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
+    //상품 상세 조회
     @GetMapping("detail")
     @ResponseBody
     public ProductVo getProductDetail(@RequestParam("no") String productNo) {
@@ -56,10 +58,7 @@ public class ProductController {
 
         int result = service.write(vo);
 
-
-
         if(result == 1){
-            session.setAttribute("alertMsg","등록성공!!");
             return "redirect:/qa/product/list";
         }else{
             throw new IllegalStateException("[ERROR-WRITE] 등록 중 에러..");

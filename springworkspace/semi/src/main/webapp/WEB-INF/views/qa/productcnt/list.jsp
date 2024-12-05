@@ -9,6 +9,7 @@
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/product/productcnt.css">
+    <link rel="stylesheet" href="/css/product/bottompagecnt.css">
 </head>
 <body>
     <div class="container">
@@ -35,7 +36,7 @@
                                 <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
                                 <div class="search-bar"><input type="text" name="day" maxlength="2" placeholder="일"></div> -->
 
-                                <label for="연월 date"></label>
+                                <!-- <label for="연월 date"></label>
                                 <div class="search-bar"><input type="month" name=""></div>
 
                                 <label for="연월일 date"></label>
@@ -59,7 +60,15 @@
                                     </select>
                                 </div>
                                 <div class="search-bar"><input type="search" id="longbar"></div>
-                                <div class="search-bar"><button class="button">검색</button></div>
+                                <div class="search-bar"><button class="button">검색</button></div> -->
+                                <div class="search-bar">
+                                    <form action="/qa/productcnt/list">
+                                        <label>상품이름 &nbsp;&nbsp; <input type="text" id = "longbar" name="searchValue" value="${searchValue}" placeholder="검색할 상품이름을 입력하세요"></label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label>품목코드 &nbsp;&nbsp;  <input type="text" id = "longbar" name="searchValueCode" value="${searchValueCode}" placeholder="검색할 품목코드를 입력하세요"></label>
+                                        <div class="search-bar"><button id="searchButton">검색</button></div>
+                                    </form>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -67,7 +76,7 @@
                 
                 <div class = "middle-content-area">
 
-                    <table class = "list-area">
+                    <table class = "listcnt-area">
                             <thead>
                                 <tr>
                                     <th>품목코드</th>
@@ -84,17 +93,36 @@
                                         <td>${product.itemCode}</td>
                                         <td>${product.name}</td>
                                         <td>${product.price}</td>
-                                        <td>${product.count}</td>
-                                        <td>${product.nondefectivecount}</td>
+                                        <td>${product.totalCount}</td>
+                                        <td>${product.defectRate}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
+                     
+                           
 
                 </div>
 
-                <!-- Bottom Area -->
-                <%@ include file="/WEB-INF/views/common/bottom.jsp" %>
+                <div class="bottom-content-area">
+                    <div><button class="crud-button-white" onclick = "delDefectiveCode();">삭제</button></div>
+                    <div>
+                        <div class="pagination">
+                            <c:if test="${pageVo.currentPage > 1}">
+                                <a href="/qa/productcnt/list?pno=${pageVo.currentPage - 1}" class="page-button" data-page="${pageVo.currentPage - 1}">이전</a>
+                            </c:if>
+                        
+                            <c:forEach begin="${pageVo.startPage}" end="${pageVo.endPage}" var="page">
+                                <a href="/qa/productcnt/list?pno=${page}" class="page-link ${pageVo.currentPage == page ? 'active' : ''}" id = page-button-middle data-page="${page}">${page}</a>
+                            </c:forEach>
+                        
+                            <c:if test="${pageVo.currentPage < pageVo.maxPage}">
+                                <a href="/qa/productcnt/list?pno=${pageVo.currentPage + 1}" class="page-button" data-page="${pageVo.currentPage + 1}">다음</a>
+                            </c:if>
+                        </div>
+                    </div>
+                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">등록</button></div>
+                </div> 
 
         </div>
     </div>

@@ -74,7 +74,7 @@ function openModal(){
                 url: "/qa/defectivecode/write",
                 data: {
                     name: name,
-                    no: 1,
+                    no: no,
                 },
                 success: function () {
                     alert("상품이 성공적으로 등록되었습니다!");
@@ -175,7 +175,7 @@ $.ajax({
     },
     success: function () {
         alert("수정되었습니다!");
-        location.reload;
+        location.reload();
     },
     error: function () {
         alert("수정에 실패했습니다...");

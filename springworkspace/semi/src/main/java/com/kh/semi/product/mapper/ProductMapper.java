@@ -1,6 +1,7 @@
 package com.kh.semi.product.mapper;
 
 import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.util.page.PageVo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
@@ -23,8 +24,9 @@ public interface ProductMapper {
             WHERE DEL_YN = 'N'
             ${str}
             ORDER BY NO DESC
+            OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
             """)
-    List<ProductVo> getProductList(String str);
+    List<ProductVo> getProductList(String str, PageVo pvo);
 
 
 
@@ -145,4 +147,12 @@ public interface ProductMapper {
                 WHERE NO = #{productNo}
             """)
     ProductVo getProductDetail(String productNo);
+
+
+    @Select("""
+            SELECT COUNT(NO)
+            FROM PRODUCT_REGISTRATION
+            WHERE DEL_YN = 'N'
+            """)
+    int getBoardCnt();
 }
