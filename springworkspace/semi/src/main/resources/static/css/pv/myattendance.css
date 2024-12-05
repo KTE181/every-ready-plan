@@ -1,0 +1,185 @@
+/* 전체 콘텐츠 영역 스타일 */
+.content-area {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr 8fr 1fr;
+    flex: 1;
+    height: 100%;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.134);
+}
+.top-title-area{
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽 요소 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 10px; /* 내부 요소 간격 */
+}
+.menu-name {
+    font-size: 28px;
+    color: #2c3cc9;
+    font-weight: 500;
+    font-family: '맑은 고딕';
+    letter-spacing: 1px;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+.top-title-area-form{
+    display: flex;
+    flex-shrink: 0; /* 부모 요소 크기에 따라 축소되지 않음 */
+    flex-wrap: nowrap; /* 검색 폼 내부 요소 줄바꿈 방지 */
+    gap: 10px; /* 내부 입력 필드와 버튼 간격 */
+    align-items: center; /* 세로 가운데 정렬 */
+}
+
+input{
+    width: 110px;
+    height: 29px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-left: 10px;
+    margin-right: 2px;
+    border: 1px solid rgb(182, 182, 182);
+    margin-left: 8px;
+    padding-left: 8px;
+}
+
+/* 검색 버튼 스타일 */
+form button {
+    background-color: #447dff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    margin : 10px;
+}
+
+form button:hover {
+    background-color: #3668cc;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%; /* 테이블 전체 너비 */
+    border-collapse: collapse; /* 테두리 중복 제거 */
+    margin-bottom: 20px; /* 테이블 아래 여백 */
+}
+
+th, td {
+    border: 1px solid #ddd; /* 셀 테두리 */
+    padding: 10px; /* 셀 안쪽 여백 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+th {
+    background-color: #f2f2f2; /* 헤더 배경색 */
+    font-weight: bold; /* 굵은 글씨 */
+}
+
+td {
+    background-color: #fff; /* 셀 배경색 */
+}
+
+/* 페이징 영역 스타일 */
+.paging-area {
+    text-align: center; /* 페이징 버튼 가운데 정렬 */
+    margin-top: 20px; /* 위쪽 여백 */
+}
+
+.paging-area button {
+    padding: 5px 10px; /* 버튼 크기 */
+    margin: 0 5px; /* 버튼 간격 */
+    border: 1px solid #ccc; /* 버튼 테두리 */
+    border-radius: 4px; /* 버튼 모서리 */
+    background-color: #f2f2f2; /* 버튼 배경색 */
+    cursor: pointer; /* 클릭 커서 */
+}
+
+.paging-area button:hover {
+    background-color: #ddd; /* 마우스 오버시 배경색 */
+}
+
+/* 검색 및 타이틀 영역 */
+.search-and-title {
+    display: flex; /* 가로로 배치 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    margin-bottom: 20px; /* 아래 여백 */
+}
+
+/* 검색 폼 스타일 */
+.search-form {
+    display: flex; /* 검색 폼 내부 요소 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 10px; /* 입력 필드와 버튼 간격 */
+}
+
+.search-form input {
+    flex-shrink: 0; /* 입력 필드 크기 고정 */
+}
+
+.search-form button {
+    padding: 5px 10px; /* 버튼 크기 */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+/* 테이블 스타일 */
+.result-section table {
+    margin: 0 auto; /* 테이블 가운데 정렬 */
+    width: calc(100% - 40px); /* 좌우 20px 간격 확보 */
+    border-collapse: collapse; /* 테두리 중복 제거 */
+    margin-bottom: 20px; /* 테이블 아래 여백 */
+}
+
+.result-section th, .result-section td {
+    border: 1px solid #ddd; /* 셀 테두리 */
+    padding: 10px; /* 셀 안쪽 여백 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.result-section th {
+    background-color: #f2f2f2; /* 헤더 배경색 */
+    font-weight: bold; /* 굵은 글씨 */
+}
+
+.result-section td {
+    background-color: #fff; /* 셀 배경색 */
+}
+
+/* 페이징 영역 */
+.paging-area {
+    text-align: center; /* 페이징 버튼 가운데 정렬 */
+    margin-top: 20px; /* 위쪽 여백 */
+}
+
+.paging-area button {
+    padding: 5px 10px; /* 버튼 크기 */
+    margin: 0 5px; /* 버튼 간격 */
+    border: 1px solid #ccc; /* 버튼 테두리 */
+    border-radius: 4px; /* 버튼 모서리 */
+    background-color: #f2f2f2; /* 버튼 배경색 */
+    cursor: pointer; /* 클릭 커서 */
+}
+
+.paging-area button:hover {
+    background-color: #ddd; /* 마우스 오버시 배경색 */
+}
+.bottom-content-area{
+    justify-content: center;
+    align-content: center;
+}
