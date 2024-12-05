@@ -253,8 +253,8 @@
                                             </div>
                                             <div class="overselectmodal1-cont">
                                                 <label for="region"><span class="title-span">*</span>초과근무일자
-                                                    ex)2024-11-26</label>
-                                                <input type="text" id="region" name="thisDate" />
+                                                    </label>
+                                                <input type="date" id="region" name="thisDate" />
                                             </div>
                                             <div class="overselectmodal1-cont">
                                                 <label for="region"><span
