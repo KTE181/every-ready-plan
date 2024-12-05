@@ -106,7 +106,7 @@ public class SaleController {
         session.setAttribute("alertMsg" , "sale 수정");
 
         SaleVo saleVo = service.getSaleDetail(vo.getNo(), model);
-        model.addAttribute("에디트 saleVo" , saleVo);
+        model.addAttribute("saleVo" , saleVo);
 
         return "redirect:/finance/sale/list";
 

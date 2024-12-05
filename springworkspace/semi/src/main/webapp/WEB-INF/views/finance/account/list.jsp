@@ -252,6 +252,23 @@
                                             </div>
                                         </div>
 
+                                        <!-- <div class="modal-cont">
+                                            <label>은행명</label>
+                                            <select name="bankCode">
+                                                <option value="1">한국</option>
+                                                <option value="2">산업</option>
+                                                <option value="3">기업</option>
+                                                <option value="4">국민</option>
+                                                <option value="5">외환</option>
+                                                <option value="7">수협</option>
+                                                <option value="11">농협</option>
+                                                <option value="20">우리</option>
+                                                <option value="31">대구</option>
+                                                <option value="32">부산</option>
+                                                <option value="48">신협</option>
+                                            </select>
+                                        </div> -->
+
                                         <div class="modal-cont">
                                             <label for="">은행코드</label>
                                             <div>
