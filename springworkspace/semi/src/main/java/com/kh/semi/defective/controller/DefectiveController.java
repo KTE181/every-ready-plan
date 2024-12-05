@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.semi.defective.service.DefectiveService;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
 import com.kh.semi.defective.vo.DefectiveVo;
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.util.page.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +26,18 @@ public class DefectiveController {
 
     //상품 목록 조회
     @GetMapping("list")
-    public void list(Model model,
-                     @RequestParam(value = "searchValue", required = false) String searchValue,
-                     @RequestParam(value = "searchValueError", required = false) String searchValueError,
-                     @RequestParam(name = "pno", defaultValue = "1") int currentPage) {
+    public String list(Model model,
+                       @RequestParam(value = "searchValue", required = false) String searchValue,
+                       @RequestParam(value = "searchValueError", required = false) String searchValueError,
+                       @RequestParam(name = "pno", defaultValue = "1") int currentPage,
+                       HttpSession session) {
+
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
         int listCount = service.getDefectiveCnt();
         int pageLimit = 5;
@@ -37,6 +47,8 @@ public class DefectiveController {
         List<DefectiveVo> defectiveVo = service.getDefective(searchValue, searchValueError, pageVo);
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("defectiveVo", defectiveVo);
+
+        return "qa/defective/list";
     }
 
     //상품 상세 조회

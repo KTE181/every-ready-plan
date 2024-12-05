@@ -93,46 +93,46 @@ document.querySelector("#closeDetailModal").addEventListener("click", function (
 
 
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   const registerButton = document.querySelector("#registerProduct");
+document.addEventListener("DOMContentLoaded", function () {
+  const registerButton = document.querySelector("#registerDefectiveProduct");
 
-//       registerButton.addEventListener("click", function () {
+      registerButton.addEventListener("click", function () {
 
           
 
-//           const itemCode = document.querySelector("#item-code1").value;
-//           const name = document.querySelector("#product-name1").value;
-//           // const serialNumber = document.querySelector("#modalSerialNumber").value;
-//           const price = document.querySelector("#product-price1").value;
-//           const warrantyPeriod = document.querySelector("#warranty1").value;
-//           const receivedDate = document.querySelector("#import-date1").value;
-//           const factoryName = document.querySelector("#manufacturer1").value;
-//           const factoryLocation = document.querySelector("#manufacturer-address1").value;
+          const serialNumber = document.querySelector("#dfserialno").value;
+          const name = document.querySelector("#dfproduct-name").value;
+          // const serialNumber = document.querySelector("#modalSerialNumber").value;
+          const price = document.querySelector("#dfprice").value;
+          const productNo = document.querySelector("#dfproductno").value;
+          const defectiveCode = document.querySelector("#defectivecode-select").value;
+          const defectiveName = document.querySelector("#dfdefective-name").value;
+          const description = document.querySelector("#dftext-area").value;
 
 
-//           $.ajax({
-//               method: "POST",
-//               url: "/qa/product/write",
-//               data: {
-//                   itemCode: itemCode,
-//                   name: name,
-//                   // serialNumber: serialNumber,
-//                   price: price,
-//                   warrantyPeriod: warrantyPeriod,
-//                   receivedDate: receivedDate,
-//                   factoryName: factoryName,
-//                   factoryLocation: factoryLocation
-//               },
-//               success: function () {
-//                   alert("상품이 성공적으로 등록되었습니다!");
-//                   location.reload();
-//               },
-//               error: function () {
-//                   alert("상품 등록 실패");
-//               }
-//           });
-//   });
-// });
+          $.ajax({
+              method: "POST",
+              url: "/qa/defective/write",
+              data: {
+                serialNumber : serialNumber,
+                  name: name,
+                  serialNumber: serialNumber,
+                  price: price,
+                  no: productNo,
+                  defectiveCode: defectiveCode,
+                  defectiveName: defectiveName,
+                  description: description,
+              },
+              success: function () {
+                  alert("상품이 성공적으로 등록되었습니다!");
+                  location.reload();
+              },
+              error: function () {
+                  alert("상품 등록 실패");
+              }
+          });
+  });
+});
 
 
 
@@ -185,6 +185,7 @@ function setDefectiveCodeSelect(){
         method : "GET",
         // data: ~~~,
         success: function(defectiveCodeList){
+            console.log("defectiveCodeList" , defectiveCodeList);
 
             for(let i = 0 ; i < defectiveCodeList.length; ++i){
                 const defectiveCodeVo = defectiveCodeList[i];
@@ -206,6 +207,7 @@ function setDefectiveCodeSelect(){
 
 window.onload = function(){
     setDefectiveCodeSelect();
+    setDefectiveCodeSelectEdit();
 }
 
 
@@ -228,7 +230,7 @@ document.querySelector("#defectivecode-select").addEventListener("change", funct
 
 
 
-function setDefectiveCodeSelect(){
+function setDefectiveCodeSelectEdit(){
     const codeSelect= document.querySelector("#defectivecode-select-edit");
     
     $.ajax({
@@ -254,12 +256,6 @@ function setDefectiveCodeSelect(){
 
     
 }
-
-window.onload = function(){
-    setDefectiveCodeSelect();
-}
-
-
 
 document.querySelector("#defectivecode-select-edit").addEventListener("change", function () {
 

@@ -2,6 +2,8 @@ package com.kh.semi.product.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.product.service.ProductService;
 import com.kh.semi.product.vo.ProductVo;
 import com.kh.semi.util.page.PageVo;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 
 
 import java.util.List;
@@ -23,10 +26,19 @@ public class ProductController {
 
     //상품 목록 조회
     @GetMapping("list")
-    public void list(Model model,
-                     @RequestParam(value = "searchValue", required = false) String searchValue,
-                     @RequestParam(value = "searchValueName", required = false) String searchValueName
-                        , @RequestParam(name = "pno", defaultValue = "1") int currentPage) {
+    public String list(Model model,
+                       @RequestParam(value = "searchValue", required = false) String searchValue,
+                       @RequestParam(value = "searchValueName", required = false) String searchValueName
+                        ,@RequestParam(name = "pno", defaultValue = "1") int currentPage
+                        ,HttpSession session) {
+
+
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
         int listCount = service.getBoardCnt();
         int pageLimit = 5;
@@ -37,6 +49,7 @@ public class ProductController {
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("productVo", productVo);
 
+        return "qa/product/list";
     }
 
 
