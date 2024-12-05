@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/defective/write.css">
     <link rel="stylesheet" href="/css/defective/update.css">
     <link rel="stylesheet" href="/css/defective/detail.css">
+    <link rel="stylesheet" href="/css/defective/bottompagedefective.css">
     <script defer src="/js/defective/list.js"></script>
 
 </head>
@@ -67,8 +68,9 @@
                                 <div class="search-bar"><button class="button">검색</button></div> -->
                                 <div class="search-bar">
                                     <form action="/qa/defective/list">
-                                        <label>상품이름 : <input type="text" id = "longbar" name="searchValue" value="${searchValue}" placeholder="검색할 상품이름을 입력하세요"></label>
-                                        <label>불량코드 : <input type="text" id = "longbar" name="searchValueError" value="${searchValueError}" placeholder="불량코드를 입력하세요"></label>
+                                        <label>상품이름 &nbsp;&nbsp; <input type="text" id = "longbar" name="searchValue" value="${searchValue}" placeholder="검색할 상품이름을 입력하세요"></label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label>불량코드 &nbsp;&nbsp; <input type="text" id = "longbar" name="searchValueError" value="${searchValueError}" placeholder="불량코드를 입력하세요"></label>
                                         <div class="search-bar"><button id="searchButton">검색</button></div>
                                     </form>
                                 </div>
@@ -96,7 +98,7 @@
                             <tbody id="defectiveTable">
                                 <c:forEach items = "${defectiveVo}" var = "defective">
                                     <tr>
-                                        <td class = "checkbox-td"><input type = "checkbox" name = "del"></td>
+                                        <th class = "checkbox-td"><input type = "checkbox" name = "del"></th>
                                         <td class="product-row" data-product-no="${defective.no}">${defective.no}</td>
                                         <td class="product-row" data-product-no="${defective.no}">${defective.itemCode}</td>
                                         <td class="product-row" data-product-no="${defective.no}">${defective.productName}</td>
@@ -273,23 +275,18 @@
                     <div><button class="crud-button-white" onclick = "delDefective();">삭제</button></div>
                     <div>
                         <div class="pagination">
-                            <!-- 이전 페이지 버튼 -->
-                            <a href="#" class="page-button previous">&laquo;</a>
-
-                            <!-- 페이지 번호 버튼들 -->
-                            <a href="#" class="page-button active">1</a>
-                            <a href="#" class="page-button">2</a>
-                            <a href="#" class="page-button">3</a>
-                            <a href="#" class="page-button">4</a>
-                            <a href="#" class="page-button">5</a>
-                            <a href="#" class="page-button">6</a>
-                            <a href="#" class="page-button">7</a>
-                            <a href="#" class="page-button">8</a>
-                            <a href="#" class="page-button">9</a>
-                            <a href="#" class="page-button">10</a>
-                            <!-- 다음 페이지 버튼 -->
-                            <a href="#" class="page-button next">&raquo;</a>
-                         </div>
+                            <c:if test="${pageVo.currentPage > 1}">
+                                <a href="/qa/defective/list?pno=${pageVo.currentPage - 1}" class="page-button" data-page="${pageVo.currentPage - 1}">이전</a>
+                            </c:if>
+                        
+                            <c:forEach begin="${pageVo.startPage}" end="${pageVo.endPage}" var="page">
+                                <a href="/qa/defective/list?pno=${page}" class="page-link ${pageVo.currentPage == page ? 'active' : ''}" id = page-button-middle data-page="${page}">${page}</a>
+                            </c:forEach>
+                        
+                            <c:if test="${pageVo.currentPage < pageVo.maxPage}">
+                                <a href="/qa/defective/list?pno=${pageVo.currentPage + 1}" class="page-button" data-page="${pageVo.currentPage + 1}">다음</a>
+                            </c:if>
+                        </div>
                     </div>
                     <div><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">등록</button></div>
                 </div>

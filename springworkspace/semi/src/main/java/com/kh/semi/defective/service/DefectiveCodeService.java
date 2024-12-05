@@ -2,6 +2,7 @@ package com.kh.semi.defective.service;
 
 import com.kh.semi.defective.mapper.DefectiveCodeMapper;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
+import com.kh.semi.util.page.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class DefectiveCodeService {
     }
 
 
-    public List<DefectiveCodeVo> getDefectiveCodeList(String searchValue, String searchValueName) {
+    public List<DefectiveCodeVo> getDefectiveCodeList(String searchValue, String searchValueName, PageVo pageVo) {
 
         StringBuilder str = new StringBuilder();
 
@@ -45,11 +46,15 @@ public class DefectiveCodeService {
             str.append("AND NAME LIKE '%").append(searchValueName).append("%' ");
         }
 
-        return mapper.getDefectiveCodeList(str.toString());
+        return mapper.getDefectiveCodeList(str.toString(), pageVo);
 
     }
 
     public DefectiveCodeVo getDefectiveCodeDetail(String defectiveCodeNo) {
         return mapper.getDefectiveCodeDetail(defectiveCodeNo);
+    }
+
+    public int getDefectiveCodeCnt() {
+        return mapper.getDefectiveCodeCnt();
     }
 }

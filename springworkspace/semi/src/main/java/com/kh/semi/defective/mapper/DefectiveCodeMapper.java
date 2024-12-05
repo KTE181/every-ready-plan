@@ -1,6 +1,7 @@
 package com.kh.semi.defective.mapper;
 
 import com.kh.semi.defective.vo.DefectiveCodeVo;
+import com.kh.semi.util.page.PageVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -64,8 +65,9 @@ public interface DefectiveCodeMapper {
                 WHERE DEL_YN = 'N'
                 ${str}
                 ORDER BY NO ASC
+                OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
             """)
-    List<DefectiveCodeVo> getDefectiveCodeList(String string);
+    List<DefectiveCodeVo> getDefectiveCodeList(String str, PageVo pageVo);
 
 
 
@@ -77,4 +79,12 @@ public interface DefectiveCodeMapper {
                 WHERE NO = #{defectiveCodeNo}
             """)
     DefectiveCodeVo getDefectiveCodeDetail(String defectiveCodeNo);
+
+
+    @Select("""
+            SELECT COUNT(NO)
+            FROM DEFECTIVE_CODE
+            WHERE DEL_YN = 'N'
+            """)
+    int getDefectiveCodeCnt();
 }

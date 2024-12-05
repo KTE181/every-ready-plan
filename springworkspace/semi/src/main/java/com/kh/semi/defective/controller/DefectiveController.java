@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.semi.defective.service.DefectiveService;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
 import com.kh.semi.defective.vo.DefectiveVo;
+import com.kh.semi.util.page.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,16 @@ public class DefectiveController {
     @GetMapping("list")
     public void list(Model model,
                      @RequestParam(value = "searchValue", required = false) String searchValue,
-                     @RequestParam(value = "searchValueError", required = false) String searchValueError) {
-        List<DefectiveVo> defectiveVo = service.getDefective(searchValue, searchValueError);
+                     @RequestParam(value = "searchValueError", required = false) String searchValueError,
+                     @RequestParam(name = "pno", defaultValue = "1") int currentPage) {
+
+        int listCount = service.getDefectiveCnt();
+        int pageLimit = 5;
+        int boardLimit = 14;
+
+        PageVo pageVo = new PageVo(listCount , currentPage, pageLimit, boardLimit);
+        List<DefectiveVo> defectiveVo = service.getDefective(searchValue, searchValueError, pageVo);
+        model.addAttribute("pageVo", pageVo);
         model.addAttribute("defectiveVo", defectiveVo);
     }
 

@@ -45,7 +45,7 @@
 
 .list-area th:nth-child(2),
 .list-area td:nth-child(2) {
-    width: 40px;
+    width: 60px;
 }
 .list-area tbody tr:hover {
     background-color: #f5f5f5;

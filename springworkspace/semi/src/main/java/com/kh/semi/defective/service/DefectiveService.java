@@ -3,6 +3,7 @@ package com.kh.semi.defective.service;
 import com.kh.semi.defective.mapper.DefectiveMapper;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
 import com.kh.semi.defective.vo.DefectiveVo;
+import com.kh.semi.util.page.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class DefectiveService {
         return mapper.getDefectiveByNo(defectiveNo);
     }
 
-    public List<DefectiveVo> getDefective(String searchValue, String searchValueError) {
+    public List<DefectiveVo> getDefective(String searchValue, String searchValueError, PageVo pageVo) {
         StringBuilder str = new StringBuilder();
 
         // 동적 조건 추가
@@ -43,7 +44,7 @@ public class DefectiveService {
             str.append("AND DEFECTIVE_CODE LIKE '%").append(searchValueError).append("%' ");
         }
 
-        return mapper.getProductList(str.toString());
+        return mapper.getProductList(str.toString(), pageVo);
 
 
     }
@@ -58,5 +59,10 @@ public class DefectiveService {
 
     public DefectiveCodeVo getDefectiveName(String defectiveCode) {
         return mapper.getDefectiveName(defectiveCode);
+    }
+
+
+    public int getDefectiveCnt() {
+        return mapper.getDefectiveCnt();
     }
 }

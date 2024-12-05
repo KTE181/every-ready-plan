@@ -2,6 +2,7 @@ package com.kh.semi.product.service;
 
 import com.kh.semi.product.mapper.ProductMapper;
 import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.util.page.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ public class ProductService {
     private final ProductMapper mapper;
 
 
-    public List<ProductVo> getProductList(String searchValue, String searchValueName) {
+    public List<ProductVo> getProductList(String searchValue, String searchValueName, PageVo pageVo) {
         StringBuilder str = new StringBuilder();
 
         // 동적 조건 추가
@@ -30,7 +31,7 @@ public class ProductService {
         }
 
 
-        return mapper.getProductList(str.toString());
+        return mapper.getProductList(str.toString(), pageVo);
     }
 
 
@@ -38,7 +39,6 @@ public class ProductService {
 //    public int write(ProductVo vo) {
 //        return mapper.write(vo);
 //    }
-
 
 
 
@@ -69,5 +69,9 @@ public class ProductService {
 
     public ProductVo getProductDetail(String productNo) {
         return mapper.getProductDetail(productNo);
+    }
+
+    public int getBoardCnt() {
+        return mapper.getBoardCnt();
     }
 }

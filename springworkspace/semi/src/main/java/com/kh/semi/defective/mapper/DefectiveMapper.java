@@ -3,6 +3,7 @@ package com.kh.semi.defective.mapper;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
 import com.kh.semi.defective.vo.DefectiveVo;
 import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.util.page.PageVo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
@@ -107,8 +108,9 @@ public interface DefectiveMapper {
                 WHERE D.DEL_YN = 'N'
                 ${str}
                 ORDER BY ENROLL_DATE DESC
+                OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
             """)
-    List<DefectiveVo> getProductList(String str);
+    List<DefectiveVo> getProductList(String str, PageVo pageVo);
 
 
 
@@ -142,4 +144,12 @@ public interface DefectiveMapper {
             WHERE NO = #{defectiveCode}
             """)
     DefectiveCodeVo getDefectiveName(String defectiveCode);
+
+
+    @Select("""
+            SELECT COUNT(NO)
+            FROM DEFECTIVE_PRODUCT
+            WHERE DEL_YN = 'N'
+            """)
+    int getDefectiveCnt();
 }

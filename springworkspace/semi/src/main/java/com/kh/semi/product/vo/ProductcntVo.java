@@ -8,5 +8,7 @@ public class ProductcntVo {
     private String name;
     private String price;
     private String count;
+    private String totalCount;
+    private String defectRate;
     private String nondefectivecount;
 }
