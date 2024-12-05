@@ -1,5 +1,7 @@
 package com.kh.semi.qa.aswork.controller;
 
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.aswork.service.AsworkService;
@@ -28,8 +30,15 @@ public class AsworkController {
     // AS 작업 목록 조회
     @GetMapping("list")
     public String getAsworkList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                                String area, String status, String type, String searchType, String searchValue)
+                                String area, String status, String type, String searchType, String searchValue, HttpSession session)
     {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
+
         // pno = currentPage
         int listCount = service.getAsworkListCnt(area, status, type, searchType, searchValue);
         int pageLimit = 10;

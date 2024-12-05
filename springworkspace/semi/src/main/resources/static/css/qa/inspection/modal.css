@@ -49,6 +49,7 @@
     margin-bottom: 5px;
     color: #3344FF;
     font-weight: bold;
+    text-align: left;
 }
 
 #inspection-modal .modal-cont{
@@ -176,6 +177,10 @@
     font-size: 23px;
     font-weight: bold;
     text-align: left;
+}
+
+#product-modal #product-modal-search-area{
+    text-align: right;
 }
 
 #product-modal table{

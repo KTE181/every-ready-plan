@@ -47,7 +47,7 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType">
+                                <select name="searchType" onchange="handleSearchType(this)">
                                     <option value="title" <c:if test='${searchType == "title"}'>selected</c:if>>AS요청제목</option>
                                     <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
                                     <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
@@ -80,7 +80,7 @@
                         </thead>
                         <tbody>
                             <c:forEach items="${asreqVoList}" var="asreqVo">
-                                <tr id="asreq-list" onclick="asreqDetail('${asreqVo.no}');">
+                                <tr id="asreq-list" onclick="loadDetailModal('${asreqVo.no}');">
                                     <td onclick="event.stopPropagation();"><input type="checkbox" name="listCheckbox"></td>
                                     <td>${asreqVo.no}</td>
                                     <td>${asreqVo.serialNumber}</td>
@@ -125,8 +125,9 @@
                         <div class="modal-title"></div>
                         <div class="required-text">* 는 필수입력사항입니다.</div>
         
-                        <div class="title-text">AS상품정보</div>
+                        <div class="title-text">AS요청정보</div>
             
+                        <input type="hidden" name="no">
                         <input type="hidden" name="productNo">
 
                         <div class="modal-cont">
@@ -141,19 +142,15 @@
                             <div><span class="required-text">*</span> 상품명</div>
                             <input type="text" name="name" disabled>
                         </div>
-                        <div class="modal-cont">
-                            <div>상품구매일자</div>
-                            <input type="date" name="purchaseDate">
+                        <div class="modal-cont" id="purchase-date">
+
                         </div>
                         <div class="modal-cont">
                             <div>무상가능여부</div>
-                            <div>
-                                <input type="radio" name="warrantyYn" value="Y"> Y
-                                <input type="radio" name="warrantyYn" value="N"> N
+                            <div id="warranty-yn">
+
                             </div>
                         </div>
-            
-                        <div class="title-text">AS요청정보</div>
             
                         <div class="modal-cont">
                             <div><span class="required-text">*</span> 고객명</div>
@@ -175,12 +172,11 @@
                         </div>
                         <div class="modal-cont">
                             <div><span class="required-text">*</span> 고객핸드폰번호</div>
-                            <input type="text" name="customerPhone" placeholder="숫자만 입력하세요">
+                            <input type="number" name="customerPhone" placeholder="숫자만 입력하세요 (11자 이하)">
                         </div>
             
-                        <div class="modal-cont">
-                            <label>AS희망일자</label>
-                            <input type="date" name="preferredServiceDate">
+                        <div class="modal-cont" id="preferred-service-date">
+
                         </div>
                         
                         <div class="modal-cont long-textbox">
@@ -193,6 +189,16 @@
                             <textarea name="issueDescription"></textarea>
                         </div>
                         
+                        <div class="modal-cont" id="enroll-date">
+                            <label for="">등록일자</label>
+                            <input type="text" name="enrollDate" disabled>
+                        </div>
+
+                        <div class="modal-cont" id="modify-date">
+                            <label for="">수정일자</label>
+                            <input type="text" name="modifyDate" disabled>
+                        </div>
+
                         <div></div>
 
                         <div class="button-container"></div>
@@ -210,10 +216,10 @@
                     <div id="product-modal-search-area">
                         <form id="product-search-form">
                         <select name="productSearchType">
-                            <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
-                            <option value="productName" <c:if test='${searchType == "productName"}'>selected</c:if>>상품명</option>
+                            <option value="serialNumber">상품일련번호</option>
+                            <option value="productName">상품명</option>
                         </select>
-                        <input type="search" name="productSearchValue" value="${searchValue}">
+                        <input type="search" name="productSearchValue">
                         <input type="button" onclick="productData()" value="검색">
                         </form>
                     </div>

@@ -1,5 +1,7 @@
 package com.kh.semi.qa.asemp.controller;
 
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.service.AsempService;
 import com.kh.semi.qa.asemp.vo.AsempVo;
@@ -24,8 +26,15 @@ public class AsempController {
     // AS 담당자 목록 조회
     @GetMapping("list")
     public String getAsempList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                               String area, String searchType, String searchValue)
+                               String area, String searchType, String searchValue, HttpSession session)
     {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
+
         // pno = currentPage
         int listCount = service.getAsempListCnt(area, searchType, searchValue);
         int pageLimit = 10;

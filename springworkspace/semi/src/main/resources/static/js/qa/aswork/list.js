@@ -1,4 +1,5 @@
-function asworkDetail(asworkNo) {
+// 상세 모달 
+function loadDetailModal(asworkNo) {
 
     // 모달 요소 가져오기
     const asworkDetailModal = document.getElementById('aswork-detail');

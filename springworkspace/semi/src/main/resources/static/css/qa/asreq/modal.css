@@ -49,6 +49,7 @@
     margin-bottom: 5px;
     color: #3344FF;
     font-weight: bold;
+    text-align: left;
 }
 
 #asreq-modal .modal-cont{
@@ -88,11 +89,18 @@
     width: 90%;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 #asreq-modal textarea{
-    width: 95%;
+    width: 90%;
     height: 60px;
     border: 1px solid black;
     padding: 5px 10px;
+    box-sizing: content-box;
 }
 
 #asreq-modal select{
@@ -191,6 +199,10 @@
     font-size: 23px;
     font-weight: bold;
     text-align: left;
+}
+
+#product-modal #product-modal-search-area{
+    text-align: right;
 }
 
 #product-modal table{
