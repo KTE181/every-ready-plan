@@ -4,6 +4,7 @@ import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.vacation.service.VacationService;
 import com.kh.semi.hr.vacation.vo.VacationVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +55,12 @@ public class VacationController {
 
     @GetMapping("list")
     public String list(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
-                       SearchVo searchVo) {
+                       SearchVo searchVo,HttpSession session) {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        if(loginEmployeeVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
         System.out.println(searchVo);
 
