@@ -13,7 +13,14 @@
       <c:if test="${not empty sessionScope.loginEmployeeVo}">
       document.addEventListener("DOMContentLoaded" , function(){
         disabledinsadelete(${loginEmployeeVo.deptCode});
-      }); 
+      });
+      </c:if> 
+    </script>
+    <script>
+      <c:if test="${not empty sessionScope.loginAdminVo}">
+        document.addEventListener("DOMContentLoaded" , function(){
+        adminlogin('${loginAdminVo}');
+      });
       </c:if>
     </script>
 

@@ -148,7 +148,6 @@ function hrnavi() {
     location.href = "/api/hr/salary/list";
   })
 }
-
 function qrnavi() {
   //상품관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(1)').addEventListener("click", () => {
@@ -158,9 +157,21 @@ function qrnavi() {
   document.querySelector('.dropdown-menu3 li:nth-child(2)').addEventListener("click", () => {
     location.href = "/qa/productcnt/list";
   })
+  //불량 상품 관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(3)').addEventListener("click", () => {
+    location.href = "/qa/defective/list";
+  })
   //AS요청관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(4)').addEventListener("click", () => {
     location.href = "/qa/asreq/list";
+  })
+  //AS작업관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(5)').addEventListener("click", () => {
+    location.href = "/qa/aswork/list";
+  })
+  //품질 관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(6)').addEventListener("click", () => {
+    location.href = " /qa/inspection/list";
   })
   //담당자 관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(7)').addEventListener("click", () => {
@@ -170,6 +181,11 @@ function qrnavi() {
   document.querySelector('.dropdown-menu3 li:nth-child(8)').addEventListener("click", () => {
     location.href = "/qa/defectivecode/list";
   })
+  //고장코드 관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(9)').addEventListener("click", () => {
+    location.href = "/qa/faultcode/list";
+  })
+  
 }
 
 
@@ -184,7 +200,6 @@ function finavi() {
   document.querySelector('.dropdown-menu4 li:nth-child(2)').addEventListener("click", () => {
     location.href = "/finance/account/list";
   })
-
   //매출 관리 이동
   document.querySelector('.dropdown-menu4 li:nth-child(3)').addEventListener("click", () => {
     location.href = "/finance/sale/list";
@@ -214,6 +229,8 @@ const insasidebar = document.querySelectorAll(".dropdown-menu2 .disabled");
 const qasidebar = document.querySelectorAll(".dropdown-menu3 .disabled");
 const fisidebar = document.querySelectorAll(".dropdown-menu4 .disabled");
 function access(data) {
+
+  console.log(data);
   
   
   if (data != 1) {
@@ -264,5 +281,17 @@ function disabledinsadelete(data) {
     finavi();
     access(3);
   }
+
+}
+
+function adminlogin(admin){
+  if(admin != null){
+    navi();
+    pvnavi();
+    hrnavi();
+    qrnavi();
+    finavi();
+  }
+  
 
 }
