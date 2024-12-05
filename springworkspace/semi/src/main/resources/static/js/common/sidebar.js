@@ -103,6 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+
+function navi(){
+
 //조직도 이동
 document.querySelector('.dropdown-menu li:nth-child(1)').addEventListener("click",()=>{
   location.href="/organization";
@@ -115,11 +119,11 @@ document.querySelector('.dropdown-menu li:nth-child(2)').addEventListener("click
 document.querySelector('.dropdown-menu li:nth-child(3)').addEventListener("click",()=>{
   location.href="/employee";
 })
+}
 
 
 
-
-
+function pvnavi(){
 //사이드바 마이페이지 이동
 document.querySelector('.dropdown-menu1 li:nth-child(1)').addEventListener("click",()=>{
   location.href="/mypage";
@@ -128,9 +132,9 @@ document.querySelector('.dropdown-menu1 li:nth-child(1)').addEventListener("clic
 document.querySelector('.dropdown-menu1 li:nth-child(2)').addEventListener("click",()=>{
   location.href="/pv/vacation/list";
 })
+}
 
-
-
+function hrnavi(){
 //초과근무 이동
 document.querySelector('.dropdown-menu2 li:nth-child(3)').addEventListener("click",()=>{
   location.href="/api/hr/overtime/list";
@@ -143,11 +147,9 @@ document.querySelector('.dropdown-menu2 li:nth-child(4)').addEventListener("clic
 document.querySelector('.dropdown-menu2 li:nth-child(5)').addEventListener("click",()=>{
   location.href="/api/hr/salary/list";
 })
+}
 
-
-
-
-
+function qrnavi(){
 //상품관리 이동
 document.querySelector('.dropdown-menu3 li:nth-child(1)').addEventListener("click",()=>{
   location.href="/qa/product/list";
@@ -168,12 +170,12 @@ document.querySelector('.dropdown-menu3 li:nth-child(7)').addEventListener("clic
 document.querySelector('.dropdown-menu3 li:nth-child(8)').addEventListener("click",()=>{
   location.href="/qa/defectivecode/list";
 })
+}
 
 
 
 
-
-
+function finavi(){
 //거래처 관리 이동
 document.querySelector('.dropdown-menu4 li:nth-child(1)').addEventListener("click",()=>{
   location.href="/finance/partner/list";
@@ -203,7 +205,37 @@ document.querySelector('.dropdown-menu4 li:nth-child(7)').addEventListener("clic
 document.querySelector('.dropdown-menu4 li:nth-child(8)').addEventListener("click",()=>{
   location.href="/finance/inc/detail";
 })
+}
 
 
+const insasidebar = document.querySelectorAll(".disabledinsa");
 
 
+// for (let i = 0; i < insasidebar.length; i++) {
+//   const e = insasidebar[i];
+//   e.addEventListener("click",(event)=>{
+//     alert("권한이 없습니다");
+//     console.log(event);
+//     event.preventDefault();
+//   });
+// }
+
+function disabledinsadelete(data) {
+
+  if(data ==1){
+    navi();
+    pvnavi();
+    hrnavi();
+  }
+  if(data ==2){
+    navi();
+    pvnavi();
+    qrnavi();
+  }
+  if(data==3){
+    navi();
+    pvnavi();
+    finavi();
+  }
+
+}
