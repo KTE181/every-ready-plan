@@ -4,6 +4,7 @@ import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.hr.employee.vo.SearchVo;
 import com.kh.semi.hr.salary.service.SalaryService;
 import com.kh.semi.hr.salary.vo.SalaryVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,13 @@ public class SalaryController {
 
     @GetMapping("list")
     public String listAll(Model model, @RequestParam(name = "pno" , required = false, defaultValue = "1") int currentPage,
-                          SearchVo searchVo){
+                          SearchVo searchVo,HttpSession session){
 
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        if(loginEmployeeVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
         if(searchVo.getSearchMonth()!=null){
             String resetdate=searchVo.getSearchMonth();
             String formattedPayYearmonth = resetdate.replace("-", "");
