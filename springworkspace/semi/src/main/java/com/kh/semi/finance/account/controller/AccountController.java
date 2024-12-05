@@ -2,6 +2,7 @@ package com.kh.semi.finance.account.controller;
 
 import com.kh.semi.finance.account.service.AccountService;
 import com.kh.semi.finance.account.vo.AccountVo;
+import com.kh.semi.util.page.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,20 +44,27 @@ public class AccountController {
 
     //은행 목록 조회(화면)
     @GetMapping("list")
-    public String getAccountList(Model model) {
+    public String getAccountList(Model model,
+                                 @RequestParam(value = "searchValue", required = false) String searchValue,
+                                 @RequestParam(value = "searchValueError", required = false) String searchValueError,
+                                 @RequestParam(name = "pno", defaultValue = "1") int currentPage) {
+
+        int listCount = service.getAccountCnt();
+        int pageLimit = 5;
+        int boardLimit = 14;
+
+        PageVo pageVo = new PageVo(listCount , currentPage, pageLimit, boardLimit);
         // 서비스 호출로 데이터 가져오기
         List<AccountVo> accountVoList = service.getAccountList();
 
         if(accountVoList == null) {
             return "redirect:/error";
         }
-
         // JSP에서 참조할 데이터 이름을 "accountVoList"로 설정
         model.addAttribute("accountVoList", accountVoList);
-
+        model.addAttribute("pageVo" ,pageVo);
         // 로그로 데이터 출력
         System.out.println("accountVoList = " + accountVoList);
-
         // 뷰 이름 반환 (JSP 경로)
         return "finance/account/list";
     }

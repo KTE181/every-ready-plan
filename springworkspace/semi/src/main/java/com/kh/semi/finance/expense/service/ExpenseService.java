@@ -21,7 +21,10 @@ public class ExpenseService {
     }
 
     public List<ExpenseVo> getExpenseList() {
-        return mapper.selectExpenseList();
+        return mapper.selectExpenseVoList();
+    }
+    public List<ExpenseVo> selectExpenseVoList(){
+        return mapper.selectExpenseVoList();
     }
 
     public ExpenseVo getExpenseDetail(String no, Model model) {

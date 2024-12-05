@@ -96,4 +96,11 @@ public interface AccountMapper {
             WHERE ACCOUNT.NO = #{no}
             """)
     AccountVo getAccountDetail(String no, Model model);
+
+    @Select("""
+            SELECT COUNT(NO)
+            FROM ACCOUNT
+            WHERE BANK_CODE IS NOT NULL
+            """)
+    int getAccountCnt();
 }

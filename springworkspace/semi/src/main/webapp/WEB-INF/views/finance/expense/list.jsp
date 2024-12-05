@@ -16,22 +16,16 @@
             <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
             <script defer src="/js/finance/expense/list.js"></script>
         </head>
-
         <body>
             <div class="container">
-
                 <!-- Sidebar -->
                 <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
-
                     <!-- Main Content -->
                     <div class="main-content">
-
                         <!-- Header -->
                         <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
                             <!-- Contents Area -->
                             <div class="content-area">
-
                                 <!-- Search Area -->
                                 <div class="top-title-area">
                                     <form action="" class="top-title-area-form">
@@ -88,7 +82,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            
 
                             <!-- Bottom Area -->
                             <div class="bottom-content-area">
@@ -120,234 +114,225 @@
                                         onclick="expenseWrite();">등록</button>
                                 </div>
                             </div>
+                        </div>
+                        <!-- Write Modal -->
+                        <div id="expense-write">
+                            <form action="/finance/expense/write" method="post" onsubmit="return confirm('등록하시겠습니까?');">
+                                <div class="write-content">
+                                    <span class="write-close" onclick="expenseWriteclose();">&times;</span>
+                                    <div class="modal-title">경비 등록</div>
+                                    <div id="required-text"> * 는 필수 입력 사항입니다.</div>
 
+                                    <div class="title-text"></div>
 
-                            <!-- Write Modal -->
-                            <div id="expense-write">
-                                <form action="/finance/expense/write" method="post"
-                                    onsubmit="return confirm('등록하시겠습니까?');">
-                                    <div class="write-content">
-                                        <span class="write-close" onclick="expenseWriteclose();">&times;</span>
-                                        <div class="modal-title">경비 등록</div>
-                                        <div id="required-text"> * 는 필수 입력 사항입니다.</div>
-
-                                        <div class="title-text"></div>
-
-                                        <div class="modal-cont" style="display:none;" >
-                                            <label for="">번호</label>
-                                            <div>
-                                                <input type="text" name="no" style="display:none;">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래처코드</label>
-                                            <div>
-                                                <input type="text" name="partnerCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래항목코드</label>
-                                            <div>
-                                                <input type="text" name="transCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">계좌코드</label>
-                                            <div>
-                                                <input type="text" name="accountCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래일자</label>
-                                            <div>
-                                                <input type="text" name="transDate">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">공급가액</label>
-                                            <div>
-                                                <input type="text" name="supplyAmount">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">부가세</label>
-                                            <div>
-                                                <input type="text" name="taxAmount">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">증빙사진</label>
-                                            <div>
-                                                <input type="text" name="attachment">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">비고</label>
-                                            <div>
-                                                <input type="text" name="comments">
-                                            </div>
-                                        </div>
-
-                                        <div class="modal-cont"></div>
-                                        <div></div>
-                                        <div class="button-container"><input type="submit" value="등록"></div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <!-- Detail Modal -->
-                            <div id="expense-detail">
-                                <form action='/finance/expense/delete' method="delete"
-                                    onsubmit="return confirm('삭제하시겠습니까?')">
-                                    <div class="detail-content">
-                                        <span class="detail-close" onclick="expenseDetailClose();">&times;</span>
-
-                                        <div class="modal-title">경비 상세</div>
-                                        <div id="required-text"></div>
-
-                                        <div class="title-text"></div>
-
-                                        <div class="modal-cont" style="display:none;" >
-                                            <label for="">번호</label>
-                                            <div>
-                                                <input type="text" name="no" style="display:none;">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래처코드</label>
-                                            <div>
-                                                <input type="text" name="partnerCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래항목코드</label>
-                                            <div>
-                                                <input type="text" name="transCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">계좌코드</label>
-                                            <div>
-                                                <input type="text" name="accountCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래일자</label>
-                                            <div>
-                                                <input type="text" name="transDate">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">공급가액</label>
-                                            <div>
-                                                <input type="text" name="supplyAmount">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">부가세</label>
-                                            <div>
-                                                <input type="text" name="taxAmount">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">증빙사진</label>
-                                            <div>
-                                                <input type="text" name="attachment">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">비고</label>
-                                            <div>
-                                                <input type="text" name="comments">
-                                            </div>
-                                        </div>
-
-                                        <div></div>
-                                        <div class="button-container">
-                                            <div><input id="expense-edit-btn" type="button" value="수정"></div>
-                                            <div><input id="expense-delete-btn" type="button" value="삭제"></div>
+                                    <div class="modal-cont" style="display:none;" >
+                                        <label for="">번호</label>
+                                        <div>
+                                            <input type="text" name="no" style="display:none;">
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-
-                            <!-- Edit Modal -->
-                            <div id="expense-edit">
-                                <form id="expense-edit-form" action="/finance/expense/edit" method="post"
-                                    onsubmit="return confirm('저장하시겠습니까?');">
-                                    <div class="edit-content">
-                                        <span class="edit-close" onclick="expenseEditClose();">&times;</span>
-
-                                        <div class="modal-title">경비 수정</div>
-                                        <div id="required-text">* 는 필수입력사항입니다.</div>
-
-                                        <div class="modal-cont" style="display:none;">
-                                            <label for="">번호</label>
-                                            <div>
-                                                <input type="text" name="no" style="display:none;">
-                                            </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래처코드</label>
+                                        <div>
+                                            <input type="text" name="partnerCode">
                                         </div>
-                                        
-                                        <div class="modal-cont">
-                                            <label for="">거래처코드</label>
-                                            <div>
-                                                <input type="text" name="partnerCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래항목코드</label>
-                                            <div>
-                                                <input type="text" name="transCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">계좌코드</label>
-                                            <div>
-                                                <input type="text" name="accountCode">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">거래일자</label>
-                                            <div>
-                                                <input type="text" name="transDate">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">공급가액</label>
-                                            <div>
-                                                <input type="text" name="supplyAmount">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">부가세</label>
-                                            <div>
-                                                <input type="text" name="taxAmount">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">증빙사진</label>
-                                            <div>
-                                                <input type="text" name="attachment">
-                                            </div>
-                                        </div>
-                                        <div class="modal-cont">
-                                            <label for="">비고</label>
-                                            <div>
-                                                <input type="text" name="comments">
-                                            </div>
-                                        </div>
-
-                                        <div></div>
-                                        <div class="button-container"><input type="submit" value="저장"></div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래항목코드</label>
+                                        <div>
+                                            <input type="text" name="transCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">계좌코드</label>
+                                        <div>
+                                            <input type="text" name="accountCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래일자</label>
+                                        <div>
+                                            <input type="text" name="transDate">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">공급가액</label>
+                                        <div>
+                                            <input type="text" name="supplyAmount">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">부가세</label>
+                                        <div>
+                                            <input type="text" name="taxAmount">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">증빙사진</label>
+                                        <div>
+                                            <input type="text" name="attachment">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">비고</label>
+                                        <div>
+                                            <input type="text" name="comments">
+                                        </div>
+                                    </div>
 
+                                    <div class="modal-cont"></div>
+                                    <div></div>
+                                    <div class="button-container"><input type="submit" value="등록"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Detail Modal -->
+                        <div id="expense-detail">
+                            <form action='/finance/expense/delete' method="post" onsubmit="return confirm('삭제하시겠습니까?')">
+                                <div class="detail-content">
+                                    <span class="detail-close" onclick="expenseDetailClose();">&times;</span>
+
+                                    <div class="modal-title">경비 상세</div>
+                                    <div id="required-text"></div>
+
+                                    <div class="title-text"></div>
+
+                                    <div class="modal-cont" style="display:none;" >
+                                        <label for="">번호</label>
+                                        <div>
+                                            <input type="text" name="no" style="display:none;">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래처코드</label>
+                                        <div>
+                                            <input type="text" name="partnerCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래항목코드</label>
+                                        <div>
+                                            <input type="text" name="transCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">계좌코드</label>
+                                        <div>
+                                            <input type="text" name="accountCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래일자</label>
+                                        <div>
+                                            <input type="text" name="transDate">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">공급가액</label>
+                                        <div>
+                                            <input type="text" name="supplyAmount">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">부가세</label>
+                                        <div>
+                                            <input type="text" name="taxAmount">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">증빙사진</label>
+                                        <div>
+                                            <input type="text" name="attachment">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">비고</label>
+                                        <div>
+                                            <input type="text" name="comments">
+                                        </div>
+                                    </div>
+
+                                    <div></div>
+                                    <div class="button-container">
+                                        <div><input id="expense-edit-btn" type="button" value="수정"></div>
+                                        <div><input id="expense-delete-btn" type="button" value="삭제"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Edit Modal -->
+                        <div id="expense-edit">
+                            <form id="expense-edit-form" action="/finance/expense/edit" method="post" onsubmit="return confirm('저장하시겠습니까?');">
+                                <div class="edit-content">
+                                    <span class="edit-close" onclick="expenseEditClose();">&times;</span>
+
+                                    <div class="modal-title">경비 수정</div>
+                                    <div id="required-text">* 는 필수입력사항입니다.</div>
+
+                                    <div class="modal-cont" style="display:none;">
+                                        <label for="">번호</label>
+                                        <div>
+                                            <input type="text" name="no" style="display:none;">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="modal-cont">
+                                        <label for="">거래처코드</label>
+                                        <div>
+                                            <input type="text" name="partnerCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래항목코드</label>
+                                        <div>
+                                            <input type="text" name="transCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">계좌코드</label>
+                                        <div>
+                                            <input type="text" name="accountCode">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">거래일자</label>
+                                        <div>
+                                            <input type="text" name="transDate">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">공급가액</label>
+                                        <div>
+                                            <input type="text" name="supplyAmount">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">부가세</label>
+                                        <div>
+                                            <input type="text" name="taxAmount">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">증빙사진</label>
+                                        <div>
+                                            <input type="text" name="attachment">
+                                        </div>
+                                    </div>
+                                    <div class="modal-cont">
+                                        <label for="">비고</label>
+                                        <div>
+                                            <input type="text" name="comments">
+                                        </div>
+                                    </div>
+
+                                    <div></div>
+                                    <div class="button-container"><input type="submit" value="저장"></div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-
             </div>
             </div>
         </body>
-
         </html>

@@ -41,4 +41,8 @@ public class AccountService {
     public int edit(AccountVo vo) {
         return mapper.edit(vo);
     }
+
+    public int getAccountCnt() {
+        return mapper.getAccountCnt();
+    }
 }

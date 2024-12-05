@@ -59,7 +59,7 @@ public interface ExpenseMapper {
             WHERE DEL_YN = 'N'
             ORDER BY NO DESC
             """)
-    List<ExpenseVo> selectExpenseList();
+    List<ExpenseVo> selectExpenseVoList();
 
 
     @Select("""
@@ -108,9 +108,10 @@ public interface ExpenseMapper {
 
     @Update("""
             UPDATE EXPENSE
-            SET
-                DEL_YN = 'Y'
-            WHERE NO = ?;
+                SET
+                    DEL_YN = 'Y'
+                WHERE
+                    NO = #{no}
             """)
     int delete(String no);
 }

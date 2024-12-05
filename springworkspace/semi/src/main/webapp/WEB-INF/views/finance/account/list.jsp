@@ -34,10 +34,12 @@
 
                                 <!-- Search Area -->
                                 <div class="top-title-area">
-                                    <form action="" class="top-title-area-form">
-                                        <div class="menu-name">은행계좌관리</div>
+                                    <div class="menu-name">은행계좌관리</div>
+                                    <div>
+                                    <form action="/finance/account/list" class="top-title-area-form">
+                                        <label for="select">카테고리</label>
                                         <div class="search-bar">
-                                            <label for="select">카테고리</label>
+                                            
                                             <select name="" id="">
                                                 <option value="1">은행코드</option>
                                                 <option value="2">은행명</option>
@@ -53,6 +55,7 @@
                                             <button class="crud-button-white">검색</button>
                                         </div>
                                     </form>
+                                </div>
                                 </div>
 
                                 <!-- List Area -->
@@ -82,7 +85,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            
 
                             <!-- Bottom Area -->
                             <div class="bottom-content-area">
@@ -90,23 +93,18 @@
                                     <button class="crud-button-white">삭제</button>
                                 </div>
                                 <div>
-                                    <div class="pagination">
-                                        <!-- 이전 페이지 버튼 -->
-                                        <a href="#" class="page-button previous">&laquo;</a>
-
-                                        <!-- 페이지 번호 버튼들 -->
-                                        <a href="#" class="page-button active">1</a>
-                                        <a href="#" class="page-button">2</a>
-                                        <a href="#" class="page-button">3</a>
-                                        <a href="#" class="page-button">4</a>
-                                        <a href="#" class="page-button">5</a>
-                                        <a href="#" class="page-button">6</a>
-                                        <a href="#" class="page-button">7</a>
-                                        <a href="#" class="page-button">8</a>
-                                        <a href="#" class="page-button">9</a>
-                                        <a href="#" class="page-button">10</a>
-                                        <!-- 다음 페이지 버튼 -->
-                                        <a href="#" class="page-button next">&raquo;</a>
+                                    <div>
+                                        <div class="pagination">
+                                            <c:if test="${pvo.startPage != 1}"> 
+                                                <a href="/finance/account/list?pno=${pvo.startPage-1}&area=${area}&status=${status}&type=${type}&searchType=${searchType}&searchValue=${searchValue}" class="page-button previous">&laquo;</a>
+                                            </c:if>
+                                            <c:forEach begin="${pvo.startPage}" end="${pvo.endPage}" var="i" step="1">
+                                                <a href="/finance/account/list?&pno=${i}&area=${area}&status=${status}&type=${type}&searchType=${searchType}&searchValue=${searchValue}" class="page-button <c:if test='${i == pvo.currentPage}'>active</c:if>">${i}</a>
+                                            </c:forEach>
+                                            <c:if test="${pvo.endPage != pvo.maxPage}"> 
+                                                <a href="/finance/account/list?pno=${pvo.endPage+1}&area=${area}&status=${status}&type=${type}&searchType=${searchType}&searchValue=${searchValue}" class="page-button next">&raquo;</a>
+                                            </c:if>   
+                                         </div>
                                     </div>
                                 </div>
                                 <div>
@@ -114,7 +112,7 @@
                                         onclick="accountWrite();">등록</button>
                                 </div>
                             </div>
-
+                        </div>
 
                             <!-- Write Modal -->
                             <div id="account-write">
@@ -225,7 +223,6 @@
                                                 <input type="text" name="accountName" disabled>
                                             </div>
                                         </div>
-
                                         <div></div>
                                         <div class="button-container">
                                             <div><input id="account-edit-btn" type="button" value="수정"></div>

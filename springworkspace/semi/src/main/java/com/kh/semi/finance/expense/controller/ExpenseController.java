@@ -5,6 +5,7 @@ import com.kh.semi.finance.expense.vo.ExpenseVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,23 +39,23 @@ public class ExpenseController {
             throw new Exception("경비관리 에러");
         }
 
-        session.setAttribute("alertMsg", "경비관리 오류");
+        session.setAttribute("alertMsg", "경비 등록");
 
         return "redirect:/finance/expense/list";
-
 
     }
 
 
-    //경비 리스트
+    //경비 목록 리스트
     @GetMapping("list")
     public String getExpenseList(Model model) {
+
         List<ExpenseVo> expenseVoList = service.getExpenseList();
 
         if(expenseVoList == null) {
             return "redirect:/error";
         }
-
+        model.addAttribute("expenseVoList" , expenseVoList);
         System.out.println("expenseVoList = " + expenseVoList);
 
         return "finance/expense/list";
@@ -81,10 +82,11 @@ public class ExpenseController {
     @ResponseBody
     public ExpenseVo edit(String no , Model model ) throws Exception {
 
-           ExpenseVo expenseVo = service.getExpenseDetail(no,model);
 
+        ExpenseVo expenseVo = service.getExpenseDetail(no,model);
         System.out.println("expenseVo = " + expenseVo);
-        if(expenseVo== null) {
+
+        if(expenseVo == null) {
             throw new IllegalStateException("ERROR");
         }
         model.addAttribute("expenseVo" , expenseVo);

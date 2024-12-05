@@ -88,7 +88,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            
 
                             <!-- Bottom Area -->
                             <div class="bottom-content-area">
@@ -120,6 +120,7 @@
                                         onclick="saleWrite();">등록</button>
                                 </div>
                             </div>
+                        </div>
 
 
                             <!-- Write Modal -->

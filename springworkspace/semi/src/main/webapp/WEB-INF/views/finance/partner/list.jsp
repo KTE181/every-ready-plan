@@ -16,25 +16,20 @@
             <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
             <script defer src="/js/finance/partner/list.js"></script>
         </head>
-
         <body>
             <div class="container">
-
                 <!-- Sidebar -->
                 <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
-
                     <!-- Main Content -->
                     <div class="main-content">
-
                         <!-- Header -->
                         <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
                             <!-- Contents Area -->
                             <div class="content-area">
-
                                 <!-- Search Area -->
                                 <div class="top-title-area">
                                     <form action="" class="top-title-area-form">
+                                        <div class="menu-name">협력사</div>
                                         <div class="search-bar">
                                             <label for="select">카테고리</label>
                                             <select name="" id="">
@@ -52,7 +47,6 @@
                                         </div>
                                     </form>
                                 </div>
-
                                 <!-- List Area -->
                                 <div class="middle-content-area">
                                     <table class="list-area">
@@ -80,49 +74,44 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                                <!-- Bottom Area -->
+                                <div class="bottom-content-area">
+                                    <div>
+                                        <button class="crud-button-white">삭제</button>
+                                    </div>
+                                    <div>
+                                        <div class="pagination">
+                                            <!-- 이전 페이지 버튼 -->
+                                            <a href="#" class="page-button previous">&laquo;</a>
 
-
-                            <!-- Bottom Area -->
-                            <div class="bottom-content-area">
-                                <div>
-                                    <button class="crud-button-white">삭제</button>
-                                </div>
-                                <div>
-                                    <div class="pagination">
-                                        <!-- 이전 페이지 버튼 -->
-                                        <a href="#" class="page-button previous">&laquo;</a>
-
-                                        <!-- 페이지 번호 버튼들 -->
-                                        <a href="#" class="page-button active">1</a>
-                                        <a href="#" class="page-button">2</a>
-                                        <a href="#" class="page-button">3</a>
-                                        <a href="#" class="page-button">4</a>
-                                        <a href="#" class="page-button">5</a>
-                                        <a href="#" class="page-button">6</a>
-                                        <a href="#" class="page-button">7</a>
-                                        <a href="#" class="page-button">8</a>
-                                        <a href="#" class="page-button">9</a>
-                                        <a href="#" class="page-button">10</a>
-                                        <!-- 다음 페이지 버튼 -->
-                                        <a href="#" class="page-button next">&raquo;</a>
+                                            <!-- 페이지 번호 버튼들 -->
+                                            <a href="#" class="page-button active">1</a>
+                                            <a href="#" class="page-button">2</a>
+                                            <a href="#" class="page-button">3</a>
+                                            <a href="#" class="page-button">4</a>
+                                            <a href="#" class="page-button">5</a>
+                                            <a href="#" class="page-button">6</a>
+                                            <a href="#" class="page-button">7</a>
+                                            <a href="#" class="page-button">8</a>
+                                            <a href="#" class="page-button">9</a>
+                                            <a href="#" class="page-button">10</a>
+                                            <!-- 다음 페이지 버튼 -->
+                                            <a href="#" class="page-button next">&raquo;</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="crud-button-white" id="partner-write-btn"
+                                            onclick="partnerWrite();">등록</button>
                                     </div>
                                 </div>
-                                <div>
-                                    <button class="crud-button-white" id="partner-write-btn"
-                                        onclick="partnerWrite();">등록</button>
-                                </div>
                             </div>
-
-
                             <!-- Write Modal -->
                             <div id="partner-write">
-                                <form action="/finance/partner/write" method="post"
-                                    onsubmit="return confirm('등록하시겠습니까?')">
+                                <form action="/finance/partner/write" method="post" onsubmit="return confirm('등록하시겠습니까?')">
                                     <div class="write-content">
                                         <span class="write-close" onclick="partnerWriteClose();">&times;</span>
                                         <div class="modal-title">거래처 등록</div>
-                                        <div id="required-text"></div>
+                                        <div id="required-text"> * 는 필수 입력 사항입니다. </div>
 
                                         <div class="title-text"></div>
 
@@ -168,12 +157,9 @@
                                     </div>
                                 </form>
                             </div>
-
-
                             <!-- Detail Modal -->
                             <div id="partner-detail">
-                                <form action='/finance/partner/delete' method="get"
-                                    onsubmit="return confirm('삭제하시겠습니까?')">
+                                <form action='/finance/partner/delete' method="get" onsubmit="return confirm('삭제하시겠습니까?')">
                                     <div class="detail-content">
                                         <span class="detail-close" onclick="partnerDetailClose();">&times;</span>
 
@@ -227,11 +213,9 @@
                                     </div>
                                 </form>
                             </div>
-
                             <!-- Edit Modal -->
                             <div id="partner-edit">
-                                <form id="partner-edit-form" action="/finance/partner/edit" method="post"
-                                    onsubmit="return confirm('저장하시겠습니까?');">
+                                <form id="partner-edit-form" action="/finance/partner/edit" method="post" onsubmit="return confirm('저장하시겠습니까?');">
                                     <div class="edit-content">
                                         <span class="edit-close" onclick="partnerEditClose();">&times;</span>
 
@@ -274,19 +258,12 @@
                                                 <input type="text" name="address">
                                             </div>
                                         </div>
-
                                         <div></div>
                                         <div class="button-container"><input type="submit" value="저장"></div>
                                     </div>
-
                                 </form>
                             </div>
-
-                            </form>
                     </div>
-
-            </div>
             </div>
         </body>
-
         </html>

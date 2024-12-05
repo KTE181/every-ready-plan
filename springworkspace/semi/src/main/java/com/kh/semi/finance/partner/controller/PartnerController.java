@@ -34,9 +34,9 @@ public class PartnerController {
         int result = service.write(vo);
 
         if(result != 1) {
-            throw new Exception("게시글 작성 에러");
+            throw new Exception("거래처 등록 오류");
         }
-        session.setAttribute("alertMsg" , "등록");
+        session.setAttribute("alertMsg" , "거래처 등록");
         return "redirect:/finance/partner/list ";
 
     }
