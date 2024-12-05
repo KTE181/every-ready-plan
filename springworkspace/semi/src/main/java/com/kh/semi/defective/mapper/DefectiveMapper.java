@@ -41,7 +41,6 @@ public interface DefectiveMapper {
                 ,DEFECTIVE_NO
                 ,DEFECTIVE_CODE
                 ,DESCRIPTION
-                ,
                 )
                 VALUES
                 (
