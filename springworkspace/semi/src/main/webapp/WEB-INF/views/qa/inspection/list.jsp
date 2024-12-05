@@ -64,7 +64,7 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType">
+                                <select name="searchType" onchange="handleSearchType(this)">
                                     <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
                                     <option value="productName" <c:if test='${searchType == "productName"}'>selected</c:if>>상품명</option>
                                 </select>

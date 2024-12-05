@@ -1,57 +1,146 @@
-const searchButton = document.querySelector('#asemp-enroll .emp-search-button');
-searchButton.addEventListener('click', () => {
-    searchEmp();
-});
+// 등록 모달
+function loadWriteModal() {
 
-function asempEnroll(empNo, empName, phone, dname, pname) {
+    const modal = document.querySelector("#asemp-modal");
+    const modalForm = document.querySelector("#asemp-form");
 
-    // 모달 요소 가져오기
-    const asempEnrollModal = document.getElementById('asemp-enroll');
-    const closeModal = document.querySelector('.enroll-close');
+    // 모달 표시
+    modalForm.reset();
+    modal.style.display = 'block'; 
 
-    asempEnrollModal.style.display = 'block'; // 모달 표시
-
-    if (empNo != null) {
-        document.querySelector("#asemp-enroll input[name=no]").value = empNo;
-        document.querySelector("#asemp-enroll input[name=empName]").value = empName;
-        document.querySelector("#asemp-enroll input[name=phone]").value = phone;
-        document.querySelector("#asemp-enroll input[name=deptName]").value = dname;
-        document.querySelector("#asemp-enroll input[name=positionName]").value = pname;
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "AS 담당자 등록";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'block';
     }
+    document.querySelector("#search-button").setAttribute("type", "button");
+    document.querySelector("#asemp-modal select[name=area]").removeAttribute("disabled");
+    document.querySelector(".button-container").innerHTML = `<input type="button" id="asemp-write-button" value="등록">`;
 
-    // "X" 버튼 클릭 시 모달 닫기
-    closeModal.addEventListener('click', () => {
-
-        asempEnrollModal.style.display = 'none'; // 모달 숨기기
-
-        document.querySelector("#asemp-enroll input[name=no]").value = "";
-        document.querySelector("#asemp-enroll input[name=empName]").value = "";
-        document.querySelector("#asemp-enroll input[name=phone]").value = "";
-        document.querySelector("#asemp-enroll input[name=deptName]").value = "";
-        document.querySelector("#asemp-enroll input[name=positionName]").value = "";
-
-        empNo = null; 
-        empName = null; 
-        phone = null; 
-        dname = null; 
-        pname = null; 
-        
+    // 등록 버튼 클릭 시 동작 
+    const writeButton = document.querySelector("#asemp-write-button");
+    writeButton.addEventListener("click", function () {
+        write();
     });
 
 }
 
-function asempDetail(no) {
+// 등록 처리 
+function write() {
 
-    // 모달 요소 가져오기
-    const asempDetailModal = document.getElementById('asemp-detail');
-    const detailContent = document.querySelector('.detail-content');
-    const closeModal = document.querySelector('.detail-close');
+    const no = document.querySelector("#asemp-modal input[name=no]").value;
+    const area = document.querySelector("#asemp-modal select[name=area]").value;
 
-    asempDetailModal.style.display = 'block'; // 모달 표시
+    if (!no) {
+        alert("사원을 선택하세요.");
+        return;
+    }
+
+    if (!area) {
+        alert("담당지역을 선택하세요.");
+        return;
+    }
+
+    const result = confirm("등록하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/qa/asemp/write",
+        method: "POST",
+        data : {
+            no ,
+            area
+        },
+
+        success: function(result) {
+            if(result == 1) {
+                alert("등록되었습니다.");
+            }
+            else {
+                alert("등록실패...");
+            }
+            location.href = "/qa/asemp/list";
+        },
+        error: function() {
+            alert("통신실패...");
+            location.href = "/qa/asemp/list";
+        }
+    });
+}
+
+// 사원 검색 모달 
+function empList() {
+
+    const empModal = document.querySelector("#emp-modal");
+    const closeModal = document.querySelector("#emp-modal .modal-close");
+    const modalForm = document.querySelector("#emp-form");
+    modalForm.reset();
+    empModal.style.display = 'block'; 
 
     closeModal.addEventListener('click', () => {
-        asempDetailModal.style.display = 'none'; // 모달 숨기기
+        empModal.style.display = 'none';
+    } , { once: true });
+
+
+    // 사원 선택 시 동작
+    const selectButton = document.querySelector("#emp-select-button");
+    selectButton.addEventListener('click', () => {
+
+        const selectedEmp = document.querySelector("#emp-modal input[type=radio]:checked");
+        if (selectedEmp === null) {
+            alert("사원이 선택되지 않았습니다.");
+            return;
+        }
+        
+        selectEmp(selectedEmp);
+        empModal.style.display = 'none';
+
     });
+}
+
+// 사원 선택 처리
+function selectEmp(selectedEmp) {
+
+    const no = selectedEmp.parentNode.parentNode.children[1].innerText;
+    const empName = selectedEmp.parentNode.parentNode.children[2].innerText;
+    const phone = selectedEmp.parentNode.parentNode.children[3].innerText;
+    const deptName = selectedEmp.parentNode.parentNode.children[4].innerText;
+    const positionName = selectedEmp.parentNode.parentNode.children[5].innerText;
+
+    document.querySelector("#asemp-modal input[name=no]").value = no;
+    document.querySelector("#asemp-modal input[name=empName]").value = empName;
+    document.querySelector("#asemp-modal input[name=phone]").value = phone;
+    document.querySelector("#asemp-modal input[name=deptName]").value = deptName;
+    document.querySelector("#asemp-modal input[name=positionName]").value = positionName;
+
+}
+
+// 상세 모달
+function loadDetailModal(no) {
+
+    const modal = document.querySelector("#asemp-modal");
+    const modalForm = document.querySelector("#asemp-form");
+
+    // 모달 표시
+    modalForm.reset();
+    modal.style.display = 'block'; 
+
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "AS 담당자 상세";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'none';
+    }
+    document.querySelector("#search-button").setAttribute("type", "hidden");
+    document.querySelector("#asemp-modal select[name=area]").setAttribute("disabled", "true");
+    document.querySelector(".button-container").innerHTML = 
+        `<input type="button" id="asemp-edit-button" value="수정">
+        <input type="button" id="asemp-delete-button" value="삭제">`;
+
 
     $.ajax({
         url: "/qa/asemp/detail",
@@ -62,18 +151,18 @@ function asempDetail(no) {
         } ,
         success: function(asempVo) {
 
-            document.querySelector("#asemp-detail input[name=no]").value = asempVo.no;
-            document.querySelector("#asemp-detail input[name=empName]").value = asempVo.empName;
-            document.querySelector("#asemp-detail input[name=phone]").value = asempVo.phone;
-            document.querySelector("#asemp-detail input[name=deptName]").value = asempVo.deptName;
-            document.querySelector("#asemp-detail input[name=positionName]").value = asempVo.positionName;
-            document.querySelector("#asemp-detail select[name=area]").value = asempVo.area;
+            document.querySelector("#asemp-modal input[name=no]").value = asempVo.no;
+            document.querySelector("#asemp-modal input[name=empName]").value = asempVo.empName;
+            document.querySelector("#asemp-modal input[name=phone]").value = asempVo.phone;
+            document.querySelector("#asemp-modal input[name=deptName]").value = asempVo.deptName;
+            document.querySelector("#asemp-modal input[name=positionName]").value = asempVo.positionName;
+            document.querySelector("#asemp-modal select[name=area]").value = asempVo.area;
 
-            const editButton = document.querySelector("#asemp-edit-bnt");
-            const deleteButton = document.querySelector("#asemp-delete-bnt");
+            const editButton = document.querySelector("#asemp-edit-button");
+            const deleteButton = document.querySelector("#asemp-delete-button");
 
             editButton.addEventListener("click", function () {
-                asempEdit(asempVo.no);
+                loadEditModal(asempVo.no);
             });
 
             deleteButton.addEventListener("click", function () {
@@ -87,159 +176,70 @@ function asempDetail(no) {
     });
 }
 
-function asempDetailClose() {
-    const asempDetailModal = document.getElementById('asemp-detail');
-    asempDetailModal.style.display = 'none'; // 모달 숨기기
+// 수정 모달
+function loadEditModal() {
+
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "AS 담당자 수정";
+    document.querySelector("#asemp-modal #required-text-area").style.display='block';
+    document.querySelector("#asemp-modal select[name=area]").removeAttribute("disabled");
+    document.querySelector(".button-container").innerHTML = `<input type="button" id="asemp-save-button" value="저장">`;
+  
+    // 저장 버튼 클릭 시 동작 
+    const saveButton = document.querySelector("#asemp-save-button");
+    saveButton.addEventListener("click", function () {
+         asempEditSave();
+    });
+
 }
 
-function asempEdit(no) {
+// 수정 처리
+function asempEditSave() {
 
-    console.log(no);
-    asempDetailClose();
+    const no = document.querySelector("#asemp-modal input[name=no]").value;
+    const area = document.querySelector("#asemp-modal select[name=area]").value;
 
-    const asempEditModal = document.getElementById('asemp-edit');
-    const editModalContent = document.querySelector('.edit-content');
-    const closeModal = document.querySelector('.edit-close');
+    if (!no) {
+        alert("사원을 선택하세요.");
+        return;
+    }
 
-    asempEditModal.style.display = 'block'; // 모달 표시
+    if (!area) {
+        alert("담당지역을 선택하세요.");
+        return;
+    }
 
-    closeModal.addEventListener('click', () => {
-        asempEditModal.style.display = 'none'; // 모달 숨기기
-    });
+    const result = confirm("저장하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
 
     $.ajax({
         url: "/qa/asemp/edit",
-        method: "get",
-        dataType: 'json',
+        method: "POST",
         data: {
-            no : no 
+            no ,
+            area
         } ,
-        success: function(asempVo) {
-
-            document.querySelector("#asemp-edit input[name=no]").value = asempVo.no;
-            document.querySelector("#asemp-edit input[name=empName]").value = asempVo.empName;
-            document.querySelector("#asemp-edit input[name=phone]").value = asempVo.phone;
-            document.querySelector("#asemp-edit input[name=deptName]").value = asempVo.deptName;
-            document.querySelector("#asemp-edit input[name=positionName]").value = asempVo.positionName;
-            document.querySelector("#asemp-edit select[name=area]").value = asempVo.area;
+        success: function(result) {
+            if(result == 1) {
+                alert("수정되었습니다.");
+            }
+            else {
+                alert("수정실패...");
+            }
+            location.reload();
         },
 
-        fail: function() {
+        error: function() {
             alert("통신실패...");
+            location.reload();
         }
     });
-
 }
 
-function asempEditClose() {
-    const asempEditModal = document.getElementById('asemp-edit');
-    asempEditModal.style.display = 'none'; // 모달 숨기기
-}
-
-
-
-
-const selectButton = document.querySelector("#emp-select-btn");
-
-selectButton.addEventListener('click', () => {
-
-    console.log("몇번호출??");
-    const radioArr = document.querySelectorAll("input[name=emp-radio-btn]");
-    let empNo = null;
-    let empName = null;
-    let phone = null;
-    let dname = null;
-    let pname = null;
-
-    for(let i=0; i<radioArr.length; i++) {
-        if (radioArr[i].checked) {
-            empNo = radioArr[i].parentNode.parentNode.children[1].innerText;
-            empName = radioArr[i].parentNode.parentNode.children[2].innerText;
-            phone = radioArr[i].parentNode.parentNode.children[3].innerText;
-            dname = radioArr[i].parentNode.parentNode.children[4].innerText;
-            pname = radioArr[i].parentNode.parentNode.children[5].innerText;
-        }
-    }
-
-    if (empNo === null) {
-        alert("사원이 선택되지 않았습니다.");
-    }
-    
-    searchEmpClose();
-    asempEnroll(empNo, empName, phone, dname, pname);
-
-});
-
-function searchEmp() {
-
-    const searchEmpModal = document.getElementById('search-emp');
-    const closeModal = document.querySelector('.modal-close');
-
-    searchEmpModal.style.display = 'block'; // 모달 표시
-
-    closeModal.addEventListener('click', () => {
-        searchEmpModal.style.display = 'none'; // 모달 숨기기
-    });
-
-    const tbodyTag = document.querySelector("#search-emp table>tbody");
-
-    $.ajax({
-        url : "/qa/asemp/emplist",
-        method : "GET" ,
-        success : function(empVoList){
-
-            console.log(empVoList)
-
-            tbodyTag.innerHTML = ""; 
-
-            for(const vo of empVoList) {
-
-                const trTag = document.createElement("tr");
-                tbodyTag.appendChild(trTag); 
-
-                const tdTag = document.createElement("td");
-                const radioTag = document.createElement("input");
-                radioTag.setAttribute("type", "radio");
-                radioTag.setAttribute("name", "emp-radio-btn");
-                trTag.appendChild(tdTag);
-                tdTag.appendChild(radioTag);
-
-                const tdTag1 = document.createElement("td");
-                tdTag1.innerText = vo.no;
-                trTag.appendChild(tdTag1);
-
-                const tdTag2 = document.createElement("td");
-                tdTag2.innerText = vo.name;
-                trTag.appendChild(tdTag2);
-
-                const tdTag3 = document.createElement("td");
-                tdTag3.innerText = vo.phone;
-                trTag.appendChild(tdTag3);
-
-                const tdTag4 = document.createElement("td");
-                tdTag4.innerText = vo.dname;
-                trTag.appendChild(tdTag4);
-
-                const tdTag5 = document.createElement("td");
-                tdTag5.innerText = vo.pname;
-                trTag.appendChild(tdTag5);
-                
-            }
-
-
-        } , 
-        error : function(){
-            alert("조회 실패...")
-        }
-    })
-
-}
-
-function searchEmpClose() {
-    const searchEmpModal = document.getElementById('search-emp');
-    searchEmpModal.style.display = 'none'; // 모달 숨기기
-}
-
+// 단건 삭제 처리
 function asempDelete(no) {
 
     const result = confirm("삭제하시겠습니까?");
@@ -329,3 +329,37 @@ function asempDeleteMultiple() {
     });
 
 }
+
+// 모달 닫기
+function closeModal() {
+
+    const modal = document.querySelector("#asemp-modal");
+    const closeModal = document.querySelector('#asemp-modal .modal-close');
+    
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+}
+
+closeModal();
+
+// searchType 값에 따라서 input 타입 변경
+function handleSearchType(x) {
+
+    const searchValueTag = document.querySelector("input[name=searchValue]");
+
+    if(x.value == "empName") {
+        searchValueTag.setAttribute("type", "search");
+    } 
+    else{
+        searchValueTag.setAttribute("type", "number");
+    }
+
+}
+
+// 새로고침 해도 input 타입 유지
+document.addEventListener("DOMContentLoaded", () => {
+    const searchTypeSelect = document.querySelector("select[name=searchType]");
+    handleSearchType(searchTypeSelect); 
+});

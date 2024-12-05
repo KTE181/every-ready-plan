@@ -80,8 +80,11 @@ public class AsreqService {
         return result1 * result2;
     }
 
-    public List<ProductVo> getProductList() {
-        return mapper.getProductList();
+    public List<ProductVo> getProductList(PageVo pvo, String productSearchType, String productSearchValue) {
+        return mapper.getProductList(pvo, productSearchType, productSearchValue);
     }
 
+    public int getProductCnt(String productSearchType, String productSearchValue) {
+        return mapper.getProductCnt(productSearchType, productSearchValue);
+    }
 }

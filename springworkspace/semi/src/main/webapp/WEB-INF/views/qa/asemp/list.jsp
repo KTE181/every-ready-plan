@@ -47,7 +47,7 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType">
+                                <select name="searchType" onchange="handleSearchType(this)">
                                     <option value="empNo" <c:if test='${searchType == "empNo"}'>selected</c:if>>사번</option>
                                     <option value="empName" <c:if test='${searchType == "empName"}'>selected</c:if>>AS담당자명</option>
                                 </select>
@@ -76,7 +76,7 @@
                         </thead>
                         <tbody>
                             <c:forEach items="${asempVoList}" var="asempVo">
-                                <tr id="asemp-list" onclick="asempDetail('${asempVo.no}');">
+                                <tr id="asemp-list" onclick="loadDetailModal('${asempVo.no}');">
                                     <td onclick="event.stopPropagation();"><input type="checkbox" name="listCheckbox"></td>
                                     <td>${asempVo.no}</td>
                                     <td>${asempVo.empName}</td>
@@ -106,47 +106,47 @@
                             </c:if>   
                          </div>
                     </div>
-                    <div><button class="crud-button-white" id="asemp-enroll-btn" onclick="asempEnroll();">등록</button></div>
+                    <div><button class="crud-button-white" id="asemp-enroll-btn" onclick="loadWriteModal();">등록</button></div>
                 </div>
             </div>
 
-            <!-- Enroll Modal -->
-            <div id="asemp-enroll">
-                <form action="/qa/asemp/enroll" method="post" onsubmit="return confirm('등록하시겠습니까?');">
+            <!-- AS담당자 모달 -->
+            <div id="asemp-modal">
+                <form id="asemp-form">
                     <div class="modal-content">
-                        <span class="enroll-close">&times;</span>
+                        <span class="modal-close">&times;</span>
             
-                        <div class="modal-title">AS 담당자 등록</div>
-                        <div id="required-text">* 는 필수입력사항입니다.</div>
-            
+                        <div class="modal-title"></div>
+                        <div class="required-text">* 는 필수입력사항입니다.</div>
                         <div class="title-text">AS담당자정보</div>
             
                         <div class="modal-cont">
-                            <label for="">사번</label>
+                            <div><span class="required-text">*</span>사번</div>
                             <div>
-                                <input type="text" name="no"> 
-                                <input type="button" class="emp-search-button" value="사원검색">
+                                <input type="text" name="no" disabled> 
+                                <input type="button" id="search-button" value="사원검색" onclick="empList();">
                             </div>
                         </div>
                         <div class="modal-cont">
-                            <label for="">사원명</label>
+                            <div>사원명</div>
                             <input type="text" name="empName" disabled>
                         </div>
                         <div class="modal-cont">
-                            <label for="">연락처</label>
+                            <div>연락처</div>
                             <input type="text" name="phone" disabled>
                         </div>
                         <div class="modal-cont">
-                            <label for="">소속부서</label>
+                            <div>소속부서</div>
                             <input type="text" name="deptName" disabled>
                         </div>
                         <div class="modal-cont">
-                            <label for="">직급</label>
+                            <div>직급</div>
                             <input type="text" name="positionName" disabled>
                         </div>
                         <div class="modal-cont">
-                            <label>AS담당지역</label>
+                            <div><span class="required-text" id="required-text-area">*</span>AS담당지역</div>
                             <select name="area">
+                                <option value="">-- 선택 --</option>
                                 <option value="서울">서울</option>
                                 <option value="인천">인천</option>
                                 <option value="경기">경기</option>
@@ -154,137 +154,52 @@
                                 <option value="제주도">제주도</option>
                             </select>
                         </div>
+
                         <div></div>
-                        <div class="button-container"><input type="submit" value="등록" ></div>
+
+                        <div class="button-container"></div>
         
                     </div>
                 </form>
             </div>
 
-            <!-- Detail Modal -->
-            <div id="asemp-detail">
-                    <div class="detail-content">
-                        <span class="detail-close">&times;</span>
+            <!-- 사원검색 모달 -->
+            <div id="emp-modal">
+                <form id="emp-form">
+                    <div class="modal-content">
+                        <span class="modal-close">&times;</span>
             
-                        <div class="modal-title">AS 담당자 상세</div>
-                        <div id="required-text"></div>
-            
-                        <div class="title-text">AS담당자정보</div>
-            
-                        <div class="modal-cont">
-                            <label for="">사번</label>
-                            <div>
-                                <input type="text" name="no" readonly> 
-                            </div>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">사원명</label>
-                            <input type="text" name="empName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">연락처</label>
-                            <input type="text" name="phone" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">소속부서</label>
-                            <input type="text" name="deptName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">직급</label>
-                            <input type="text" name="positionName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label>AS담당지역</label>
-                            <select name="area" disabled>
-                                <option value="서울">서울</option>
-                                <option value="인천">인천</option>
-                                <option value="경기">경기</option>
-                                <option value="부산">부산</option>
-                                <option value="제주도">제주도</option>
-                            </select>
-                        </div>
-                        <div></div>
-                        <div class="button-container">
-                            <div><input id="asemp-edit-bnt" type="button" value="수정"></div>
-                            <div><input id="asemp-delete-bnt" type="button" value="삭제"></div>
-                        </div>
-                    </div>
-            </div>
+                        <div class="modal-title">사원검색</div>
+                        <div><span class="required-text">* 이미 AS담당자로 등록된 사원은 조회되지 않습니다.</span></div>
 
-            <!-- Edit Modal -->
-            <div id="asemp-edit">
-                <form action="/qa/asemp/edit" method="post" onsubmit="return confirm('저장하시겠습니까?');">
-                    <div class="edit-content">
-                        <span class="edit-close">&times;</span>
-            
-                        <div class="modal-title">AS 담당자 수정</div>
-                        <div id="required-text"></div>
-            
-                        <div class="title-text">AS담당자정보</div>
-            
-                        <div class="modal-cont">
-                            <label for="">사번</label>
-                            <input type="text" name="no" readonly> 
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">사원명</label>
-                            <input type="text" name="empName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">연락처</label>
-                            <input type="text" name="phone" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">소속부서</label>
-                            <input type="text" name="deptName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">직급</label>
-                            <input type="text" name="positionName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label>AS담당지역</label>
-                            <select name="area">
-                                <option value="서울">서울</option>
-                                <option value="인천">인천</option>
-                                <option value="경기">경기</option>
-                                <option value="부산">부산</option>
-                                <option value="제주도">제주도</option>
-                            </select>
-                        </div>
-                        <div></div>
-
-                        <div class="button-container"><input type="submit" value="저장" ></div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>선택</th>
+                                    <th>사번</th>
+                                    <th>사원명</th>
+                                    <th>연락처</th>
+                                    <th>소속부서</th>
+                                    <th>직급</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${empVoList}" var="vo">
+                                    <tr>
+                                        <td><input type="radio" name=""></td>
+                                        <td>${vo.no}</td>
+                                        <td>${vo.name}</td>
+                                        <td>${vo.phone}</td>
+                                        <td>${vo.dname}</td>
+                                        <td>${vo.pname}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                        <div class="page-area"></div>
+                        <div class="button-container"><input type="button" id="emp-select-button" value="선택"></div>
                     </div>
                 </form>
-            </div>
-
-            <!-- SearchEmp Modal -->
-            <div id="search-emp">
-                <div class="modal-content">
-                    <span class="modal-close">&times;</span>
-        
-                    <div class="modal-title">사원검색</div>
-                    <div></div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>선택</th>
-                                <th>사번</th>
-                                <th>사원명</th>
-                                <th>연락처</th>
-                                <th>소속부서</th>
-                                <th>직급</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                        </tbody>
-                    </table>
-
-                    <div class="button-container"><input type="button" id="emp-select-btn" value="선택"></div>
-
-                </div>
             </div>
 
 

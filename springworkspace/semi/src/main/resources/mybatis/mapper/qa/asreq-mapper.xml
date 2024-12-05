@@ -71,6 +71,39 @@
         <if test="searchValue != '' and searchValue != null and searchType == 'customerName'">
             AND A.CUSTOMER_NAME LIKE '%${searchValue}%'
         </if>
+    </select>
 
+    <select id="getProductList">
+        SELECT
+            NO
+            , NAME
+            , SERIAL_NUMBER
+            , PRICE
+            , WARRANTY_PERIOD
+        FROM PRODUCT_REGISTRATION
+        WHERE DEL_YN = 'N'
+
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'serialNumber'">
+            AND SERIAL_NUMBER LIKE '%${productSearchValue}%'
+        </if>
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'productName'">
+            AND NAME LIKE '%${productSearchValue}%'
+        </if>
+
+        ORDER BY NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+
+    <select id="getProductCnt">
+        SELECT COUNT(NO)
+        FROM PRODUCT_REGISTRATION
+        WHERE DEL_YN = 'N'
+
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'serialNumber'">
+            AND SERIAL_NUMBER LIKE '%${productSearchValue}%'
+        </if>
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'productName'">
+            AND NAME LIKE '%${productSearchValue}%'
+        </if>
     </select>
 </mapper>
