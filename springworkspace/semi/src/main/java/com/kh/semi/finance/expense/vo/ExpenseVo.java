@@ -5,15 +5,15 @@ import lombok.Data;
 @Data
 public class ExpenseVo {
     private String no;
-    private String partner_code;
-    private String trans_code;
-    private String account_code;
-    private String trans_date;
-    private String supply_amount;
-    private String tax_amount;
+    private String partnerCode;
+    private String transCode;
+    private String accountCode;
+    private String transDate;
+    private String supplyAmount;
+    private String taxAmount;
     private String attachment;
     private String comments;
-    private String enroll_date;
-    private String modify_date;
-    private String del_yn;
+    private String enrollDate;
+    private String modifyDate;
+    private String delYn;
 }
