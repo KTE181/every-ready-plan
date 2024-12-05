@@ -1,8 +1,11 @@
 package com.kh.semi.qa.faultcode.controller;
 
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.faultcode.service.FaultcodeService;
 import com.kh.semi.qa.faultcode.vo.FaultcodeVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,8 +25,15 @@ public class FaultcodeController {
     // 고장코드 목록 조회
     @GetMapping("list")
     public String getFaultCodeList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                                   String searchType, String searchValue)
+                                   String searchType, String searchValue, HttpSession session)
     {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
+
         // pno = currentPage
         int listCount = service.getFaultCodeListCnt(searchType, searchValue);
         int pageLimit = 10;

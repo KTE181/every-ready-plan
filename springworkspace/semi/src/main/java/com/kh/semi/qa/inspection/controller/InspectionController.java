@@ -1,10 +1,13 @@
 package com.kh.semi.qa.inspection.controller;
 
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.inspection.service.InspectionService;
 import com.kh.semi.qa.inspection.vo.InspectionTypeVo;
 import com.kh.semi.qa.inspection.vo.InspectionVo;
 import com.kh.semi.qa.inspection.vo.InspectionStatusVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,8 +27,15 @@ public class InspectionController {
     // 품질 검사 목록 조회
     @GetMapping("list")
     public String getInspectionList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                                    String inspectionType, String status, String passYn, String searchType, String searchValue)
+                                    String inspectionType, String status, String passYn, String searchType, String searchValue, HttpSession session)
     {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
+
         // pno = currentPage
         int listCount = service.getInspectionListCnt(inspectionType, status, passYn, searchType, searchValue);
         int pageLimit = 10;

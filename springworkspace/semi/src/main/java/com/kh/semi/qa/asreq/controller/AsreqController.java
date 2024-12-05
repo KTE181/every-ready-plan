@@ -1,9 +1,12 @@
 package com.kh.semi.qa.asreq.controller;
 
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.asreq.service.AsreqService;
 import com.kh.semi.product.vo.ProductVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,8 +27,15 @@ public class AsreqController {
     // AS 요청 목록 조회
     @GetMapping("list")
     public String getAsreqList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                               String area, String searchType, String searchValue)
+                               String area, String searchType, String searchValue, HttpSession session)
     {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
+
         // pno = currentPage
         int listCount = service.getAsreqListCnt(area, searchType, searchValue);
         int pageLimit = 10;
@@ -69,38 +79,8 @@ public class AsreqController {
         if(asreqVo == null) {
             throw new Exception("Error");
         }
-
+        System.out.println("asreqVo = " + asreqVo);
         return asreqVo;
-    }
-
-    // AS 요청 수정 (화면)
-    @GetMapping("edit")
-    @ResponseBody
-    public AsreqVo edit(String asreqNo, Model model) throws Exception {
-
-        AsreqVo asreqVo = service.getAsreqDetail(asreqNo, model);
-
-        if(asreqVo == null) {
-            throw new Exception("Error");
-        }
-
-        return asreqVo;
-    }
-
-    // AS 요청 수정
-    @PostMapping("edit")
-    public String edit(AsreqVo vo, Model model) throws Exception {
-
-        int result = service.edit(vo);
-
-        if(result != 1) {
-            throw new Exception("Error");
-        }
-
-        AsreqVo asreqVo = service.getAsreqDetail(vo.getNo(), model);
-        model.addAttribute("asreqVo", asreqVo);
-
-        return "redirect:/qa/asreq/list";
     }
 
     // AS 요청 접수
@@ -109,6 +89,20 @@ public class AsreqController {
     public int receive(String no) throws Exception {
 
         int result = service.receive(no);
+
+        if(result != 1) {
+            throw new Exception("Error");
+        }
+
+        return result;
+    }
+
+    // AS 요청 수정
+    @PostMapping("edit")
+    @ResponseBody
+    public int edit(AsreqVo vo) throws Exception {
+
+        int result = service.edit(vo);
 
         if(result != 1) {
             throw new Exception("Error");

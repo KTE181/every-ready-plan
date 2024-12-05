@@ -17,7 +17,7 @@ function loadWriteModal() {
     document.querySelector("#search-button").setAttribute("type", "button");
     document.querySelector("select[name=inspectionCode]").removeAttribute("disabled");
     document.querySelector("select[name=statusCode]").removeAttribute("disabled");
-    document.querySelector("#inspection-date").innerHTML = `<label>검사일자</label><input type="date" name="inspectionDate">`
+    document.querySelector("#inspection-date").innerHTML = `<div>검사일자</div><input type="date" name="inspectionDate">`
     document.querySelector("#success-yn").innerHTML = `<input type="radio" name="successYn" value="P">PASS <input type="radio" name="successYn" value="F">FAIL`;
     document.querySelector("#enroll-date").style.display = 'none';
     document.querySelector("#modify-date").style.display = 'none';
@@ -199,7 +199,7 @@ function loadDetailModal(no) {
     document.querySelector("#search-button").setAttribute("type", "hidden");
     document.querySelector("select[name=inspectionCode]").setAttribute("disabled", "true");
     document.querySelector("select[name=statusCode]").setAttribute("disabled", "true");
-    document.querySelector("#inspection-date").innerHTML = `<label>검사일자</label><input type="text" name="inspectionDate" disabled>`
+    document.querySelector("#inspection-date").innerHTML = `<div>검사일자</div><input type="text" name="inspectionDate" disabled>`
     document.querySelector("#success-yn").innerHTML = `<input type="text" name="successYn" disabled>`;
     document.querySelector("#enroll-date").style.display = 'flex';
     document.querySelector("#modify-date").style.display = 'flex';

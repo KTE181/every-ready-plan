@@ -49,6 +49,7 @@
     margin-bottom: 5px;
     color: #3344FF;
     font-weight: bold;
+    text-align: left;
 }
 
 #asemp-modal .modal-cont{
@@ -181,6 +182,7 @@
 #emp-modal .required-text {
     font-size: 14px;
     color: red;
+    text-align: left;
 }
 
 #emp-modal table{
