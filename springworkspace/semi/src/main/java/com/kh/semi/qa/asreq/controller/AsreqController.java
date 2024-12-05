@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -19,17 +20,6 @@ import java.util.List;
 public class AsreqController {
 
     private final AsreqService service;
-
-    // AS 요청 등록
-    @PostMapping("write")
-    public String write(AsreqVo vo) throws Exception {
-        int result = service.write(vo);
-        if(result != 1) {
-            throw new Exception("Error");
-        }
-
-        return "redirect:/qa/asreq/list";
-    }
 
     // AS 요청 목록 조회
     @GetMapping("list")
@@ -56,6 +46,17 @@ public class AsreqController {
         model.addAttribute("searchValue", searchValue);
 
         return "qa/asreq/list";
+    }
+
+    // AS 요청 등록
+    @PostMapping("write")
+    @ResponseBody
+    public int write(AsreqVo vo) throws Exception {
+        int result = service.write(vo);
+        if(result != 1) {
+            throw new Exception("Error");
+        }
+        return result;
     }
 
     // AS 요청 상세 조회
@@ -133,11 +134,23 @@ public class AsreqController {
     // 상품 조회
     @GetMapping("productlist")
     @ResponseBody
-    public List<ProductVo> getEmpList() {
+    public HashMap getProductList(@RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
+                                    String productSearchType, String productSearchValue)
+    {
+        // pno = currentPage
+        int listCount = service.getProductCnt(productSearchType, productSearchValue);
+        int pageLimit = 5;
+        int boardLimit = 10;
 
-        List<ProductVo> productVoList = service.getProductList();
+        PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
-        return productVoList;
+        List<ProductVo> productVoList = service.getProductList(pvo, productSearchType, productSearchValue);
+
+        HashMap map = new HashMap();
+        map.put("a", productVoList);
+        map.put("b", pvo);
+
+        return map;
     }
 
 }

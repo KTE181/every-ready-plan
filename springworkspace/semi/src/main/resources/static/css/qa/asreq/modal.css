@@ -1,6 +1,5 @@
-
-/* 모달 전체 배경 */
-#asreq-write{
+/* #asreq-modal */
+#asreq-modal{
     display: none; /* 기본적으로 숨김 */
     position: fixed;
     top: 0;
@@ -11,8 +10,7 @@
     z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
-/* 모달 창 본체 */
-#asreq-write .write-content {
+#asreq-modal .modal-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content min-content;;
@@ -25,23 +23,26 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: fit-content;
     height: fit-content;
-    column-gap: 5px;
+    column-gap: 50px;
 }
 
-
-#asreq-write #required-text {
-    font-size: 14px;
-    color: red;
-    text-align: right;
-}
-
-#asreq-write .modal-title{
+#asreq-modal .modal-title{
     font-size: 23px;
     font-weight: bold;
     text-align: left;
 }
 
-#asreq-write .title-text{
+#asreq-modal input:disabled {
+    background-color: #f0f0f0; 
+}
+
+#asreq-modal .required-text {
+    font-size: 14px;
+    color: red;
+    text-align: right;
+}
+
+#asreq-modal .title-text{
     grid-column: 1 / -1;
     font-size: 16px;
     margin-top: 17px;
@@ -50,7 +51,7 @@
     font-weight: bold;
 }
 
-#asreq-write .modal-cont{
+#asreq-modal .modal-cont{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,7 +63,7 @@
     margin-bottom: 12px;
 }
 
-#asreq-write .modal-cont div {
+#asreq-modal .modal-cont div {
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -70,7 +71,11 @@
     justify-content: center;
 }
 
-#asreq-write .write-content input {
+#asreq-modal .modal-cont.long-textbox {
+    grid-column: span 2;
+}
+
+#asreq-modal input {
     padding: 5px 10px;
     font-size: 13px;
     width: 200px;
@@ -79,27 +84,26 @@
     border: 1px solid black;
 }
 
-#asreq-write .write-content select{
-    height: 26px;
-    width: 78px;
+#asreq-modal input[name=issueTitle]{
+    width: 90%;
+}
+
+#asreq-modal textarea{
+    width: 95%;
+    height: 60px;
+    border: 1px solid black;
+    padding: 5px 10px;
+}
+
+#asreq-modal select{
+    height: 30px;
+    width: 80px;
     font-family: '맑은 고딕';
     border: 1px solid black;
     padding-left: 5px;
 }
 
-#asreq-write .write-content input[type=radio] {
-    width: 20px;
-}
-
-#asreq-write .write-content input[name=customerAdress] {
-    width: 250px;
-}
-
-#asreq-write .write-content input[name=issueTitle] {
-    width: 90%;
-}
-
-#asreq-write .write-content .product-search-button {
+#asreq-modal #search-button {
     font-size: 13px; 
     background-color: #f5f5f5; 
     color: black; 
@@ -110,382 +114,24 @@
     margin: 0px;
 }
 
-#asreq-write .modal-cont.long-textbox {
-    grid-column: 1 / -1;
-}
-
-#asreq-write textarea[name=issueDescription]{
-    margin-top: 2px;
-    width: 95%;
-    height: 110px;
-    border: 1px solid rgb(0, 0, 0);;
-    padding: 5px 10px;
-}
-
-#asreq-write .write-content input[type=submit] {
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
-    border: 1px solid #416DFF; ;
-    width: 70px;
-    height: 38px;
-    margin-top: 13px;
-    margin-bottom: 7px;
-}
-
-#asreq-write .write-content input[type=submit]:hover {
-    background-color: #416DFF;
-    color: white; 
-    font-weight: bold;
-}
-
-/* 버튼을 우측 정렬 */
-#asreq-write .button-container {
-    display: flex; /* 플렉스 컨테이너 */
-    justify-content: right; /* 우측 정렬 */
-    align-items: center;
-}
-
-/* 닫기 버튼 */
-#asreq-write .write-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: gray;
-}
-
-#asreq-write .write-close:hover {
-    color: black;
-}
-
-
-/* 모달 전체 배경 */
-#asreq-detail{
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-
-}
-
-/* 닫기 버튼 */
-#asreq-detail .detail-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: gray;
-}
-
-#asreq-detail .detail-close:hover {
-    color: black;
-}
-
-/* 모달 창 본체 */
-#asreq-detail .detail-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: min-content min-content;;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
-    background-color: white;
-    padding: 25px 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: fit-content;
-    height: fit-content;
-    column-gap: 5px;
-}
-
-
-#asreq-detail #required-text {
-    font-size: 14px;
-    color: red;
-    text-align: right;
-}
-
-#asreq-detail .modal-title{
-    font-size: 23px;
-    font-weight: bold;
-    text-align: left;
-}
-
-#asreq-detail .title-text{
-    grid-column: 1 / -1;
-    font-size: 16px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-    color: #3344FF;
-    font-weight: bold;
-}
-
-#asreq-detail .modal-cont{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    font-size: 15px;
-    gap: 4px;
-    margin-left: 10px;
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
-
-#asreq-detail .modal-cont div {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-#asreq-detail .detail-content input {
-    padding: 5px 10px;
-    font-size: 13px;
-    width: 200px;
-    height: 18px;
-    border-radius: 8px;
-    border: 1px solid black;
-    color: black;
-}
-
-#asreq-detail .detail-content select{
-    height: 26px;
-    width: 78px;
-    font-family: '맑은 고딕';
-    border: 1px solid black;
-    padding-left: 5px;
-    color: black;
-}
-
-#asreq-detail .detail-content input[type=radio] {
+#asreq-modal input[type=radio] {
     width: 20px;
 }
 
-#asreq-detail .detail-content input[name=customerAdress] {
-    width: 250px;
-}
-
-#asreq-detail .detail-content input[name=issueTitle] {
-    width: 90%;
-}
-
-
-#asreq-detail .detail-content .search-button {
-    font-size: 13px; 
-    background-color: #f5f5f5; 
-    color: black; 
-    border-radius: 5px; 
-    width: 72px;
-    height: 30px;
-    border: 1px solid rgb(177, 177, 177);
-    margin: 0px;
-}
-
-#asreq-detail .modal-cont.long-textbox {
-    grid-column: 1 / -1;
-}
-
-#asreq-detail textarea[name=issueDescription]{
-    margin-top: 2px;
-    width: 95%;
-    height: 110px;
-    border: 1px solid rgb(0, 0, 0);;
-    padding: 5px 10px;
-    color: black;
-}
-
-#asreq-detail .detail-content .button-container input{
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
-    border: 1px solid #416DFF; ;
-    width: 70px;
-    height: 38px;
-    margin-top: 13px;
-    margin-bottom: 7px;
-}
-
-#asreq-detail .detail-content .button-container #asreq-receive-button {
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
-    border: 1px solid #416DFF; ;
-    width: 88px;
-    height: 38px;
-    margin-top: 13px;
-    margin-bottom: 7px;
-}
-
-#asreq-detail .detail-content .button-container #asreq-receive-button:hover {
-    background-color: #416DFF;
-    color: white; 
-    font-weight: bold;
-}
-
-#asreq-detail .detail-content .button-container input:hover {
-    background-color: #416DFF;
-    color: white; 
-    font-weight: bold;
-}
-
-/* 버튼을 우측 정렬 */
-#asreq-detail .button-container {
-    display: flex; /* 플렉스 컨테이너 */
-    justify-content: end; /* 우측 정렬 */
+#asreq-modal .button-container {
+    display: flex; 
+    justify-content: end; 
     align-items: end;
     gap: 10px;
-}
+} 
 
-
-
-/* 모달 전체 배경 */
-#asreq-edit{
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-
-/* 모달 창 본체 */
-#asreq-edit .edit-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: min-content min-content;;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
-    background-color: white;
-    padding: 25px 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: fit-content;
-    height: fit-content;
-    column-gap: 5px;
-}
-
-
-#asreq-edit #required-text {
-    font-size: 14px;
-    color: red;
-    text-align: right;
-}
-
-#asreq-edit .modal-title{
-    font-size: 23px;
-    font-weight: bold;
-    text-align: left;
-}
-
-#asreq-edit .title-text{
-    grid-column: 1 / -1;
-    font-size: 16px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-    color: #3344FF;
-    font-weight: bold;
-}
-
-#asreq-edit .modal-cont{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    font-size: 15px;
-    gap: 4px;
-    margin-left: 10px;
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
-
-#asreq-edit .modal-cont div {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-#asreq-edit .edit-content input {
-    padding: 5px 10px;
-    font-size: 13px;
-    width: 200px;
-    height: 18px;
-    border-radius: 8px;
-    border: 1px solid black;
-}
-
-#asreq-edit .edit-content select{
-    height: 26px;
-    width: 78px;
-    font-family: '맑은 고딕';
-    border: 1px solid black;
-    padding-left: 5px;
-}
-
-#asreq-edit .edit-content input[type=radio] {
-    width: 20px;
-}
-
-#asreq-edit .edit-content input[name=customerAdress] {
-    width: 250px;
-}
-
-#asreq-edit .edit-content input[name=issueTitle] {
-    width: 90%;
-}
-
-#asreq-edit .edit-content .product-search-button {
-    font-size: 13px; 
-    background-color: #f5f5f5; 
+#asreq-modal .button-container input{
+    font-size: 15px; 
+    padding: 0px 0px; 
+    background-color: #FFFFFF; 
     color: black; 
-    border-radius: 5px; 
-    width: 72px;
-    height: 30px;
-    border: 1px solid rgb(177, 177, 177);
-    margin: 0px;
-}
-
-#asreq-edit .modal-cont.long-textbox {
-    grid-column: 1 / -1;
-}
-
-#asreq-edit textarea[name=issueDescription]{
-    margin-top: 2px;
-    width: 95%;
-    height: 110px;
-    border: 1px solid rgb(0, 0, 0);;
-    padding: 5px 10px;
-}
-
-#asreq-edit .edit-content input[type=submit]{
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
+    border-radius: 20px;
+    cursor: pointer; 
     border: 1px solid #416DFF; ;
     width: 70px;
     height: 38px;
@@ -493,22 +139,13 @@
     margin-bottom: 7px;
 }
 
-
-#asreq-edit .edit-content input[type=submit]:hover {
+#asreq-modal .button-container input:hover {
     background-color: #416DFF;
     color: white; 
     font-weight: bold;
 }
 
-/* 버튼을 우측 정렬 */
-#asreq-edit .button-container {
-    display: flex; /* 플렉스 컨테이너 */
-    justify-content: right; /* 우측 정렬 */
-    align-items: center;
-}
-
-/* 닫기 버튼 */
-#asreq-edit .edit-close {
+#asreq-modal .modal-close {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -517,12 +154,13 @@
     color: gray;
 }
 
-#asreq-edit .edit-close:hover {
+#asreq-modal .modal-close:hover {
     color: black;
 }
 
-/* 모달 전체 배경 */
-#search-product{
+
+/* #product-modal */
+#product-modal{
     display: none; /* 기본적으로 숨김 */
     position: fixed;
     top: 0;
@@ -533,15 +171,14 @@
     z-index: 2000; /* 다른 요소 위에 표시 */
 }
 
-/* 모달 창 본체 */
-#search-product .modal-content {
+#product-modal .modal-content {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content min-content;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    transform: translate(-50%, -50%);
     background-color: white;
     padding: 25px 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -550,25 +187,18 @@
     row-gap: 10px;
 }
 
-#search-product .modal-title{
+#product-modal .modal-title{
     font-size: 23px;
     font-weight: bold;
     text-align: left;
 }
 
-/* 버튼을 우측 정렬 */
-#search-product .button-container {
-    display: flex; /* 플렉스 컨테이너 */
-    justify-content: right; /* 우측 정렬 */
-    align-items: center;
-}
-
-#search-product table{
+#product-modal table{
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#search-product th{
+#product-modal th{
     border: 1px solid black;
     border-collapse: collapse;
     padding: 5px 10px;
@@ -577,35 +207,47 @@
     color: #333;
 }
 
-#search-product td {
+#product-modal td {
     border: 1px solid black;
     border-collapse: collapse;
     padding: 5px 10px;
     text-align: center;
 }
 
-#search-product input[type=button] {
-    font-size: 15px; /* 작은 글씨 크기 */
-    padding: 0px 0px; /* 버튼 안의 여백 (상하 5px, 좌우 10px) */
-    background-color: #FFFFFF; /* 버튼 배경색 (#3344FF) */
-    color: black; /* 버튼 글자색 (흰색) */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
-    border: 1px solid #416DFF; ;
-    width: 70px;
-    height: 38px;
-    margin-top: 13px;
-    margin-bottom: 7px;
+#product-modal .page-area {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
-#search-product input[type=button]:hover {
-    background-color: #416DFF;
-    color: white; 
-    font-weight: bold;
+#product-modal .page-area span{
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    color: rgb(36, 36, 36);
 }
 
-/* 닫기 버튼 */
-#search-product .modal-close {
+#product-modal .button-container {
+    display: flex;
+    justify-content: right; 
+    align-items: center;
+}
+
+#product-modal #product-select-button {
+    font-size: 15px; 
+    background-color: #f5f5f5; 
+    color: black; 
+    border-radius: 5px; 
+    width: 60px;
+    height: 32px;
+    border: 1px solid rgb(177, 177, 177);
+    margin-top: 8px;
+}
+
+#product-modal .modal-close {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -614,6 +256,6 @@
     color: gray;
 }
 
-#search-product .modal-close:hover {
+#product-modal .modal-close:hover {
     color: black;
 }

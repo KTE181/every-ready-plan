@@ -45,7 +45,16 @@ public class AsempController {
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchValue", searchValue);
 
+        getEmpList(model);
+
         return "qa/asemp/list";
+    }
+
+    // 사원 목록 가져오기
+    @GetMapping("data/emp")
+    public void getEmpList(Model model) {
+        List<EmployeeVo> empVoList = service.getEmpList();
+        model.addAttribute("empVoList", empVoList);
     }
 
     // AS 담당자 상세 조회
@@ -56,26 +65,14 @@ public class AsempController {
         AsempVo asempVo = service.getAsempDetail(no, model);
 
         model.addAttribute("asempVo", asempVo);
-        System.out.println("asempVo = " + asempVo);
 
         return asempVo;
     }
 
-    // 사원 조회 (화면)
-    @GetMapping("emplist")
+    // AS 담당자 등록
+    @PostMapping("write")
     @ResponseBody
-    public List<EmployeeVo> getEmpList() {
-
-        List<EmployeeVo> empVoList = service.getEmpList();
-
-        return empVoList;
-    }
-
-    // AS 담당자 등록 (처리)
-    @PostMapping("enroll")
-    public String enroll(AsempVo vo, HttpSession session) throws Exception {
-
-        System.out.println("vo = " + vo);
+    public int enroll(AsempVo vo) throws Exception {
 
         int result = service.enroll(vo);
 
@@ -83,28 +80,13 @@ public class AsempController {
             throw new Exception("Error");
         }
 
-        session.setAttribute("alertMsg", "등록되었습니다.");
-        return "redirect:/qa/asemp/list";
-
+        return result;
     }
 
-    // AS 담당자 수정 (화면)
-    @GetMapping("edit")
-    @ResponseBody
-    public AsempVo edit(String no, Model model) {
-
-        AsempVo asempVo = service.getAsempDetail(no, model);
-
-        if (asempVo == null) {
-            throw new IllegalStateException("ERROR");
-        }
-
-        return asempVo;
-    }
-
-    // AS 담당자 수정 (처리)
+    // AS 담당자 수정
     @PostMapping("edit")
-    public String edit(AsempVo vo, HttpSession session, Model model) throws Exception {
+    @ResponseBody
+    public int edit(AsempVo vo) throws Exception {
 
         int result = service.edit(vo);
 
@@ -112,9 +94,7 @@ public class AsempController {
             throw new Exception("Error");
         }
 
-        session.setAttribute("alertMsg", "수정되었습니다.");
-
-        return "redirect:/qa/asemp/list";
+        return result;
     }
 
     // AS 담당자 삭제

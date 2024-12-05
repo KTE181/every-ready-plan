@@ -35,14 +35,12 @@
                         <form action="/qa/faultcode/list" class="top-title-area-form">
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType" onchange="handleSearchType(x)">
+                                <select name="searchType" onchange="handleSearchType(this)">
                                     <option value="faultName" <c:if test='${searchType == "faultName"}'>selected</c:if>>고장유형명</option>
                                     <option value="faultCode" <c:if test='${searchType == "faultCode"}'>selected</c:if>>고장코드</option>
                                 </select>
                             </div>
-                            <div class="search-bar">
-                                <input type="search" id="longbar" name="searchValue" value="${searchValue}">
-                            </div>
+                            <div class="search-bar"><input type="search" id="longbar" name="searchValue" value="${searchValue}"></div>
                             
                             <div class="search-bar"><button class="button">검색</button></div>
                         </form>

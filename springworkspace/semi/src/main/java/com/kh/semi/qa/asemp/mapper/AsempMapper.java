@@ -68,6 +68,10 @@ public interface AsempMapper {
                 , DEPT_NAME AS DNAME
                 , POSITION_NAME AS PNAME
             FROM EMPLOYEE_INFO
+            WHERE NO NOT IN (
+                SELECT NO
+                FROM AS_ENGINEERS
+            )
             ORDER BY NO DESC
             """)
     List<EmployeeVo> getEmpList();

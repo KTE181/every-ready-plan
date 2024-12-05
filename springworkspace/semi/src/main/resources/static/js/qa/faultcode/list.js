@@ -107,7 +107,7 @@ function loadDetailModal(no) {
             const deleteButton = document.querySelector("#faultcode-delete-button");
 
             editButton.addEventListener("click", function () {
-                loadEditModal(faultcodeVo.no);
+                loadEditModal();
             });
 
             deleteButton.addEventListener("click", function () {
@@ -303,3 +303,9 @@ function handleSearchType(x) {
     }
 
 }
+
+// 새로고침 해도 input 타입 유지
+document.addEventListener("DOMContentLoaded", () => {
+    const searchTypeSelect = document.querySelector("select[name=searchType]");
+    handleSearchType(searchTypeSelect); 
+});

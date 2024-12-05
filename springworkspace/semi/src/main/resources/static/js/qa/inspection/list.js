@@ -230,7 +230,7 @@ function loadDetailModal(no) {
             const deleteButton = document.querySelector("#inspection-delete-button");
 
             editButton.addEventListener("click", function () {
-                loadEditModal(inspectionVo.no);
+                loadEditModal();
             });
 
             deleteButton.addEventListener("click", function () {
@@ -337,13 +337,12 @@ function inspectionEditSave() {
             else {
                 alert("수정실패...");
             }
-
             location.reload();
-
         },
 
         error: function() {
             alert("통신실패...");
+            location.reload();
         }
     });
 }
@@ -452,3 +451,22 @@ function closeModal() {
 
 closeModal();
 
+// searchType 값에 따라서 input 타입 변경
+function handleSearchType(x) {
+
+    const searchValueTag = document.querySelector("input[name=searchValue]");
+
+    if(x.value == "productName") {
+        searchValueTag.setAttribute("type", "search");
+    } 
+    else{
+        searchValueTag.setAttribute("type", "number");
+    }
+
+}
+
+// 새로고침 해도 input 타입 유지
+document.addEventListener("DOMContentLoaded", () => {
+    const searchTypeSelect = document.querySelector("select[name=searchType]");
+    handleSearchType(searchTypeSelect); 
+});

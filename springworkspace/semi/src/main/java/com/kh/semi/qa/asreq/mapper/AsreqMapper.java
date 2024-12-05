@@ -126,16 +126,7 @@ public interface AsreqMapper {
             """)
     int enrollAswork(String no);
 
-    @Select("""
-            SELECT 
-                NO
-                , NAME 
-                , SERIAL_NUMBER
-                , PRICE
-                , WARRANTY_PERIOD
-            FROM PRODUCT_REGISTRATION
-            WHERE DEL_YN = 'N'
-            """)
-    List<ProductVo> getProductList();
+    List<ProductVo> getProductList(PageVo pvo, String productSearchType, String productSearchValue);
 
+    int getProductCnt(String productSearchType, String productSearchValue);
 }

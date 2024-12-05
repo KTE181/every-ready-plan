@@ -1,35 +1,255 @@
-const writeSearchButton = document.querySelector('#asreq-write-search-btn');
-writeSearchButton.addEventListener('click', () => {
-    searchProduct('asreqWrite');
-});
+// 등록 모달
+function loadWriteModal() {
 
-const editSearchButton = document.querySelector('#asreq-edit-search-btn');
-editSearchButton.addEventListener('click', () => {
-    searchProduct('asreqEdit');
-});
+    const modal = document.querySelector("#asreq-modal");
+    const modalForm = document.querySelector("#asreq-form");
 
-function asreqWrite() {
+    // 모달 표시
+    modalForm.reset();
+    modal.style.display = 'block'; 
 
-    // 모달 요소 가져오기
-    const asreqWriteModal = document.querySelector("#asreq-write");
-    const closeModal = document.querySelector('.write-close');
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "AS 요청 등록";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'block';
+    }
 
-    asreqWriteModal.style.display = 'block'; // 모달 표시
-
-    // "X" 버튼 클릭 시 모달 닫기
-    closeModal.addEventListener('click', () => {
-
-        asreqWriteModal.style.display = 'none'; // 모달 숨기기
-
-        document.querySelector("#asreq-write input[name=serialNumber]").value = "";
-        document.querySelector("#asreq-write input[name=name]").value = "";
-
+    document.querySelector(".button-container").innerHTML = `<input type="button" id="asreq-write-button" value="등록">`;
+   
+    // 등록 버튼 클릭 시 동작 
+    const writeButton = document.querySelector("#asreq-write-button");
+    writeButton.addEventListener("click", function () {
+        write();
     });
 
 }
 
-//tr 클릭시 동작
-function asreqDetail(asreqNo) {
+// 등록 처리
+function write() {
+
+    const productNo = document.querySelector('#asreq-modal input[name=productNo]').value;
+    const purchaseDateElement = document.querySelector('#asreq-modal select[name=purchaseDate]');
+    const purchaseDate = purchaseDateElement ? purchaseDateElement.value : null;
+    const warrantyYnElement = document.querySelector('#asreq-modal input[name=warrantyYn]:checked');
+    const warrantyYn = warrantyYnElement ? warrantyYnElement.value : null;
+    const customerName = document.querySelector('#asreq-modal input[name=customerName]').value;
+    const customerArea = document.querySelector('#asreq-modal select[name=customerArea]').value;
+    const customerAdress = document.querySelector('#asreq-modal input[name=customerAdress]').value;
+    const customerPhone = document.querySelector('#asreq-modal input[name=customerPhone]').value;
+    const preferredServiceDateElement = document.querySelector('#asreq-modal select[name=preferredServiceDate]');
+    const preferredServiceDate = preferredServiceDateElement ? preferredServiceDateElement.value : null;
+    const issueTitle = document.querySelector('#asreq-modal input[name=issueTitle]').value;
+    const issueDescription = document.querySelector('#asreq-modal textarea[name=issueDescription]').value;
+
+    if (!productNo) {
+        alert("상품을 선택해주세요.");
+        return;
+    }
+    if (!customerName) {
+        alert("고객명을 입력해주세요.");
+        return;
+    }
+    if (customerArea == "") {
+        alert("고객 지역을 선택해주세요.");
+        return;
+    }
+    if (!customerAdress) {
+        alert("고객 상세주소를 입력해주세요.");
+        return;
+    }
+    if (!customerPhone) {
+        alert("고객 핸드폰번호를 입력해주세요.");
+        return;
+    }
+    if (!issueTitle) {
+        alert("AS요청 제목을 입력해주세요.");
+        return;
+    }
+    if (!issueDescription) {
+        alert("AS요청 내용을 입력해주세요.");
+        return;
+    }
+
+    const result = confirm("등록하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/qa/asreq/write",
+        method: "POST",
+        data : {
+            productNo ,
+            purchaseDate ,
+            warrantyYn ,
+            customerName ,
+            customerArea ,
+            customerAdress ,
+            customerPhone ,
+            preferredServiceDate ,
+            issueTitle ,
+            issueDescription
+        },
+
+        success: function(result) {
+            if(result == 1) {
+                alert("등록되었습니다.");
+            }
+            else {
+                alert("등록실패...");
+            }
+            location.href = "/qa/asreq/list";
+        },
+        error: function() {
+            alert("통신실패...");
+            location.href = "/qa/asreq/list";
+        }
+    });
+}
+
+// 상품 검색 모달
+function productList() {
+
+    const productModal = document.querySelector("#product-modal");
+    const searchForm = document.querySelector("#product-search-form");
+    const closeModal = document.querySelector("#product-modal .modal-close");
+    searchForm.reset();
+    productModal.style.display = 'block'; 
+
+    closeModal.addEventListener('click', () => {
+        productModal.style.display = 'none';
+    } , { once: true });
+
+    const pno = 1;
+    
+    productData(pno);
+    
+}
+
+// 상품 검색 데이터 요청 
+function productData(pno) {
+
+    const tbodyTag = document.querySelector("#product-modal table>tbody");
+    const productSearchType = document.querySelector("#product-modal select[name=productSearchType]").value;
+    const productSearchValue = document.querySelector("#product-modal input[name=productSearchValue]").value;
+
+    $.ajax({
+        url : "/qa/asreq/productlist",
+        data : {
+            pno ,
+            productSearchType ,
+            productSearchValue
+        } ,
+        method : "GET" ,
+        success : function(m){
+
+            const productVoList = m.a;
+            const pvo = m.b;
+            paintPageArea(pvo);
+
+            tbodyTag.innerHTML = ""; 
+
+            for(const vo of productVoList) {
+
+                const trTag = document.createElement("tr");
+                tbodyTag.appendChild(trTag); 
+
+                const tdTag = document.createElement("td");
+                const radioTag = document.createElement("input");
+                radioTag.setAttribute("type", "radio");
+                radioTag.setAttribute("name", "product-radio-btn");
+                const noTag = document.createElement("input");
+                noTag.setAttribute("type", "hidden");
+                noTag.value = vo.no;
+
+                trTag.appendChild(tdTag);
+                tdTag.appendChild(radioTag);
+                tdTag.appendChild(noTag);
+
+                const tdTag1 = document.createElement("td");
+                tdTag1.innerText = vo.serialNumber;
+                trTag.appendChild(tdTag1);
+
+                const tdTag2 = document.createElement("td");
+                tdTag2.innerText = vo.name;
+                trTag.appendChild(tdTag2);
+
+                const tdTag3 = document.createElement("td");
+                tdTag3.innerText = vo.price;
+                trTag.appendChild(tdTag3);
+
+                const tdTag4 = document.createElement("td");
+                tdTag4.innerText = vo.warrantyPeriod;
+                trTag.appendChild(tdTag4);
+            }
+        } , 
+        error : function(){
+            alert("조회 실패...")
+        }
+    })
+
+}
+
+// 상품 검색 모달 페이징
+function paintPageArea(pvo){
+    const pageArea = document.querySelector(".page-area");
+    pageArea.innerHTML = "";
+
+    // 이전 버튼
+    if(pvo.startPage != 1) {
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${pvo.startPage-1});`);
+        spanTag.innerText = "이전";
+        pageArea.appendChild(spanTag);
+    }
+
+    // 페이지 버튼
+    for(let i=pvo.startPage; i<=pvo.endPage; i++){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${i});`);
+        spanTag.innerText = i;
+        pageArea.appendChild(spanTag);
+    }
+
+    // 다음 버튼
+    if(pvo.endPage != pvo.maxPage){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${pvo.endPage+1});`);
+        spanTag.innerText = "다음";
+        pageArea.appendChild(spanTag);
+    }
+}
+
+// 상품 선택 처리
+function selectProduct() {
+
+    const selectedProduct = document.querySelector("#product-modal input[type=radio]:checked");
+    if (selectedProduct === null) {
+        alert("상품이 선택되지 않았습니다.");
+        return;
+    }
+
+    const no = selectedProduct.nextSibling.value;
+    const serialNumber = selectedProduct.parentNode.parentNode.children[1].innerText;
+    const productName = selectedProduct.parentNode.parentNode.children[2].innerText;
+
+    console.log(no);
+    console.log(serialNumber);
+    console.log(productName);
+
+    document.querySelector("#asreq-modal input[name=productNo]").value = no;
+    document.querySelector("#asreq-modal input[name=serialNumber]").value = serialNumber;
+    document.querySelector("#asreq-modal input[name=name]").value = productName;
+
+    const productModal = document.querySelector("#product-modal");
+    productModal.style.display = 'none';
+
+}
+
+// 상세 모달
+function loadDetailModal(asreqNo) {
 
     // 모달 요소 가져오기
     const asreqDetailModal = document.getElementById('asreq-detail');
@@ -86,307 +306,19 @@ function asreqDetail(asreqNo) {
     });
 }
 
-function asreqDetailClose() {
-    const asreqDetailModal = document.getElementById('asreq-detail');
-    asreqDetailModal.style.display = 'none'; // 모달 숨기기
-}
+// 모달 닫기
+function closeModal() {
 
-//수정 눌렀을 때 동작
-function asreqEdit(asreqNo, serialNumber, name) {
-
-    asreqDetailClose();
-
-    const asreqEditModal = document.querySelector('#asreq-edit');
-    const editModalContent = document.querySelector('.edit-content');
-
-    asreqEditModal.style.display = 'block'; // 모달 표시
-
-    $.ajax({
-        url: "/qa/asreq/edit",
-        method: "get",
-        data: {
-            asreqNo : asreqNo 
-        } ,
-        success: function(asreqVo) {
-
-            document.querySelector("#asreq-edit input[name=no]").value = asreqVo.no;
-            document.querySelector("#asreq-edit input[name=productNo]").value = asreqVo.productNo;
-            document.querySelector("#asreq-edit input[name=serialNumber]").value = asreqVo.serialNumber;
-            document.querySelector("#asreq-edit input[name=productName]").value = asreqVo.productName;
-            document.querySelector("#asreq-edit input[name=purchaseDate]").value = asreqVo.purchaseDate;
-
-            const warrantyYn = document.querySelectorAll("#asreq-edit input[name=warrantyYn]");
-            for(let i=0; i<warrantyYn.length; i++) {
-                if(warrantyYn[i].value == asreqVo.warrantyYn) {
-                    warrantyYn[i].checked = true;
-                }
-            }
-
-            document.querySelector("#asreq-edit input[name=customerName]").value = asreqVo.customerName;
-            document.querySelector("#asreq-edit select[name=customerArea]").value = asreqVo.customerArea;
-            document.querySelector("#asreq-edit input[name=customerAdress]").value = asreqVo.customerAdress;
-            document.querySelector("#asreq-edit input[name=customerPhone]").value = asreqVo.customerPhone;
-            document.querySelector("#asreq-edit input[name=preferredServiceDate]").value = asreqVo.preferredServiceDate;
-            document.querySelector("#asreq-edit input[name=issueTitle]").value = asreqVo.issueTitle;
-            document.querySelector("#asreq-edit textarea[name=issueDescription]").value = asreqVo.issueDescription;
-
-        },
-
-        error: function() {
-            alert("통신실패...");
-        }
-    });
-
-}
-
-function asreqEditClose() {
-    const asreqEditModal = document.getElementById('asreq-edit');
-    asreqEditModal.style.display = 'none'; // 모달 숨기기
-}
-
-//삭제 눌렀을 때 동작
-function asreqDelete(no) {
-    const result = confirm("삭제하시겠습니까?");
-
-    if(result == false) {
-        return;
-    }
-
-    $.ajax({
-        url: "/qa/asreq/delete",
-        method: "POST",
-        data: {
-            no : no 
-        } ,
-        success: function(result) {
-            if(result == 1) {
-                alert("삭제되었습니다.");
-                location.reload();
-            }
-            else {
-                alert("오류발생...");
-            }
-
-        },
-
-        error: function() {
-            console.log(no);
-            alert("통신실패...");
-        }
-    });
-
-}
-
-//접수하기 눌렀을 때 동작
-function asreqReceive(no) {
-
-    const result = confirm("접수하시겠습니까?");
-
-    if(result == false) {
-        return;
-    }
-
-    $.ajax({
-        url: "/qa/asreq/receive",
-        method: "get",
-        data: {
-            no : no 
-        } ,
-        success: function(result) {
-            if(result == 1) {
-                alert("AS요청이 접수되었습니다.");
-                location.reload();
-            }
-            else {
-                alert("오류발생...");
-            }
-        },
-
-        error: function() {
-            console.log(no);
-            alert("통신실패...");
-        }
-    });
-
-}
-
-
-//저장 눌렀을 때 동작
-function asreqEditSave() {
-
-    const no = document.querySelector("#asreq-edit input[name=no]");
-    const productNo = document.querySelector("#asreq-edit input[name=productNo]");
-    const serialNumber = document.querySelector("#asreq-edit input[name=serialNumber]");
-    const productName = document.querySelector("#asreq-edit input[name=productName]");
-    const purchaseDate = document.querySelector("#asreq-edit input[name=purchaseDate]");
-    const warrantyYn = document.querySelector("#asreq-edit input[name=warrantyYn]");
-    const customerName = document.querySelector("#asreq-edit input[name=customerName]");
-    const customerArea = document.querySelector("#asreq-edit input[name=customerArea]");
-    const customerAdress = document.querySelectorAll("#asreq-edit input[name=customerAdress]");
-    const customerPhone = document.querySelector("#asreq-edit input[name=customerPhone]");
-    const preferredServiceDate = document.querySelector("#asreq-edit input[name=preferredServiceDate]");
-    const issueTitle = document.querySelector("#asreq-edit input[name=issueTitle]");
-    const issueDescription = document.querySelector("#asreq-edit textarea[name=issueDescription]");
-
-    console.log(no);
-    console.log(productNo);
-    console.log(serialNumber);
-    console.log(productName);
-    console.log(purchaseDate);
-    console.log(warrantyYn);
-    console.log(customerName);
-    console.log(customerArea);
-    console.log(customerAdress);
-    console.log(customerPhone);
-    console.log(preferredServiceDate);
-    console.log(issueTitle);
-    console.log(issueDescription);
-
-    // $.ajax({
-    //     url: '/qa/asreq/edit',
-    //     method: 'post',
-    //     data: {
-    //         no,
-    //         productNo,
-    //         customerArea,
-    //         customerAdress,
-    //         customerPhone,
-    //         purchaseDate,
-    //         warrantyYn,
-    //         issueTitle,
-    //         issueDescription,
-    //         preferredServiceDate
-    //     } ,
-    //     success: function(response) {
-    //             asreqEditClose();
-    //             // openAsreqDetailModal(response.updatedAsreqNo);
-    //     },
-    //     fail: function() {
-    //         alert("통신실패...");
-    //     }
-    // });
-
-    // return false;
-}
-
-function searchProduct(caller) {
-
-    currentCaller = caller;
-
-    const searchProductModal = document.getElementById('search-product');
-    const closeModal = document.querySelector('.modal-close');
-
-    searchProductModal.style.display = 'block'; // 모달 표시
-
+    const modal = document.querySelector("#asreq-modal");
+    const closeModal = document.querySelector('#asreq-modal .modal-close');
+    
     closeModal.addEventListener('click', () => {
-        searchProductModal.style.display = 'none'; // 모달 숨기기
+        modal.style.display = 'none';
     });
 
-    const tbodyTag = document.querySelector("#search-product table>tbody");
-
-    $.ajax({
-        url : "/qa/asreq/productlist",
-        method : "GET" ,
-        success : function(productVoList){
-
-            console.log(productVoList)
-
-            tbodyTag.innerHTML = ""; 
-
-            for(const vo of productVoList) {
-
-                const trTag = document.createElement("tr");
-                tbodyTag.appendChild(trTag); 
-
-                const tdTag = document.createElement("td");
-                const radioTag = document.createElement("input");
-                radioTag.setAttribute("type", "radio");
-                radioTag.setAttribute("name", "product-radio-btn");
-                const noTag = document.createElement("input");
-                noTag.setAttribute("type", "hidden");
-                noTag.value = vo.no;
-
-                trTag.appendChild(tdTag);
-                tdTag.appendChild(radioTag);
-                tdTag.appendChild(noTag);
-
-                const tdTag1 = document.createElement("td");
-                tdTag1.innerText = vo.serialNumber;
-                trTag.appendChild(tdTag1);
-
-                const tdTag2 = document.createElement("td");
-                tdTag2.innerText = vo.name;
-                trTag.appendChild(tdTag2);
-
-                const tdTag3 = document.createElement("td");
-                tdTag3.innerText = vo.price;
-                trTag.appendChild(tdTag3);
-
-                const tdTag4 = document.createElement("td");
-                tdTag4.innerText = vo.warrantyPeriod;
-                trTag.appendChild(tdTag4);
-                
-            }
-
-
-        } , 
-        error : function(){
-            alert("조회 실패...")
-        }
-    })
-
 }
 
-let currentCaller = null;
-
-const selectButton = document.querySelector("#product-select-btn");
-
-selectButton.addEventListener('click', () => {
-    
-    const radioArr = document.querySelectorAll("input[name=product-radio-btn]");
-    const productNoArr = document.querySelectorAll("input[name=productNo]");
-
-    let serialNumber = null;
-    let name = null;
-    let price = null;
-    let warrantyPeriod = null;
-    let no = null;
-
-    for(let i=0; i<radioArr.length; i++) {
-        if (radioArr[i].checked) {
-            no = radioArr[i].nextSibling.value;
-            serialNumber = radioArr[i].parentNode.parentNode.children[1].innerText;
-            name = radioArr[i].parentNode.parentNode.children[2].innerText;
-            price = radioArr[i].parentNode.parentNode.children[3].innerText;
-            warrantyPeriod = radioArr[i].parentNode.parentNode.children[4].innerText;
-        }
-    }
-
-    if (serialNumber === null) {
-        alert("상품이 선택되지 않았습니다.");
-    }
-    
-    if(currentCaller == 'asreqWrite') {
-        searchProductClose();
-        document.querySelector("#asreq-write input[name=productNo]").value = no;
-        document.querySelector("#asreq-write input[name=serialNumber]").value = serialNumber;
-        document.querySelector("#asreq-write input[name=name]").value = name;
-        console.log("asreqWrite호출");
-    }
-    else if(currentCaller == 'asreqEdit') {
-        searchProductClose();
-        document.querySelector("#asreq-edit input[name=productNo]").value = no;
-        document.querySelector("#asreq-edit input[name=serialNumber]").value = serialNumber;
-        document.querySelector("#asreq-edit input[name=productName]").value = name;
-
-    }
-
-});
-
-function searchProductClose() {
-    const searchProductModal = document.getElementById('search-product');
-    searchProductModal.style.display = 'none'; // 모달 숨기기
-}
+closeModal();
 
 // 전체 선택 
 function handelCheckbox(checkAll) {
