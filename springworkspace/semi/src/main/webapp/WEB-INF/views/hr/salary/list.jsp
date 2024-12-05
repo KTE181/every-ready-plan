@@ -352,7 +352,7 @@
                                                 <div class="salaryselectmodal-cont">
                                                     <label class="salarylabel"><span class="title-span">*</span>지급연월
                                                         ex)2024-06</label>
-                                                    <input type="text" id="price" name="payYearmonth" />
+                                                        <input type="month" id="price" name="payYearmonth" maxlength="7"/>
                                                 </div>
                                                 <div class="salaryselectmodal-cont">
                                                     <label class="salarylabel">기본급</label>
