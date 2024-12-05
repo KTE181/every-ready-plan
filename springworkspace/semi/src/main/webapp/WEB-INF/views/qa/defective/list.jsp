@@ -147,7 +147,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="defective-code">불량코드</label>
-                                <select id = defectivecode-select>
+                                <select id = "defectivecode-select">
                                     
                                 </select>
                             </div>
@@ -162,7 +162,7 @@
             
                         </div>
                         <div class="modal-buttons">
-                            <button class="primary" onclick = "openModal();">등록</button>
+                            <button class="primary" id ="registerDefectiveProduct">등록</button>
                             <button>삭제</button>
                         </div>
                     </div>
