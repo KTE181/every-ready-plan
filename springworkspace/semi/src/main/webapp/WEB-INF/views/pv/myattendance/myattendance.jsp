@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,8 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
-    <link rel="stylesheet" href="/css/pb/pb.css">
     <link rel="stylesheet" href="/css/common/index.css">
+    <link rel="stylesheet" href="/css/common/bottom.css">
+    <link rel="stylesheet" href="/css/pv/myattendance.css">
 </head>
 <body>
     <div class="container">
@@ -25,36 +26,65 @@
 
             <!-- Contents Area -->
             <div class="content-area">
-                <div>
-                <div class="modal-title">출근내역조회</div>
-                <form>폼태그를 이용한(조건 : 일자,근무결과)검색영역 </form>
+                <!-- 검색 및 타이틀 영역 -->
+                <div class="top-title-area">
+                    <div class="menu-name">출근내역조회</div>
+                    <form action="/myattendance" method="get" class="top-title-area-form">
+                        <input type="date" id="searchDate" name="searchDate" />
+                        <button type="submit" class="button">검색</button>
+                    </form>
                 </div>
-                <div>
-                <table border="1" width="100%" cellspacing="0" cellpadding="5">
-                            <thead>
+
+                <!-- 조회 결과 영역 -->
+                <div class="result-section">
+                    <table border="1" width="100%" cellspacing="0" cellpadding="5">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>날짜</th>
+                                <th>출근시간</th>
+                                <th>퇴근시간</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="item" items="${attendanceList}">
                                 <tr>
-                                    <th>NO</th>
-                                    <th>날짜</th>
-                                    <th>출근시간</th>
-                                    <th>퇴근시간</th>
-                                    <th>근무시간</th>
-                                    <th>근무결과</th>
+                                    <td>${item.no}</td>
+                                    <td>${fn:substring(item.date, 0, 10)}</td>
+                                    <td>${fn:substring(item.ciTime, 11, 19)}</td>
+                                    <td>${item.coTime != null ? fn:substring(item.coTime, 11, 19) : ''}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="item" items="${attendanceList}">
-                                    <tr>
-                                        <td>${item.no}</td>
-                                        <td>${item.date}</td>
-                                        <td>${item.ciTime}</td>
-                                        <td>${item.coTime}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
-                <div>페이징영역</div>
+
+                  <!-- Bottom Area -->
+                <div class="bottom-content-area">
+                        <div>
+                            <div class="pagination">
+                                <!-- 이전 페이지 버튼 -->
+                                <c:if test="${pageVo.currentPage > 1}">
+                                    <a href="?page=${pageVo.currentPage - 1}&searchDate=${searchDate}" class="page-button previous">&laquo;</a>
+                                </c:if>
+
+                                <!-- 페이지 번호 버튼 -->
+                                <c:forEach begin="${pageVo.startPage}" end="${pageVo.endPage}" var="p">
+                                    <a href="?page=${p}&searchDate=${searchDate}" class="page-button ${p == pageVo.currentPage ? 'active' : ''}">
+                                        ${p}
+                                    </a>
+                                </c:forEach>
+
+                                <!-- 다음 페이지 버튼 -->
+                                <c:if test="${pageVo.currentPage < pageVo.maxPage}">
+                                    <a href="?page=${pageVo.currentPage + 1}&searchDate=${searchDate}" class="page-button next">&raquo;</a>
+                                </c:if>
+                            </div>
+
+                        </div>
+                    </div>
             </div>
+
 
 
 
