@@ -233,7 +233,7 @@ function access(data) {
   console.log(data);
   
   
-  if (data != 1) {
+  if (data != 1&&data !=100) {
     for (let i = 0; i < insasidebar.length; i++) {
       const e = insasidebar[i];
 
@@ -242,7 +242,7 @@ function access(data) {
       });
     }
   }
-  if (data != 2) {
+  if (data != 2&&data !=100) {
     for (let i = 0; i < qasidebar.length; i++) {
       const e = qasidebar[i];
       e.addEventListener("click", () => {
@@ -250,7 +250,7 @@ function access(data) {
       });
     }
   }
-  if (data != 3) {
+  if (data != 3&&data !=100) {
     for (let i = 0; i < fisidebar.length; i++) {
       const e = fisidebar[i];
       e.addEventListener("click", () => {
@@ -291,6 +291,7 @@ function adminlogin(admin){
     hrnavi();
     qrnavi();
     finavi();
+    access(100);
   }
   
 
