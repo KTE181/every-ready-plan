@@ -33,6 +33,29 @@ public class EmployeeHrService {
         mapper.updateDelYnToYes(ids);
     }
 
+    // 사원 등록 및 사번 반환
+    public String registerEmployee(EmployeeVo employeeVo) {
+        mapper.insertEmployee(employeeVo);
+        log.info("Inserted Employee No: {}", employeeVo.getNo());
+        return employeeVo.getNo();
+    }
+
+    // 프로필 이미지 경로 업데이트
+    public void updateEmployeeProfileImage(String employeeId, String profileImagePath) {
+        mapper.updateProfileImage(employeeId, profileImagePath);
+    }
+
+    //상세조회
+    public EmployeeVo getEmployeeDetail(String no) {
+        return mapper.selectEmployeeDetail(no);
+    }
+    @Transactional
+    public void updateEmployee(EmployeeVo employeeVo) {
+        mapper.updateEmployee(employeeVo);
+    }
+
+
+
 
 
 }

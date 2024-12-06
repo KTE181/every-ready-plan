@@ -50,13 +50,13 @@ document.getElementById("create").addEventListener("click", () => {
     document.getElementById("registerModal").style.display = "block";
 });
 
-// 모달 닫기
-function closeModal() {
-    const modal = document.getElementById("registerModal");
+// 모달 닫기 함수
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = "none"; // 모달 숨기기
+        modal.style.display = "none";
     } else {
-        console.error("모달 요소를 찾을 수 없습니다."); // 디버그용 메시지
+        console.warn(`ID가 '${modalId}'인 모달을 찾을 수 없습니다.`);
     }
 }
 
