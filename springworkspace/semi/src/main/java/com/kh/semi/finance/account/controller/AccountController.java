@@ -1,7 +1,9 @@
 package com.kh.semi.finance.account.controller;
 
+
 import com.kh.semi.finance.account.service.AccountService;
 import com.kh.semi.finance.account.vo.AccountVo;
+import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,25 +43,118 @@ public class AccountController {
         return "redirect:/finance/account/list";
     }
 
-    //은행 목록 조회(화면)
+//origin
+//    //은행 목록 조회(화면)
+//    @GetMapping("list")
+//    public String getAccountList(Model model) {
+//        // 서비스 호출로 데이터 가져오기
+//        List<AccountVo> accountVoList = service.getAccountList();
+//
+//        if(accountVoList == null) {
+//            return "redirect:/error";
+//        }
+//
+//        // JSP에서 참조할 데이터 이름을 "accountVoList"로 설정
+//        model.addAttribute("accountVoList", accountVoList);
+//
+//        // 로그로 데이터 출력
+//        System.out.println("accountVoList = " + accountVoList);
+//
+//        // 뷰 이름 반환 (JSP 경로)
+//        return "finance/account/list";
+//    }
+
+    //list
+//    @GetMapping("list")
+//    public String getAccountList(
+//            @RequestParam(name = "pno", defaultValue = "1") int currentPage,
+//            Model model) {
+//
+//        // 데이터 개수 가져오기
+//        int listCount = service.getAccountListCnt();
+//
+//        // PageVo 생성
+//        int pageLimit = 10;  // 하단 페이지 번호 개수
+//        int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
+//        PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+//
+//        // 페이징 처리된 데이터 가져오기
+//        List<AccountVo> accountVoList = service.getAccountList(pageVo);
+//
+//        // Model에 데이터 전달
+//        model.addAttribute("accountVoList", accountVoList);
+//        model.addAttribute("pageVo", pageVo);
+//
+//        return "finance/account/list"; // JSP 경로
+//    }
+//
+//@GetMapping("list")
+//public String getAccountList(
+//        @RequestParam(name = "pno", defaultValue = "1") int currentPage,
+//        @RequestParam(name = "area", required = false) String area,
+//        @RequestParam(name = "searchValue", required = false) String searchValue,
+//        Model model) {
+//
+//    // 검색 조건 기본값 설정
+//    area = (area == null || area.isBlank()) ? "" : area.trim();
+//    searchValue = (searchValue == null || searchValue.isBlank()) ? "" : searchValue.trim();
+//
+//    // 데이터 개수 가져오기
+//    int listCount = service.getAccountListCnt(area, searchValue);
+//
+//    // PageVo 생성
+//    int pageLimit = 10;  // 하단 페이지 번호 개수
+//    int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
+//    PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+//
+//    // 페이징 처리된 데이터 가져오기
+//    List<AccountVo> accountVoList = service.getAccountList(pageVo, area, searchValue);
+//
+//    // Model에 데이터 전달
+//    model.addAttribute("accountVoList", accountVoList);
+//    model.addAttribute("pageVo", pageVo);
+//    model.addAttribute("area", area);
+//    model.addAttribute("searchValue", searchValue);
+//
+//    return "finance/account/list"; // JSP 경로
+//}
+
     @GetMapping("list")
-    public String getAccountList(Model model) {
-        // 서비스 호출로 데이터 가져오기
-        List<AccountVo> accountVoList = service.getAccountList();
+    public String getAccountList(
+            @RequestParam(name = "pno", defaultValue = "1") int currentPage,
+            @RequestParam(name = "area", required = false) String area,
+            @RequestParam(name = "searchValue", required = false) String searchValue,
+            Model model) {
 
-        if(accountVoList == null) {
-            return "redirect:/error";
-        }
+        // 검색 조건 기본값 설정
+        boolean isSearch = !(area == null || area.isBlank()) && !(searchValue == null || searchValue.isBlank());
+        area = (area == null) ? "" : area.trim();
+        searchValue = (searchValue == null) ? "" : searchValue.trim();
 
-        // JSP에서 참조할 데이터 이름을 "accountVoList"로 설정
+        // 데이터 개수 가져오기
+        int listCount = isSearch
+                ? service.getAccountListCnt(area, searchValue) // 검색 조건 있을 때
+                : service.getTotalAccountCount(); // 검색 조건 없을 때
+
+        // PageVo 생성
+        int pageLimit = 10;  // 하단 페이지 번호 개수
+        int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
+        PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+        // 페이징 처리된 데이터 가져오기
+        List<AccountVo> accountVoList = isSearch
+                ? service.getAccountList(pageVo, area, searchValue) // 검색 조건 있을 때
+                : service.getAllAccounts(pageVo); // 검색 조건 없을 때
+
+        // Model에 데이터 전달
         model.addAttribute("accountVoList", accountVoList);
+        model.addAttribute("pageVo", pageVo);
+        model.addAttribute("area", area);
+        model.addAttribute("searchValue", searchValue);
 
-        // 로그로 데이터 출력
-        System.out.println("accountVoList = " + accountVoList);
-
-        // 뷰 이름 반환 (JSP 경로)
-        return "finance/account/list";
+        return "finance/account/list"; // JSP 경로
     }
+
 
     // 은행 상세 조회
     @GetMapping("detail")
@@ -128,7 +223,5 @@ public class AccountController {
         session.setAttribute("alertMsg", "회사 계좌 삭제 성공!");
         return ResponseEntity.ok("회사 계좌 삭제 성공");
     }
-
-
 
 }

@@ -73,45 +73,6 @@ if (noInput) {
     });
 }
 
-    
-// function accountDetailClose() {
-//     const accountDetailModal = document.getElementById('account-detail');
-//     accountDetailModal.style.display = 'none'; // 모달 숨기기
-// }
-
-// function accountEdit(no) {
-
-//     console.log(no);
-//     accountDetailClose();
-
-//     const accountEditModal = document.getElementById('account-edit');
-//     const editModalContent = document.querySelector('.edit-content');
-
-//     accountEditModal.style.display = 'block';//모달표시
-
-//     $.ajax({
-//         url: "/finance/account/edit",
-//         method: "get",
-//         dataType: 'json',
-//         data: {
-//             no : no 
-//         } ,
-//         success: function(accountVo) {
-
-//             document.querySelector("#account-edit input[name=no]").value = accountVo.no;
-//             document.querySelector("#account-edit input[name=bankCode]").value = accountVo.bankCode;
-//             document.querySelector("#account-edit input[name=bankName]").value = accountVo.bankName;
-//             document.querySelector("#account-edit input[name=accountNo]").value = accountVo.accountNo;
-//             document.querySelector("#account-edit input[name=accountName]").value = accountVo.accountName;
-//        },
-
-//         fail:function() {
-//             alert("통신실패 ...")
-//         }
-//     });
-
-// }
-
 
 function accountDetailClose() {
     const accountDetailModal = document.getElementById('account-detail');
@@ -137,9 +98,10 @@ function accountEdit(no) {
             document.querySelector("#account-edit input[name=no]").value = accountVo.no;
             document.querySelector("#account-edit input[name=accountNo]").value = accountVo.accountNo;
             document.querySelector("#account-edit input[name=accountName]").value = accountVo.accountName;
+            // document.querySelector("#account-edit input[name=bankCode]").value = accountVo.bankCode;
 
             // select 요소에서 bankCode를 설정
-            const bankCodeSelect = document.querySelector("#account-edit select[name=bankCode]");
+            const bankCodeSelect = document.querySelector("#account-edit select[id=bankCode1]");
             bankCodeSelect.value = accountVo.bankCode;
 
             // hidden 필드 업데이트
@@ -151,7 +113,7 @@ function accountEdit(no) {
     });
 
     // select 요소의 변경 이벤트 처리
-    document.querySelector("#account-edit select[name=bankCode]").addEventListener('change', function () {
+    document.querySelector("#account-edit select[id=bankCode1]").addEventListener('change', function () {
         const selectedBankCode = this.value;
         document.querySelector("#account-edit input[name=bankCode]").value = selectedBankCode;
     });
@@ -182,4 +144,30 @@ function accountDelete(no) {
             console.error("오류:", xhr.responseText);
         }
     });
+}
+
+function accountDeleteMultiple() {
+    const selectedIds = Array.from(document.querySelectorAll('.selectItem:checked'))
+        .map(item => item.value);
+
+    if (selectedIds.length === 0) {
+        alert('삭제할 항목을 선택하세요.');
+        return;
+    }
+
+    if (confirm('정말 삭제하시겠습니까?')) {
+        $.ajax({
+            url: '/finance/account/deleteMultiple',
+            method: 'POST',
+            traditional: true,
+            data: { ids: selectedIds },
+            success: function(response) {
+                alert(response);
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('삭제 실패: ' + xhr.responseText);
+            }
+        });
+    }
 }

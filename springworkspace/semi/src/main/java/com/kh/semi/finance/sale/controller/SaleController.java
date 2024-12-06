@@ -35,10 +35,10 @@ public class SaleController {
         int result = service.write(vo);
 
         if(result != 1) {
-            throw new Exception("매출관리 에러");
+            throw new Exception("매출 관리 에러");
         }
 
-        session.setAttribute("alertMsg" , "매출관리 오류");
+        session.setAttribute("alertMsg" , "매출 등록");
 
         return "redirect:/finance/sale/list";
 
