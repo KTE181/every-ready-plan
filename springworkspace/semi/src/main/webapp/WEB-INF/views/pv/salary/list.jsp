@@ -31,7 +31,7 @@
 
                 <!-- Search Area -->
                 <div class="top-title-area">
-                    <div class="menu-name">휴가 내역 조회</div>
+                    <div class="menu-name">급여 내역 조회</div>
                     <div>
                         <form action="/pv/salary/list" method="get" class="top-title-area-form">
                             <!-- <label for="">연월일</label> -->
