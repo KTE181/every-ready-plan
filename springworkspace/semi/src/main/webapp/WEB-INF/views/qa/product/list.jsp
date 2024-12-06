@@ -266,9 +266,24 @@
                             <input type="date" id="import-date1">
                         </div>
                     </div>
+
                     <div class="modal-buttons">
                         <button class="primary" id ="registerProduct">등록</button>
                         <button>삭제</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal-itemCode" id="modalItemCode">
+                <div class="modal">
+                        <button id="closeModal">×</button>
+                    <h2>품질코드 등록</h2>
+                    <label for="code-number">상품명</label>
+                    <input type="text" id="itemCodeName">
+                    <div class="modal-buttons">
+                        <button class="primary" id = "registerItemCode">등록</button>
                     </div>
                 </div>
             </div>
@@ -294,7 +309,8 @@
                                         </div>
                                         
                                     </div>
-                                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">등록</button></div>
+                                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openItemCodeModal();">품질코드 등록</button></div>
+                                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">상품 등록</button></div>
                                 </div>
                             </div>
 

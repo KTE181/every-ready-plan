@@ -21,11 +21,11 @@ public interface DefectiveMapper {
                 ,D.DEFECTIVE_CODE
                 ,P.RECEIVED_DATE
                 ,P.FACTORY_LOCATION
-                ,P.ENROLL_DATE
+                ,D.ENROLL_DATE
                 FROM DEFECTIVE_PRODUCT D
                 JOIN PRODUCT_REGISTRATION P ON(D.P_NO = P.NO)
                 WHERE D.DEL_YN = 'N'
-                ORDER BY ENROLL_DATE DESC
+
             """)
     List<DefectiveVo> getDefective();
 
@@ -38,7 +38,6 @@ public interface DefectiveMapper {
                 (
                  NO
                 ,P_NO
-                ,DEFECTIVE_NO
                 ,DEFECTIVE_CODE
                 ,DESCRIPTION
                 )
@@ -46,7 +45,6 @@ public interface DefectiveMapper {
                 (
                 SEQ_DEFECTIVE_PRODUCT.NEXTVAL
                 ,#{no}
-                ,#{defectiveNo}
                 ,#{defectiveCode}
                 ,#{description}
                 )
@@ -106,7 +104,7 @@ public interface DefectiveMapper {
                 JOIN PRODUCT_REGISTRATION P ON(D.P_NO = P.NO)
                 WHERE D.DEL_YN = 'N'
                 ${str}
-                ORDER BY ENROLL_DATE DESC
+                ORDER BY D.NO DESC
                 OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
             """)
     List<DefectiveVo> getProductList(String str, PageVo pageVo);

@@ -63,12 +63,12 @@ public class DefectiveController {
         return defectiveVo;
     }
 
-    @GetMapping("write")
-    public String write(Model model){
-        List<DefectiveCodeVo> defectiveCodeList =service.getdefectiveCodeVoList();
-        model.addAttribute("defectiveCodeList",defectiveCodeList);
-        return "qa/defective/write";
-    }
+//    @GetMapping("write")
+//    public String write(Model model){
+//        List<DefectiveCodeVo> defectiveCodeList =service.getdefectiveCodeVoList();
+//        model.addAttribute("defectiveCodeList",defectiveCodeList);
+//        return "qa/defective/write";
+//    }
 
     @GetMapping("dclist")
     @ResponseBody
@@ -86,9 +86,9 @@ public class DefectiveController {
     @PostMapping("write")
     @ResponseBody
     public String write(DefectiveVo vo, HttpSession session) throws Exception {
+        System.out.println(vo);
         int result = service.write(vo);
         if(result == 1){
-            session.setAttribute("alertMsg","작성되었습니다.");
             return "redirect:/qa/defective/list";
         }else{
             throw new Exception("redirect:/error");

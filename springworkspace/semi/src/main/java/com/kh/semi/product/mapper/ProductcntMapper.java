@@ -16,23 +16,37 @@ public interface ProductcntMapper {
                 PR.ITEM_CODE,
                 PR.NAME,
                 PR.PRICE,
-                COUNT(PR.ITEM_CODE) AS TOTAL_COUNT,
-                COUNT(CASE WHEN DP.P_NO IS NULL THEN PR.ITEM_CODE END) AS NON_DEFECTIVE_COUNT,
-                COUNT(CASE WHEN DP.P_NO IS NOT NULL THEN PR.ITEM_CODE END) AS DEFECTIVE_COUNT,
-                ROUND((COUNT(CASE WHEN DP.P_NO IS NOT NULL THEN PR.ITEM_CODE END) * 1.0 / COUNT(PR.ITEM_CODE)),2) AS DEFECT_RATE
+                (SELECT COUNT(*)
+                 FROM PRODUCT_REGISTRATION
+                 WHERE ITEM_CODE = PR.ITEM_CODE
+                 AND DEL_YN = 'N') AS TOTAL_COUNT,
+                (SELECT COUNT(*)
+                 FROM DEFECTIVE_PRODUCT
+                 WHERE ITEM_CODE = PR.ITEM_CODE) AS DEFECTIVE_COUNT,
+                (CASE
+                    WHEN (SELECT COUNT(*)
+                          FROM PRODUCT_REGISTRATION
+                          WHERE ITEM_CODE = PR.ITEM_CODE
+                          AND DEL_YN = 'N') = 0 THEN 0
+                    ELSE
+                        (SELECT COUNT(*)
+                         FROM DEFECTIVE_PRODUCT
+                         WHERE ITEM_CODE = PR.ITEM_CODE) * 1.0 /
+                        (SELECT COUNT(*)
+                         FROM PRODUCT_REGISTRATION
+                         WHERE ITEM_CODE = PR.ITEM_CODE
+                         AND DEL_YN = 'N')
+                 END) AS DEFECT_RATE
             FROM
                 PRODUCT_REGISTRATION PR
-            LEFT JOIN
-                DEFECTIVE_PRODUCT DP
-            ON
-                PR.NO = DP.P_NO
             WHERE
-                PR.DEL_YN = 'N'
+                DEL_YN = 'N'
                 ${str}
             GROUP BY
                 PR.ITEM_CODE, PR.NAME, PR.PRICE
             ORDER BY
                 PR.ITEM_CODE
+            
             OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
             """)
     List<ProductcntVo> getProductList(String str, PageVo pageVo);
@@ -43,4 +57,13 @@ public interface ProductcntMapper {
                         WHERE DEL_YN = 'N'
             """)
     int getProductPageCnt();
+
+
+    @Select("""
+            SELECT *
+            FROM DEFECTIVE_PRODUCT DP
+            JOIN PRODUCT_REGISTRATION PR ON(DP.P_NO = PR.NO)
+            WHERE DP.DEL_YN = 'N'
+            """)
+    List<ProductcntVo> getVoList();
 }

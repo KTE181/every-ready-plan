@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const serialNumber = document.querySelector("#dfserialno").value;
           const name = document.querySelector("#dfproduct-name").value;
-          // const serialNumber = document.querySelector("#modalSerialNumber").value;
           const price = document.querySelector("#dfprice").value;
           const productNo = document.querySelector("#dfproductno").value;
           const defectiveCode = document.querySelector("#defectivecode-select").value;
@@ -114,9 +113,8 @@ document.addEventListener("DOMContentLoaded", function () {
               method: "POST",
               url: "/qa/defective/write",
               data: {
-                serialNumber : serialNumber,
+                  serialNumber : serialNumber,
                   name: name,
-                  serialNumber: serialNumber,
                   price: price,
                   no: productNo,
                   defectiveCode: defectiveCode,
@@ -180,6 +178,11 @@ document.querySelector("#edit-button").addEventListener("click",function(){
 function setDefectiveCodeSelect(){
     const codeSelect= document.querySelector("#defectivecode-select");
     
+    const defaultOption = document.createElement("option");
+    defaultOption.setAttribute("value", "");
+    defaultOption.innerText = "불량코드";
+    codeSelect.appendChild(defaultOption);
+
     $.ajax({
         url : "/qa/defective/dclist",
         method : "GET",
@@ -316,3 +319,147 @@ document.querySelector("#modaldefectiveEdit .primary").addEventListener("click",
     });
 
 })
+
+
+function productList() {
+
+    const productModal = document.querySelector("#product-modal");
+    const searchForm = document.querySelector("#product-search-form");
+    const closeModal = document.querySelector("#product-modal .modal-close");
+    searchForm.reset();
+    productModal.style.display = 'block'; 
+
+    closeModal.addEventListener('click', () => {
+        productModal.style.display = 'none';
+    } , { once: true });
+
+    const pno = 1;
+    
+    productData(pno);
+    
+}
+
+// 상품 검색 데이터 요청 
+function productData(pno) {
+
+    const tbodyTag = document.querySelector("#product-modal table>tbody");
+    const productSearchType = document.querySelector("#product-modal select[name=productSearchType]").value;
+    const productSearchValue = document.querySelector("#product-modal input[name=productSearchValue]").value;
+
+    $.ajax({
+        url : "/qa/asreq/productlist",
+        data : {
+            pno ,
+            productSearchType ,
+            productSearchValue
+        } ,
+        method : "GET" ,
+        success : function(m){
+
+            const productVoList = m.a;
+            const pvo = m.b;
+            paintPageArea(pvo);
+
+            tbodyTag.innerHTML = ""; 
+
+            for(const vo of productVoList) {
+
+                const trTag = document.createElement("tr");
+                tbodyTag.appendChild(trTag); 
+
+                const tdTag = document.createElement("td");
+                const radioTag = document.createElement("input");
+                radioTag.setAttribute("type", "radio");
+                radioTag.setAttribute("name", "product-radio-btn");
+                const noTag = document.createElement("input");
+                noTag.setAttribute("type", "hidden");
+                noTag.value = vo.no;
+
+                trTag.appendChild(tdTag);
+                tdTag.appendChild(radioTag);
+                tdTag.appendChild(noTag);
+
+                const tdTag1 = document.createElement("td");
+                tdTag1.innerText = vo.serialNumber;
+                trTag.appendChild(tdTag1);
+
+                const tdTag2 = document.createElement("td");
+                tdTag2.innerText = vo.name;
+                trTag.appendChild(tdTag2);
+
+                const tdTag3 = document.createElement("td");
+                tdTag3.innerText = vo.price;
+                trTag.appendChild(tdTag3);
+
+                const tdTag4 = document.createElement("td");
+                tdTag4.innerText = vo.warrantyPeriod;
+                trTag.appendChild(tdTag4);
+            }
+        } , 
+        error : function(){
+            alert("조회 실패...")
+        }
+    })
+
+}
+
+// 상품 검색 모달 페이징
+function paintPageArea(pvo){
+    const pageArea = document.querySelector(".page-area");
+    pageArea.innerHTML = "";
+
+    // 이전 버튼
+    if(pvo.startPage != 1) {
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${pvo.startPage-1});`);
+        spanTag.innerText = "이전";
+        pageArea.appendChild(spanTag);
+    }
+
+    // 페이지 버튼
+    for(let i=pvo.startPage; i<=pvo.endPage; i++){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${i});`);
+        spanTag.innerText = i;
+        pageArea.appendChild(spanTag);
+    }
+
+    // 다음 버튼
+    if(pvo.endPage != pvo.maxPage){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${pvo.endPage+1});`);
+        spanTag.innerText = "다음";
+        pageArea.appendChild(spanTag);
+    }
+}
+
+// 상품 선택 처리
+function selectProduct() {
+
+    const selectedProduct = document.querySelector("#product-modal input[type=radio]:checked");
+    if (selectedProduct === null) {
+        alert("상품이 선택되지 않았습니다.");
+        return;
+    }
+
+    const no = selectedProduct.nextSibling.value;
+    const serialNumber = selectedProduct.parentNode.parentNode.children[1].innerText;
+    const productName = selectedProduct.parentNode.parentNode.children[2].innerText;
+    const price = selectedProduct.parentNode.parentNode.children[3].innerText;
+
+    console.log(no);
+    console.log(serialNumber);
+    console.log(productName);
+
+    document.querySelector("#modalOverlay input[id=dfproductno]").value = no;
+    document.querySelector("#modalOverlay input[id=dfserialno]").value = serialNumber;
+    document.querySelector("#modalOverlay input[id=dfproduct-name]").value = productName;
+    document.querySelector("#modalOverlay input[id=dfprice]").value = price;
+
+    const productModal = document.querySelector("#product-modal");
+    productModal.style.display = 'none';
+
+}
+
+
+
