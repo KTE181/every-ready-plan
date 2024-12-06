@@ -263,7 +263,8 @@ function deleteNotice(){
       alert("삭제할 게시글 체크박스를 선택해주세요");
       return;
     }
- 
+    const chooseOne = confirm("삭제하시겠습니까?");
+    if(chooseOne){
 
     $.ajax({
       url:"/api/hr/overtime/del",
@@ -271,7 +272,7 @@ function deleteNotice(){
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(dataArr),
       success:function(data){
-              console.log(data); 
+              console.log(data);
               location.reload();
       },
       fail:function(){
@@ -280,6 +281,9 @@ function deleteNotice(){
 
 
   })
+}else{
+  return;
+}
 }
 function loadPage(pageNumber) {
   // 검색 값이 있다면 함께 보내도록 처리
