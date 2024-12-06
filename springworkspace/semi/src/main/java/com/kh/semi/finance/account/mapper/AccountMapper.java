@@ -1,6 +1,7 @@
 package com.kh.semi.finance.account.mapper;
 
 import com.kh.semi.finance.account.vo.AccountVo;
+import com.kh.semi.pb.vo.PageVo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
@@ -28,30 +29,7 @@ public interface AccountMapper {
             """)
     int write(AccountVo vo);
 
-
-    @Select("""
-            SELECT
-                ACCOUNT.NO,
-                ACCOUNT.ACCOUNT_NAME,
-                ACCOUNT.ACCOUNT_NO,
-                ACCOUNT.BANK_CODE AS BANK_CODE,
-                BANK.NAME AS BANKNAME
-            FROM
-                ACCOUNT ACCOUNT
-            JOIN
-                BANK BANK
-            ON
-                ACCOUNT.BANK_CODE = BANK.NO
-            ORDER BY ACCOUNT.NO DESC
-            """)
-    List<AccountVo> selectAccountVoList();
-
-    @Delete("""
-            DELETE FROM ACCOUNT
-            WHERE NO = #{no}
-            """)
-    int del(String no);
-
+//origin
 //    @Select("""
 //            SELECT
 //                ACCOUNT.NO,
@@ -65,10 +43,105 @@ public interface AccountMapper {
 //                BANK BANK
 //            ON
 //                ACCOUNT.BANK_CODE = BANK.NO
-//            WHERE BANK.NO = #{no}
+//            ORDER BY ACCOUNT.NO DESC
 //            """)
-//    AccountVo getAccountDetail();
+//    List<AccountVo> selectAccountVoList();
 
+//페이징
+//    @Select("""
+//        SELECT
+//            ACCOUNT.NO,
+//            ACCOUNT.ACCOUNT_NAME,
+//            ACCOUNT.ACCOUNT_NO,
+//            ACCOUNT.BANK_CODE AS BANK_CODE,
+//            BANK.NAME AS BANKNAME
+//        FROM
+//            ACCOUNT
+//        JOIN
+//            BANK
+//        ON
+//            ACCOUNT.BANK_CODE = BANK.NO
+//        ORDER BY ACCOUNT.NO DESC
+//        """)
+//    List<AccountVo> selectAccountVoList(PageVo pageVo);
+
+//    @Select("""
+//            SELECT
+//                ACCOUNT.NO,
+//                ACCOUNT.ACCOUNT_NAME,
+//                ACCOUNT.ACCOUNT_NO,
+//                ACCOUNT.BANK_CODE AS BANK_CODE,
+//                BANK.NAME AS BANKNAME
+//            FROM
+//                ACCOUNT
+//            JOIN
+//                BANK
+//            ON
+//                ACCOUNT.BANK_CODE = BANK.NO
+//            ORDER BY ACCOUNT.NO DESC
+//            LIMIT #{offset}, #{boardLimit}
+//            """)
+//    List<AccountVo> selectPagedAccounts(PageVo pageVo);
+//
+//    @Select("SELECT COUNT(*) FROM ACCOUNT")
+//    int getAccountListCnt();
+
+    @Select("""
+    SELECT COUNT(*)
+    FROM ACCOUNT
+    JOIN BANK ON ACCOUNT.BANK_CODE = BANK.NO
+    WHERE
+        (#{area} = '1' AND ACCOUNT.BANK_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND BANK.NAME LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT.ACCOUNT_NAME LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND ACCOUNT.ACCOUNT_NO LIKE '%' || #{searchValue} || '%')
+    """)
+    int getAccountListCnt(@Param("area") String area, @Param("searchValue") String searchValue);
+
+    @Select("""
+    SELECT
+        ACCOUNT.NO,
+        ACCOUNT.ACCOUNT_NAME,
+        ACCOUNT.ACCOUNT_NO,
+        ACCOUNT.BANK_CODE AS BANK_CODE,
+        BANK.NAME AS BANKNAME
+    FROM ACCOUNT
+    JOIN BANK ON ACCOUNT.BANK_CODE = BANK.NO
+    WHERE
+        (#{area} = '1' AND ACCOUNT.BANK_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND BANK.NAME LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT.ACCOUNT_NAME LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND ACCOUNT.ACCOUNT_NO LIKE '%' || #{searchValue} || '%')
+    ORDER BY ACCOUNT.NO DESC
+    OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
+    """)
+    List<AccountVo> selectAccountVoList(
+            @Param("pageVo") PageVo pageVo,
+            @Param("area") String area,
+            @Param("searchValue") String searchValue);
+
+    @Select("SELECT COUNT(*) FROM ACCOUNT")
+    int getTotalAccountCount();
+
+    @Select("""
+    SELECT
+        ACCOUNT.NO,
+        ACCOUNT.ACCOUNT_NAME,
+        ACCOUNT.ACCOUNT_NO,
+        ACCOUNT.BANK_CODE AS BANK_CODE,
+        BANK.NAME AS BANKNAME
+    FROM ACCOUNT
+    JOIN BANK ON ACCOUNT.BANK_CODE = BANK.NO
+    ORDER BY ACCOUNT.NO DESC
+    OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
+    """)
+    List<AccountVo> getAllAccounts(PageVo pageVo);
+
+    @Delete("""
+            DELETE FROM ACCOUNT
+            WHERE NO = #{no}
+            """)
+    int del(String no);
 
     @Update("""
             UPDATE ACCOUNT
@@ -97,10 +170,6 @@ public interface AccountMapper {
             """)
     AccountVo getAccountDetail(String no, Model model);
 
-    @Select("""
-            SELECT COUNT(NO)
-            FROM ACCOUNT
-            WHERE BANK_CODE IS NOT NULL
-            """)
-    int getAccountCnt();
+
 }
+

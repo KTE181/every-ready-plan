@@ -2,15 +2,13 @@ package com.kh.semi.finance.expense.controller;
 
 import com.kh.semi.finance.expense.service.ExpenseService;
 import com.kh.semi.finance.expense.vo.ExpenseVo;
+import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,21 +44,56 @@ public class ExpenseController {
     }
 
 
-    //경비 목록 리스트
+//    //경비 목록 리스트
+//    @GetMapping("list")
+//    public String getExpenseList(Model model) {
+//
+//        List<ExpenseVo> expenseVoList = service.getExpenseList();
+//
+//        if(expenseVoList == null) {
+//            return "redirect:/error";
+//        }
+//        model.addAttribute("expenseVoList" , expenseVoList);
+//        System.out.println("expenseVoList = " + expenseVoList);
+//
+//        return "finance/expense/list";
+//    }
+
     @GetMapping("list")
-    public String getExpenseList(Model model) {
+    public String getExpenseList(
+            @RequestParam(name = "pno", defaultValue = "1") int currentPage,
+            @RequestParam(name = "area", required = false) String area,
+            @RequestParam(name = "searchValue", required = false) String searchValue,
+            Model model) {
 
-        List<ExpenseVo> expenseVoList = service.getExpenseList();
+        // 검색 조건 기본값 설정
+        boolean isSearch = !(area == null || area.isBlank()) && !(searchValue == null || searchValue.isBlank());
+        area = (area == null) ? "" : area.trim();
+        searchValue = (searchValue == null) ? "" : searchValue.trim();
 
-        if(expenseVoList == null) {
-            return "redirect:/error";
-        }
-        model.addAttribute("expenseVoList" , expenseVoList);
-        System.out.println("expenseVoList = " + expenseVoList);
+        // 데이터 개수 가져오기
+        int listCount = isSearch
+                ? service.getExpenseListCnt(area, searchValue) // 검색 조건 있을 때
+                : service.getTotalExpenseCount(); // 검색 조건 없을 때
 
-        return "finance/expense/list";
+        // PageVo 생성
+        int pageLimit = 10;  // 하단 페이지 번호 개수
+        int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
+        PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+        // 페이징 처리된 데이터 가져오기
+        List<ExpenseVo> expenseVoList = isSearch
+                ? service.getExpenseList(pageVo, area, searchValue) // 검색 조건 있을 때
+                : service.getAllExpenses(pageVo); // 검색 조건 없을 때
+
+        // Model에 데이터 전달
+        model.addAttribute("expenseVoList", expenseVoList);
+        model.addAttribute("pageVo", pageVo);
+        model.addAttribute("area", area);
+        model.addAttribute("searchValue", searchValue);
+
+        return "finance/expense/list"; // JSP 경로
     }
-
     //경비 상세 조회
     @GetMapping("detail")
     @ResponseBody

@@ -1,10 +1,8 @@
 package com.kh.semi.finance.expense.mapper;
 
 import com.kh.semi.finance.expense.vo.ExpenseVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.kh.semi.pb.vo.PageVo;
+import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -41,25 +39,25 @@ public interface ExpenseMapper {
     int write(ExpenseVo vo);
 
 
-    @Select("""
-            SELECT
-                NO
-                , PARTNER_CODE
-                , TRANS_CODE
-                , ACCOUNT_CODE
-                , TRANS_DATE
-                , SUPPLY_AMOUNT
-                , TAX_AMOUNT
-                , ATTACHMENT
-                , COMMENTS
-                , ENROLL_DATE
-                , MODIFY_DATE
-                , DEL_YN
-            FROM EXPENSE
-            WHERE DEL_YN = 'N'
-            ORDER BY NO DESC
-            """)
-    List<ExpenseVo> selectExpenseVoList();
+//    @Select("""
+//            SELECT
+//                NO
+//                , PARTNER_CODE
+//                , TRANS_CODE
+//                , ACCOUNT_CODE
+//                , TRANS_DATE
+//                , SUPPLY_AMOUNT
+//                , TAX_AMOUNT
+//                , ATTACHMENT
+//                , COMMENTS
+//                , ENROLL_DATE
+//                , MODIFY_DATE
+//                , DEL_YN
+//            FROM EXPENSE
+//            WHERE DEL_YN = 'N'
+//            ORDER BY NO DESC
+//            """)
+//    List<ExpenseVo> selectExpenseVoList();
 
 
     @Select("""
@@ -92,16 +90,16 @@ public interface ExpenseMapper {
     @Update("""
             UPDATE EXPENSE
             SET
-                    PARTNER_CODE = #{partnerCode},
-                    TRANS_CODE = #{transCode},
-                    ACCOUNT_CODE = #{accountCode},
-                    TRANS_DATE = #{transDate},
-                    SUPPLY_AMOUNT = #{supplyAmount},
-                    TAX_AMOUNT = #{taxAmount},
-                    COMMENTS = #{comments},
-                    MODIFY_DATE = SYSDATE
-                WHERE
-                    NO = #{no}
+                PARTNER_CODE = #{partnerCode},
+                TRANS_CODE = #{transCode},
+                ACCOUNT_CODE = #{accountCode},
+                TRANS_DATE = #{transDate},
+                SUPPLY_AMOUNT = #{supplyAmount},
+                TAX_AMOUNT = #{taxAmount},
+                COMMENTS = #{comments},
+                MODIFY_DATE = SYSDATE
+            WHERE
+                NO = #{no}
             """)
     int edit(ExpenseVo vo);
 
@@ -114,4 +112,63 @@ public interface ExpenseMapper {
                     NO = #{no}
             """)
     int delete(String no);
+
+    @Select("SELECT COUNT(*) FROM EXPENSE WHERE DEL_YN = 'N'")
+    int getTotalExpenseCount();
+
+    @Select("""
+    SELECT COUNT(*)
+    FROM EXPENSE
+    WHERE DEL_YN = 'N'
+      AND (
+        (#{area} = '1' AND PARTNER_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND TRANS_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND TRANS_DATE LIKE '%' || #{searchValue} || '%')
+      )
+    """)
+    int getExpenseListCnt(@Param("area") String area, @Param("searchValue") String searchValue);
+
+
+    @Select("""
+    SELECT
+        NO,
+        PARTNER_CODE,
+        TRANS_CODE,
+        ACCOUNT_CODE,
+        TRANS_DATE,
+        SUPPLY_AMOUNT,
+        TAX_AMOUNT,
+        COMMENTS
+    FROM EXPENSE
+    WHERE DEL_YN = 'N'
+    ORDER BY NO DESC
+    OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
+    """)
+    List<ExpenseVo> getAllExpenses(PageVo pageVo);
+
+    @Select("""
+    SELECT
+        NO,
+        PARTNER_CODE,
+        TRANS_CODE,
+        ACCOUNT_CODE,
+        TRANS_DATE,
+        SUPPLY_AMOUNT,
+        TAX_AMOUNT,
+        COMMENTS
+    FROM EXPENSE
+    WHERE DEL_YN = 'N'
+      AND (
+        (#{area} = '1' AND PARTNER_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND TRANS_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND TRANS_DATE LIKE '%' || #{searchValue} || '%')
+      )
+    ORDER BY NO DESC
+    OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
+    """)
+    List<ExpenseVo> getExpenseList(@Param("pageVo") PageVo pageVo, @Param("area") String area, @Param("searchValue") String searchValue);
+
+
 }

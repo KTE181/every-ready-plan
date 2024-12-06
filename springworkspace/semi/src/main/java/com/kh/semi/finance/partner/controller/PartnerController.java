@@ -2,6 +2,7 @@ package com.kh.semi.finance.partner.controller;
 
 import com.kh.semi.finance.partner.service.PartnerService;
 import com.kh.semi.finance.partner.vo.PartnerVo;
+import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,22 +42,65 @@ public class PartnerController {
 
     }
 
+//    // 거래처 리스트 조회 origin
+//    @GetMapping("list")
+//    public String getPartnerList(Model model) {
+//
+//        List<PartnerVo> partnerVoList = service.getPartnerList(model);
+//
+//        if(partnerVoList == null) {
+//            return "redirect:/error";
+//        }
+//
+//        model.addAttribute("partnerVoList" , partnerVoList);
+//        System.out.println("partnerVoList = " + partnerVoList);
+//
+//        return "finance/partner/list";
+//
+//    }
+
     // 거래처 리스트 조회
     @GetMapping("list")
-    public String getPartnerList(Model model) {
+    public String getPartnerList(
+            @RequestParam(name = "pno", defaultValue = "1") int currentPage,
+            @RequestParam(name = "area", required = false) String area,
+            @RequestParam(name = "searchValue", required = false) String searchValue,
+            Model model) {
 
-        List<PartnerVo> partnerVoList = service.getPartnerList(model);
+        // 검색 조건 기본값 설정
+        boolean isSearch = !(area == null || area.isBlank()) && !(searchValue == null || searchValue.isBlank());
+        area = (area == null) ? "" : area.trim();
+        searchValue = (searchValue == null) ? "" : searchValue.trim();
+
+
+        // 데이터 개수 가져오기
+        int listCount = isSearch
+                ? service.getPartnerListCnt(area, searchValue) // 검색 조건 있을 때
+                : service.getTotalPartnerCount(); // 검색 조건 없을 때
+
+        int pageLimit = 10;  // 하단 페이지 번호 개수
+        int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
+        PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+        List<PartnerVo> partnerVoList = isSearch
+                ? service.getPartnerList(pageVo , area, searchValue)// 검색 조건 있을
+                : service.getAllPartner(pageVo);// 검색 조건 없을 때
 
         if(partnerVoList == null) {
             return "redirect:/error";
         }
 
         model.addAttribute("partnerVoList" , partnerVoList);
-        System.out.println("partnerVoList = " + partnerVoList);
+        model.addAttribute("pageVo", pageVo);
+        model.addAttribute("area", area);
+        model.addAttribute("searchValue", searchValue);
+//        System.out.println("partnerVoList = " + partnerVoList);
 
         return "finance/partner/list";
 
     }
+
+
 
     // 거래처 상세 조회
     @GetMapping("detail")

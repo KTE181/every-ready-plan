@@ -2,6 +2,7 @@ package com.kh.semi.finance.account.service;
 
 import com.kh.semi.finance.account.mapper.AccountMapper;
 import com.kh.semi.finance.account.vo.AccountVo;
+import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,33 @@ public class AccountService {
         return mapper.write(vo);
     }
 
-    public List<AccountVo> getAccountList() {
-        return mapper.selectAccountVoList();
+//    public List<AccountVo> getAccountList() {
+//        return mapper.selectAccountVoList();
+//    }
+
+//아래 2개는 페이징완료
+//    public List<AccountVo> getAccountList(PageVo pageVo) {
+//        return mapper.selectAccountVoList(pageVo);
+//    }
+//
+//    public int getAccountListCnt() {
+//        return mapper.getAccountListCnt();
+//    }
+
+    public List<AccountVo> getAccountList(PageVo pageVo, String area, String searchValue) {
+        return mapper.selectAccountVoList(pageVo, area, searchValue);
+    }
+
+    public int getAccountListCnt(String area, String searchValue) {
+        return mapper.getAccountListCnt(area, searchValue);
+    }
+
+    public int getTotalAccountCount() {
+        return mapper.getTotalAccountCount();
+    }
+
+    public List<AccountVo> getAllAccounts(PageVo pageVo) {
+        return mapper.getAllAccounts(pageVo);
     }
 
     public int del(String no) {
@@ -32,17 +58,13 @@ public class AccountService {
 
     public AccountVo getAccountDetail(String no, Model model) {
 
-        AccountVo vo = mapper.getAccountDetail(no ,model);
+        AccountVo vo = mapper.getAccountDetail(no, model);
 
         return vo;
     }
-
 
     public int edit(AccountVo vo) {
         return mapper.edit(vo);
     }
 
-    public int getAccountCnt() {
-        return mapper.getAccountCnt();
-    }
 }
