@@ -437,6 +437,8 @@ function deleteNotice(){
       alert("삭제할 게시글 체크박스를 선택해주세요");
       return;
     }
+    const chooseOne = confirm("삭제하시겠습니까?");
+    if(chooseOne){
  
 
     $.ajax({
@@ -454,6 +456,9 @@ function deleteNotice(){
 
 
   })
+}else{
+  return;
+}
 }
 
 function loadPage(pageNumber) {
