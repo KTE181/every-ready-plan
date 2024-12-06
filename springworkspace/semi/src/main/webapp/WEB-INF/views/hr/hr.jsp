@@ -10,26 +10,40 @@
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/pb/pb.css">
     <link rel="stylesheet" href="/css/common/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script defer src="/js/hr/hr.js"></script>
+    <link rel="stylesheet" href="/css/hr/hr.css">
+
 </head>
 <body>
-    <div class="container">
+    <body>
+        <div class="container">
+            
+            <!-- Sidebar -->
+            <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
+    
+            <!-- Main Content -->
+            <div class="main-content">
+    
+                <!-- Header -->
+                <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    
+                <!-- Contents Area -->
+      
+                <div class="content-area">
 
-        <!-- Sidebar -->
-        <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
-
-        <!-- Main Content -->
-		<div class="main-content">
-
-            <!-- Header -->
-            <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
-            <!-- Contents Area -->
-            <div class="content-area"></div>
-
-
-
-
+                    <canvas id="myChart"></canvas>
+                
+                </div>
+    
+                <!-- Modal Area -->
+    
+                <!-- Small modal -->
+                <%@ include file="/WEB-INF/views/common/modal.jsp" %> 
+    
+    
+            </div>
         </div>
-    </div>
+    </body>
 </body>
 </html>
