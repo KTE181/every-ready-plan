@@ -3,9 +3,11 @@ package com.kh.semi.qa.asemp.controller;
 import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
+import com.kh.semi.product.vo.ProductVo;
 import com.kh.semi.qa.asemp.service.AsempService;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.qa.asemp.vo.DeptVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -26,7 +29,7 @@ public class AsempController {
     // AS 담당자 목록 조회
     @GetMapping("list")
     public String getAsempList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                               String area, String searchType, String searchValue, HttpSession session)
+                               String area, String searchType, String searchValue, HttpSession session) throws Exception
     {
         LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
         AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
@@ -45,7 +48,9 @@ public class AsempController {
         List<AsempVo> asempVoList = service.getAsempList(model, pvo, area, searchType, searchValue);
 
         if(asempVoList == null) {
-            return "redirect:/error";
+            String errCode = "[ASEMP_001] AS 담당자 등록에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
         }
 
         model.addAttribute("asempVoList", asempVoList);
@@ -54,26 +59,48 @@ public class AsempController {
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchValue", searchValue);
 
-        getEmpList(model);
+        // 부서 목록 가져오기
+        List<DeptVo> deptVoList = service.getDeptList(model);
+        model.addAttribute("deptVoList", deptVoList);
 
         return "qa/asemp/list";
     }
 
-    // 사원 목록 가져오기
-    @GetMapping("data/emp")
-    public void getEmpList(Model model) {
-        List<EmployeeVo> empVoList = service.getEmpList();
-        model.addAttribute("empVoList", empVoList);
+    // 사원 검색 목록 조회
+    @GetMapping("emplist")
+    @ResponseBody
+    public HashMap getEmpList(@RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
+                           String dept, String empSearchType, String empSearchValue) {
+
+        // pno = currentPage
+        int listCount = service.getEmpCnt(dept, empSearchType, empSearchValue);
+        int pageLimit = 5;
+        int boardLimit = 10;
+
+        PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+        List<EmployeeVo> empVoList = service.getEmpList(pvo, dept, empSearchType, empSearchValue);
+
+        HashMap map = new HashMap();
+        map.put("a", empVoList);
+        map.put("b", pvo);
+
+        return map;
+
     }
 
     // AS 담당자 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public AsempVo getAsempDetail(String no, Model model) {
+    public AsempVo getAsempDetail(String no) throws Exception {
 
-        AsempVo asempVo = service.getAsempDetail(no, model);
+        AsempVo asempVo = service.getAsempDetail(no);
 
-        model.addAttribute("asempVo", asempVo);
+        if(asempVo == null) {
+            String errCode = "[ASEMP_003] AS 담당자 상세정보를 불러올 수 없습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
+        }
 
         return asempVo;
     }
@@ -86,7 +113,9 @@ public class AsempController {
         int result = service.enroll(vo);
 
         if(result != 1) {
-            throw new Exception("Error");
+            String errCode = "[ASEMP_001] AS 담당자 등록에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
         }
 
         return result;
@@ -100,7 +129,9 @@ public class AsempController {
         int result = service.edit(vo);
 
         if (result != 1) {
-            throw new Exception("Error");
+            String errCode = "[ASEMP_004] AS 담당자 수정에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
         }
 
         return result;
@@ -114,7 +145,9 @@ public class AsempController {
         int result = service.delete(no);
 
         if(result < 1) {
-            throw new Exception("Error");
+            String errCode = "[ASEMP_005] AS 담당자 삭제에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
         }
 
         return result;

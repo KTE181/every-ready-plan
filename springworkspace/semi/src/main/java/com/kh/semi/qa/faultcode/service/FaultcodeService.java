@@ -27,8 +27,8 @@ public class FaultcodeService {
         return mapper.getFaultCodeListCnt(searchType, searchValue);
     }
 
-    public FaultcodeVo getFaultCodeDetail(String no, Model model) {
-        return mapper.getFaultCodeDetail(no, model);
+    public FaultcodeVo getFaultCodeDetail(String no) {
+        return mapper.getFaultCodeDetail(no);
     }
 
     public int enroll(FaultcodeVo vo) {

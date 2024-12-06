@@ -74,7 +74,7 @@ public interface AsreqMapper {
             WHERE A.NO = #{asreqNo}
             AND A.DEL_YN = 'N'
             """)
-    AsreqVo getAsreqDetail(String asreqNo, Model model);
+    AsreqVo getAsreqDetail(String asreqNo);
 
     @Update("""
             UPDATE AS_REQUEST

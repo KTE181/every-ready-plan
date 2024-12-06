@@ -165,41 +165,44 @@
 
             <!-- 사원검색 모달 -->
             <div id="emp-modal">
-                <form id="emp-form">
-                    <div class="modal-content">
-                        <span class="modal-close">&times;</span>
-            
-                        <div class="modal-title">사원검색</div>
-                        <div><span class="required-text">* 이미 AS담당자로 등록된 사원은 조회되지 않습니다.</span></div>
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <div class="modal-title">사원검색</div>
+                    <div><span class="required-text">* 이미 AS담당자로 등록된 사원은 조회되지 않습니다.</span></div>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>선택</th>
-                                    <th>사번</th>
-                                    <th>사원명</th>
-                                    <th>연락처</th>
-                                    <th>소속부서</th>
-                                    <th>직급</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${empVoList}" var="vo">
-                                    <tr>
-                                        <td><input type="radio" name=""></td>
-                                        <td>${vo.no}</td>
-                                        <td>${vo.name}</td>
-                                        <td>${vo.phone}</td>
-                                        <td>${vo.dname}</td>
-                                        <td>${vo.pname}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                        <div class="page-area"></div>
-                        <div class="button-container"><input type="button" id="emp-select-button" value="선택"></div>
+                    <div id="emp-modal-search-area">
+                        <form id="emp-search-form">
+                        <select name="dept">
+                            <option value="">소속부서 전체</option>
+                            <c:forEach items="${deptVoList}" var="vo">
+                                <option value="${vo.no}">${vo.name}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="empSearchType">
+                            <option value="empName">사원명</option>
+                            <option value="empNo">사원번호</option>
+                        </select>
+                        <input type="search" name="empSearchValue">
+                        <input type="button" onclick="empData()" value="검색">
+                        </form>
                     </div>
-                </form>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>선택</th>
+                                <th>사번</th>
+                                <th>사원명</th>
+                                <th>연락처</th>
+                                <th>소속부서</th>
+                                <th>직급</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="page-area"></div>
+                    <div class="button-container"><input type="button" onclick="selectEmp();" value="선택"></div>
+                </div>
             </div>
 
 

@@ -76,8 +76,8 @@ function write() {
 function empList() {
 
     const empModal = document.querySelector("#emp-modal");
+    const modalForm = document.querySelector("#emp-search-form");
     const closeModal = document.querySelector("#emp-modal .modal-close");
-    const modalForm = document.querySelector("#emp-form");
     modalForm.reset();
     empModal.style.display = 'block'; 
 
@@ -85,25 +85,116 @@ function empList() {
         empModal.style.display = 'none';
     } , { once: true });
 
+    const pno = 1;
+    
+    empData(pno);
 
-    // 사원 선택 시 동작
-    const selectButton = document.querySelector("#emp-select-button");
-    selectButton.addEventListener('click', () => {
+}
 
-        const selectedEmp = document.querySelector("#emp-modal input[type=radio]:checked");
-        if (selectedEmp === null) {
-            alert("사원이 선택되지 않았습니다.");
-            return;
+// 사원 검색 데이터 요청 
+function empData(pno) {
+
+    const tbodyTag = document.querySelector("#emp-modal table>tbody");
+    const dept = document.querySelector("#emp-modal select[name=dept]").value;
+    const empSearchType = document.querySelector("#emp-modal select[name=empSearchType]").value;
+    const empSearchValue = document.querySelector("#emp-modal input[name=empSearchValue]").value;
+
+    $.ajax({
+        url : "/qa/asemp/emplist",
+        data : {
+            pno ,
+            dept ,
+            empSearchType ,
+            empSearchValue
+        } ,
+        method : "GET" ,
+        success : function(m){
+
+            const empVoList = m.a;
+            const pvo = m.b;
+            paintPageArea(pvo);
+
+            tbodyTag.innerHTML = ""; 
+
+            for(const vo of empVoList) {
+
+                const trTag = document.createElement("tr");
+                tbodyTag.appendChild(trTag); 
+
+                const tdTag = document.createElement("td");
+                const radioTag = document.createElement("input");
+                radioTag.setAttribute("type", "radio");
+                radioTag.setAttribute("name", "emp-radio-btn");
+
+                trTag.appendChild(tdTag);
+                tdTag.appendChild(radioTag);
+                
+                const tdTag1 = document.createElement("td");
+                tdTag1.innerText = vo.no;
+                trTag.appendChild(tdTag1);
+
+                const tdTag2 = document.createElement("td");
+                tdTag2.innerText = vo.name;
+                trTag.appendChild(tdTag2);
+
+                const tdTag3 = document.createElement("td");
+                tdTag3.innerText = vo.phone;
+                trTag.appendChild(tdTag3);
+
+                const tdTag4 = document.createElement("td");
+                tdTag4.innerText = vo.dname;
+                trTag.appendChild(tdTag4);
+
+                const tdTag5 = document.createElement("td");
+                tdTag5.innerText = vo.pname;
+                trTag.appendChild(tdTag5);
+            }
+        } , 
+        error : function(){
+            alert("조회 실패...")
         }
-        
-        selectEmp(selectedEmp);
-        empModal.style.display = 'none';
+    })
 
-    });
+}
+
+// 사원 검색 모달 페이징
+function paintPageArea(pvo){
+    const pageArea = document.querySelector(".page-area");
+    pageArea.innerHTML = "";
+
+    // 이전 버튼
+    if(pvo.startPage != 1) {
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `empData(${pvo.startPage-1});`);
+        spanTag.innerText = "이전";
+        pageArea.appendChild(spanTag);
+    }
+
+    // 페이지 버튼
+    for(let i=pvo.startPage; i<=pvo.endPage; i++){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `empData(${i});`);
+        spanTag.innerText = i;
+        pageArea.appendChild(spanTag);
+    }
+
+    // 다음 버튼
+    if(pvo.endPage != pvo.maxPage){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `empData(${pvo.endPage+1});`);
+        spanTag.innerText = "다음";
+        pageArea.appendChild(spanTag);
+    }
 }
 
 // 사원 선택 처리
-function selectEmp(selectedEmp) {
+function selectEmp() {
+
+    const selectedEmp = document.querySelector("#emp-modal input[type=radio]:checked");
+    if (selectedEmp === null) {
+        alert("사원이 선택되지 않았습니다.");
+        return;
+    }
 
     const no = selectedEmp.parentNode.parentNode.children[1].innerText;
     const empName = selectedEmp.parentNode.parentNode.children[2].innerText;
@@ -116,6 +207,9 @@ function selectEmp(selectedEmp) {
     document.querySelector("#asemp-modal input[name=phone]").value = phone;
     document.querySelector("#asemp-modal input[name=deptName]").value = deptName;
     document.querySelector("#asemp-modal input[name=positionName]").value = positionName;
+
+    const empModal = document.querySelector("#emp-modal");
+    empModal.style.display = 'none';
 
 }
 

@@ -3,6 +3,7 @@ package com.kh.semi.qa.asemp.mapper;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.qa.asemp.vo.DeptVo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
@@ -43,7 +44,7 @@ public interface AsempMapper {
             WHERE A.NO = #{no}
             AND A.DEL_YN='N'
             """)
-    AsempVo getAsempDetail(String no, Model model);
+    AsempVo getAsempDetail(String no);
 
     @Update("""
             UPDATE AS_ENGINEERS
@@ -60,20 +61,16 @@ public interface AsempMapper {
             """)
     int delete(String no);
 
+    List<EmployeeVo> getEmpList(PageVo pvo, String dept, String empSearchType, String empSearchValue);
+
+    int getEmpCnt(String dept, String empSearchType, String empSearchValue);
+
     @Select("""
             SELECT
                 NO
-                , EMP_NAME  AS NAME
-                , PHONE
-                , DEPT_NAME AS DNAME
-                , POSITION_NAME AS PNAME
-            FROM EMPLOYEE_INFO
-            WHERE NO NOT IN (
-                SELECT NO
-                FROM AS_ENGINEERS
-            )
-            ORDER BY NO DESC
+                , NAME
+            FROM DEPARTMENT
             """)
-    List<EmployeeVo> getEmpList();
+    List<DeptVo> getDeptList(Model model);
 
 }
