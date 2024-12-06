@@ -11,7 +11,10 @@ function closeModal() {
     modalTag.classList.remove('active');
 }
 
-
+function openItemCodeModal(){
+    const modalTag = document.querySelector("#modalItemCode");
+    modalTag.classList.add('active');
+}
 
 
 function handleCheckBox(x){
@@ -190,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 success: function () {
                     alert("상품이 성공적으로 등록되었습니다!");
+                    reload();
                     
                 },
                 error: function () {

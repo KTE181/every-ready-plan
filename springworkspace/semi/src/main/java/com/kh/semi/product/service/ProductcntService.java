@@ -34,4 +34,9 @@ public class ProductcntService {
     public int getProductPageCnt() {
         return mapper.getProductPageCnt();
     }
+
+
+    public List<ProductcntVo> getVoList() {
+        return mapper.getVoList();
+    }
 }

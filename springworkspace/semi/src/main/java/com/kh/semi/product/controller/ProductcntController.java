@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("qa/productcnt")
@@ -44,9 +46,27 @@ public class ProductcntController {
         PageVo pageVo = new PageVo(listCount , currentPage, pageLimit, boardLimit);
 
         List<ProductcntVo> productcntVo = service.getproductCnt(searchValue, searchValueCode, pageVo);
+        List<ProductcntVo> voList = service.getVoList();
+
+        Map<String, Integer> map = new HashMap<>();
+
+        //더하기 끝
+        for(ProductcntVo vo:voList){
+            String itemCode = vo.getItemCode();
+            map.put(itemCode, map.getOrDefault(itemCode , 0)+1);
+        }
+
+        //위에서 더하기 한 map 을 이용해서 불량품 갯수 설정
+        for (ProductcntVo vo : productcntVo) {
+            String itemCode = vo.getItemCode();
+            vo.setDefectiveCnt( map.getOrDefault(itemCode , 0) );
+        }
+
+        System.out.println("map = " + map);
 
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("productcntVo", productcntVo);
+        model.addAttribute("map", map);
 
         return "qa/productcnt/list";
     }
