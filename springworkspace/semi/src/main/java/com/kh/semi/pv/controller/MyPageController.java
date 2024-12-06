@@ -28,7 +28,13 @@ public class MyPageController {
 
     //마이페이지 화면
     @GetMapping
-    public String mypage(){
+    public String mypage(HttpSession session)
+    {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        if(loginEmployeeVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
         return "pv/mypage/mypage";
     }
 
@@ -37,6 +43,8 @@ public class MyPageController {
             @RequestParam("profileImage") MultipartFile profileImage,
             @RequestParam("employeeId") String employeeId,
             HttpSession session) {
+
+
         Map<String, Object> response = new HashMap<>();
         try {
             // 파일 업로드 및 기존 파일 삭제 로직
@@ -50,6 +58,7 @@ public class MyPageController {
                 loginEmployeeVo.setProfileImage(newProfilePath);
                 session.setAttribute("loginEmployeeVo", loginEmployeeVo);
             }
+
 
             response.put("success", true);
         } catch (Exception e) {

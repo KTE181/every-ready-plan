@@ -63,21 +63,19 @@
                 <div class="bottom-content-area">
                         <div>
                             <div class="pagination">
-                                <!-- 이전 페이지 버튼 -->
                                 <c:if test="${pageVo.currentPage > 1}">
-                                    <a href="?page=${pageVo.currentPage - 1}&searchDate=${searchDate}" class="page-button previous">&laquo;</a>
+                                    <a href="/myattendance?page=${pageVo.currentPage - 1}&searchDate=${searchDate}" class="page-button">이전</a>
                                 </c:if>
 
-                                <!-- 페이지 번호 버튼 -->
-                                <c:forEach begin="${pageVo.startPage}" end="${pageVo.endPage}" var="p">
-                                    <a href="?page=${p}&searchDate=${searchDate}" class="page-button ${p == pageVo.currentPage ? 'active' : ''}">
-                                        ${p}
+                                <c:forEach var="i" begin="${pageVo.startPage}" end="${pageVo.endPage}">
+                                    <a href="/myattendance?page=${i}&searchDate=${searchDate}"
+                                       class="page-button ${i == pageVo.currentPage ? 'active' : ''}">
+                                       ${i}
                                     </a>
                                 </c:forEach>
 
-                                <!-- 다음 페이지 버튼 -->
                                 <c:if test="${pageVo.currentPage < pageVo.maxPage}">
-                                    <a href="?page=${pageVo.currentPage + 1}&searchDate=${searchDate}" class="page-button next">&raquo;</a>
+                                    <a href="/myattendance?page=${pageVo.currentPage + 1}&searchDate=${searchDate}" class="page-button">다음</a>
                                 </c:if>
                             </div>
 

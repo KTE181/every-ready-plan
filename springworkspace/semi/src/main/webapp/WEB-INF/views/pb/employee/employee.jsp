@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/pb/employee.css">
     <link rel="stylesheet" href="/css/common/search.css">
     <link rel="stylesheet" href="/css/common/index.css">
+    <link rel="stylesheet" href="/css/common/bottom.css">
 </head>
 <body>
     <div class="container">
