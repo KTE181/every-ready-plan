@@ -28,10 +28,11 @@
                             <div class="content-area">
                                 <!-- Search Area -->
                                 <div class="top-title-area">
-                                    <form action="" class="top-title-area-form">
-                                        <div class="menu-name">매입관리</div>
+                                    <div class="menu-name">매입관리</div>
+                                    <div>
+                                    <form action="/finance/purchase/list" class="top-title-area-form">
+                                        <label for="select">카테고리</label>
                                         <div class="search-bar">
-                                            <label for="select">카테고리</label>
                                             <select name="" id="">
                                                 <option value="1"></option>
                                                 <option value="2"></option>
@@ -46,6 +47,7 @@
                                             <button class="crud-button-white">검색</button>
                                         </div>
                                     </form>
+                                </div>
                                 </div>
                                 <!-- List Area -->
                                 <div class="middle-content-area">

@@ -28,11 +28,13 @@
                             <div class="content-area">
                                 <!-- Search Area -->
                                 <div class="top-title-area">
-                                    <form action="" class="top-title-area-form">
-                                        <div class="menu-name">협력사</div>
+                                    <div class="menu-name">협력사</div>
+                                    <div>
+                                    <form action="/finance/partner/list" class="top-title-area-form">
+                                        <label for="select">카테고리</label>
                                         <div class="search-bar">
-                                            <label for="select">카테고리</label>
-                                            <select name="" id="">
+                                            
+                                            <select name="area" id="">
                                                 <option value="1">회사명</option>
                                                 <option value="2">사업자등록번호</option>
                                                 <option value="3">사업자명</option>
@@ -46,6 +48,7 @@
                                             <button class="crud-button-white">검색</button>
                                         </div>
                                     </form>
+                                </div>
                                 </div>
                                 <!-- List Area -->
                                 <div class="middle-content-area">
@@ -104,7 +107,6 @@
                                             onclick="partnerWrite();">등록</button>
                                     </div>
                                 </div>
-                            </div>
                             <!-- Write Modal -->
                             <div id="partner-write">
                                 <form action="/finance/partner/write" method="post" onsubmit="return confirm('등록하시겠습니까?')">

@@ -39,8 +39,7 @@
                                     <form action="/finance/account/list" class="top-title-area-form">
                                         <label for="select">카테고리</label>
                                         <div class="search-bar">
-                                            
-                                            <select name="" id="">
+                                            <select name="area">
                                                 <option value="1">은행코드</option>
                                                 <option value="2">은행명</option>
                                                 <option value="3">계좌명</option>
@@ -48,7 +47,8 @@
                                             </select>
                                         </div>
 
-                                        <div class="search-bar"><label for="">내용검색</label>
+                                        <div class="search-bar">
+                                        <label for="">내용검색</label>
                                             <input type="search" id="longbar">
                                         </div>
                                         <div class="search-bar">
@@ -86,24 +86,23 @@
                                     </table>
                                 </div>
                             
-
+                                finance/account
                             <!-- Bottom Area -->
                             <div class="bottom-content-area">
-                                <div>
-                                    <button class="crud-button-white">삭제</button>
-                                </div>
+                                <div><button class="crud-button-white" onclick="accountDeleteMultiple();">삭제</button></div>
                                 <div>
                                     <div>
                                         <div class="pagination">
-                                            <c:if test="${pvo.startPage != 1}"> 
-                                                <a href="/finance/account/list?pno=${pvo.startPage-1}&area=${area}&status=${status}&type=${type}&searchType=${searchType}&searchValue=${searchValue}" class="page-button previous">&laquo;</a>
-                                            </c:if>
-                                            <c:forEach begin="${pvo.startPage}" end="${pvo.endPage}" var="i" step="1">
-                                                <a href="/finance/account/list?&pno=${i}&area=${area}&status=${status}&type=${type}&searchType=${searchType}&searchValue=${searchValue}" class="page-button <c:if test='${i == pvo.currentPage}'>active</c:if>">${i}</a>
-                                            </c:forEach>
-                                            <c:if test="${pvo.endPage != pvo.maxPage}"> 
-                                                <a href="/finance/account/list?pno=${pvo.endPage+1}&area=${area}&status=${status}&type=${type}&searchType=${searchType}&searchValue=${searchValue}" class="page-button next">&raquo;</a>
-                                            </c:if>   
+                                            <div class="pagination">
+                                                <c:if test="${pvo.startPage != 1}"> 
+                                                    <a href="/finance/account/list?pno=${pvo.startPage-1}&area=${area}&searchType=${searchType}&searchValue=${searchValue}" class="page-button previous">&laquo;</a>
+                                                </c:if>
+                                                <c:forEach begin="${pvo.startPage}" end="${pvo.endPage}" var="i" step="1">
+                                                    <a href="/qa/asreq/list?&pno=${i}&area=${area}&searchType=${searchType}&searchValue=${searchValue}" class="page-button <c:if test='${i == pvo.currentPage}'>active</c:if>">${i}</a>
+                                                </c:forEach>
+                                                <c:if test="${pvo.endPage != pvo.maxPage}"> 
+                                                    <a href="/qa/asreq/list?pno=${pvo.endPage+1}&area=${area}&searchType=${searchType}&searchValue=${searchValue}" class="page-button next">&raquo;</a>
+                                                </c:if>  
                                          </div>
                                     </div>
                                 </div>
