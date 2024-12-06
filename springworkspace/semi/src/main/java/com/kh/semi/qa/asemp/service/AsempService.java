@@ -28,8 +28,8 @@ public class AsempService {
         return mapper.enroll(vo);
     }
 
-    public AsempVo getAsempDetail(String no, Model model) {
-        return mapper.getAsempDetail(no, model);
+    public AsempVo getAsempDetail(String no) {
+        return mapper.getAsempDetail(no);
     }
 
     public int edit(AsempVo vo) {

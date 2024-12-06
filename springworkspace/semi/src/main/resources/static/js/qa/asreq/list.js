@@ -539,12 +539,12 @@ function asreqDelete(no) {
             else {
                 alert("오류발생...");
             }
-
+            location.reload();
         },
 
         error: function() {
-            console.log(no);
             alert("통신실패...");
+            location.reload();
         }
     });
 

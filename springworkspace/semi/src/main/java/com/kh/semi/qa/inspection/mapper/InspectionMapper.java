@@ -65,7 +65,7 @@ public interface InspectionMapper {
             JOIN INSPECTION_STATUS S ON (I.STATUS_CODE = S.NO)
             WHERE I.NO = #{no}
             """)
-    InspectionVo getinspectionDetail(String no, Model model);
+    InspectionVo getinspectionDetail(String no);
 
     @Update("""
             UPDATE INSPECTION_HISTORY

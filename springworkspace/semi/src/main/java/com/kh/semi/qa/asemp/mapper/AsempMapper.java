@@ -43,7 +43,7 @@ public interface AsempMapper {
             WHERE A.NO = #{no}
             AND A.DEL_YN='N'
             """)
-    AsempVo getAsempDetail(String no, Model model);
+    AsempVo getAsempDetail(String no);
 
     @Update("""
             UPDATE AS_ENGINEERS

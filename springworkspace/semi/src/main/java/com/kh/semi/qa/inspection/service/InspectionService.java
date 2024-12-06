@@ -47,9 +47,9 @@ public class InspectionService {
         return mapper.write(vo);
     }
 
-    public InspectionVo getinspectionDetail(String no, Model model) {
+    public InspectionVo getinspectionDetail(String no) {
 
-        InspectionVo vo = mapper.getinspectionDetail(no, model);
+        InspectionVo vo = mapper.getinspectionDetail(no);
 
         if(vo.getInspectionDate() != null) {
             vo.setInspectionDate(vo.getInspectionDate().substring(0,10));

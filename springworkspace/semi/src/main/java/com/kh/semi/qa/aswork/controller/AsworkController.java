@@ -3,13 +3,10 @@ package com.kh.semi.qa.aswork.controller;
 import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
-import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.aswork.service.AsworkService;
 import com.kh.semi.qa.aswork.vo.AsworkStatusVo;
 import com.kh.semi.qa.aswork.vo.AsworkVo;
 import com.kh.semi.qa.faultcode.vo.FaultcodeVo;
-import com.kh.semi.qa.inspection.vo.InspectionStatusVo;
-import com.kh.semi.qa.inspection.vo.InspectionTypeVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,38 +71,21 @@ public class AsworkController {
     // AS 작업 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public AsworkVo getAsworkDetail(String asworkNo, Model model) {
+    public AsworkVo getAsworkDetail(String asworkNo) {
 
-        AsworkVo asworkVo = service.getAsworkDetail(asworkNo, model);
-
-        if (asworkVo == null) {
-            throw new IllegalStateException("ERROR");
-        }
-
-        model.addAttribute("asworkVo", asworkVo);
-
-        return asworkVo;
-    }
-
-    // AS 작업 수정 (화면)
-    @GetMapping("edit")
-    @ResponseBody
-    public AsworkVo edit(String asworkNo, Model model) {
-
-        AsworkVo asworkVo = service.getAsworkDetail(asworkNo, model);
+        AsworkVo asworkVo = service.getAsworkDetail(asworkNo);
 
         if (asworkVo == null) {
             throw new IllegalStateException("ERROR");
         }
 
-        model.addAttribute("asworkVo", asworkVo);
-
         return asworkVo;
     }
 
-    // AS 작업 수정 (처리)
+    // AS 작업 수정
     @PostMapping("edit")
-    public String edit(AsworkVo vo, HttpSession session, Model model) throws Exception {
+    @ResponseBody
+    public int edit(AsworkVo vo) throws Exception {
 
         int result = service.edit(vo);
 
@@ -113,12 +93,7 @@ public class AsworkController {
             throw new Exception("Error");
         }
 
-        session.setAttribute("alertMsg", "수정되었습니다.");
-
-        AsworkVo asworkVo = service.getAsworkDetail(vo.getNo(), model);
-        model.addAttribute("asworkVo", asworkVo);
-
-        return "redirect:/qa/aswork/list";
+        return result;
     }
 
     // AS 작업 삭제

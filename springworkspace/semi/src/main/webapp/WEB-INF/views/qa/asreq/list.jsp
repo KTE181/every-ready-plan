@@ -124,7 +124,6 @@
             
                         <div class="modal-title"></div>
                         <div class="required-text">* 는 필수입력사항입니다.</div>
-        
                         <div class="title-text">AS요청정보</div>
             
                         <input type="hidden" name="no">

@@ -39,9 +39,9 @@ public class AsworkService {
         return mapper.getAsworkListCnt(area, status, type, searchType, searchValue);
     }
 
-    public AsworkVo getAsworkDetail(String asworkNo, Model model) {
+    public AsworkVo getAsworkDetail(String asworkNo) {
 
-        AsworkVo vo = mapper.getAsworkDetail(asworkNo, model);
+        AsworkVo vo = mapper.getAsworkDetail(asworkNo);
 
         if(vo.getPurchaseDate() != null) {
             vo.setPurchaseDate(vo.getPurchaseDate().substring(0,10));
@@ -72,7 +72,9 @@ public class AsworkService {
             vo.setRepairDate(vo.getRepairDate().replace("-", ""));
         }
 
-        return mapper.edit(vo);
+        int result1 = mapper.edit(vo);
+        int result2 = mapper.updateStatus(vo);
+        return result1 * result2;
     }
 
     public int delete(String no) {

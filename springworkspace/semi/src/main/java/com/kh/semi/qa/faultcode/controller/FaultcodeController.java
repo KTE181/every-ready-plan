@@ -58,9 +58,9 @@ public class FaultcodeController {
     // 고장코드 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public FaultcodeVo getFaultCodeDetail(String no, Model model) throws Exception {
+    public FaultcodeVo getFaultCodeDetail(String no) throws Exception {
 
-        FaultcodeVo faultcodeVo = service.getFaultCodeDetail(no, model);
+        FaultcodeVo faultcodeVo = service.getFaultCodeDetail(no);
 
         if(faultcodeVo == null) {
             throw new Exception("Error");

@@ -72,14 +72,14 @@ public class AsreqController {
     // AS 요청 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public AsreqVo getAsreqDetail(String asreqNo, Model model) throws Exception {
+    public AsreqVo getAsreqDetail(String asreqNo) throws Exception {
 
-        AsreqVo asreqVo = service.getAsreqDetail(asreqNo, model);
+        AsreqVo asreqVo = service.getAsreqDetail(asreqNo);
 
         if(asreqVo == null) {
             throw new Exception("Error");
         }
-        System.out.println("asreqVo = " + asreqVo);
+
         return asreqVo;
     }
 

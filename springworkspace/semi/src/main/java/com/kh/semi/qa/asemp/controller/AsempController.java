@@ -69,11 +69,13 @@ public class AsempController {
     // AS 담당자 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public AsempVo getAsempDetail(String no, Model model) {
+    public AsempVo getAsempDetail(String no) throws Exception {
 
-        AsempVo asempVo = service.getAsempDetail(no, model);
+        AsempVo asempVo = service.getAsempDetail(no);
 
-        model.addAttribute("asempVo", asempVo);
+        if(asempVo == null) {
+            throw new Exception("Error");
+        }
 
         return asempVo;
     }

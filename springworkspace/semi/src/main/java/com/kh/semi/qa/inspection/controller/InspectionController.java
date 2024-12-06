@@ -95,9 +95,9 @@ public class InspectionController {
     // 품질 검사 상세 조회
     @GetMapping("detail")
     @ResponseBody
-    public InspectionVo getinspectionDetail(String no, Model model) throws Exception {
+    public InspectionVo getinspectionDetail(String no) throws Exception {
 
-        InspectionVo inspectionVo = service.getinspectionDetail(no, model);
+        InspectionVo inspectionVo = service.getinspectionDetail(no);
 
         if(inspectionVo == null) {
             throw new Exception("Error");

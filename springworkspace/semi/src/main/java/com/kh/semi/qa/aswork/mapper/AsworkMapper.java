@@ -54,7 +54,7 @@ public interface AsworkMapper {
             WHERE W.NO = #{asworkNo}
             AND W.DEL_YN = 'N'
             """)
-    AsworkVo getAsworkDetail(String asworkNo, Model model);
+    AsworkVo getAsworkDetail(String asworkNo);
 
     @Update("""
             UPDATE AS_WORK
@@ -67,6 +67,14 @@ public interface AsworkMapper {
             WHERE NO = #{no}
             """)
     int edit(AsworkVo vo);
+
+    @Update("""
+            UPDATE AS_REQUEST
+            SET
+                STATUS_CODE = #{statusCode}
+            WHERE NO = #{asNo}
+            """)
+    int updateStatus(AsworkVo vo);
 
     @Update("""
             UPDATE AS_WORK
@@ -93,4 +101,6 @@ public interface AsworkMapper {
             FROM FAULT_CODE 
             """)
     List<FaultcodeVo> getTypeList(Model model);
+
+
 }
