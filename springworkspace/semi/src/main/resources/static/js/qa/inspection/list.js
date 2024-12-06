@@ -88,24 +88,46 @@ function write() {
     });
 }
 
+
 // 상품 검색 모달
 function productList() {
 
     const productModal = document.querySelector("#product-modal");
+    const searchForm = document.querySelector("#product-search-form");
     const closeModal = document.querySelector("#product-modal .modal-close");
-
+    searchForm.reset();
     productModal.style.display = 'block'; 
 
     closeModal.addEventListener('click', () => {
         productModal.style.display = 'none';
     } , { once: true });
 
+    const pno = 1;
+    
+    productData(pno);
+    
+}
+
+// 상품 검색 데이터 요청 
+function productData(pno) {
+
     const tbodyTag = document.querySelector("#product-modal table>tbody");
+    const productSearchType = document.querySelector("#product-modal select[name=productSearchType]").value;
+    const productSearchValue = document.querySelector("#product-modal input[name=productSearchValue]").value;
 
     $.ajax({
         url : "/qa/asreq/productlist",
+        data : {
+            pno ,
+            productSearchType ,
+            productSearchValue
+        } ,
         method : "GET" ,
-        success : function(productVoList){
+        success : function(m){
+
+            const productVoList = m.a;
+            const pvo = m.b;
+            paintPageArea(pvo);
 
             tbodyTag.innerHTML = ""; 
 
@@ -148,35 +170,57 @@ function productList() {
         }
     })
 
-    // 상품 선택 시 동작
-    const selectButton = document.querySelector("#product-select-button");
-    selectButton.addEventListener('click', () => {
+}
 
-        const selectedProduct = document.querySelector("#product-modal input[type=radio]:checked");
-        if (selectedProduct === null) {
-            alert("상품이 선택되지 않았습니다.");
-            return;
-        }
-        
-        selectProduct(selectedProduct);
-        productModal.style.display = 'none';
+// 상품 검색 모달 페이징
+function paintPageArea(pvo){
+    const pageArea = document.querySelector(".page-area");
+    pageArea.innerHTML = "";
 
-    });
+    // 이전 버튼
+    if(pvo.startPage != 1) {
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${pvo.startPage-1});`);
+        spanTag.innerText = "이전";
+        pageArea.appendChild(spanTag);
+    }
 
+    // 페이지 버튼
+    for(let i=pvo.startPage; i<=pvo.endPage; i++){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${i});`);
+        spanTag.innerText = i;
+        pageArea.appendChild(spanTag);
+    }
+
+    // 다음 버튼
+    if(pvo.endPage != pvo.maxPage){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `productData(${pvo.endPage+1});`);
+        spanTag.innerText = "다음";
+        pageArea.appendChild(spanTag);
+    }
 }
 
 // 상품 선택 처리
-function selectProduct(selectedProduct) {
+function selectProduct() {
+
+    const selectedProduct = document.querySelector("#product-modal input[type=radio]:checked");
+    if (selectedProduct === null) {
+        alert("상품이 선택되지 않았습니다.");
+        return;
+    }
 
     const no = selectedProduct.nextSibling.value;
     const serialNumber = selectedProduct.parentNode.parentNode.children[1].innerText;
     const productName = selectedProduct.parentNode.parentNode.children[2].innerText;
-    const price = selectedProduct.parentNode.parentNode.children[3].innerText;
-    const warrantyPeriod = selectedProduct.parentNode.parentNode.children[4].innerText;
 
     document.querySelector("#inspection-modal input[name=productNo]").value = no;
     document.querySelector("#inspection-modal input[name=serialNumber]").value = serialNumber;
     document.querySelector("#inspection-modal input[name=productName]").value = productName;
+
+    const productModal = document.querySelector("#product-modal");
+    productModal.style.display = 'none';
 
 }
 

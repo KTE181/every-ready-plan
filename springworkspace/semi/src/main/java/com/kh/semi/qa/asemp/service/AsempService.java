@@ -4,6 +4,7 @@ import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.mapper.AsempMapper;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.qa.asemp.vo.DeptVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,11 +41,19 @@ public class AsempService {
         return mapper.delete(no);
     }
 
-    public List<EmployeeVo> getEmpList() {
-        return mapper.getEmpList();
-    }
-
     public int getAsempListCnt(String area, String searchType, String searchValue) {
         return mapper.getAsempListCnt(area, searchType, searchValue);
+    }
+
+    public List<DeptVo> getDeptList(Model model) {
+        return mapper.getDeptList(model);
+    }
+
+    public List<EmployeeVo> getEmpList(PageVo pvo, String dept, String empSearchType, String empSearchValue) {
+        return mapper.getEmpList(pvo, dept, empSearchType, empSearchValue);
+    }
+
+    public int getEmpCnt(String dept, String empSearchType, String empSearchValue) {
+        return mapper.getEmpCnt(dept, empSearchType, empSearchValue);
     }
 }

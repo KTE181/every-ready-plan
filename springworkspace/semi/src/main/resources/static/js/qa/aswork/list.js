@@ -53,8 +53,11 @@ function loadDetailModal(asworkNo) {
             
             document.querySelector("#aswork-modal select[name=statusCode]").value = asworkVo.statusCode;
             document.querySelector("#aswork-modal input[name=empNo]").value = asworkVo.empNo;
+            document.querySelector("#aswork-modal input[name=empName]").value = asworkVo.empName;
+            document.querySelector("#aswork-modal input[name=dname]").value = asworkVo.dname;
             document.querySelector("#aswork-modal input[name=repairDate]").value = asworkVo.repairDate;
-            document.querySelector("#aswork-modal select[name=faultCode]").value = asworkVo.faultCode;
+            const faultCodeElement = document.querySelector("#aswork-modal select[name=faultCode]");
+            const faultCode = faultCodeElement ? faultCodeElement.value : "";
             document.querySelector("#aswork-modal textarea[name=repairDetalis]").value = asworkVo.repairDetalis;
             document.querySelector("#aswork-modal input[name=enrollDate]").value = asworkVo.enrollDate;
             document.querySelector("#aswork-modal input[name=modifyDate]").value = asworkVo.modifyDate;
@@ -67,7 +70,7 @@ function loadDetailModal(asworkNo) {
             });
 
             deleteButton.addEventListener("click", function () {
-                asworkDelete(asreqVo.no);
+                asworkDelete(asworkVo.no);
             });
 
         },
@@ -97,6 +100,144 @@ function loadEditModal() {
     saveButton.addEventListener("click", function () {
         asworkEditSave();
     });
+
+}
+
+
+// 담당자 검색 모달 
+function empList() {
+
+    const empModal = document.querySelector("#emp-modal");
+    const modalForm = document.querySelector("#emp-search-form");
+    const closeModal = document.querySelector("#emp-modal .modal-close");
+    modalForm.reset();
+    empModal.style.display = 'block'; 
+
+    closeModal.addEventListener('click', () => {
+        empModal.style.display = 'none';
+    } , { once: true });
+
+    const pno = 1;
+    
+    empData(pno);
+
+}
+
+// 담당자 검색 데이터 요청 
+function empData(pno) {
+
+    const tbodyTag = document.querySelector("#emp-modal table>tbody");
+    const area = document.querySelector("#emp-modal select[name=asemp-area]").value;
+
+    $.ajax({
+        url : "/qa/aswork/asemplist",
+        data : {
+            pno ,
+            area
+        } ,
+        method : "GET" ,
+        success : function(m){
+
+            const empVoList = m.a;
+            const pvo = m.b;
+            paintPageArea(pvo);
+
+            tbodyTag.innerHTML = ""; 
+
+            for(const vo of empVoList) {
+
+                const trTag = document.createElement("tr");
+                tbodyTag.appendChild(trTag); 
+
+                const tdTag = document.createElement("td");
+                const radioTag = document.createElement("input");
+                radioTag.setAttribute("type", "radio");
+                radioTag.setAttribute("name", "emp-radio-btn");
+
+                trTag.appendChild(tdTag);
+                tdTag.appendChild(radioTag);
+                
+                const tdTag1 = document.createElement("td");
+                tdTag1.innerText = vo.no;
+                trTag.appendChild(tdTag1);
+
+                const tdTag2 = document.createElement("td");
+                tdTag2.innerText = vo.empName;
+                trTag.appendChild(tdTag2);
+
+                const tdTag3 = document.createElement("td");
+                tdTag3.innerText = vo.area;
+                trTag.appendChild(tdTag3);
+
+                const tdTag4 = document.createElement("td");
+                tdTag4.innerText = vo.phone;
+                trTag.appendChild(tdTag4);
+
+                const tdTag5 = document.createElement("td");
+                tdTag5.innerText = vo.deptName;
+                trTag.appendChild(tdTag5);
+
+                const tdTag6 = document.createElement("td");
+                tdTag6.innerText = vo.positionName;
+                trTag.appendChild(tdTag6);
+            }
+        } , 
+        error : function(){
+            alert("조회 실패...")
+        }
+    })
+
+}
+
+// 담당자 검색 모달 페이징
+function paintPageArea(pvo){
+    const pageArea = document.querySelector(".page-area");
+    pageArea.innerHTML = "";
+
+    // 이전 버튼
+    if(pvo.startPage != 1) {
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `empData(${pvo.startPage-1});`);
+        spanTag.innerText = "이전";
+        pageArea.appendChild(spanTag);
+    }
+
+    // 페이지 버튼
+    for(let i=pvo.startPage; i<=pvo.endPage; i++){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `empData(${i});`);
+        spanTag.innerText = i;
+        pageArea.appendChild(spanTag);
+    }
+
+    // 다음 버튼
+    if(pvo.endPage != pvo.maxPage){
+        const spanTag = document.createElement("span");
+        spanTag.setAttribute("onclick", `empData(${pvo.endPage+1});`);
+        spanTag.innerText = "다음";
+        pageArea.appendChild(spanTag);
+    }
+}
+
+// 담당자 선택 처리
+function selectEmp() {
+
+    const selectedEmp = document.querySelector("#emp-modal input[type=radio]:checked");
+    if (selectedEmp === null) {
+        alert("사원이 선택되지 않았습니다.");
+        return;
+    }
+
+    const no = selectedEmp.parentNode.parentNode.children[1].innerText;
+    const empName = selectedEmp.parentNode.parentNode.children[2].innerText;
+    const dname = selectedEmp.parentNode.parentNode.children[5].innerText;
+
+    document.querySelector("#aswork-modal input[name=empNo]").value = no;
+    document.querySelector("#aswork-modal input[name=empName]").value = empName;
+    document.querySelector("#aswork-modal input[name=dname]").value = dname;
+
+    const empModal = document.querySelector("#emp-modal");
+    empModal.style.display = 'none';
 
 }
 
@@ -251,22 +392,22 @@ function closeModal() {
 
 closeModal();
 
-// // searchType 값에 따라서 input 타입 변경
-// function handleSearchType(x) {
+// searchType 값에 따라서 input 타입 변경
+function handleSearchType(x) {
 
-//     const searchValueTag = document.querySelector("input[name=searchValue]");
+    const searchValueTag = document.querySelector("input[name=searchValue]");
 
-//     if(x.value == "serialNumber") {
-//         searchValueTag.setAttribute("type", "number");
-//     } 
-//     else{
-//         searchValueTag.setAttribute("type", "search");
-//     }
+    if(x.value == "serialNumber") {
+        searchValueTag.setAttribute("type", "number");
+    } 
+    else{
+        searchValueTag.setAttribute("type", "search");
+    }
 
-// }
+}
 
-// // 새로고침 해도 input 타입 유지
-// document.addEventListener("DOMContentLoaded", () => {
-//     const searchTypeSelect = document.querySelector("select[name=searchType]");
-//     handleSearchType(searchTypeSelect); 
-// });
+// 새로고침 해도 input 타입 유지
+document.addEventListener("DOMContentLoaded", () => {
+    const searchTypeSelect = document.querySelector("select[name=searchType]");
+    handleSearchType(searchTypeSelect); 
+});

@@ -77,7 +77,7 @@ function write() {
         return;
     }
     if (customerPhone.length > 11) {
-        alert("고객 핸드폰번호를 11자 이하로 입력해주세요.");
+        alert("고객 핸드폰번호를 숫자 11자 이하로 입력해주세요.");
         return;
     }
     if (!issueTitle) {
@@ -116,12 +116,12 @@ function write() {
                 alert("등록되었습니다.");
             }
             else {
-                alert("등록실패...");
+                alert("AS 요청 등록에 실패했습니다. 관리자에게 문의해주세요.");
             }
             location.href = "/qa/asreq/list";
         },
         error: function() {
-            alert("통신실패...");
+            alert("AS 요청 등록에 실패했습니다. 관리자에게 문의해주세요.");
             location.href = "/qa/asreq/list";
         }
     });
@@ -537,13 +537,13 @@ function asreqDelete(no) {
                 location.reload();
             }
             else {
-                alert("오류발생...");
+                alert("AS 요청 삭제에 실패했습니다.");
             }
             location.reload();
         },
 
         error: function() {
-            alert("통신실패...");
+            alert("AS 요청 삭제에 실패했습니다.");
             location.reload();
         }
     });
@@ -608,14 +608,13 @@ function asreqDeleteMultiple() {
                 alert("삭제되었습니다.");
             }
             else {
-                alert("삭제실패...");
+                alert("AS 요청 삭제에 실패했습니다.");
             }
-
             location.reload();
-
         },
         error: function() {
-            alert("통신실패...");
+            alert("AS 요청 삭제에 실패했습니다.");
+            location.reload();
         }
     });
 

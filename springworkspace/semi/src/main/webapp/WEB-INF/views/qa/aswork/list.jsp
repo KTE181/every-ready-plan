@@ -67,10 +67,10 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType">
+                                <select name="searchType" onchange="handleSearchType(this)">
                                     <option value="title" <c:if test='${searchType == "title"}'>selected</c:if>>AS요청제목</option>
-                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
                                     <option value="empName" <c:if test='${searchType == "customerName"}'>selected</c:if>>AS담당자</option>
+                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
                                     <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
                                     <option value="productName" <c:if test='${searchType == "productName"}'>selected</c:if>>상품명</option>
                                 </select>
@@ -233,7 +233,7 @@
                             <div>AS담당자 사번</div>
                             <div>
                                 <input type="text" name="empNo" disabled>
-                                <input type="button" id="search-button" value="담당자검색" onclick="asEmpList();">
+                                <input type="button" id="search-button" value="담당자검색" onclick="empList();">
                             </div>
                         </div>
 
@@ -270,9 +270,48 @@
                         <div></div>
 
                         <div class="button-container"></div>
-                        </div>
                     </div>
                 </form>
+            </div>
+
+            <!-- 담당자검색 모달 -->
+            <div id="emp-modal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <div class="modal-title">AS담당자검색</div>
+                    <div></div>
+
+                    <div id="emp-modal-search-area">
+                        <form id="emp-search-form">
+                        <select name="asemp-area">
+                            <option value="">담당지역 전체</option>
+                            <option value="서울">서울</option>
+                            <option value="인천">인천</option>
+                            <option value="경기">경기</option>
+                            <option value="부산">부산</option>
+                            <option value="제주도">제주도</option>
+                        </select>
+                        <input type="button" onclick="empData()" value="검색">
+                        </form>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>선택</th>
+                                <th>사번</th>
+                                <th>AS담당자명</th>
+                                <th>담당지역</th>
+                                <th>연락처</th>
+                                <th>소속부서</th>
+                                <th>직급</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="page-area"></div>
+                    <div class="button-container"><input type="button" onclick="selectEmp();" value="선택"></div>
+                </div>
             </div>
 
         </div>

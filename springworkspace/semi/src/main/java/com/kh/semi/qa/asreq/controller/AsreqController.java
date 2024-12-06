@@ -27,8 +27,7 @@ public class AsreqController {
     // AS 요청 목록 조회
     @GetMapping("list")
     public String getAsreqList(Model model, @RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                               String area, String searchType, String searchValue, HttpSession session)
-    {
+                               String area, String searchType, String searchValue, HttpSession session) throws Exception {
         LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
         AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
         if(loginEmployeeVo==null&&adminVo==null){
@@ -46,7 +45,9 @@ public class AsreqController {
         List<AsreqVo> asreqVoList = service.getAsreqList(model, pvo, area, searchType, searchValue);
 
         if(asreqVoList == null) {
-            return "redirect:/error";
+            String errCode = "[ASREQ_002] AS 요청 목록을 불러올 수 없습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
         }
 
         model.addAttribute("asreqVoList", asreqVoList);
@@ -58,78 +59,11 @@ public class AsreqController {
         return "qa/asreq/list";
     }
 
-    // AS 요청 등록
-    @PostMapping("write")
-    @ResponseBody
-    public int write(AsreqVo vo) throws Exception {
-        int result = service.write(vo);
-        if(result != 1) {
-            throw new Exception("Error");
-        }
-        return result;
-    }
-
-    // AS 요청 상세 조회
-    @GetMapping("detail")
-    @ResponseBody
-    public AsreqVo getAsreqDetail(String asreqNo) throws Exception {
-
-        AsreqVo asreqVo = service.getAsreqDetail(asreqNo);
-
-        if(asreqVo == null) {
-            throw new Exception("Error");
-        }
-
-        return asreqVo;
-    }
-
-    // AS 요청 접수
-    @GetMapping("receive")
-    @ResponseBody
-    public int receive(String no) throws Exception {
-
-        int result = service.receive(no);
-
-        if(result != 1) {
-            throw new Exception("Error");
-        }
-
-        return result;
-    }
-
-    // AS 요청 수정
-    @PostMapping("edit")
-    @ResponseBody
-    public int edit(AsreqVo vo) throws Exception {
-
-        int result = service.edit(vo);
-
-        if(result != 1) {
-            throw new Exception("Error");
-        }
-
-        return result;
-    }
-
-    // AS 요청 삭제
-    @PostMapping("delete")
-    @ResponseBody
-    public int delete(String no) throws Exception {
-
-        int result = service.delete(no);
-
-        if(result < 1) {
-            throw new Exception("Error");
-        }
-
-        return result;
-    }
-
-    // 상품 조회
+    // 상품 검색 목록 조회
     @GetMapping("productlist")
     @ResponseBody
     public HashMap getProductList(@RequestParam(name="pno", defaultValue="1", required = false) int currentPage,
-                                    String productSearchType, String productSearchValue)
+                                  String productSearchType, String productSearchValue)
     {
         // pno = currentPage
         int listCount = service.getProductCnt(productSearchType, productSearchValue);
@@ -145,6 +79,83 @@ public class AsreqController {
         map.put("b", pvo);
 
         return map;
+    }
+
+    // AS 요청 등록
+    @PostMapping("write")
+    @ResponseBody
+    public int write(AsreqVo vo) throws Exception {
+        int result = service.write(vo);
+        if(result != 1) {
+            String errCode = "[ASREQ_001] AS 요청 등록에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
+        }
+        return result;
+    }
+
+    // AS 요청 상세 조회
+    @GetMapping("detail")
+    @ResponseBody
+    public AsreqVo getAsreqDetail(String asreqNo) throws Exception {
+
+        AsreqVo asreqVo = service.getAsreqDetail(asreqNo);
+
+        if(asreqVo == null) {
+            String errCode = "[ASREQ_003] AS 요청 상세정보를 불러올 수 없습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
+        }
+
+        return asreqVo;
+    }
+
+    // AS 요청 접수
+    @GetMapping("receive")
+    @ResponseBody
+    public int receive(String no) throws Exception {
+
+        int result = service.receive(no);
+
+        if(result != 1) {
+            String errCode = "[ASREQ_004] AS 요청 접수에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
+        }
+
+        return result;
+    }
+
+    // AS 요청 수정
+    @PostMapping("edit")
+    @ResponseBody
+    public int edit(AsreqVo vo) throws Exception {
+
+        int result = service.edit(vo);
+
+        if(result != 1) {
+            String errCode = "[ASREQ_005] AS 요청 수정에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
+        }
+
+        return result;
+    }
+
+    // AS 요청 삭제
+    @PostMapping("delete")
+    @ResponseBody
+    public int delete(String no) throws Exception {
+
+        int result = service.delete(no);
+
+        if(result < 1) {
+            String errCode = "[ASREQ_006] AS 요청 삭제에 실패했습니다.";
+            log.warn(errCode);
+            throw new Exception(errCode);
+        }
+
+        return result;
     }
 
 }

@@ -104,6 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+function home() {
+  // 로고 이미지 클릭 시 hr (홈) 으로 이동
+  location.href = "/hr";
+}
+
 
 function navi() {
 
@@ -161,17 +166,17 @@ function qrnavi() {
   document.querySelector('.dropdown-menu3 li:nth-child(3)').addEventListener("click", () => {
     location.href = "/qa/defective/list";
   })
-  //AS요청관리 이동
+  //품질 관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(4)').addEventListener("click", () => {
+    location.href = " /qa/inspection/list";
+  })
+  //AS요청관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(5)').addEventListener("click", () => {
     location.href = "/qa/asreq/list";
   })
   //AS작업관리 이동
-  document.querySelector('.dropdown-menu3 li:nth-child(5)').addEventListener("click", () => {
-    location.href = "/qa/aswork/list";
-  })
-  //품질 관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(6)').addEventListener("click", () => {
-    location.href = " /qa/inspection/list";
+    location.href = "/qa/aswork/list";
   })
   //담당자 관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(7)').addEventListener("click", () => {
