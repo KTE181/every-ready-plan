@@ -1,6 +1,8 @@
 package com.kh.semi.qa.aswork.mapper;
 
+import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.pb.vo.PageVo;
+import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.qa.aswork.vo.AsworkStatusVo;
 import com.kh.semi.qa.aswork.vo.AsworkVo;
 import com.kh.semi.qa.faultcode.vo.FaultcodeVo;
@@ -40,6 +42,7 @@ public interface AsworkMapper {
                 , F.NAME    AS FAULT_NAME
                 , W.EMP_NO          
                 , E.NAME    AS EMP_NAME
+                , D.NAME        AS DNAME
                 , TO_DATE (W.REPAIR_DATE, 'YYYY-MM-DD') AS REPAIR_DATE
                 , W.REPAIR_DETALIS
                 , W.ENROLL_DATE
@@ -50,11 +53,12 @@ public interface AsworkMapper {
             JOIN PRODUCT_REGISTRATION P ON (R.P_NO = P.NO)
             JOIN AS_STATUS S ON (R.STATUS_CODE = S.NO)
             LEFT JOIN EMPLOYEE E ON (W.EMP_NO = E.NO)
+            LEFT JOIN DEPARTMENT D ON (E.DEPT_CODE = D.NO)
             LEFT JOIN FAULT_CODE F ON (W.FAULT_CODE = F.NO)
             WHERE W.NO = #{asworkNo}
             AND W.DEL_YN = 'N'
             """)
-    AsworkVo getAsworkDetail(String asworkNo, Model model);
+    AsworkVo getAsworkDetail(String asworkNo);
 
     @Update("""
             UPDATE AS_WORK
@@ -67,6 +71,14 @@ public interface AsworkMapper {
             WHERE NO = #{no}
             """)
     int edit(AsworkVo vo);
+
+    @Update("""
+            UPDATE AS_REQUEST
+            SET
+                STATUS_CODE = #{statusCode}
+            WHERE NO = #{asNo}
+            """)
+    int updateStatus(AsworkVo vo);
 
     @Update("""
             UPDATE AS_WORK
@@ -90,7 +102,13 @@ public interface AsworkMapper {
             SELECT
                 NO
                 , NAME AS FAULT_NAME
-            FROM FAULT_CODE 
+            FROM FAULT_CODE
+            WHERE DEL_YN = 'N'
             """)
     List<FaultcodeVo> getTypeList(Model model);
+
+    List<AsempVo> getAsempList(PageVo pvo, String area);
+
+    int getAsempCnt(String area);
+
 }

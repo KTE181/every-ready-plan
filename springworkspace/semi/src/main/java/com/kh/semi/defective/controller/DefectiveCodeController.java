@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.semi.defective.service.DefectiveCodeService;
 import com.kh.semi.defective.vo.DefectiveCodeVo;
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.util.page.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +25,18 @@ public class DefectiveCodeController {
 
     //불량 코드 목록 조회
     @GetMapping("list")
-    public void list(Model model,
-                     @RequestParam(value = "searchValue", required = false) String searchValue,
-                     @RequestParam(value = "searchValueName", required = false) String searchValueName,
-                     @RequestParam(name = "pno", defaultValue = "1") int currentPage) {
+    public String list(Model model,
+                       @RequestParam(value = "searchValue", required = false) String searchValue,
+                       @RequestParam(value = "searchValueName", required = false) String searchValueName,
+                       @RequestParam(name = "pno", defaultValue = "1") int currentPage,
+                       HttpSession session) {
+
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
         int listCount = service.getDefectiveCodeCnt();
         int pageLimit = 5;
@@ -36,6 +46,8 @@ public class DefectiveCodeController {
         List<DefectiveCodeVo> defectiveCodeVo = service.getDefectiveCodeList(searchValue, searchValueName,pageVo);
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("defectiveCodeVo", defectiveCodeVo);
+
+        return "/qa/defectivecode/list";
     }
 
     //불량 코드 상세 조회

@@ -49,9 +49,9 @@ public class AsreqService {
         return mapper.getAsreqListCnt(area, searchType, searchValue);
     }
 
-    public AsreqVo getAsreqDetail(String asreqNo, Model model) {
+    public AsreqVo getAsreqDetail(String asreqNo) {
 
-        AsreqVo vo = mapper.getAsreqDetail(asreqNo, model);
+        AsreqVo vo = mapper.getAsreqDetail(asreqNo);
 
         if(vo.getPurchaseDate() != null) {
             vo.setPurchaseDate(vo.getPurchaseDate().substring(0,10));

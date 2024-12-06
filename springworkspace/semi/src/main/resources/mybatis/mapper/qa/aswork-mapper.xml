@@ -99,4 +99,37 @@
         </if>
 
     </select>
+
+    <select id="getAsempList">
+        SELECT
+            A.NO
+            , E.EMP_NAME
+            , A.AREA
+            , E.PHONE
+            , E.DEPT_NAME
+            , E.POSITION_NAME
+            , A.DEL_YN
+        FROM AS_ENGINEERS A
+        JOIN EMPLOYEE_INFO E ON (A.NO = E.NO)
+        WHERE A.DEL_YN='N'
+
+        <if test="area != '' and area != null">
+            AND A.AREA = #{area}
+        </if>
+
+        ORDER BY A.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+
+    <select id="getAsempCnt">
+        SELECT COUNT(NO)
+        FROM AS_ENGINEERS
+        WHERE DEL_YN = 'N'
+
+        <if test="area != '' and area != null">
+            AND AREA = #{area}
+        </if>
+
+    </select>
+
 </mapper>

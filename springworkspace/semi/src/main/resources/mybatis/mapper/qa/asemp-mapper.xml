@@ -49,4 +49,52 @@
         </if>
 
     </select>
+
+    <select id="getEmpList">
+        SELECT
+            NO
+            , EMP_NAME  AS NAME
+            , PHONE
+            , DEPT_CODE
+            , DEPT_NAME AS DNAME
+            , POSITION_NAME AS PNAME
+        FROM EMPLOYEE_INFO
+        WHERE NO NOT IN (
+                        SELECT NO
+                        FROM AS_ENGINEERS
+                    )
+
+        <if test="dept != '' and dept != null">
+            AND DEPT_CODE = #{dept}
+        </if>
+        <if test="empSearchValue != '' and empSearchValue != null and empSearchType == 'empNo'">
+            AND NO = #{empSearchValue}
+        </if>
+        <if test="empSearchValue != '' and empSearchValue != null and empSearchType == 'empName'">
+            AND EMP_NAME LIKE '%${empSearchValue}%'
+        </if>
+
+        ORDER BY NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+
+    <select id="getEmpCnt">
+        SELECT COUNT(NO)
+        FROM EMPLOYEE_INFO
+        WHERE NO NOT IN (
+                        SELECT NO
+                        FROM AS_ENGINEERS
+            )
+
+        <if test="dept != '' and dept != null">
+            AND DEPT_CODE = #{dept}
+        </if>
+        <if test="empSearchValue != '' and empSearchValue != null and empSearchType == 'empNo'">
+            AND NO = #{empSearchValue}
+        </if>
+        <if test="empSearchValue != '' and empSearchValue != null and empSearchType == 'empName'">
+            AND EMP_NAME LIKE '%${empSearchValue}%'
+        </if>
+
+    </select>
 </mapper>

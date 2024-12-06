@@ -14,9 +14,23 @@ function loadWriteModal() {
     for (let i = 0; i < requiredArr.length; i++) {
         requiredArr[i].style.display = 'block';
     }
-
+    document.querySelector("#search-button").setAttribute("type", "button");
+    document.querySelector("#purchase-date").innerHTML = `<div>상품구매일자</div><input type="date" name="purchaseDate">`
+    document.querySelector("#warranty-yn").innerHTML = `<input type="radio" name="warrantyYn" value="Y">Y <input type="radio" name="warrantyYn" value="N">N `;
+    document.querySelector("input[name=customerName]").removeAttribute("disabled");
+    document.querySelector("input[name=customerPhone]").removeAttribute("disabled");
+    document.querySelector("select[name=customerArea]").removeAttribute("disabled");
+    document.querySelector("input[name=customerAdress]").removeAttribute("disabled");
+    document.querySelector("#preferred-service-date").innerHTML = `<div>AS희망일자</div><input type="date" name="preferredServiceDate">`;
+    document.querySelector("input[name=issueTitle]").removeAttribute("disabled");
+    document.querySelector("textarea[name=issueDescription]").removeAttribute("disabled");
+    document.querySelector("#enroll-date").style.display = 'none';
+    document.querySelector("#modify-date").style.display = 'none';
     document.querySelector(".button-container").innerHTML = `<input type="button" id="asreq-write-button" value="등록">`;
    
+    // 모달 데이터 초기화 
+    document.querySelector('#asreq-modal input[name=productNo]').value = "";
+
     // 등록 버튼 클릭 시 동작 
     const writeButton = document.querySelector("#asreq-write-button");
     writeButton.addEventListener("click", function () {
@@ -29,7 +43,7 @@ function loadWriteModal() {
 function write() {
 
     const productNo = document.querySelector('#asreq-modal input[name=productNo]').value;
-    const purchaseDateElement = document.querySelector('#asreq-modal select[name=purchaseDate]');
+    const purchaseDateElement = document.querySelector('#asreq-modal input[name=purchaseDate]');
     const purchaseDate = purchaseDateElement ? purchaseDateElement.value : null;
     const warrantyYnElement = document.querySelector('#asreq-modal input[name=warrantyYn]:checked');
     const warrantyYn = warrantyYnElement ? warrantyYnElement.value : null;
@@ -37,7 +51,7 @@ function write() {
     const customerArea = document.querySelector('#asreq-modal select[name=customerArea]').value;
     const customerAdress = document.querySelector('#asreq-modal input[name=customerAdress]').value;
     const customerPhone = document.querySelector('#asreq-modal input[name=customerPhone]').value;
-    const preferredServiceDateElement = document.querySelector('#asreq-modal select[name=preferredServiceDate]');
+    const preferredServiceDateElement = document.querySelector('#asreq-modal input[name=preferredServiceDate]');
     const preferredServiceDate = preferredServiceDateElement ? preferredServiceDateElement.value : null;
     const issueTitle = document.querySelector('#asreq-modal input[name=issueTitle]').value;
     const issueDescription = document.querySelector('#asreq-modal textarea[name=issueDescription]').value;
@@ -62,12 +76,16 @@ function write() {
         alert("고객 핸드폰번호를 입력해주세요.");
         return;
     }
+    if (customerPhone.length > 11) {
+        alert("고객 핸드폰번호를 숫자 11자 이하로 입력해주세요.");
+        return;
+    }
     if (!issueTitle) {
-        alert("AS요청 제목을 입력해주세요.");
+        alert("AS요청제목을 입력해주세요.");
         return;
     }
     if (!issueDescription) {
-        alert("AS요청 내용을 입력해주세요.");
+        alert("AS요청내용을 입력해주세요.");
         return;
     }
 
@@ -98,12 +116,12 @@ function write() {
                 alert("등록되었습니다.");
             }
             else {
-                alert("등록실패...");
+                alert("AS 요청 등록에 실패했습니다. 관리자에게 문의해주세요.");
             }
             location.href = "/qa/asreq/list";
         },
         error: function() {
-            alert("통신실패...");
+            alert("AS 요청 등록에 실패했습니다. 관리자에게 문의해주세요.");
             location.href = "/qa/asreq/list";
         }
     });
@@ -251,14 +269,36 @@ function selectProduct() {
 // 상세 모달
 function loadDetailModal(asreqNo) {
 
-    // 모달 요소 가져오기
-    const asreqDetailModal = document.getElementById('asreq-detail');
-    const modalContent = document.querySelector('.detail-content');
+    const modal = document.querySelector("#asreq-modal");
+    const modalForm = document.querySelector("#asreq-form");
 
-    console.log(asreqDetailModal);
-    console.log(modalContent);
+    // 모달 표시
+    modalForm.reset();
+    modal.style.display = 'block'; 
 
-    asreqDetailModal.style.display = 'block'; // 모달 표시
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "AS 요청 상세";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'none';
+    }
+    document.querySelector("#search-button").setAttribute("type", "hidden");
+    document.querySelector("#purchase-date").innerHTML = `<div>상품구매일자</div><input type="text" name="purchaseDate" disabled>`
+    document.querySelector("#warranty-yn").innerHTML = `<input type="text" name="warrantyYn" disabled>`;
+    document.querySelector("input[name=customerName]").setAttribute("disabled", "true");
+    document.querySelector("input[name=customerPhone]").setAttribute("disabled", "true");
+    document.querySelector("select[name=customerArea]").setAttribute("disabled", "true");
+    document.querySelector("input[name=customerAdress]").setAttribute("disabled", "true");
+    document.querySelector("input[name=issueTitle]").setAttribute("disabled", "true");
+    document.querySelector("textarea[name=issueDescription]").setAttribute("disabled", "true");
+    document.querySelector("#preferred-service-date").innerHTML = `<div>AS희망일자</div><input type="text" name="preferredServiceDate" disabled>`
+    document.querySelector("#enroll-date").style.display = 'flex';
+    document.querySelector("#modify-date").style.display = 'flex';
+    document.querySelector(".button-container").innerHTML =         
+        `<input type="button" id="asreq-receive-button" value="접수하기">
+        <input type="button" id="asreq-edit-button" value="수정">
+        <input type="button" id="asreq-delete-button" value="삭제">`;
+    
 
     $.ajax({
         url: "/qa/asreq/detail",
@@ -268,20 +308,22 @@ function loadDetailModal(asreqNo) {
         } ,
         success: function(asreqVo) {
 
-            document.querySelector("#asreq-detail input[name=no]").value = asreqVo.no;
-            document.querySelector("#asreq-detail input[name=productNo]").value = asreqVo.productNo;
-            document.querySelector("#asreq-detail input[name=serialNumber]").value = asreqVo.serialNumber;
-            document.querySelector("#asreq-detail input[name=productName]").value = asreqVo.productName;
-            document.querySelector("#asreq-detail input[name=purchaseDate]").value = asreqVo.purchaseDate;
-            document.querySelector("#asreq-detail input[name=warrantyYn]").value = asreqVo.warrantyYn;
-            document.querySelector("#asreq-detail input[name=customerName]").value = asreqVo.customerName;
-            document.querySelector("#asreq-detail select[name=customerArea]").value = asreqVo.customerArea;
-            document.querySelector("#asreq-detail input[name=customerAdress]").value = asreqVo.customerAdress;
-            document.querySelector("#asreq-detail input[name=customerPhone]").value = asreqVo.customerPhone;
-            document.querySelector("#asreq-detail input[name=preferredServiceDate]").value = asreqVo.preferredServiceDate;
-            document.querySelector("#asreq-detail input[name=issueTitle]").value = asreqVo.issueTitle;
-            document.querySelector("#asreq-detail textarea[name=issueDescription]").value = asreqVo.issueDescription;
-
+            document.querySelector("#asreq-modal input[name=no]").value = asreqVo.no;
+            document.querySelector("#asreq-modal input[name=productNo]").value = asreqVo.productNo;
+            document.querySelector("#asreq-modal input[name=serialNumber]").value = asreqVo.serialNumber;
+            document.querySelector("#asreq-modal input[name=name]").value = asreqVo.productName;
+            document.querySelector("#asreq-modal input[name=purchaseDate]").value = asreqVo.purchaseDate;
+            document.querySelector("#asreq-modal input[name=warrantyYn]").value = asreqVo.warrantyYn;
+            document.querySelector("#asreq-modal input[name=customerName]").value = asreqVo.customerName;
+            document.querySelector("#asreq-modal select[name=customerArea]").value = asreqVo.customerArea;
+            document.querySelector("#asreq-modal input[name=customerAdress]").value = asreqVo.customerAdress;
+            document.querySelector("#asreq-modal input[name=customerPhone]").value = asreqVo.customerPhone;
+            document.querySelector("#asreq-modal input[name=preferredServiceDate]").value = asreqVo.preferredServiceDate;
+            document.querySelector("#asreq-modal input[name=issueTitle]").value = asreqVo.issueTitle;
+            document.querySelector("#asreq-modal textarea[name=issueDescription]").value = asreqVo.issueDescription;
+            document.querySelector("#asreq-modal input[name=enrollDate]").value = asreqVo.enrollDate;
+            document.querySelector("#asreq-modal input[name=modifyDate]").value = asreqVo.modifyDate;
+            
             const receiveButton = document.querySelector("#asreq-receive-button");
             const editButton = document.querySelector("#asreq-edit-button");
             const deleteButton = document.querySelector("#asreq-delete-button");
@@ -291,7 +333,7 @@ function loadDetailModal(asreqNo) {
             });
 
             editButton.addEventListener("click", function () {
-                asreqEdit(asreqVo.no);
+                loadEditModal();
             });
 
             deleteButton.addEventListener("click", function () {
@@ -304,6 +346,208 @@ function loadDetailModal(asreqNo) {
             alert("통신실패...");
         }
     });
+}
+
+// 수정 모달
+function loadEditModal() {
+
+    // 모달 내용 채우기
+    document.querySelector(".modal-title").innerText = "AS 요청 수정";
+    const requiredArr = document.querySelectorAll(".required-text");
+    for (let i = 0; i < requiredArr.length; i++) {
+        requiredArr[i].style.display = 'block';
+    }
+    document.querySelector("#search-button").setAttribute("type", "button");
+    document.querySelector("input[name=purchaseDate]").setAttribute("type", "date");
+    document.querySelector("input[name=purchaseDate]").removeAttribute("disabled");
+    const warrantyYn = document.querySelector("#asreq-modal input[name=warrantyYn]").value;
+
+    if (warrantyYn == 'Y') {
+        document.querySelector("#warranty-yn").innerHTML = `<input type="radio" name="warrantyYn" value="Y" checked>Y <input type="radio" name="warrantyYn" value="N">N`;
+    }
+    else if (warrantyYn == 'N') {
+        document.querySelector("#warranty-yn").innerHTML = `<input type="radio" name="warrantyYn" value="Y">Y <input type="radio" name="warrantyYn" value="N" checked>N`;
+    }
+    else {
+        document.querySelector("#warranty-yn").innerHTML = `<input type="radio" name="warrantyYn" value="Y">Y <input type="radio" name="warrantyYn" value="N">N`;
+    }
+
+    document.querySelector("input[name=customerName]").removeAttribute("disabled");
+    document.querySelector("input[name=customerPhone]").removeAttribute("disabled");
+    document.querySelector("select[name=customerArea]").removeAttribute("disabled");
+    document.querySelector("input[name=customerAdress]").removeAttribute("disabled");
+    document.querySelector("input[name=preferredServiceDate]").setAttribute("type", "date");
+    document.querySelector("input[name=preferredServiceDate]").removeAttribute("disabled");
+    document.querySelector("input[name=issueTitle]").removeAttribute("disabled");
+    document.querySelector("textarea[name=issueDescription]").removeAttribute("disabled");
+    document.querySelector("#enroll-date").style.display = 'none';
+    document.querySelector("#modify-date").style.display = 'none';
+    document.querySelector(".button-container").innerHTML = `<input type="button" id="asreq-save-button" value="저장">`;
+    
+    // 저장 버튼 클릭 시 동작 
+    const saveButton = document.querySelector("#asreq-save-button");
+    saveButton.addEventListener("click", function () {
+        asreqEditSave();
+    });
+}
+
+// 수정 처리
+function asreqEditSave() {
+
+    const no = document.querySelector("#asreq-modal input[name=no]").value;
+    const productNo = document.querySelector('#asreq-modal input[name=productNo]').value;
+    const purchaseDateElement = document.querySelector('#asreq-modal input[name=purchaseDate]');
+    const purchaseDate = purchaseDateElement ? purchaseDateElement.value : null;
+    const warrantyYnElement = document.querySelector('#asreq-modal input[name=warrantyYn]:checked');
+    const warrantyYn = warrantyYnElement ? warrantyYnElement.value : null;
+    const customerName = document.querySelector('#asreq-modal input[name=customerName]').value;
+    const customerArea = document.querySelector('#asreq-modal select[name=customerArea]').value;
+    const customerAdress = document.querySelector('#asreq-modal input[name=customerAdress]').value;
+    const customerPhone = document.querySelector('#asreq-modal input[name=customerPhone]').value;
+    const preferredServiceDateElement = document.querySelector('#asreq-modal input[name=preferredServiceDate]');
+    const preferredServiceDate = preferredServiceDateElement ? preferredServiceDateElement.value : null;
+    const issueTitle = document.querySelector('#asreq-modal input[name=issueTitle]').value;
+    const issueDescription = document.querySelector('#asreq-modal textarea[name=issueDescription]').value;
+
+    if (!productNo) {
+        alert("상품을 선택해주세요.");
+        return;
+    }
+    if (!customerName) {
+        alert("고객명을 입력해주세요.");
+        return;
+    }
+    if (customerArea == "") {
+        alert("고객 지역을 선택해주세요.");
+        return;
+    }
+    if (!customerAdress) {
+        alert("고객 상세주소를 입력해주세요.");
+        return;
+    }
+    if (!customerPhone) {
+        alert("고객 핸드폰번호를 입력해주세요.");
+        return;
+    }
+    if (customerPhone.length > 11) {
+        alert("고객 핸드폰번호를 11자 이하로 입력해주세요.");
+        return;
+    }
+    if (!issueTitle) {
+        alert("AS요청제목을 입력해주세요.");
+        return;
+    }
+    if (!issueDescription) {
+        alert("AS요청내용을 입력해주세요.");
+        return;
+    }
+
+    const result = confirm("저장하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: '/qa/asreq/edit',
+        method: 'post',
+        data: {
+            no,
+            productNo,
+            purchaseDate,
+            warrantyYn,
+            customerName,
+            customerArea,
+            customerAdress,
+            customerPhone,
+            preferredServiceDate,
+            issueTitle,
+            issueDescription
+        } ,
+
+        success: function(result) {
+            if(result == 1) {
+                alert("수정되었습니다.");
+            }
+            else {
+                alert("오류발생...");
+            }
+            location.reload();
+        },
+
+        error: function() {
+            alert("통신실패...");
+            location.reload();
+        }
+    });
+
+}
+
+// 접수 처리
+function asreqReceive(no) {
+
+    const result = confirm("접수하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/qa/asreq/receive",
+        method: "get",
+        data: {
+            no : no 
+        } ,
+        success: function(result) {
+            if(result == 1) {
+                alert("AS요청이 접수되었습니다.");
+            }
+            else {
+                alert("오류발생...");
+            }
+            location.reload();
+        },
+
+        error: function() {
+            console.log(no);
+            alert("통신실패...");
+            location.reload();
+        }
+    });
+
+}
+
+// 단건 삭제 처리
+function asreqDelete(no) {
+    const result = confirm("삭제하시겠습니까?");
+
+    if(result == false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/qa/asreq/delete",
+        method: "POST",
+        data: {
+            no : no 
+        } ,
+        success: function(result) {
+            if(result == 1) {
+                alert("삭제되었습니다.");
+                location.reload();
+            }
+            else {
+                alert("AS 요청 삭제에 실패했습니다.");
+            }
+            location.reload();
+        },
+
+        error: function() {
+            alert("AS 요청 삭제에 실패했습니다.");
+            location.reload();
+        }
+    });
+
 }
 
 // 모달 닫기
@@ -364,15 +608,34 @@ function asreqDeleteMultiple() {
                 alert("삭제되었습니다.");
             }
             else {
-                alert("삭제실패...");
+                alert("AS 요청 삭제에 실패했습니다.");
             }
-
             location.reload();
-
         },
         error: function() {
-            alert("통신실패...");
+            alert("AS 요청 삭제에 실패했습니다.");
+            location.reload();
         }
     });
 
 }
+
+// searchType 값에 따라서 input 타입 변경
+function handleSearchType(x) {
+
+    const searchValueTag = document.querySelector("input[name=searchValue]");
+
+    if(x.value == "serialNumber") {
+        searchValueTag.setAttribute("type", "number");
+    } 
+    else{
+        searchValueTag.setAttribute("type", "search");
+    }
+
+}
+
+// 새로고침 해도 input 타입 유지
+document.addEventListener("DOMContentLoaded", () => {
+    const searchTypeSelect = document.querySelector("select[name=searchType]");
+    handleSearchType(searchTypeSelect); 
+});

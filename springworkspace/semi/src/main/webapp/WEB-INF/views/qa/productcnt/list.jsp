@@ -83,7 +83,7 @@
                                     <th>상품명</th>
                                     <th>가격</th>
                                     <th>재고</th>
-                                    <th>불량률</th>
+                                    <th>불량품개수</th>
                                 </tr>
                             </thead>
     
@@ -94,7 +94,7 @@
                                         <td>${product.name}</td>
                                         <td>${product.price}</td>
                                         <td>${product.totalCount}</td>
-                                        <td>${product.defectRate}</td>
+                                        <td>${product.defectiveCnt}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -103,6 +103,8 @@
                            
 
                 </div>
+
+                
 
                 <div class="bottom-content-area">
                     <div><button class="crud-button-white" onclick = "delDefectiveCode();">삭제</button></div>

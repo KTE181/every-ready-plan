@@ -67,10 +67,10 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType">
+                                <select name="searchType" onchange="handleSearchType(this)">
                                     <option value="title" <c:if test='${searchType == "title"}'>selected</c:if>>AS요청제목</option>
-                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
                                     <option value="empName" <c:if test='${searchType == "customerName"}'>selected</c:if>>AS담당자</option>
+                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
                                     <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
                                     <option value="productName" <c:if test='${searchType == "productName"}'>selected</c:if>>상품명</option>
                                 </select>
@@ -102,7 +102,7 @@
                         </thead>
                         <tbody>
                             <c:forEach items="${asworkVoList}" var="asworkVo">
-                                <tr id="aswork-list" onclick="asworkDetail('${asworkVo.no}');">
+                                <tr id="aswork-list" onclick="loadDetailModal('${asworkVo.no}');">
                                     <td onclick="event.stopPropagation();"><input type="checkbox" name="listCheckbox"></td>
                                     <td>${asworkVo.no}</td>
                                     <td>${asworkVo.serialNumber}</td>
@@ -140,45 +140,44 @@
                 </div>
             </div>
 
-            <!-- Detail Modal -->
-            <div id="aswork-detail">
-                <form action='/qa/aswork/delete' method="post" onsubmit="return confirm('삭제하시겠습니까?');">
-                    <div class="detail-content">
-                        <span class="detail-close" onclick="asworkDetailClose();">&times;</span>
+            <!-- AS작업 모달 -->
+            <div id="aswork-modal">
+                <form id="aswork-form">
+                    <div class="modal-content">
+                        <span class="modal-close"">&times;</span>
                         
-                        <div class="modal-title">AS 작업 상세</div>
-                        <div id="required-text"></div>
-
+                        <div class="modal-title"></div>
+                        <div class="required-text">* 는 필수입력사항입니다.</div>
                         <div class="title-text">AS요청정보</div>
+
                         <input type="hidden" name="no">
+                        <input type="hidden" name="asNo">
                         <input type="hidden" name="productNo">
 
                         <div class="modal-cont">
-                            <label for="">상품일련번호</label>
-                            <div>
-                                <input type="text" name="serialNumber" disabled>
-                            </div>
+                            <div>상품일련번호</div>
+                            <input type="text" name="serialNumber" disabled>
 
                         </div>
                         <div class="modal-cont">
-                            <label for="">상품명</label>
+                            <div>상품명</div>
                             <input type="text" name="productName" disabled>
                         </div>
                         <div class="modal-cont">
-                            <label for="">상품구매일자</label>
+                            <div>상품구매일자</div>
                             <input type="text" name="purchaseDate" disabled>
                         </div>
                         <div class="modal-cont">
-                            <label for="">무상가능여부</label>
+                            <div>무상가능여부</div>
                             <input type="text" name="warrantyYn" disabled>
                         </div>
 
                         <div class="modal-cont">
-                            <label for="">고객명</label>
+                            <div>고객명</div>
                             <input type="text" name="customerName" disabled>
                         </div>
                         <div class="modal-cont">
-                            <label>고객주소</label>
+                            <div>고객주소</div>
                             <div>
                                 <select name="customerArea" disabled>
                                     <option value="서울">서울</option>
@@ -191,192 +190,128 @@
                             </div>
                         </div>
                         <div class="modal-cont">
-                            <label>고객핸드폰번호</label>
+                            <div>고객핸드폰번호</div>
                             <input type="text" name="customerPhone" placeholder="숫자만 입력하세요" disabled>
                         </div>
 
                         <div class="modal-cont">
-                            <label>AS희망일자</label>
+                            <div>AS희망일자</div>
                             <input type="text" name="preferredServiceDate" disabled>
                         </div>
 
                         <div class="modal-cont long-textbox">
-                            <label>AS요청제목</label>
+                            <div>AS요청제목</div>
                             <input type="text" name="issueTitle" disabled>
                         </div>
                         <div class="modal-cont long-textbox">
-                            <label>AS요청내용(증상)</label>
+                            <div>AS요청내용(증상)</div>
                             <textarea name="issueDescription" disabled></textarea>
                         </div>
 
                         <div class="title-text">AS작업정보</div>
+
                         <div class="modal-cont">
-                            <label>AS진행상태</label>
+                            <div>AS진행상태</div>
                             <select name="statusCode" disabled>
-                                <option value="2">접수</option>
-                                <option value="3">처리중</option>
-                                <option value="4">처리완료</option>
+                                <c:forEach items="${statusVoList}" var="vo">
+                                    <option value="${vo.no}">${vo.name}</option>
+                                </c:forEach>
                             </select>
                         </div>
 
                         <div class="modal-cont">
-                            <label>AS담당자</label>
-                            <select name="empNo" disabled>
-                                <option value="1">홍길동</option>
-                                <option value="2">박철수</option>
-                                <option value="3">김아무개</option>
-                            </select>
-                        </div>
-
-                        <div class="modal-cont">
-                            <label for="">수리일자</label>
-                            <input type="date" name="repairDate" disabled>
-                        </div>
-
-                        <div class="modal-cont">
-                            <label>고장유형</label>
+                            <div>고장유형</div>
                             <select name="faultCode" disabled>
-                                <option value="1">침수</option>
-                                <option value="2">파손</option>
-                                <option value="3">전기누수</option>
+                                <option value="">-- 선택 --</option>
+                                <c:forEach items="${typeVoList}" var="vo">
+                                    <option value="${vo.no}">${vo.faultName}</option>
+                                </c:forEach>
                             </select>
+                        </div>
+
+                        <div class="modal-cont">
+                            <div>AS담당자 사번</div>
+                            <div>
+                                <input type="text" name="empNo" disabled>
+                                <input type="button" id="search-button" value="담당자검색" onclick="empList();">
+                            </div>
+                        </div>
+
+                        <div class="modal-cont">
+                            <div>AS담당자명</div>
+                            <input type="text" name="empName" disabled>
+                        </div>
+
+                        <div class="modal-cont">
+                            <div>AS담당자 소속부서</div>
+                            <input type="text" name="dname" disabled>
+                        </div>
+
+                        <div class="modal-cont">
+                            <div>수리일자</div>
+                            <input type="text" name="repairDate" disabled>
                         </div>
 
                         <div class="modal-cont long-textbox">
-                            <label>수리내용</label>
+                            <div>수리내용</div>
                             <textarea name="repairDetalis" disabled></textarea>
+                        </div>
+
+                        <div class="modal-cont" id="enroll-date">
+                            <label for="">접수일자</label>
+                            <input type="text" name="enrollDate" disabled>
+                        </div>
+
+                        <div class="modal-cont" id="modify-date">
+                            <label for="">수정일자</label>
+                            <input type="text" name="modifyDate" disabled>
                         </div>
 
                         <div></div>
 
-                        <div class="button-container">
-                            <div><input id="aswork-edit-bnt" type="button" value="수정"></div>
-                            <div><input type="submit" value="삭제"></div>
-                        </div>
-                        </div>
+                        <div class="button-container"></div>
                     </div>
                 </form>
             </div>
 
-            <!-- Edit Modal -->
-            <div id="aswork-edit">
-                <form id="aswork-edit-form" action='/qa/aswork/edit' method="post" onsubmit="return confirm('저장하시겠습니까?');" >
-                    <div class="edit-content">
+            <!-- 담당자검색 모달 -->
+            <div id="emp-modal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <div class="modal-title">AS담당자검색</div>
+                    <div></div>
 
-                        <span class="edit-close" onclick="asworkEditClose();">&times;</span>
-                        
-                        <div class="modal-title">AS 작업 수정</div>
-                        <div id="required-text">* 는 필수입력사항입니다.</div>
-
-                        <div class="title-text">AS요청정보</div>
-                        <input type="hidden" name="no">
-                        <input type="hidden" name="productNo">
-
-                        <div class="modal-cont">
-                            <label for="">상품일련번호</label>
-                            <div>
-                                <input type="text" name="serialNumber" disabled>
-                            </div>
-
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">상품명</label>
-                            <input type="text" name="productName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">상품구매일자</label>
-                            <input type="text" name="purchaseDate" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label for="">무상가능여부</label>
-                            <input type="text" name="warrantyYn" disabled>
-                        </div>
-
-                        <div class="modal-cont">
-                            <label for="">고객명</label>
-                            <input type="text" name="customerName" disabled>
-                        </div>
-                        <div class="modal-cont">
-                            <label>고객주소</label>
-                            <div>
-                                <select name="customerArea" disabled>
-                                    <option value="서울">서울</option>
-                                    <option value="인천">인천</option>
-                                    <option value="경기">경기</option>
-                                    <option value="부산">부산</option>
-                                    <option value="제주도">제주도</option>
-                                </select>
-                                <input type="text" name="customerAdress" placeholder="상세주소" disabled>
-                            </div>
-                        </div>
-                        <div class="modal-cont">
-                            <label>고객핸드폰번호</label>
-                            <input type="text" name="customerPhone" placeholder="숫자만 입력하세요" disabled>
-                        </div>
-
-                        <div class="modal-cont">
-                            <label>AS희망일자</label>
-                            <input type="text" name="preferredServiceDate" disabled>
-                        </div>
-
-                        <div class="modal-cont long-textbox">
-                            <label>AS요청제목</label>
-                            <input type="text" name="issueTitle" disabled>
-                        </div>
-                        <div class="modal-cont long-textbox">
-                            <label>AS요청내용(증상)</label>
-                            <textarea name="issueDescription" disabled></textarea>
-                        </div>
-
-                        <div class="title-text">AS작업정보</div>
-                        <div class="modal-cont">
-                            <label>AS진행상태</label>
-                            <select name="statusCode">
-                                <option value="2">접수</option>
-                                <option value="3">처리중</option>
-                                <option value="4">처리완료</option>
-                            </select>
-                        </div>
-
-                        <div class="modal-cont">
-                            <label>AS담당자</label>
-                            <select name="empNo">
-                                <option>-- 선택 --</option>
-                                <option value="1">홍길동</option>
-                                <option value="2">박철수</option>
-                                <option value="3">김아무개</option>
-                            </select>
-                        </div>
-
-                        <div class="modal-cont">
-                            <label for="">수리일자</label>
-                            <input type="date" name="repairDate">
-                        </div>
-
-                        <div class="modal-cont">
-                            <label>고장유형</label>
-                            <select name="faultCode">
-                                <option>-- 선택 --</option>
-                                <option value="1">침수</option>
-                                <option value="2">파손</option>
-                                <option value="3">전기누수</option>
-                            </select>
-                        </div>
-
-                        <div class="modal-cont long-textbox">
-                            <label>수리내용</label>
-                            <textarea name="repairDetalis"></textarea>
-                        </div>
-
-                        <div></div>
-
-                        <div class="button-container">
-                            <div class="button-container"><input type="submit" value="저장"></div>
-                        </div>
-                        </div>
-
+                    <div id="emp-modal-search-area">
+                        <form id="emp-search-form">
+                        <select name="asemp-area">
+                            <option value="">담당지역 전체</option>
+                            <option value="서울">서울</option>
+                            <option value="인천">인천</option>
+                            <option value="경기">경기</option>
+                            <option value="부산">부산</option>
+                            <option value="제주도">제주도</option>
+                        </select>
+                        <input type="button" onclick="empData()" value="검색">
+                        </form>
                     </div>
-                </form>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>선택</th>
+                                <th>사번</th>
+                                <th>AS담당자명</th>
+                                <th>담당지역</th>
+                                <th>연락처</th>
+                                <th>소속부서</th>
+                                <th>직급</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="page-area"></div>
+                    <div class="button-container"><input type="button" onclick="selectEmp();" value="선택"></div>
+                </div>
             </div>
 
         </div>

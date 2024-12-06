@@ -1,23 +1,31 @@
 package com.kh.semi.hr;
 
-import com.kh.semi.login.vo.AdminLoginVo;
-import com.kh.semi.login.vo.LoginVo;
-import jakarta.servlet.http.HttpSession;
+import com.kh.semi.hr.employee.vo.EmployeeVo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 
 @Controller
+@RequiredArgsConstructor
 public class HrController {
+    private  final HrService service;
 
     @GetMapping("hr")
-    public String phr(HttpSession session){
-        // 세션에서 로그인 정보 확인
-        AdminLoginVo loginAdminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
-
-        // 로그인 정보가 없으면 로그인 페이지로 이동
-//        if (loginEmployeeVo == null) {
-//            return "redirect:/login"; // redirect를 사용해 로그인 페이지로 이동
-//        }
+    public String phr() {
         return "hr/hr";
+    }
+
+
+    @PostMapping("hr")
+    @ResponseBody
+    public List<EmployeeVo> hr(){
+
+        List<EmployeeVo> volist = service.getList();
+        return volist;
     }
 }

@@ -24,6 +24,8 @@ public class AsworkVo {
     private String faultName;
     private String empNo;
     private String empName;
+    private String dname;
+    private String pname;
     private String repairDate;
     private String repairDetalis;
     private String enrollDate;

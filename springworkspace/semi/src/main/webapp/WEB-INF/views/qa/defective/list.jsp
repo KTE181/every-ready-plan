@@ -132,6 +132,7 @@
                             <div class="form-group">
                                 <label for="serialno">일련번호</label>
                                 <input type="text" id="dfserialno">
+                                <input type = "button" value = "일련번호 선택" onclick = "productList();">
                             </div>
                             <div class="form-group">
                                 <label for="product-name">상품명</label>
@@ -147,7 +148,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="defective-code">불량코드</label>
-                                <select id = defectivecode-select>
+                                <select id = "defectivecode-select">
                                     
                                 </select>
                             </div>
@@ -162,7 +163,7 @@
             
                         </div>
                         <div class="modal-buttons">
-                            <button class="primary" onclick = "openModal();">등록</button>
+                            <button class="primary" id ="registerDefectiveProduct">등록</button>
                             <button>삭제</button>
                         </div>
                     </div>
@@ -267,6 +268,41 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="product-modal">
+                    <div class="modal-content">
+                        <span class="modal-close">&times;</span>
+                        <div class="modal-title">상품검색</div>
+                        <div></div>
+    
+                        <div id="product-modal-search-area">
+                            <form id="product-search-form">
+                            <select name="productSearchType">
+                                <option value="serialNumber">상품일련번호</option>
+                                <option value="productName">상품명</option>
+                            </select>
+                            <input type="search" name="productSearchValue">
+                            <input type="button" onclick="productData()" value="검색">
+                            </form>
+                        </div>
+    
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>선택</th>
+                                    <th>상품일련번호</th>
+                                    <th>상품명</th>
+                                    <th>가격</th>
+                                    <th>무상보증기간(년)</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="page-area"></div>
+                        <div class="button-container"><input type="button" onclick="selectProduct();" value="선택"></div>
+                    </div>
+                </div>
+
 
 
 

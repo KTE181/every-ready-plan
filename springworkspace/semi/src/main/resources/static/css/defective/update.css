@@ -213,3 +213,17 @@ body {
     color: #000;
     cursor: pointer;
 }
+
+.form-group > #defectivecode-select-edit{
+
+    width: 135px;
+    height: 29px;
+    border-radius: 5px;
+    font-size: 13px;
+    padding-left: 8px;
+    border: 1px solid rgb(182, 182, 182);
+    display : flex;
+    align-items: center;
+
+}
+

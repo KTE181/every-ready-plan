@@ -32,27 +32,29 @@
                             <!-- Contents Area -->
                             <div class="content-area">
 
-                                <!-- Search Area -->
                                 <div class="top-title-area">
-                                    <form action="" class="top-title-area-form">
-                                        <div class="menu-name">은행계좌관리</div>
-                                        <div class="search-bar">
+                                    <div class="menu-name">은행계좌관리</div>
+                                    <div>
+                                        <form action="/finance/account/list" method="get" class="top-title-area-form">
                                             <label for="select">카테고리</label>
-                                            <select name="" id="">
-                                                <option value="1">은행코드</option>
-                                                <option value="2">은행명</option>
-                                                <option value="3">계좌명</option>
-                                                <option value="4">계좌번호</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="search-bar"><label for="">내용검색</label>
-                                            <input type="search" id="longbar">
-                                        </div>
-                                        <div class="search-bar">
-                                            <button class="crud-button-white">검색</button>
-                                        </div>
-                                    </form>
+                                            <div class="search-bar">
+                                                <select name="area">
+                                                    <option value="1" ${area == '1' ? 'selected' : ''}>은행코드</option>
+                                                    <option value="2" ${area == '2' ? 'selected' : ''}>은행명</option>
+                                                    <option value="3" ${area == '3' ? 'selected' : ''}>계좌명</option>
+                                                    <option value="4" ${area == '4' ? 'selected' : ''}>계좌번호</option>
+                                                </select>
+                                            </div>
+                                
+                                            <label for="">내용검색</label>
+                                            <div class="search-bar">
+                                                <input type="search" name="searchValue" id="longbar" value="${searchValue}">
+                                            </div>
+                                            <div class="search-bar">
+                                                <button class="crud-button-white" type="submit">검색</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
 
                                 <!-- List Area -->
@@ -82,39 +84,29 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-
+                            
                             <!-- Bottom Area -->
                             <div class="bottom-content-area">
-                                <div>
-                                    <button class="crud-button-white">삭제</button>
-                                </div>
+                                <div><button class="crud-button-white" onclick="accountDeleteMultiple();">삭제</button></div>
                                 <div>
                                     <div class="pagination">
-                                        <!-- 이전 페이지 버튼 -->
-                                        <a href="#" class="page-button previous">&laquo;</a>
-
-                                        <!-- 페이지 번호 버튼들 -->
-                                        <a href="#" class="page-button active">1</a>
-                                        <a href="#" class="page-button">2</a>
-                                        <a href="#" class="page-button">3</a>
-                                        <a href="#" class="page-button">4</a>
-                                        <a href="#" class="page-button">5</a>
-                                        <a href="#" class="page-button">6</a>
-                                        <a href="#" class="page-button">7</a>
-                                        <a href="#" class="page-button">8</a>
-                                        <a href="#" class="page-button">9</a>
-                                        <a href="#" class="page-button">10</a>
-                                        <!-- 다음 페이지 버튼 -->
-                                        <a href="#" class="page-button next">&raquo;</a>
+                                        <c:if test="${pageVo.currentPage > 1}">
+                                            <a href="?pno=${pageVo.currentPage - 1}" class="page-button previous">&laquo;</a>
+                                        </c:if>
+                                        <c:forEach begin="${pageVo.startPage}" end="${pageVo.endPage}" var="i">
+                                            <a href="?pno=${i}" class="page-button ${i == pageVo.currentPage ? 'active' : ''}">${i}</a>
+                                        </c:forEach>
+                                        <c:if test="${pageVo.currentPage < pageVo.maxPage}">
+                                            <a href="?pno=${pageVo.currentPage + 1}" class="page-button next">&raquo;</a>
+                                        </c:if>
                                     </div>
                                 </div>
-                                <div>
-                                    <button class="crud-button-white" id="account-write-btn"
+                                    <div><button class="crud-button-white" id="account-write-btn"
                                         onclick="accountWrite();">등록</button>
                                 </div>
                             </div>
-
+                        </div>
+                        </div>
 
                             <!-- Write Modal -->
                             <div id="account-write">
@@ -125,19 +117,6 @@
                                         <div id="required-text"> * 는 필수 입력 사항입니다.</div>
 
                                         <div class="title-text"></div>
-
-                                        <!-- <div class="modal-cont">
-                                            <label for="">은행코드</label>
-                                            <div>
-                                                <input type="text" name="bankCode">
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="modal-cont">
-                                            <label for="">은행명</label>
-                                            <div>
-                                                <input type="text" name="bankName" disabled>
-                                            </div>
-                                        </div> -->
 
                                         <div class="modal-cont">
                                             <label>은행명</label>
@@ -225,7 +204,6 @@
                                                 <input type="text" name="accountName" disabled>
                                             </div>
                                         </div>
-
                                         <div></div>
                                         <div class="button-container">
                                             <div><input id="account-edit-btn" type="button" value="수정"></div>
@@ -252,9 +230,10 @@
                                             </div>
                                         </div>
 
-                                        <!-- <div class="modal-cont">
+
+                                        <div class="modal-cont">
                                             <label>은행명</label>
-                                            <select name="bankCode">
+                                            <select id="bankCode1">
                                                 <option value="1">한국</option>
                                                 <option value="2">산업</option>
                                                 <option value="3">기업</option>
@@ -267,21 +246,21 @@
                                                 <option value="32">부산</option>
                                                 <option value="48">신협</option>
                                             </select>
-                                        </div> -->
+                                        </div>
 
                                         <div class="modal-cont">
                                             <label for="">은행코드</label>
                                             <div>
-                                                <input type="text" name="bankCode" >
+                                                <input type="text" name="bankCode" readonly >
                                             </div>
                                         </div>
 
-                                        <div class="modal-cont">
-                                            <label for="">은행명</label>
+                                        <!-- <div class="modal-cont" 
+                                            <label for="bankName" >은행명</label>
                                             <div>
-                                                <input type="text" name="bankName" >
+                                                <input type="text" name="bankName" disabled>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="modal-cont">
                                             <label for="">계좌번호</label>

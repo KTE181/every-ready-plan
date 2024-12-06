@@ -202,13 +202,24 @@
                 </form>
             </div>
 
-
              <!-- 상품검색 모달 -->
              <div id="product-modal">
                 <div class="modal-content">
                     <span class="modal-close">&times;</span>
                     <div class="modal-title">상품검색</div>
                     <div></div>
+
+                    <div id="product-modal-search-area">
+                        <form id="product-search-form">
+                        <select name="productSearchType">
+                            <option value="serialNumber">상품일련번호</option>
+                            <option value="productName">상품명</option>
+                        </select>
+                        <input type="search" name="productSearchValue">
+                        <input type="button" onclick="productData()" value="검색">
+                        </form>
+                    </div>
+
                     <table>
                         <thead>
                             <tr>
@@ -221,10 +232,10 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <div class="button-container"><input type="button" id="product-select-button" value="선택"></div>
+                    <div class="page-area"></div>
+                    <div class="button-container"><input type="button" onclick="selectProduct();" value="선택"></div>
                 </div>
             </div>
-
 
         </div>
     </div>

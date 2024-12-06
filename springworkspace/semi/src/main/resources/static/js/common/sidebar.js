@@ -104,6 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+function home() {
+  // 로고 이미지 클릭 시 hr (홈) 으로 이동
+  location.href = "/hr";
+}
+
 
 function navi() {
 
@@ -132,9 +137,25 @@ function pvnavi() {
   document.querySelector('.dropdown-menu1 li:nth-child(2)').addEventListener("click", () => {
     location.href = "/pv/vacation/list";
   })
+  //사이드바 개인출퇴근내역 이동
+  document.querySelector('.dropdown-menu1 li:nth-child(3)').addEventListener("click", () => {
+    location.href = "/myattendance";
+  })
+  //사이드바 급여명세서 이동
+  document.querySelector('.dropdown-menu1 li:nth-child(4)').addEventListener("click", () => {
+    location.href = "/pv/salary/list";
+  })
 }
 
 function hrnavi() {
+   //사원관리 이동
+   document.querySelector('.dropdown-menu2 li:nth-child(1)').addEventListener("click", () => {
+    location.href = "/employeehr";
+  })
+   //초과근무 이동
+   document.querySelector('.dropdown-menu2 li:nth-child(2)').addEventListener("click", () => {
+    location.href = "/attendancehr";
+  })
   //초과근무 이동
   document.querySelector('.dropdown-menu2 li:nth-child(3)').addEventListener("click", () => {
     location.href = "/api/hr/overtime/list";
@@ -148,7 +169,6 @@ function hrnavi() {
     location.href = "/api/hr/salary/list";
   })
 }
-
 function qrnavi() {
   //상품관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(1)').addEventListener("click", () => {
@@ -158,9 +178,21 @@ function qrnavi() {
   document.querySelector('.dropdown-menu3 li:nth-child(2)').addEventListener("click", () => {
     location.href = "/qa/productcnt/list";
   })
-  //AS요청관리 이동
+  //불량 상품 관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(3)').addEventListener("click", () => {
+    location.href = "/qa/defective/list";
+  })
+  //품질 관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(4)').addEventListener("click", () => {
+    location.href = " /qa/inspection/list";
+  })
+  //AS요청관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(5)').addEventListener("click", () => {
     location.href = "/qa/asreq/list";
+  })
+  //AS작업관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(6)').addEventListener("click", () => {
+    location.href = "/qa/aswork/list";
   })
   //담당자 관리 이동
   document.querySelector('.dropdown-menu3 li:nth-child(7)').addEventListener("click", () => {
@@ -170,6 +202,11 @@ function qrnavi() {
   document.querySelector('.dropdown-menu3 li:nth-child(8)').addEventListener("click", () => {
     location.href = "/qa/defectivecode/list";
   })
+  //고장코드 관리 이동
+  document.querySelector('.dropdown-menu3 li:nth-child(9)').addEventListener("click", () => {
+    location.href = "/qa/faultcode/list";
+  })
+  
 }
 
 
@@ -184,7 +221,6 @@ function finavi() {
   document.querySelector('.dropdown-menu4 li:nth-child(2)').addEventListener("click", () => {
     location.href = "/finance/account/list";
   })
-
   //매출 관리 이동
   document.querySelector('.dropdown-menu4 li:nth-child(3)').addEventListener("click", () => {
     location.href = "/finance/sale/list";
@@ -214,9 +250,11 @@ const insasidebar = document.querySelectorAll(".dropdown-menu2 .disabled");
 const qasidebar = document.querySelectorAll(".dropdown-menu3 .disabled");
 const fisidebar = document.querySelectorAll(".dropdown-menu4 .disabled");
 function access(data) {
+
+  console.log(data);
   
   
-  if (data != 1) {
+  if (data != 1&&data !=100) {
     for (let i = 0; i < insasidebar.length; i++) {
       const e = insasidebar[i];
 
@@ -225,7 +263,7 @@ function access(data) {
       });
     }
   }
-  if (data != 2) {
+  if (data != 2&&data !=100) {
     for (let i = 0; i < qasidebar.length; i++) {
       const e = qasidebar[i];
       e.addEventListener("click", () => {
@@ -233,7 +271,7 @@ function access(data) {
       });
     }
   }
-  if (data != 3) {
+  if (data != 3&&data !=100) {
     for (let i = 0; i < fisidebar.length; i++) {
       const e = fisidebar[i];
       e.addEventListener("click", () => {
@@ -264,5 +302,18 @@ function disabledinsadelete(data) {
     finavi();
     access(3);
   }
+
+}
+
+function adminlogin(admin){
+  if(admin != null){
+    navi();
+    pvnavi();
+    hrnavi();
+    qrnavi();
+    finavi();
+    access(100);
+  }
+  
 
 }

@@ -39,7 +39,7 @@ public class PurchaseController {
             throw new Exception("매입관리 에러");
         }
 
-        session.setAttribute("alertMsg" , "매입관리 오류");
+        session.setAttribute("alertMsg" , "매입 등록");
 
         return "redirect:/finance/purchase/list";
     }

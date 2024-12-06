@@ -1,6 +1,8 @@
 package com.kh.semi.qa.aswork.service;
 
+import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.pb.vo.PageVo;
+import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.aswork.mapper.AsworkMapper;
 import com.kh.semi.qa.aswork.vo.AsworkStatusVo;
@@ -39,9 +41,9 @@ public class AsworkService {
         return mapper.getAsworkListCnt(area, status, type, searchType, searchValue);
     }
 
-    public AsworkVo getAsworkDetail(String asworkNo, Model model) {
+    public AsworkVo getAsworkDetail(String asworkNo) {
 
-        AsworkVo vo = mapper.getAsworkDetail(asworkNo, model);
+        AsworkVo vo = mapper.getAsworkDetail(asworkNo);
 
         if(vo.getPurchaseDate() != null) {
             vo.setPurchaseDate(vo.getPurchaseDate().substring(0,10));
@@ -72,7 +74,9 @@ public class AsworkService {
             vo.setRepairDate(vo.getRepairDate().replace("-", ""));
         }
 
-        return mapper.edit(vo);
+        int result1 = mapper.edit(vo);
+        int result2 = mapper.updateStatus(vo);
+        return result1 * result2;
     }
 
     public int delete(String no) {
@@ -85,5 +89,13 @@ public class AsworkService {
 
     public List<FaultcodeVo> getTypeList(Model model) {
         return mapper.getTypeList(model);
+    }
+
+    public int getAsempCnt(String area) {
+        return mapper.getAsempCnt(area);
+    }
+
+    public List<AsempVo> getAsempList(PageVo pvo, String area) {
+        return mapper.getAsempList(pvo, area);
     }
 }

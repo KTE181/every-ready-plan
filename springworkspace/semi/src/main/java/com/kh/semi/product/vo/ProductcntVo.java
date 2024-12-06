@@ -10,5 +10,7 @@ public class ProductcntVo {
     private String count;
     private String totalCount;
     private String defectRate;
-    private String nondefectivecount;
+    private String defectiveCount;
+    private int defectiveCnt;
+
 }

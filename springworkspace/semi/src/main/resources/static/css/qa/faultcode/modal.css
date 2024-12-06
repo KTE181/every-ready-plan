@@ -49,6 +49,7 @@
     margin-bottom: 5px;
     color: #3344FF;
     font-weight: bold;
+    text-align: left;
 }
 
 #faultcode-modal .modal-cont{

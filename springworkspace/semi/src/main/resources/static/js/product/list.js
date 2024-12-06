@@ -11,7 +11,10 @@ function closeModal() {
     modalTag.classList.remove('active');
 }
 
-
+function openItemCodeModal(){
+    const modalTag = document.querySelector("#modalItemCode");
+    modalTag.classList.add('active');
+}
 
 
 function handleCheckBox(x){
@@ -71,37 +74,37 @@ $(document).ready(function () {
 let no= "";
 
 // 테이블 행 클릭 이벤트
-// document.querySelectorAll("#productTable td").forEach(row => {
+document.querySelectorAll("#productTable td").forEach(row => {
 
 
 
-//     row.addEventListener("click", function (evt) {
-//         const productNo = this.getAttribute("data-product-no"); 
+    row.addEventListener("click", function (evt) {
+        const productNo = this.getAttribute("data-product-no"); 
 
-//         no = evt.target.parentNode.children[1].innerText;
+        no = evt.target.parentNode.children[1].innerText;
 
-//         $.ajax({
-//             url: `/qa/product/detail?no=${productNo}`,
-//             method: "GET",
-//             success: function (x) {
+        $.ajax({
+            url: `/qa/product/detail?no=${productNo}`,
+            method: "GET",
+            success: function (x) {
 
-//                 document.querySelector("#item-code").value = x.itemCode;
-//                 document.querySelector("#product-name").value = x.name;
-//                 document.querySelector("#product-price").value = x.price;
-//                 document.querySelector("#serial-number").value = x.serialNumber;
-//                 document.querySelector("#factoryName").value = x.factoryName;
-//                 document.querySelector("#factory-address").value = x.factoryLocation;
-//                 document.querySelector("#warranty").value = x.warrantyPeriod;
-//                 document.querySelector("#import-date").value = x.receivedDate;
+                document.querySelector("#item-code").value = x.itemCode;
+                document.querySelector("#product-name").value = x.name;
+                document.querySelector("#product-price").value = x.price;
+                document.querySelector("#serial-number").value = x.serialNumber;
+                document.querySelector("#factoryName").value = x.factoryName;
+                document.querySelector("#factory-address").value = x.factoryLocation;
+                document.querySelector("#warranty").value = x.warrantyPeriod;
+                document.querySelector("#import-date").value = x.receivedDate;
 
-//                 document.querySelector("#modalDetail").style.display = "block";
-//             },
-//             error: function () {
-//                 alert("상품 상세 정보를 가져오는 데 실패했습니다.");
-//             }
-//         });
-//     });
-// });
+                document.querySelector("#modalDetail").style.display = "block";
+            },
+            error: function () {
+                alert("상품 상세 정보를 가져오는 데 실패했습니다.");
+            }
+        });
+    });
+});
 
 document.querySelector("#closeModal").addEventListener("click", function () {
     document.querySelector("#modalDetail").style.display = "none";
@@ -190,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 success: function () {
                     alert("상품이 성공적으로 등록되었습니다!");
+                    reload();
                     
                 },
                 error: function () {
@@ -280,17 +284,4 @@ document.querySelector("#modalEdit .primary").addEventListener("click", function
         }
     });
 })
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    // 페이지 번호 클릭 이벤트
-    document.querySelectorAll(".page-link").forEach(link => {
-        link.addEventListener("click", function (e) {
-            e.preventDefault(); // 기본 링크 동작 방지
-            const pageNo = this.getAttribute("data-page"); // 클릭한 페이지 번호 가져오기
-            window.location.href = `/qa/product/list?pno=${pageNo}`; // 새로운 페이지로 이동
-        });
-    });
-});
-
 

@@ -25,7 +25,7 @@ public interface FaultcodeMapper {
             WHERE NO = #{no}
             AND DEL_YN = 'N'
             """)
-    FaultcodeVo getFaultCodeDetail(String no, Model model);
+    FaultcodeVo getFaultCodeDetail(String no);
 
     @Insert("""
             INSERT INTO FAULT_CODE

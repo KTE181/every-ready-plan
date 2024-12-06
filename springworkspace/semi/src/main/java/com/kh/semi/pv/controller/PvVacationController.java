@@ -1,5 +1,6 @@
 package com.kh.semi.pv.controller;
 
+import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.pv.service.PvVacationService;
@@ -26,25 +27,28 @@ public class PvVacationController {
     public String list(Model model, HttpSession session,String date,@RequestParam(name = "pno" , required = false, defaultValue = "1")int currentPage){
 
 
-
+        String no = "";
         LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
-        if(loginEmployeeVo==null){
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
             session.setAttribute("loginalertMsg","로그인후 이용하세요");
             return "redirect:/login";
         }
-        String no = ((LoginVo) session.getAttribute("loginEmployeeVo")).getNo();
-
         int listCount = service.getVacationCnt(no);
         int pageLimit = 5;
         int boardLimit = 14;
         PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+        if(loginEmployeeVo!=null){
+            no= ((LoginVo) session.getAttribute("loginEmployeeVo")).getNo();
+            List<PvVacationVo> voList=service.getVacationList(no,date,pvo);
+            PvVacationVo vacationVo=service.getVacationVo(no);
+            model.addAttribute("voList",voList);
+            model.addAttribute("vacationVo",vacationVo);
+        }
 
 
-        List<PvVacationVo> voList=service.getVacationList(no,date,pvo);
-        PvVacationVo vacationVo=service.getVacationVo(no);
         model.addAttribute("pvo",pvo);
-        model.addAttribute("voList",voList);
-        model.addAttribute("vacationVo",vacationVo);
+
         return "pv/vacation/list";
     }
 

@@ -13,14 +13,21 @@
       <c:if test="${not empty sessionScope.loginEmployeeVo}">
       document.addEventListener("DOMContentLoaded" , function(){
         disabledinsadelete(${loginEmployeeVo.deptCode});
-      }); 
+      });
+      </c:if> 
+    </script>
+    <script>
+      <c:if test="${not empty sessionScope.loginAdminVo}">
+        document.addEventListener("DOMContentLoaded" , function(){
+        adminlogin('${loginAdminVo}');
+      });
       </c:if>
     </script>
 
     
 
     <div class="sidebar">
-      <div class="logo-area"><img src="/img/common/logo.png"></div>
+      <div class="logo-area"><img src="/img/common/logo.png" onclick="home();"></div>
       <div class="menu-item dropdown">
         <div class="title-menu">공용</div>
         <ul class="dropdown-menu">
@@ -54,10 +61,10 @@
           <li class="disabled">상품 관리</li>
           <li class="disabled">재고 현황 조회</li>
           <li class="disabled">불량상품 관리</li>
+          <li class="disabled">품질검사 관리</li>
           <li class="disabled">AS 요청 관리</li>
           <li class="disabled">AS 작업 관리</li>
-          <li class="disabled">품질 관리</li>
-          <li class="disabled">담당자 관리</li>
+          <li class="disabled">AS 담당자 관리</li>
           <li class="disabled">불량코드 관리</li>
           <li class="disabled">고장코드 관리</li>
         </ul>
