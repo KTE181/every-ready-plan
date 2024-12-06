@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.semi.pv.mapper.PvSalaryMapper">
+    <select id="getSalaryList">
+        SELECT
+        A.NO ,
+        A.PAY_YEARMONTH ,
+        A.EMP_NO ,
+        B.NAME ENAME,
+        D.NAME DNAME,
+        B.DEPT_CODE,
+        C.NAME PNAME,
+        A.BASIC ,
+        A.MEAL_ALLOWANCE ,
+        A.COMMUNICATION_COST ,
+        (A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) AS PAYMENT,
+        A.NATIONAL_PENSION ,
+        A.HEALTH_INSURANCE ,
+        A.EMPLOYMENT_INSURANCE ,
+        A.LONGTERM_CARE_INSURANCE ,
+        A.INCOME_TAX ,
+        A.LOCAL_TAXES ,
+        (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)AS DEDUCTIONS,
+        ((A.BASIC+A.MEAL_ALLOWANCE+A.COMMUNICATION_COST) - (A.NATIONAL_PENSION+A.HEALTH_INSURANCE+A.EMPLOYMENT_INSURANCE+A.LONGTERM_CARE_INSURANCE+A.INCOME_TAX+A.LOCAL_TAXES)) AS NETPAYMENT
+        FROM SALARY A
+        JOIN EMPLOYEE B ON (A.EMP_NO = B.NO)
+        JOIN POSITION C ON (B.POSITION_CODE= C.NO)
+        JOIN DEPARTMENT D ON (B.DEPT_CODE = D.NO)
+        WHERE A.EMP_NO =#{no} AND A.DEL_YN = 'N'
+        <if test="date != null and date !='' ">
+            AND A.PAY_YEARMONTH= #{date}
+        </if>
+        ORDER BY A.NO DESC
+        OFFSET #{pvo.offset} ROWS FETCH NEXT #{pvo.boardLimit} ROWS ONLY
+    </select>
+</mapper>
