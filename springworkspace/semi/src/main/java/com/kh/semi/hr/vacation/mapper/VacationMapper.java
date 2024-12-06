@@ -1,7 +1,7 @@
 package com.kh.semi.hr.vacation.mapper;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
-import com.kh.semi.hr.employee.vo.SearchVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.SearchVo;
 import com.kh.semi.hr.vacation.vo.VacationVo;
 import com.kh.semi.pb.vo.PageVo;
 import org.apache.ibatis.annotations.Insert;
@@ -10,7 +10,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface VacationMapper {

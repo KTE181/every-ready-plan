@@ -1,7 +1,7 @@
 package com.kh.semi.hr.overtime.controller;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
-import com.kh.semi.hr.employee.vo.SearchVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.SearchVo;
 import com.kh.semi.hr.overtime.service.OverTimeService;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import com.kh.semi.login.vo.LoginVo;

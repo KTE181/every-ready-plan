@@ -28,8 +28,11 @@ public class EmployeeHrService {
         return mapper.selectEmployeeListWithSearch(no, name, dname, pname, esname, pageVo.getOffset(), pageVo.getBoardLimit());
     }
 
+    // 삭제
     public void deleteEmployees(String ids) {
         mapper.updateDelYnToYes(ids);
     }
+
+
 
 }

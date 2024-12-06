@@ -1,7 +1,7 @@
 package com.kh.semi.hr.vacation.controller;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
-import com.kh.semi.hr.employee.vo.SearchVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.SearchVo;
 import com.kh.semi.hr.vacation.service.VacationService;
 import com.kh.semi.hr.vacation.vo.VacationVo;
 import com.kh.semi.login.vo.LoginVo;
@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor

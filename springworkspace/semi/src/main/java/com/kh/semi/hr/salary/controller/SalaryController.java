@@ -1,7 +1,7 @@
 package com.kh.semi.hr.salary.controller;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
-import com.kh.semi.hr.employee.vo.SearchVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.SearchVo;
 import com.kh.semi.hr.salary.service.SalaryService;
 import com.kh.semi.hr.salary.vo.SalaryVo;
 import com.kh.semi.login.vo.LoginVo;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Controller

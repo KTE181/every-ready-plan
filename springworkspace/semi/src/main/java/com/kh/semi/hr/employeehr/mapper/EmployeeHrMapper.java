@@ -1,10 +1,7 @@
 package com.kh.semi.hr.employeehr.mapper;
 
 import com.kh.semi.hr.employeehr.vo.EmployeeVo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -69,12 +66,18 @@ public interface EmployeeHrMapper {
             @Param("limit") int limit
     );
 
+    //삭제
     @Update("""
         UPDATE EMPLOYEE
         SET DEL_YN = 'Y'
         WHERE NO IN (#{ids})
         """)
-    void updateDelYnToYes(@Param("ids") String ids);
+    void updateDelYnToYes(@Param("ids") String ids
+    );
+
+
+
+
 
 
 }

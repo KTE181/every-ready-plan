@@ -1,14 +1,13 @@
 package com.kh.semi.hr.salary.service;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
-import com.kh.semi.hr.employee.vo.SearchVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.SearchVo;
 import com.kh.semi.hr.salary.mapper.SalaryMapper;
 import com.kh.semi.hr.salary.vo.SalaryVo;
 import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Service

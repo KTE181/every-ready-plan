@@ -15,6 +15,13 @@
             return;
         }
 
+//        // 삭제 확인 알림창
+//        const confirmed = confirm(`선택된 ${employeeIds.length}명의 직원들을 삭제하시겠습니까?`);
+//        if (!confirmed) {
+//            // 사용자가 취소를 선택하면 함수 종료
+//            return;
+//        }
+
         fetch('/employeehr/delete', {
             method: 'POST',
             headers: {
@@ -36,3 +43,20 @@
         });
 
     }
+
+//등록모달
+// 모달 열기
+document.getElementById("create").addEventListener("click", () => {
+    document.getElementById("registerModal").style.display = "block";
+});
+
+// 모달 닫기
+function closeModal() {
+    const modal = document.getElementById("registerModal");
+    if (modal) {
+        modal.style.display = "none"; // 모달 숨기기
+    } else {
+        console.error("모달 요소를 찾을 수 없습니다."); // 디버그용 메시지
+    }
+}
+

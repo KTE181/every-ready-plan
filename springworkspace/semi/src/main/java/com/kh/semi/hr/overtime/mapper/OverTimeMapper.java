@@ -1,7 +1,7 @@
 package com.kh.semi.hr.overtime.mapper;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
-import com.kh.semi.hr.employee.vo.SearchVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.SearchVo;
 import com.kh.semi.hr.overtime.vo.OverTimeVo;
 import com.kh.semi.pb.vo.PageVo;
 import org.apache.ibatis.annotations.Insert;

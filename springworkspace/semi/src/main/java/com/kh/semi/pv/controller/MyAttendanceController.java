@@ -21,7 +21,7 @@ import java.util.List;
 public class MyAttendanceController {
     private final MyAttendanceService service;
 
-    @GetMapping("pv/myattendance")
+    @GetMapping("myattendance")
     public String searchAttendance(
             @RequestParam(value = "searchDate", required = false) String searchDate,
             @RequestParam(value = "page", defaultValue = "1", required = false) int currentPage,

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/css/common/search.css">
     <link rel="stylesheet" href="/css/common/index.css">
     <link rel="stylesheet" href="/css/common/bottom.css">
+
+    <link rel="stylesheet" href="/css/hr/employeehr/modal.css">
     <script defer src="/js/hr/employeehr/employeehr.js"></script>
 
 </head>
@@ -156,15 +158,179 @@
                            class="page-button">다음</a>
                     </c:if>
                 </div>
-                
-
-
-                <div><button class="crud-button-white" id="create">등록</button></div>
+                    <div><button class="crud-button-white" id="create">등록</button></div>
                 </div>
-
-
             </div>
         </div>
+
+        <!-- 모달 부분 -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <!-- 헤더 -->
+                <div class="modal-header">
+                    <h2>사원 등록</h2>
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                </div>
+
+                <!-- 등록 폼 -->
+                <form action="/employeehr/register" method="post" enctype="multipart/form-data">
+                    <!-- 기본 정보 -->
+                    <fieldset>
+                        <legend>기본 정보</legend>
+                        <div class="grid-container">
+                            <!-- 프로필 이미지 -->
+                            <div class="profile-picture">
+                                <img id="profilePreview" src="/images/default-profile.png" alt="프로필 사진">
+                                <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(event)">
+                                <p>사원 이미지</p>
+                            </div>
+
+                            <!-- 사번, 사원명 -->
+                            <div>
+                                <label>사번</label>
+                                <input type="text" name="employeeId" required>
+                            </div>
+                            <div>
+                                <label>사원명</label>
+                                <input type="text" name="employeeName" required>
+                            </div>
+
+                            <!-- 생년월일, 성별 -->
+                            <div>
+                                <label>생년월일</label>
+                                <input type="date" name="employeeBirth" required>
+                            </div>
+                            <div>
+                                <label>성별</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="employeeGender" value="M" required> 남</label>
+                                    <label><input type="radio" name="employeeGender" value="F" required> 여</label>
+                                </div>
+                            </div>
+
+                            <!-- 전화번호, 비상연락처 -->
+                            <div>
+                                <label>전화번호</label>
+                                <input type="text" name="employeePhone" required>
+                            </div>
+                            <div>
+                                <label>비상연락처</label>
+                                <input type="text" name="employeeEmergencyPhone">
+                            </div>
+
+                            <!-- 이메일, 주소 -->
+                            <div>
+                                <label>이메일</label>
+                                <input type="email" name="employeeEmail" required>
+                            </div>
+                            <div>
+                                <label>주소</label>
+                                <input type="text" name="employeeAddress" required>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- 인사 정보 -->
+                    <fieldset>
+                        <legend>인사 정보</legend>
+                        <div class="grid-container">
+                            <!-- 소속부서, 직급 -->
+                            <div>
+                                <label>소속부서</label>
+                                <select name="employeeDept" required>
+                                    <option value="1">인사팀</option>
+                                    <option value="2">품질</option>
+                                    <option value="3">재무</option>
+                                    <option value="4">마케팅</option>
+                                    <option value="5">CS</option>
+                                    <option value="6">헬프데스크</option>
+                                    <option value="7">경영</option>
+                                    <option value="8">기획</option>
+                                    <option value="9">디자인</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>직급</label>
+                                <select name="employeePosition" required>
+                                    <option value="1">인턴</option>
+                                    <option value="2">사원</option>
+                                    <option value="3">대리</option>
+                                    <option value="4">과장</option>
+                                    <option value="5">차장</option>
+                                    <option value="6">부장</option>
+                                    <option value="7">상무</option>
+                                    <option value="8">사장</option>
+                                </select>
+                            </div>
+
+                            <!-- 입사일, 연봉 -->
+                            <div>
+                                <label>입사일</label>
+                                <input type="date" name="employeeEnrollDate" required>
+                            </div>
+                            <div>
+                                <label>연봉</label>
+                                <input type="number" name="employeeSalary">
+                            </div>
+
+                            <!-- 재직상태, 퇴사일 -->
+                            <div>
+                                <label>재직상태</label>
+                                <select name="employeeEmpstatus" required>
+                                    <option value="재직">재직</option>
+                                    <option value="휴직">휴직</option>
+                                    <option value="퇴사">퇴사</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>퇴사일</label>
+                                <input type="date" name="employeeOutDate">
+                            </div>
+
+                            <!-- 은행명, 계좌번호, 총휴가일수 -->
+                            <div>
+                                <label>은행명</label>
+                                <select name="employeeBankName" required>
+                                    <option value="1">한국</option>
+                                    <option value="2">산업</option>
+                                    <option value="3">기업</option>
+                                    <option value="4">국민</option>
+                                    <option value="5">외환</option>
+                                    <option value="6">수협</option>
+                                    <option value="7">농협</option>
+                                    <option value="8">우리</option>
+                                    <option value="9">대구</option>
+                                    <option value="10">부산</option>
+                                    <option value="11">신협</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>계좌번호</label>
+                                <input type="text" name="employeeBankAccount">
+                            </div>
+                            <div>
+                                <label>총휴가일수</label>
+                                <input type="number" name="employeeTotalLeaveDays">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- 버튼 -->
+                    <div class="form-actions">
+                        <button type="submit">등록</button>
+                        <button type="button" onclick="closeModal()">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+
+
     </div>
+
 </body>
 </html>
