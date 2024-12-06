@@ -137,9 +137,25 @@ function pvnavi() {
   document.querySelector('.dropdown-menu1 li:nth-child(2)').addEventListener("click", () => {
     location.href = "/pv/vacation/list";
   })
+  //사이드바 개인출퇴근내역 이동
+  document.querySelector('.dropdown-menu1 li:nth-child(3)').addEventListener("click", () => {
+    location.href = "/myattendance";
+  })
+  //사이드바 급여명세서 이동
+  document.querySelector('.dropdown-menu1 li:nth-child(4)').addEventListener("click", () => {
+    location.href = "/pv/salary/list";
+  })
 }
 
 function hrnavi() {
+   //사원관리 이동
+   document.querySelector('.dropdown-menu2 li:nth-child(1)').addEventListener("click", () => {
+    location.href = "/employeehr";
+  })
+   //초과근무 이동
+   document.querySelector('.dropdown-menu2 li:nth-child(2)').addEventListener("click", () => {
+    location.href = "/attendancehr";
+  })
   //초과근무 이동
   document.querySelector('.dropdown-menu2 li:nth-child(3)').addEventListener("click", () => {
     location.href = "/api/hr/overtime/list";
