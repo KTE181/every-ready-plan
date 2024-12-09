@@ -115,7 +115,7 @@
         <!-- <div class="bottom-content-area-5"><button class="crud-button-white">수정</button></div> -->
          
 
-        <div></div>
+        <div><button class="crud-button-white" id="create" onclick="location.href='https://www.notion.so/154fef1413d78073be10d53428a768bb?v=bf51e1fa443843f28d86b63e174244d9'">등록</button></div>
     </div>
             
             </div>
