@@ -191,11 +191,9 @@
                             <div>고객주소</div>
                             <div>
                                 <select name="customerArea" disabled>
-                                    <option value="서울">서울</option>
-                                    <option value="인천">인천</option>
-                                    <option value="경기">경기</option>
-                                    <option value="부산">부산</option>
-                                    <option value="제주도">제주도</option>
+                                    <c:forEach items="${areaList}" var="areaName">
+                                        <option value="${areaName}" <c:if test='${area == areaName}'>selected</c:if>>${areaName}</option>
+                                    </c:forEach>
                                 </select>
                                 <input type="text" name="customerAdress" placeholder="상세주소" disabled>
                             </div>
