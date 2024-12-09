@@ -187,20 +187,28 @@ function productData(pno) {
                 tdTag.appendChild(noTag);
 
                 const tdTag1 = document.createElement("td");
-                tdTag1.innerText = vo.serialNumber;
+                tdTag1.innerText = vo.itemCode;
                 trTag.appendChild(tdTag1);
 
                 const tdTag2 = document.createElement("td");
-                tdTag2.innerText = vo.name;
+                tdTag2.innerText = vo.itemName;
                 trTag.appendChild(tdTag2);
-
+                
                 const tdTag3 = document.createElement("td");
-                tdTag3.innerText = vo.price;
+                tdTag3.innerText = vo.serialNumber;
                 trTag.appendChild(tdTag3);
 
                 const tdTag4 = document.createElement("td");
-                tdTag4.innerText = vo.warrantyPeriod;
+                tdTag4.innerText = vo.name;
                 trTag.appendChild(tdTag4);
+
+                const tdTag5 = document.createElement("td");
+                tdTag5.innerText = vo.price;
+                trTag.appendChild(tdTag5);
+
+                const tdTag6 = document.createElement("td");
+                tdTag6.innerText = vo.warrantyPeriod;
+                trTag.appendChild(tdTag6);
             }
         } , 
         error : function(){
@@ -250,14 +258,14 @@ function selectProduct() {
     }
 
     const no = selectedProduct.nextSibling.value;
-    const serialNumber = selectedProduct.parentNode.parentNode.children[1].innerText;
-    const productName = selectedProduct.parentNode.parentNode.children[2].innerText;
-
-    console.log(no);
-    console.log(serialNumber);
-    console.log(productName);
+    const itemCode = selectedProduct.parentNode.parentNode.children[1].innerText;
+    const itemName = selectedProduct.parentNode.parentNode.children[2].innerText;
+    const serialNumber = selectedProduct.parentNode.parentNode.children[3].innerText;
+    const productName = selectedProduct.parentNode.parentNode.children[4].innerText;
 
     document.querySelector("#asreq-modal input[name=productNo]").value = no;
+    document.querySelector("#asreq-modal input[name=itemCode]").value = itemCode;
+    document.querySelector("#asreq-modal input[name=itemName]").value = itemName;
     document.querySelector("#asreq-modal input[name=serialNumber]").value = serialNumber;
     document.querySelector("#asreq-modal input[name=name]").value = productName;
 
@@ -309,6 +317,8 @@ function loadDetailModal(asreqNo) {
         success: function(asreqVo) {
 
             document.querySelector("#asreq-modal input[name=no]").value = asreqVo.no;
+            document.querySelector("#asreq-modal input[name=itemCode]").value = asreqVo.itemCode;
+            document.querySelector("#asreq-modal input[name=itemName]").value = asreqVo.itemName;
             document.querySelector("#asreq-modal input[name=productNo]").value = asreqVo.productNo;
             document.querySelector("#asreq-modal input[name=serialNumber]").value = asreqVo.serialNumber;
             document.querySelector("#asreq-modal input[name=name]").value = asreqVo.productName;
@@ -619,23 +629,3 @@ function asreqDeleteMultiple() {
     });
 
 }
-
-// searchType 값에 따라서 input 타입 변경
-function handleSearchType(x) {
-
-    const searchValueTag = document.querySelector("input[name=searchValue]");
-
-    if(x.value == "serialNumber") {
-        searchValueTag.setAttribute("type", "number");
-    } 
-    else{
-        searchValueTag.setAttribute("type", "search");
-    }
-
-}
-
-// 새로고침 해도 input 타입 유지
-document.addEventListener("DOMContentLoaded", () => {
-    const searchTypeSelect = document.querySelector("select[name=searchType]");
-    handleSearchType(searchTypeSelect); 
-});

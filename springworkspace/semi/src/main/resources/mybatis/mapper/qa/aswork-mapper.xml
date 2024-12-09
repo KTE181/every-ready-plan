@@ -9,6 +9,8 @@
         SELECT
             W.NO
             , W.AS_NO
+            , I.NO          AS ITEM_CODE
+            , I.ITEM_NAME
             , R.P_NO        AS PRODUCT_NO
             , P.SERIAL_NUMBER
             , P.NAME        AS PRODUCT_NAME
@@ -35,6 +37,7 @@
         FROM AS_WORK W
         JOIN AS_REQUEST R ON (W.AS_NO = R.NO)
         JOIN PRODUCT_REGISTRATION P ON (R.P_NO = P.NO)
+        JOIN PRODUCT_INQUIRY I ON (P.ITEM_CODE = I.NO)
         JOIN AS_STATUS S ON (R.STATUS_CODE = S.NO)
         LEFT JOIN EMPLOYEE E ON (W.EMP_NO = E.NO)
         LEFT JOIN FAULT_CODE F ON (W.FAULT_CODE = F.NO)
@@ -48,6 +51,9 @@
         </if>
         <if test="type != '' and type != null">
             AND W.FAULT_CODE = #{type}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'itemName'">
+            AND I.ITEM_NAME LIKE '%${searchValue}%'
         </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'title'">
             AND R.ISSUE_TITLE LIKE '%${searchValue}%'
@@ -71,6 +77,7 @@
         FROM AS_WORK W
         JOIN AS_REQUEST R ON (W.AS_NO = R.NO)
         JOIN PRODUCT_REGISTRATION P ON (R.P_NO = P.NO)
+        JOIN PRODUCT_INQUIRY I ON (P.ITEM_CODE = I.NO)
         JOIN AS_STATUS S ON (R.STATUS_CODE = S.NO)
         LEFT JOIN EMPLOYEE E ON (W.EMP_NO = E.NO)
         LEFT JOIN FAULT_CODE F ON (W.FAULT_CODE = F.NO)
@@ -84,6 +91,9 @@
         </if>
         <if test="type != '' and type != null">
             AND W.FAULT_CODE = #{type}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'itemName'">
+            AND I.ITEM_NAME LIKE '%${searchValue}%'
         </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'title'">
             AND R.ISSUE_TITLE LIKE '%${searchValue}%'

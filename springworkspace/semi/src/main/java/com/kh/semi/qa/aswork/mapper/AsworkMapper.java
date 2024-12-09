@@ -1,6 +1,5 @@
 package com.kh.semi.qa.aswork.mapper;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.qa.aswork.vo.AsworkStatusVo;
@@ -24,6 +23,8 @@ public interface AsworkMapper {
             SELECT
                 W.NO
                 , W.AS_NO   
+                , I.NO      AS ITEM_CODE
+                , I.ITEM_NAME
                 , R.P_NO    AS PRODUCT_NO 
                 , P.SERIAL_NUMBER  
                 , P.NAME    AS PRODUCT_NAME        
@@ -51,6 +52,7 @@ public interface AsworkMapper {
             FROM AS_WORK W
             JOIN AS_REQUEST R ON (W.AS_NO = R.NO)
             JOIN PRODUCT_REGISTRATION P ON (R.P_NO = P.NO)
+            JOIN PRODUCT_INQUIRY I ON (P.ITEM_CODE = I.NO)
             JOIN AS_STATUS S ON (R.STATUS_CODE = S.NO)
             LEFT JOIN EMPLOYEE E ON (W.EMP_NO = E.NO)
             LEFT JOIN DEPARTMENT D ON (E.DEPT_CODE = D.NO)

@@ -38,6 +38,8 @@ function loadDetailModal(asworkNo) {
 
             document.querySelector("#aswork-modal input[name=no]").value = asworkVo.no;
             document.querySelector("#aswork-modal input[name=asNo]").value = asworkVo.asNo;
+            document.querySelector("#aswork-modal input[name=itemCode]").value = asworkVo.itemCode;
+            document.querySelector("#aswork-modal input[name=itemName]").value = asworkVo.itemName;
             document.querySelector("#aswork-modal input[name=productNo]").value = asworkVo.productNo;
             document.querySelector("#aswork-modal input[name=serialNumber]").value = asworkVo.serialNumber;
             document.querySelector("#aswork-modal input[name=productName]").value = asworkVo.productName;
@@ -396,23 +398,3 @@ function closeModal() {
 }
 
 closeModal();
-
-// searchType 값에 따라서 input 타입 변경
-function handleSearchType(x) {
-
-    const searchValueTag = document.querySelector("input[name=searchValue]");
-
-    if(x.value == "serialNumber") {
-        searchValueTag.setAttribute("type", "number");
-    } 
-    else{
-        searchValueTag.setAttribute("type", "search");
-    }
-
-}
-
-// 새로고침 해도 input 타입 유지
-document.addEventListener("DOMContentLoaded", () => {
-    const searchTypeSelect = document.querySelector("select[name=searchType]");
-    handleSearchType(searchTypeSelect); 
-});

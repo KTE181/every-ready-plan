@@ -65,12 +65,13 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType" onchange="handleSearchType(this)">
-                                    <option value="title" <c:if test='${searchType == "title"}'>selected</c:if>>AS요청제목</option>
-                                    <option value="empName" <c:if test='${searchType == "customerName"}'>selected</c:if>>AS담당자</option>
-                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
+                                <select name="searchType" >
+                                    <option value="itemName" <c:if test='${searchType == "itemName"}'>selected</c:if>>품목명</option>
                                     <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
                                     <option value="productName" <c:if test='${searchType == "productName"}'>selected</c:if>>상품명</option>
+                                    <option value="title" <c:if test='${searchType == "title"}'>selected</c:if>>AS요청제목</option>
+                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
+                                    <option value="empName" <c:if test='${searchType == "empName"}'>selected</c:if>>AS담당자</option>
                                 </select>
                             </div>
                             <div class="search-bar"><input type="search" id="longbar" name="searchValue" value="${searchValue}"></div>
@@ -87,6 +88,7 @@
                             <tr>
                                 <th><input type="checkbox" name="th-checkbox" onclick="handelCheckbox(this)"></th>
                                 <th>번호</th>
+                                <th>품목명</th>
                                 <th>상품일련번호</th>
                                 <th>상품명</th>
                                 <th>AS요청제목</th>
@@ -94,8 +96,8 @@
                                 <th>고객지역</th>
                                 <th>AS진행상태</th>
                                 <th>AS담당자</th>
-                                <th>수리일자</th>
                                 <th>고장유형</th>
+                                <th>수리일자</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,6 +105,7 @@
                                 <tr id="aswork-list" onclick="loadDetailModal('${asworkVo.no}');">
                                     <td onclick="event.stopPropagation();"><input type="checkbox" name="listCheckbox"></td>
                                     <td>${asworkVo.no}</td>
+                                    <td>${asworkVo.itemName}</td>
                                     <td>${asworkVo.serialNumber}</td>
                                     <td>${asworkVo.productName}</td>
                                     <td>${asworkVo.issueTitle}</td>
@@ -110,8 +113,8 @@
                                     <td>${asworkVo.customerArea}</td>
                                     <td>${asworkVo.statusName}</td>
                                     <td>${asworkVo.empName}</td>
-                                    <td>${asworkVo.repairDate}</td>
                                     <td>${asworkVo.faultName}</td>
+                                    <td>${asworkVo.repairDate}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -151,6 +154,16 @@
                         <input type="hidden" name="no">
                         <input type="hidden" name="asNo">
                         <input type="hidden" name="productNo">
+
+                        <div class="modal-cont" id="item-code">
+                            <div><span class="required-text">*</span> 품목코드</div>
+                            <input type="text" name="itemCode" disabled>
+                        </div>
+
+                        <div class="modal-cont" id="item-name">
+                            <div><span class="required-text">*</span> 품목명</div>
+                            <input type="text" name="itemName" disabled>
+                        </div>
 
                         <div class="modal-cont">
                             <div>상품일련번호</div>

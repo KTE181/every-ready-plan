@@ -6,6 +6,8 @@ import lombok.Data;
 public class AsworkVo {
     private String no;
     private String asNo;
+    private String itemCode;
+    private String itemName;
     private String productNo;
     private String serialNumber;
     private String productName;

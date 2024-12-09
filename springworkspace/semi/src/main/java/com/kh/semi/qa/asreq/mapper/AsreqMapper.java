@@ -3,6 +3,7 @@ package com.kh.semi.qa.asreq.mapper;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.qa.inspection.vo.ItemProductVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -53,6 +54,8 @@ public interface AsreqMapper {
     @Select("""
             SELECT
                 A.NO
+                , I.NO   AS ITEM_CODE
+                , I.ITEM_NAME
                 , A.P_NO AS PRODUCT_NO
                 , P.SERIAL_NUMBER
                 , P.NAME    AS PRODUCT_NAME
@@ -71,6 +74,7 @@ public interface AsreqMapper {
                 , A.DEL_YN
             FROM AS_REQUEST A
             JOIN PRODUCT_REGISTRATION P ON (A.P_NO = P.NO)
+            JOIN PRODUCT_INQUIRY I ON (P.ITEM_CODE = I.NO)
             WHERE A.NO = #{asreqNo}
             AND A.DEL_YN = 'N'
             """)
@@ -126,7 +130,7 @@ public interface AsreqMapper {
             """)
     int enrollAswork(String no);
 
-    List<ProductVo> getProductList(PageVo pvo, String productSearchType, String productSearchValue);
+    List<ItemProductVo> getProductList(PageVo pvo, String productSearchType, String productSearchValue);
 
     int getProductCnt(String productSearchType, String productSearchValue);
 }

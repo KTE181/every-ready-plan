@@ -8,6 +8,8 @@
     <select id="getAsreqList">
         SELECT
             A.NO
+            , I.NO      AS ITEM_CODE
+            , I.ITEM_NAME
             , A.P_NO    AS PRODUCT_NO
             , P.SERIAL_NUMBER
             , P.NAME    AS PRODUCT_NAME
@@ -26,11 +28,15 @@
             , A.DEL_YN
         FROM AS_REQUEST A
         JOIN PRODUCT_REGISTRATION P ON (A.P_NO = P.NO)
+        JOIN PRODUCT_INQUIRY I ON (P.ITEM_CODE = I.NO)
         WHERE A.STATUS_CODE = 1
         AND A.DEL_YN = 'N'
 
         <if test="area != '' and area != null">
             AND A.CUSTOMER_AREA = #{area}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'itemName'">
+            AND I.ITEM_NAME LIKE '%${searchValue}%'
         </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
             AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
@@ -53,11 +59,15 @@
         SELECT COUNT(A.NO)
         FROM AS_REQUEST A
         JOIN PRODUCT_REGISTRATION P ON (A.P_NO = P.NO)
+        JOIN PRODUCT_INQUIRY I ON(P.ITEM_CODE = I.NO)
         WHERE A.STATUS_CODE = 1
         AND A.DEL_YN = 'N'
 
         <if test="area != '' and area != null">
             AND A.CUSTOMER_AREA = #{area}
+        </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'itemName'">
+            AND I.ITEM_NAME LIKE '%${searchValue}%'
         </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
             AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
@@ -75,19 +85,28 @@
 
     <select id="getProductList">
         SELECT
-            NO
-            , NAME
-            , SERIAL_NUMBER
-            , PRICE
-            , WARRANTY_PERIOD
-        FROM PRODUCT_REGISTRATION
+            I.NO       AS ITEM_CODE
+            , I.ITEM_NAME
+            , P.NO
+            , P.NAME
+            , P.SERIAL_NUMBER
+            , P.PRICE
+            , P.WARRANTY_PERIOD
+        FROM PRODUCT_REGISTRATION P
+        JOIN PRODUCT_INQUIRY I ON (P.ITEM_CODE = I.NO)
         WHERE DEL_YN = 'N'
 
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'itemCode'">
+            AND I.NO LIKE '%${productSearchValue}%'
+        </if>
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'itemName'">
+            AND I.ITEM_NAME LIKE '%${productSearchValue}%'
+        </if>
         <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'serialNumber'">
-            AND SERIAL_NUMBER LIKE '%${productSearchValue}%'
+            AND P.SERIAL_NUMBER LIKE '%${productSearchValue}%'
         </if>
         <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'productName'">
-            AND NAME LIKE '%${productSearchValue}%'
+            AND P.NAME LIKE '%${productSearchValue}%'
         </if>
 
         ORDER BY NO DESC
@@ -95,15 +114,22 @@
     </select>
 
     <select id="getProductCnt">
-        SELECT COUNT(NO)
-        FROM PRODUCT_REGISTRATION
-        WHERE DEL_YN = 'N'
+        SELECT COUNT(P.NO)
+        FROM PRODUCT_REGISTRATION P
+        JOIN PRODUCT_INQUIRY I ON (P.ITEM_CODE = I.NO)
+        WHERE P.DEL_YN = 'N'
 
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'itemCode'">
+            AND I.NO LIKE '%${productSearchValue}%'
+        </if>
+        <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'itemName'">
+            AND I.ITEM_NAME LIKE '%${productSearchValue}%'
+        </if>
         <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'serialNumber'">
-            AND SERIAL_NUMBER LIKE '%${productSearchValue}%'
+            AND P.SERIAL_NUMBER LIKE '%${productSearchValue}%'
         </if>
         <if test="productSearchValue != '' and productSearchValue != null and productSearchType == 'productName'">
-            AND NAME LIKE '%${productSearchValue}%'
+            AND P.NAME LIKE '%${productSearchValue}%'
         </if>
     </select>
 </mapper>

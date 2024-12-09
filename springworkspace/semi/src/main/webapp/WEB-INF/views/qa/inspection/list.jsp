@@ -64,7 +64,8 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType" onchange="handleSearchType(this)">
+                                <select name="searchType">
+                                    <option value="itemName" <c:if test='${searchType == "itemName"}'>selected</c:if>>품목명</option>
                                     <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
                                     <option value="productName" <c:if test='${searchType == "productName"}'>selected</c:if>>상품명</option>
                                 </select>
@@ -84,6 +85,7 @@
                             <tr>
                                 <th><input type="checkbox" name="th-checkbox" onclick="handelCheckbox(this)"></th>
                                 <th>번호</th>
+                                <th>품목명</th>
                                 <th>상품일련번호</th>
                                 <th>상품명</th>
                                 <th>검사유형</th>
@@ -98,6 +100,7 @@
                                 <tr onclick="loadDetailModal('${inspectionVo.no}');">
                                     <td onclick="event.stopPropagation();"><input type="checkbox" name="listCheckbox"></td>
                                     <td>${inspectionVo.no}</td>
+                                    <td>${inspectionVo.itemName}</td>
                                     <td>${inspectionVo.serialNumber}</td>
                                     <td>${inspectionVo.productName}</td>
                                     <td>${inspectionVo.inspectionName}</td>
@@ -143,6 +146,16 @@
 
                         <input type="hidden" name="no">
                         <input type="hidden" name="productNo">
+
+                        <div class="modal-cont" id="item-code">
+                            <div><span class="required-text">*</span>품목코드</div>
+                            <input type="text" name="itemCode" disabled> 
+                        </div>
+
+                        <div class="modal-cont" id="item-name">
+                            <div><span class="required-text">*</span>품목명</div>
+                            <input type="text" name="itemName" disabled> 
+                        </div>
 
                         <div class="modal-cont">
                             <div><span class="required-text">*</span>상품일련번호</div>
@@ -212,6 +225,8 @@
                     <div id="product-modal-search-area">
                         <form id="product-search-form">
                         <select name="productSearchType">
+                            <option value="itemCode">품목코드</option>
+                            <option value="itemName">품목명</option>
                             <option value="serialNumber">상품일련번호</option>
                             <option value="productName">상품명</option>
                         </select>
@@ -224,6 +239,8 @@
                         <thead>
                             <tr>
                                 <th>선택</th>
+                                <th>품목코드</th>
+                                <th>품목명</th>
                                 <th>상품일련번호</th>
                                 <th>상품명</th>
                                 <th>가격</th>

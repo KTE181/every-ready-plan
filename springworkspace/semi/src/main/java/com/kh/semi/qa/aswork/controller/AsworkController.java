@@ -41,7 +41,7 @@ public class AsworkController {
 
         // pno = currentPage
         int listCount = service.getAsworkListCnt(area, status, type, searchType, searchValue);
-        int pageLimit = 10;
+        int pageLimit = 5;
         int boardLimit = 14;
 
         PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);

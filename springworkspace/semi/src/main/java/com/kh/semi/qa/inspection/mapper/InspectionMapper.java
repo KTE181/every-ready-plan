@@ -45,6 +45,8 @@ public interface InspectionMapper {
     @Select("""
             SELECT
                 I.NO
+                , Q.NO   AS ITEM_CODE
+                , Q.ITEM_NAME
                 , I.PRODUCT_NO
                 , P.NAME    AS PRODUCT_NAME
                 , P.SERIAL_NUMBER
@@ -61,9 +63,11 @@ public interface InspectionMapper {
                 , I.DEL_YN
             FROM INSPECTION_HISTORY I
             JOIN PRODUCT_REGISTRATION P ON (I.PRODUCT_NO = P.NO)
+            JOIN PRODUCT_INQUIRY Q ON (P.ITEM_CODE = Q.NO)
             JOIN INSPECTION_TYPE C ON (I.INSPECTION_CODE = C.NO)
             JOIN INSPECTION_STATUS S ON (I.STATUS_CODE = S.NO)
             WHERE I.NO = #{no}
+            AND I.DEL_YN = 'N'
             """)
     InspectionVo getinspectionDetail(String no);
 
