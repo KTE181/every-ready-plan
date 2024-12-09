@@ -64,7 +64,7 @@
                             <th>가격</th>
                             <th>일련번호</th>
                             <th>입고일</th>
-                            <th>생산공정</th>
+                            <th>회사명</th>
                             <th>등록일자</th>
 
                         </tr>
@@ -124,11 +124,11 @@
                                 <input type="text" id="serial-number" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="manufacturer">생산공정</label>
+                                <label for="manufacturer">회사명</label>
                                 <input type="text" id="factoryName"  readonly>
                             </div>
                             <div class="form-group">
-                                <label for="manufacturer-address">생산공장</label>
+                                <label for="manufacturer-address">생산공장 위치</label>
                                 <input type="text" id="factory-address"  readonly>
                             </div>
                             <div class="form-group">
@@ -178,7 +178,7 @@
                                 <input type="text" id="edit-factory-name">
                             </div>
                             <div class="form-group">
-                                <label for="manufacturer-address">생산공장</label>
+                                <label for="manufacturer-address">생산공장 위치</label>
                                 <input type="text" id="edit-factory-address">
                             </div>
                             <div class="form-group">
@@ -225,11 +225,11 @@
                             <input type="text" id="product-price1">
                         </div>
                         <div class="form-group">
-                            <label for="manufacturer">생산공정</label>
+                            <label for="manufacturer">회사명</label>
                             <input type="text" id="manufacturer1">
                         </div>
                         <div class="form-group">
-                            <label for="manufacturer-address">생산공장</label>
+                            <label for="manufacturer-address">생산공장 위치</label>
                             <input type="text" id="manufacturer-address1">
                         </div>
                         <div class="form-group">
