@@ -27,7 +27,16 @@ public class VacationController {
     @PostMapping("write")
     public String write(VacationVo vo, HttpSession session) {
 
+
+        String no =vo.getEmpNo();
+        String day = vo.getThisDate();
         System.out.println(vo);
+        int cnt = service.getCnt(no,day);
+
+        if(cnt !=0){
+            session.setAttribute("alertMsg","등록 일자가 중복되었습니다 확인해주세요 ~");
+            return "redirect:/api/hr/vacation/list";
+        }
         String result = service.insert(vo);
 
         if(result.equals("1")){

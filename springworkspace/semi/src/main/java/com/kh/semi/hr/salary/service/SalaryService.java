@@ -126,4 +126,8 @@ public class SalaryService {
     public EmployeeVo selectEmpVo(String searchEmpNo, String searchEname) {
         return mapper.selectEmpVo(searchEmpNo,searchEname);
     }
+
+    public int getCnt(String no , String formattedPayYearmonth) {
+        return mapper.getCnt(no,formattedPayYearmonth);
+    }
 }

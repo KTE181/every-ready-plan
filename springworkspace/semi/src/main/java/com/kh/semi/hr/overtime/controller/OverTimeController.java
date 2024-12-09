@@ -32,9 +32,17 @@ public class OverTimeController{
 
 
 
+        String no =vo.getEmpNo();
+        String year = vo.getThisDate();
         String overtime = vo.getHour()+":"+vo.getMinute();
+        int cnt = service.getCnt(no,year);
 
-        System.out.println("overtime : " +overtime);
+        if(cnt != 0){
+            session.setAttribute("alertMsg","근무 일자 중복확인하세요");
+            return "redirect:/api/hr/overtime/list";
+        }
+
+//        System.out.println("overtime : " +overtime);
         vo.setWorkHour(overtime);
 
 //        System.out.println(vo);

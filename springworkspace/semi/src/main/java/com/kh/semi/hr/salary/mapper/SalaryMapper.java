@@ -230,4 +230,10 @@ public interface SalaryMapper {
     List<EmployeeVo> getEmplistdata(PageVo pvo);
 
     EmployeeVo selectEmpVo(String searchEmpNo, String searchEname);
+
+    @Select("""
+            SELECT COUNT(NO) FROM SALARY 
+            WHERE EMP_NO =#{no} AND PAY_YEARMONTH=#{formattedPayYearmonth} AND DEL_YN='N'
+            """)
+    int getCnt(String no, String formattedPayYearmonth);
 }

@@ -110,4 +110,8 @@ public class OverTimeService {
     public EmployeeVo selectEmpVo(String searchEmpNo, String searchEname) {
         return mapper.selectEmpVo(searchEmpNo,searchEname);
     }
+
+    public int getCnt(String no, String year) {
+        return mapper.getCnt(no,year);
+    }
 }
