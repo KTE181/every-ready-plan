@@ -67,8 +67,6 @@ function loadDetailModal(asworkNo) {
             document.querySelector("#aswork-modal input[name=enrollDate]").value = asworkVo.enrollDate;
             document.querySelector("#aswork-modal input[name=modifyDate]").value = asworkVo.modifyDate;
 
-            console.log(asworkVo.faultCode);
-
             const editButton = document.querySelector("#aswork-edit-button");
             const deleteButton = document.querySelector("#aswork-delete-button");
 
