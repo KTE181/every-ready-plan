@@ -39,7 +39,7 @@
                             <div class="search-bar">
                                 <select name="dname" id="dname">
                                     <option value="">부서</option>
-                                    <option value="인사팀">인사팀</option>
+                                    <option value="인사">인사</option>
                                     <option value="품질">품질</option>
                                     <option value="재무">재무</option>
                                     <option value="마케팅">마케팅</option>
@@ -55,12 +55,12 @@
                             <div class="search-bar">
                                 <select name="esname" id="esname">
                                     <option value="">재직상태</option>
-                                    <option value="재직">재직</option>
-                                    <option value="휴직">휴직</option>
-                                    <option value="출장">출장</option>
-                                    <option value="출산">출산</option>
-                                    <option value="병가">병가</option>
-                                    <option value="퇴사">퇴사</option>
+                                    <option value="1">재직</option>
+                                    <option value="2">휴직</option>
+                                    <option value="3">출장</option>
+                                    <option value="4">출산</option>
+                                    <option value="5">병가</option>
+                                    <option value="6">퇴사</option>
                                 </select>
                             </div>
 
@@ -117,7 +117,7 @@
                     <tbody>
                         <c:forEach var="employee" items="${employeeVoList}">
                             <tr onclick="openDetailModal('${employee.no}')">
-                                <td><input type="checkbox" name="employeeCheck" value="${employee.no}" /></td>
+                                <td><input type="checkbox" name="employeeCheck" value="${employee.no}" onclick="event.stopPropagation();" /></td>
                                 <td>${employee.no}</td>
                                 <td>${employee.name}</td>
                                 <td>${employee.birth}</td>
@@ -364,10 +364,14 @@
                         <div class="grid-container">
                             <!-- 프로필 이미지 -->
                             <div class="profile-picture">
-                                <img id="detailProfilePreview" src="/img/employee/default.png" alt="프로필 사진">
+                                <img
+                                    id="detailProfilePreview"
+                                    src="${employee.profileImage != null && !employee.profileImage.isEmpty() ? employee.profileImage : '/img/employee/default.png'}"
+                                    alt="프로필 사진">
                                 <input type="file" id="detailProfilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(event)">
                                 <p>사원 이미지</p>
                             </div>
+
 
                             <!-- 사번, 사원명 -->
                             <div>

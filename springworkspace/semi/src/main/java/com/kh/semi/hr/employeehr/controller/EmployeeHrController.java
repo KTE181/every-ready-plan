@@ -141,12 +141,17 @@ public class EmployeeHrController {
     public ResponseEntity<EmployeeVo> getEmployeeDetail(@PathVariable("no") String no) {
         try {
             EmployeeVo employee = service.getEmployeeDetail(no);
+
+            // 이미지 경로 설정
+            employee.setProfileImage(service.getProfileImage(no));
+
             return ResponseEntity.ok(employee);
         } catch (Exception e) {
             log.error("사원 상세 정보 로드 중 오류", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
     //수정
     @PostMapping("/employeehr/update")

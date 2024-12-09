@@ -116,3 +116,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+function previewProfilePicture(event) {
+    const input = event.target;
+    const preview = document.getElementById("detailProfilePreview");
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result; // 미리보기 이미지 업데이트
+        };
+        reader.readAsDataURL(input.files[0]); // 파일 읽기
+    } else {
+        preview.src = '/img/employee/default.png'; // 기본 이미지로 초기화
+    }
+}
+
+

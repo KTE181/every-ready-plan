@@ -15,12 +15,12 @@
             return;
         }
 
-//        // 삭제 확인 알림창
-//        const confirmed = confirm(`선택된 ${employeeIds.length}명의 직원들을 삭제하시겠습니까?`);
-//        if (!confirmed) {
-//            // 사용자가 취소를 선택하면 함수 종료
-//            return;
-//        }
+        // 삭제 확인 알림창
+        const confirmed = confirm(`선택된 ${employeeIds.length}명의 직원들을 삭제하시겠습니까?`);
+        if (!confirmed) {
+            // 사용자가 취소를 선택하면 함수 종료
+            return;
+        }
 
         fetch('/employeehr/delete', {
             method: 'POST',
@@ -59,4 +59,21 @@ function closeModal(modalId) {
         console.warn(`ID가 '${modalId}'인 모달을 찾을 수 없습니다.`);
     }
 }
+
+// 이벤트 전파 차단
+document.querySelectorAll('input[name="employeeCheck"]').forEach((checkbox) => {
+    checkbox.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+});
+function openDetailModal(no) {
+    // 체크박스 클릭 여부 확인
+    if (event.target.tagName === 'INPUT' && event.target.type === 'checkbox') {
+        return; // 체크박스 클릭 시 아무 작업도 하지 않음
+    }
+    // 체크박스 외의 영역 클릭 시 모달 열기
+    console.log(`Open modal for employee: ${no}`);
+    // 모달 열기 코드 작성
+}
+
 
