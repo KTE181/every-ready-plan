@@ -124,6 +124,10 @@ function navi() {
   document.querySelector('.dropdown-menu li:nth-child(3)').addEventListener("click", () => {
     location.href = "/employee";
   })
+  //노션 db 데이터 베이스 api
+  document.querySelector('.dropdown-menu li:nth-child(4)').addEventListener("click", () => {
+    location.href = "/home";
+  })
 }
 
 

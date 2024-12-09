@@ -34,6 +34,7 @@
           <li class="disabled">회사 조직도</li>
           <li class="disabled">회사 연혁도</li>
           <li class="disabled">직원 검색</li>
+          <li class="disabled">공지 사항</li>
         </ul>
       </div>
       <div class="menu-item dropdown1">
