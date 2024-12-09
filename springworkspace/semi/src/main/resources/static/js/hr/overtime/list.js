@@ -388,14 +388,16 @@ function updateTable2(data) {
 
   // 받은 데이터로 테이블 행 추가
       
-      const row = document.createElement('tr');
-      row.innerHTML = `
-          <td><a href="#" id="empNo_${data.no}" onclick="changeEmpNo(this);">${data.no}</a></td>
-          <td>${data.name}</td>
-          <td>${data.dname}</td>
-          <td>${data.pname}</td>
-      `;
-      tableBody.appendChild(row);
+  for(let i = 0; i<data.length;i++){
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td><a href="#" id="empNo_${data[i].no}" onclick="changeEmpNo(this);">${data[i].no}</a></td>
+        <td>${data[i].name}</td>
+        <td>${data[i].dname}</td>
+        <td>${data[i].pname}</td>
+    `;
+    tableBody.appendChild(row);
+  }
    
 }
 

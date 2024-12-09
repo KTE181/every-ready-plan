@@ -229,7 +229,7 @@ public interface VacationMapper {
     List<EmployeeVo> getEmplistdata(PageVo pvo);
 
 
-    EmployeeVo selectEmpVo(String searchEmpNo, String searchEname);
+    List<EmployeeVo> selectEmpVo(String searchEmpNo, String searchEname);
 
     @Select("""
             SELECT COUNT(NO) FROM VACATION_LOG

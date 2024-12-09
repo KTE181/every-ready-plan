@@ -221,14 +221,14 @@ public class OverTimeController{
 
     @PostMapping("getEmplistdata")
     @ResponseBody
-    public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
+    public List<EmployeeVo>  getEmpVo(String searchEmpNo, String searchEname){
 //        System.out.println(searchEmpNo);
 //        System.out.println(searchEname);
 
-        EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
+        List<EmployeeVo>  vo = service.selectEmpVo(searchEmpNo,searchEname);
 
 //        System.out.println("vo = "+vo);
-        if(vo == null||vo.getNo().isEmpty()){
+        if(vo == null){
             return null;
         }
         return vo;

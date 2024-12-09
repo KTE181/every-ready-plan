@@ -467,7 +467,7 @@
                                                     <a href="#" class="page-button"  data-page="${i}" onclick="loadPage(this);">${i}</a>
                                                 </c:forEach>
                                                 <c:if test="${pvo2.endPage != pvo2.maxPage}">
-                                                    <a href="#" class="page-button next">&raquo;</a>
+                                                    <a href="#" class="page-button next" data-page="${pvo2.endPage+1}" onclick="loadPage(this)">&raquo;</a>
                                                 </c:if>
                                             </div>
                                         </div>
