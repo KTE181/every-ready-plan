@@ -3,7 +3,8 @@ package com.kh.semi.qa.asemp.controller;
 import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
-import com.kh.semi.product.vo.ProductVo;
+
+import com.kh.semi.qa.areainfo.AreaInfo;
 import com.kh.semi.qa.asemp.service.AsempService;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.hr.employee.vo.EmployeeVo;
@@ -58,6 +59,10 @@ public class AsempController {
         model.addAttribute("area", area);
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchValue", searchValue);
+
+        // 지역 정보 가져오기
+        AreaInfo areaInfo = new AreaInfo();
+        model.addAttribute("areaList", areaInfo.getAreaInfo());
 
         // 부서 목록 가져오기
         List<DeptVo> deptVoList = service.getDeptList(model);

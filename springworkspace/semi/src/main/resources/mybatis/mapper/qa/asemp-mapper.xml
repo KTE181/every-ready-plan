@@ -60,9 +60,10 @@
             , POSITION_NAME AS PNAME
         FROM EMPLOYEE_INFO
         WHERE NO NOT IN (
-                        SELECT NO
-                        FROM AS_ENGINEERS
-                    )
+            SELECT NO
+            FROM AS_ENGINEERS
+            WHERE DEL_YN = 'N'
+        )
 
         <if test="dept != '' and dept != null">
             AND DEPT_CODE = #{dept}

@@ -4,6 +4,7 @@ import com.kh.semi.hr.employee.vo.EmployeeVo;
 import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
+import com.kh.semi.qa.areainfo.AreaInfo;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 import com.kh.semi.qa.aswork.service.AsworkService;
 import com.kh.semi.qa.aswork.vo.AsworkStatusVo;
@@ -60,6 +61,9 @@ public class AsworkController {
         model.addAttribute("type", type);
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchValue", searchValue);
+
+        AreaInfo areaInfo = new AreaInfo();
+        model.addAttribute("areaList", areaInfo.getAreaInfo());
 
         List<AsworkStatusVo> statusVoList =service.getStatusList(model);
         model.addAttribute("statusVoList", statusVoList);
