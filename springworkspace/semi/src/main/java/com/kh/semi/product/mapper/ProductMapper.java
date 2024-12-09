@@ -176,6 +176,7 @@ public interface ProductMapper {
     @Select("""
             SELECT *
             FROM PRODUCT_INQUIRY
+            ORDER BY NO ASC
             """)
     List<ItemVo> getItemCodeVoList();
 

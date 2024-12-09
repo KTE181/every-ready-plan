@@ -55,7 +55,6 @@ public class DefectiveCodeController {
     @ResponseBody
     public DefectiveCodeVo getDefectiveCodeDetail(@RequestParam("no") String defectiveCodeNo) {
         DefectiveCodeVo defectiveCodeVo = service.getDefectiveCodeDetail(defectiveCodeNo);
-        System.out.println("defectiveVo = " + defectiveCodeVo);
         if (defectiveCodeVo == null) {
             throw new IllegalStateException();
         }
@@ -65,7 +64,6 @@ public class DefectiveCodeController {
     //불량 코드 등록(처리)
     @PostMapping("write")
     public String write(DefectiveCodeVo vo, HttpSession session) throws Exception {
-        System.out.println(vo);
         int result = service.write(vo);
         if(result == 1){
             return "redirect:/qa/defectivecode/list";

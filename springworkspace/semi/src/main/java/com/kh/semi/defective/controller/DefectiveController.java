@@ -63,19 +63,14 @@ public class DefectiveController {
         return defectiveVo;
     }
 
-//    @GetMapping("write")
-//    public String write(Model model){
-//        List<DefectiveCodeVo> defectiveCodeList =service.getdefectiveCodeVoList();
-//        model.addAttribute("defectiveCodeList",defectiveCodeList);
-//        return "qa/defective/write";
-//    }
-
+    //불량 코드 받아오기
     @GetMapping("dclist")
     @ResponseBody
     public List<DefectiveCodeVo> dclist(){
         return service.getdefectiveCodeVoList();
     }
 
+    //불량 코드 받아와서 불량명 출력
     @GetMapping("/getDefectiveName")
     @ResponseBody
     public DefectiveCodeVo getDefectiveName(@RequestParam("code") String defectiveCode) {
@@ -86,7 +81,6 @@ public class DefectiveController {
     @PostMapping("write")
     @ResponseBody
     public String write(DefectiveVo vo, HttpSession session) throws Exception {
-        System.out.println(vo);
         int result = service.write(vo);
         if(result == 1){
             return "redirect:/qa/defective/list";
@@ -109,6 +103,7 @@ public class DefectiveController {
             return "good";
     }
 
+    //불량 상품 수정(화면)
     @GetMapping("edit")
     public void edit(String defectiveNo, Model model){
         DefectiveVo defectiveVo  = service.getDefectiveDetail(defectiveNo);
