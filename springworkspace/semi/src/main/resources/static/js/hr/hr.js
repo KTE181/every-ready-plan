@@ -45,7 +45,7 @@ $.ajax({
 const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['인사', '재무', '품질', '마게팅', '경영', 'CS'],
+        labels: ['인사', '재무', '품질', '마케팅', '경영', 'CS'],
         datasets: [{
             label: '부서별 인원분포도',
             data: [hrIndex, fiIndex, qaIndex, mkIndex, mgIndex, csIndex],
