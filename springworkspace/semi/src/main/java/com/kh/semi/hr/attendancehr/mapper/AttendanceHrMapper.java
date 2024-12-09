@@ -1,11 +1,9 @@
 package com.kh.semi.hr.attendancehr.mapper;
 
 import com.kh.semi.hr.attendancehr.vo.AttendanceHrVo;
+import com.kh.semi.hr.attendancehr.vo.EmployeeVo;
 import com.kh.semi.util.page.PageVo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -68,12 +66,38 @@ public interface AttendanceHrMapper {
                 """)
         void deleteEmployees(@Param("ids") String ids);
 
+        // 사번으로 사원 정보 조회
+        @Select("""
+            SELECT 
+                E.NO AS empNo,
+                E.NAME AS name,
+                D.NAME AS deptName,
+                P.NAME AS position
+            FROM EMPLOYEE E
+            JOIN DEPARTMENT D ON E.DEPT_CODE = D.NO
+            JOIN POSITION P ON E.POSITION_CODE = P.NO
+            WHERE E.DEL_YN = 'N' AND E.NO = #{empNo}
+            """)
+        EmployeeVo selectEmployeeByEmpNo(@Param("empNo") String empNo);
 
-
-
-
-
-
+        // 근태 등록
+        @Insert("""
+            INSERT INTO ATTENDANCE (NO, EMP_NO, CI_TIME, CO_TIME, DEL_YN, "DATE")
+            VALUES (SEQ_ATTENDANCE.NEXTVAL, #{empNo}, TO_DATE(#{ciTime}, 'HH24:MI'), TO_DATE(#{coTime}, 'HH24:MI'), 'N', TO_DATE(#{attendanceDate}, 'YYYY-MM-DD'))
+            """)
+        void insertAttendance(AttendanceHrVo attendance);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

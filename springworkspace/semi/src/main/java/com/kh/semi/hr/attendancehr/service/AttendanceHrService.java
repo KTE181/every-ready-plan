@@ -2,6 +2,7 @@ package com.kh.semi.hr.attendancehr.service;
 
 import com.kh.semi.hr.attendancehr.mapper.AttendanceHrMapper;
 import com.kh.semi.hr.attendancehr.vo.AttendanceHrVo;
+import com.kh.semi.hr.attendancehr.vo.EmployeeVo;
 import com.kh.semi.util.page.PageVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,21 @@ public class AttendanceHrService {
     public void deleteEmployees(String ids) {
         mapper.deleteEmployees(ids);
     }
+
+    // 사번으로 사원 정보 조회
+    public EmployeeVo getEmployeeByEmpNo(String empNo) {
+        return mapper.selectEmployeeByEmpNo(empNo);
+    }
+
+    // 근태 등록
+    public void registerAttendance(AttendanceHrVo attendance) {
+        mapper.insertAttendance(attendance);
+    }
+
+
+
+
+
 
 
 

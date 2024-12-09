@@ -13,8 +13,10 @@
     <link rel="stylesheet" href="/css/common/bottom.css">
 
     <link rel="stylesheet" href="/css/hr/attendancehr/attendancehr.css">
-    <link rel="stylesheet" href="/css/hr/employeehr/modal.css">
+    <link rel="stylesheet" href="/css/hr/attendancehr/modal.css">
     <script defer src="/js/hr/attendancehr/attendancehr.js"></script>
+    <script defer src="/js/hr/attendancehr/modal.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -125,8 +127,57 @@
                                 </div>
                                 <div></div>
 
-                                    <div><button class="crud-button-white" id="create">등록</button></div>
+                                    <div><button id="openModal" class="crud-button-white">등록</button></div>
+                </div>
+
+                <!-- 모달 창 -->
+                <div id="attendanceModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeModal">&times;</span>
+                        <h3>근태 등록</h3>
+                        <form id="attendanceForm">
+                                <div class="form-group">
+                                    <label for="attendanceDate">일자</label>
+                                    <input type="date" id="attendanceDate" name="attendanceDate">
                                 </div>
+                                <div class="form-group">
+                                    <label for="registerEmpNo">사번</label>
+                                    <input type="text" id="registerEmpNo" name="registerEmpNo" placeholder="사번 입력">
+                                    <button type="button" id="searchEmployeeButton">검색</button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="employeeName">사원명</label>
+                                    <input type="text" id="employeeName" name="employeeName" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="deptName">소속부서</label>
+                                    <input type="text" id="deptName" name="deptName" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="position">직급</label>
+                                    <input type="text" id="position" name="position" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ciTime">출근시간</label>
+                                    <input type="time" id="ciTime" name="ciTime" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="coTime">퇴근시간</label>
+                                    <input type="time" id="coTime" name="coTime">
+                                </div>
+                                <div class="form-group">
+                                    <label for="workTime">근무시간</label>
+                                    <input type="text" id="workTime" name="workTime" disabled>
+                                </div>
+                                <div class="modal-submit-wrapper">
+                                    <button type="submit" class="crud-button-white">등록</button>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+
+
             </div>
        </div>
     </div>
