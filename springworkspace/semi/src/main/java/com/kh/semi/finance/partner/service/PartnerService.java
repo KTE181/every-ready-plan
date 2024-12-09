@@ -65,4 +65,8 @@ public class PartnerService {
         return mapper.delete(no);
     }
 
+
+    public int deleteMultiplePartners(List<String> partnerIds) {
+        return mapper.deleteMultiplePartners(partnerIds);
+    }
 }

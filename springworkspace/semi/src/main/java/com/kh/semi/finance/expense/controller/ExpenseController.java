@@ -2,15 +2,19 @@ package com.kh.semi.finance.expense.controller;
 
 import com.kh.semi.finance.expense.service.ExpenseService;
 import com.kh.semi.finance.expense.vo.ExpenseVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("finance/expense")
@@ -64,7 +68,12 @@ public class ExpenseController {
             @RequestParam(name = "pno", defaultValue = "1") int currentPage,
             @RequestParam(name = "area", required = false) String area,
             @RequestParam(name = "searchValue", required = false) String searchValue,
-            Model model) {
+            Model model , HttpSession session) {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        if(loginEmployeeVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
         // 검색 조건 기본값 설정
         boolean isSearch = !(area == null || area.isBlank()) && !(searchValue == null || searchValue.isBlank());
@@ -77,7 +86,7 @@ public class ExpenseController {
                 : service.getTotalExpenseCount(); // 검색 조건 없을 때
 
         // PageVo 생성
-        int pageLimit = 10;  // 하단 페이지 번호 개수
+        int pageLimit = 5;  // 하단 페이지 번호 개수
         int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
         PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
@@ -159,6 +168,23 @@ public class ExpenseController {
 
         session.setAttribute("alertMsg" , "expense 삭제");
         return "redirect:/finance/expense/list";
+    }
+
+    @PostMapping("deleteMultiple")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> deleteMultiple(@RequestBody List<String> expenseIds) {
+        if (expenseIds == null || expenseIds.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "삭제할 항목이 없습니다."));
+        }
+
+        System.out.println("삭제 요청 받은 expenseIds: " + expenseIds);
+        int result = service.deleteMultipleExpenses(expenseIds);
+
+        if (result > 0) {
+            return ResponseEntity.ok(Map.of("message", "선택된 항목이 삭제되었습니다."));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "삭제에 실패했습니다."));
+        }
     }
 
 

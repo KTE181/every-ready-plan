@@ -133,3 +133,42 @@ function expenseDelete(no) {
         }
     });
 }
+
+// 전체 선택/해제 함수
+function toggleSelectAll(selectAllCheckbox) {
+    const checkboxes = document.querySelectorAll('input[name="expenseIds"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAllCheckbox.checked;
+        
+    });
+}
+
+// 선택된 항목 삭제
+function deleteSelectedExpense() {
+    const selectedCheckboxes = document.querySelectorAll('input[name="expenseIds"]:checked');
+    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+
+    if (selectedIds.length === 0) {
+        alert("삭제할 항목을 선택하세요.");
+        return;
+    }
+
+    if (!confirm("선택된 항목을 삭제하시겠습니까?")) {
+        return;
+    }
+
+    $.ajax({
+        url: "/finance/expense/deleteMultiple",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(selectedIds),
+        success: function (response) {
+            alert(response.message || "삭제되었습니다.");
+            location.reload();
+        },
+        error: function (xhr) {
+            alert("삭제에 실패했습니다.");
+            console.error(xhr.responseText);
+        }
+    });
+}

@@ -149,6 +149,15 @@ public interface PartnerMapper {
             """)
     int edit(PartnerVo vo);
 
-
-
+    @Update("""
+    <script>
+        UPDATE PARTNER
+        SET DEL_YN = 'Y'
+        WHERE NO IN
+        <foreach collection="partnerIds" item="partnerId" open="(" separator="," close=")">
+            #{partnerId}
+        </foreach>
+    </script>
+    """)
+    int deleteMultiplePartners(List<String> partnerIds);
 }

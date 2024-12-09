@@ -1,10 +1,8 @@
 package com.kh.semi.finance.sale.mapper;
 
 import com.kh.semi.finance.sale.vo.SaleVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.kh.semi.pb.vo.PageVo;
+import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -66,25 +64,25 @@ public interface SaleMapper {
 //            WHERE S.DEL_YN = 'N'
 //            ORDER BY S.NO DESC
 //            """)
-    @Select("""
-            SELECT
-                NO
-                , PARTNER_CODE
-                , TRANS_CODE
-                , ACCOUNT_CODE
-                , TRANS_DATE
-                , SUPPLY_AMOUNT
-                , TAX_AMOUNT
-                , ATTACHMENT
-                , COMMENTS
-                , ENROLL_DATE
-                , MODIFY_DATE
-                , DEL_YN
-            FROM SALE
-            WHERE DEL_YN = 'N'
-            ORDER BY NO DESC
-            """)
-    List<SaleVo> selectSaleVoList();
+//    @Select("""
+//            SELECT
+//                NO
+//                , PARTNER_CODE
+//                , TRANS_CODE
+//                , ACCOUNT_CODE
+//                , TRANS_DATE
+//                , SUPPLY_AMOUNT
+//                , TAX_AMOUNT
+//                , ATTACHMENT
+//                , COMMENTS
+//                , ENROLL_DATE
+//                , MODIFY_DATE
+//                , DEL_YN
+//            FROM SALE
+//            WHERE DEL_YN = 'N'
+//            ORDER BY NO DESC
+//            """)
+//    List<SaleVo> selectSaleVoList();
 
     @Update("""
             UPDATE SALE
@@ -138,4 +136,78 @@ public interface SaleMapper {
             AND S.DEL_YN = 'N'
             """)
     SaleVo getSaleDetail(String no, Model model);
+
+    List<SaleVo> selectSaleVoList();
+
+
+    @Select("SELECT COUNT(*) FROM SALE WHERE DEL_YN = 'N'")
+    int getTotalSaleCount();
+
+    @Select("""
+    SELECT COUNT(*)
+    FROM SALE
+    WHERE DEL_YN = 'N'
+      AND (
+        (#{area} = '1' AND PARTNER_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND TRANS_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND TRANS_DATE LIKE '%' || #{searchValue} || '%')
+      )
+    """)
+    int getSaleListCnt(@Param("area") String area, @Param("searchValue") String searchValue);
+
+    @Select("""
+    SELECT
+        NO,
+        PARTNER_CODE,
+        TRANS_CODE,
+        ACCOUNT_CODE,
+        TRANS_DATE,
+        SUPPLY_AMOUNT,
+        TAX_AMOUNT,
+        COMMENTS
+    FROM SALE
+    WHERE DEL_YN = 'N'
+    ORDER BY NO DESC
+    OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
+    """)
+    List<SaleVo> getAllSales(PageVo pageVo);
+
+    @Select("""
+    SELECT
+        NO,
+        PARTNER_CODE,
+        TRANS_CODE,
+        ACCOUNT_CODE,
+        TRANS_DATE,
+        SUPPLY_AMOUNT,
+        TAX_AMOUNT,
+        COMMENTS
+    FROM SALE
+    WHERE DEL_YN = 'N'
+      AND (
+        (#{area} = '1' AND PARTNER_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND TRANS_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND TRANS_DATE LIKE '%' || #{searchValue} || '%')
+      )
+    ORDER BY NO DESC
+    OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
+    """)
+    List<SaleVo> getSaleList(@Param("pageVo") PageVo pageVo, @Param("area") String area, @Param("searchValue") String searchValue);
+
+
+    @Update("""
+    <script>
+        UPDATE SALE
+        SET DEL_YN = 'Y'
+        WHERE NO IN
+        <foreach collection="saleIds" item="saleId" open="(" separator="," close=")">
+            #{saleId}
+        </foreach>
+    </script>
+    """)
+    int deleteMultipleSales(@Param("saleIds") List<String> saleIds);
+
+
 }

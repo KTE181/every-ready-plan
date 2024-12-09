@@ -67,4 +67,16 @@ public class AccountService {
         return mapper.edit(vo);
     }
 
+//    public int deleteMultipleAccounts(List<String> accountIds) {
+//        return mapper.deleteMultipleAccounts(accountIds);
+//    }
+
+    @Transactional
+    public int deleteMultipleAccounts(List<String> accountIds) {
+        // 디버깅 로그
+        System.out.println("삭제할 Account IDs: " + accountIds);
+
+        // 매퍼 호출
+        return mapper.deleteMultipleAccounts(accountIds);
+    }
 }

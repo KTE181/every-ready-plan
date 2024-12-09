@@ -133,3 +133,54 @@ function saleDelete(no) {
         }
     });
 }
+
+// // 전체 선택/해제
+// function toggleSelectAll(selectAllCheckbox) {
+//     const checkboxes = document.querySelectorAll('input[name="saleIds"]');
+//     checkboxes.forEach(checkbox => {
+//         checkbox.checked = selectAllCheckbox.checked;
+//         console.log(selectedIds); // 선택된 ID를 콘솔에 출력
+        
+//     });
+// }
+
+// 전체 선택/해제 함수
+function toggleSelectAll(selectAllCheckbox) {
+    const checkboxes = document.querySelectorAll('input[name="saleIds"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAllCheckbox.checked;
+        
+    });
+}
+
+// 선택된 항목 삭제
+function deleteSelectedSales() {
+    const selectedCheckboxes = document.querySelectorAll('input[name="saleIds"]:checked');
+    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+
+    if (selectedIds.length === 0) {
+        alert("삭제할 항목을 선택하세요.");
+        return;
+    }
+
+    if (!confirm("선택된 항목을 삭제하시겠습니까?")) {
+        return;
+    }
+
+    $.ajax({
+        url: "/finance/sale/deleteMultiple",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(selectedIds),
+        success: function (response) {
+            alert(response.message || "삭제되었습니다.");
+            location.reload();
+        },
+        error: function (xhr) {
+            alert("삭제에 실패했습니다.");
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+

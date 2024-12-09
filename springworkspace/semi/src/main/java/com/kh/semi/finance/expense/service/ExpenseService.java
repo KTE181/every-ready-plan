@@ -58,4 +58,7 @@ public class ExpenseService {
 
     }
 
+    public int deleteMultipleExpenses(List<String> expenseIds) {
+        return mapper.deleteMultipleExpenses(expenseIds);
+    }
 }

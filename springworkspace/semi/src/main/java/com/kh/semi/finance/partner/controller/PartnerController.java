@@ -2,16 +2,20 @@ package com.kh.semi.finance.partner.controller;
 
 import com.kh.semi.finance.partner.service.PartnerService;
 import com.kh.semi.finance.partner.vo.PartnerVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("finance/partner")
@@ -65,7 +69,12 @@ public class PartnerController {
             @RequestParam(name = "pno", defaultValue = "1") int currentPage,
             @RequestParam(name = "area", required = false) String area,
             @RequestParam(name = "searchValue", required = false) String searchValue,
-            Model model) {
+            Model model ,HttpSession session) {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        if(loginEmployeeVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
         // 검색 조건 기본값 설정
         boolean isSearch = !(area == null || area.isBlank()) && !(searchValue == null || searchValue.isBlank());
@@ -78,7 +87,7 @@ public class PartnerController {
                 ? service.getPartnerListCnt(area, searchValue) // 검색 조건 있을 때
                 : service.getTotalPartnerCount(); // 검색 조건 없을 때
 
-        int pageLimit = 10;  // 하단 페이지 번호 개수
+        int pageLimit = 5;  // 하단 페이지 번호 개수
         int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
         PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
@@ -173,6 +182,22 @@ public class PartnerController {
             return "redirect:/finance/partner/list";
     }
 
+    @PostMapping("deleteMultiple")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> deleteMultiple(@RequestBody List<String> partnerIds) {
+        if (partnerIds == null || partnerIds.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "삭제할 항목이 없습니다."));
+        }
+
+        System.out.println("삭제 요청 받은 partnerIds: " + partnerIds);
+        int result = service.deleteMultiplePartners(partnerIds);
+
+        if (result > 0) {
+            return ResponseEntity.ok(Map.of("message", "선택된 항목이 삭제되었습니다."));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "삭제에 실패했습니다."));
+        }
+    }
 
 }
 
