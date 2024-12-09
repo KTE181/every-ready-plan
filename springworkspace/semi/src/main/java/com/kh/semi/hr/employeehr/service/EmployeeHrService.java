@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -49,9 +50,17 @@ public class EmployeeHrService {
     public EmployeeVo getEmployeeDetail(String no) {
         return mapper.selectEmployeeDetail(no);
     }
-    @Transactional
     public void updateEmployee(EmployeeVo employeeVo) {
         mapper.updateEmployee(employeeVo);
+    }
+
+    public String getProfileImage(String employeeId) {
+        String imagePath = "/img/employee/" + employeeId + ".jpg";
+        File imageFile = new File("src/main/resources/static" + imagePath);
+        if (imageFile.exists()) {
+            return imagePath; // 사원 이미지 경로 반환
+        }
+        return "/img/employee/default.png"; // 기본 이미지 반환
     }
 
 
