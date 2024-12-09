@@ -105,4 +105,8 @@ public class VacationService {
     public EmployeeVo selectEmpVo(String searchEmpNo, String searchEname) {
         return mapper.selectEmpVo(searchEmpNo,searchEname);
     }
+
+    public int getCnt(String no, String day) {
+        return mapper.getCnt(no,day);
+    }
 }

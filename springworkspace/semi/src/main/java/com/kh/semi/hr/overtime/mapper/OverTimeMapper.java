@@ -195,4 +195,10 @@ public interface OverTimeMapper {
     List<EmployeeVo> getEmplistdata(PageVo pvo);
 
     EmployeeVo selectEmpVo(String searchEmpNo, String searchEname);
+
+    @Select("""
+            SELECT COUNT(NO) FROM OVERTIME
+            WHERE EMP_NO = #{no} AND THISDATE=#{year} AND DEL_YN='N'
+            """)
+    int getCnt(String no, String year);
 }

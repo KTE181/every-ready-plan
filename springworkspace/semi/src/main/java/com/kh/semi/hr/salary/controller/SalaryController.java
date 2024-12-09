@@ -79,9 +79,17 @@ public class SalaryController {
     public String write(SalaryVo vo, HttpSession session){
 //        System.out.println("payYearmonth  == " +vo.getPayYearmonth());
 
+
+
+        String no =vo.getEmpNo();
         String payYearmonth = vo.getPayYearmonth();
         String formattedPayYearmonth = payYearmonth.replace("-", "");
 
+        int cnt = service.getCnt(no,formattedPayYearmonth);
+        if(cnt !=0){
+            session.setAttribute("alertMsg","등록일이 중복되었습니다 확인해주세요");
+            return "redirect:/api/hr/salary/list";
+        }
         vo.setPayYearmonth(formattedPayYearmonth);
 
         String result = service.write(vo);

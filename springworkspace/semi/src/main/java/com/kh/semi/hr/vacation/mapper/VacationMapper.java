@@ -230,4 +230,11 @@ public interface VacationMapper {
 
 
     EmployeeVo selectEmpVo(String searchEmpNo, String searchEname);
+
+    @Select("""
+            SELECT COUNT(NO) FROM VACATION_LOG
+            WHERE EMP_NO =#{no} AND THISDATE=#{day} AND DEL_YN='N'
+            """)
+    int getCnt(String no, String day);
+
 }
