@@ -143,9 +143,16 @@ public class OverTimeController{
     @PostMapping("edit")
     @ResponseBody
     public void edit(OverTimeVo alldata,HttpSession session){
-
+        String no = alldata.getEmpNo();
+        String year = alldata.getThisDate();
         String overtime = alldata.getHour()+":"+alldata.getMinute();
         alldata.setWorkHour(overtime);
+
+        int cnt = service.getCnt(no,year);
+        if(cnt != 0){
+            session.setAttribute("alertMsg","일자가 중복되었습니다.");
+            return;
+        }
 //        System.out.println(alldata);
         String result = service.edit(alldata);
 

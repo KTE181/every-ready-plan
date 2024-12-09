@@ -333,6 +333,7 @@ tbodyTag.addEventListener("click", (evt) => {
 
           const editdata = {
             no:selectNo,
+            empNo:empNo.value,
             payYearmonth:payYearmonth.value,
             nationalPension:nationalPension.value,
             healthInsurance:healthInsurance.value,

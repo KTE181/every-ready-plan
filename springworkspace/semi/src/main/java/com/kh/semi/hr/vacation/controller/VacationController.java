@@ -117,6 +117,13 @@ public class VacationController {
     @ResponseBody
     public void update(VacationVo alldata,HttpSession session){
 //        System.out.println(alldata);
+        String no = alldata.getEmpNo();
+        String year = alldata.getThisDate();
+        int cnt = service.getCnt(no,year);
+        if(cnt !=0){
+            session.setAttribute("alertMsg","일자가 중복되었습니다.");
+            return;
+        }
 
         String result= service.update(alldata);
 

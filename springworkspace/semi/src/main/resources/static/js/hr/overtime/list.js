@@ -198,6 +198,7 @@ tbodyTag.addEventListener("click", (evt) => {
         const selectedRadioValue = document.querySelector('input[name="type"]:checked')?.value;
         const alldata= {
           no:no,
+          empNo:empNo.value,
           thisDate:thisDate.value,
           type:selectedRadioValue,
           hour:hour.value,

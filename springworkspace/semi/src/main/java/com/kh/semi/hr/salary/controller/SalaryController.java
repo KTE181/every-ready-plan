@@ -140,10 +140,15 @@ public class SalaryController {
 //        System.out.println(editdata.get("payYearmonth"));
 
 //        System.out.println(editdata);
+        String no = editdata.getEmpNo();
         String resetdate=editdata.getPayYearmonth();
         String formattedPayYearmonth = resetdate.replace("-", "");
 //        System.out.println(formattedPayYearmonth);
-
+        int cnt = service.getCnt(no,formattedPayYearmonth);
+        if(cnt !=0){
+            session.setAttribute("alertMsg","일자 중복됬습니다 확인해주세요");
+            return;
+        }
        editdata.setPayYearmonth(formattedPayYearmonth);
 
 //        System.out.println("editdata=="+editdata);
