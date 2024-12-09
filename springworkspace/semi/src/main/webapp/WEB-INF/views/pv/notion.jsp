@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVERY READY PLAN</title>
     <link rel="stylesheet" href="/css/common/index.css">
-    <link rel="stylesheet" href="/css/common/list.css">
+    <link rel="stylesheet" href="/css/pv/notion.css">
     <link rel="stylesheet" href="/css/common/search.css">
     <link rel="stylesheet" href="/css/common/bottom.css">
     <script defer src="/js/pv/notion.js"></script>
@@ -67,6 +67,7 @@
                             <tr>
                                 <th>경조사 내용</th>
                                 <th>위치</th>
+                                <th>일자</th>
                             </tr>
                         </thead>
                         <tbody id="tbodyarea">
