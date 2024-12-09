@@ -1,5 +1,6 @@
 package com.kh.semi.product.service;
 
+import com.kh.semi.itemcode.vo.ItemVo;
 import com.kh.semi.product.mapper.ProductMapper;
 import com.kh.semi.product.vo.ProductVo;
 import com.kh.semi.util.page.PageVo;
@@ -7,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -74,4 +78,18 @@ public class ProductService {
     public int getBoardCnt() {
         return mapper.getBoardCnt();
     }
+
+    public int itemCode(ItemVo vo) {
+        return mapper.insertItemCode(vo);
+    }
+
+    public List<ItemVo> getitemCodeVoList() {
+        return mapper.getItemCodeVoList();
+    }
+
+    public ItemVo getItemCodeName(String itemCode) {
+        return mapper.getItemCodeName(itemCode);
+    }
+
+
 }

@@ -11,10 +11,20 @@ function closeModal() {
     modalTag.classList.remove('active');
 }
 
-function openItemCodeModal(){
-    const modalTag = document.querySelector("#modalItemCode");
-    modalTag.classList.add('active');
+
+function openItemCodeModal() {
+    const modal = document.querySelector("#modalItemCode");
+
+    modal.classList.add("active");
 }
+
+// 모달 닫기
+function closeItemCodeModal() {
+    const modal = document.querySelector("#modalItemCode");
+
+    modal.classList.remove("active");
+}
+
 
 
 function handleCheckBox(x){
@@ -26,11 +36,6 @@ function handleCheckBox(x){
     }
 
 }
-
-
-
-
-
 
 
 $(document).ready(function () {
@@ -70,6 +75,98 @@ $(document).ready(function () {
 });
 
 });
+
+//품목코드 등록
+document.addEventListener("DOMContentLoaded", function () {
+    const registerButton1 = document.querySelector("#registerItemCode");
+
+        registerButton1.addEventListener("click", function () {
+
+            const name = document.querySelector("#itemCodeName").value;
+            
+
+
+            $.ajax({
+                method: "POST",
+                url: "/qa/product/item",
+                data: {
+                    itemName: name,
+                },
+                success: function (response) {
+                    console.log("Response:", response);
+                    alert("품목코드가 성공적으로 등록되었습니다!");
+                    location.reload();
+                },
+                error: function () {
+                    alert("품목 코드 등록 실패");
+                }
+            });
+    });
+});
+
+
+
+function setItemCodeSelect(){
+    const codeSelect= document.querySelector("#itemcode-select");
+    
+    const defaultOption = document.createElement("option");
+    defaultOption.setAttribute("value", "");
+    defaultOption.innerText = "품목코드";
+    codeSelect.appendChild(defaultOption);
+
+    $.ajax({
+        url : "/qa/product/iclist",
+        method : "GET",
+        // data: ~~~,
+        success: function(ItemCodeList){
+            console.log("ItemCodeList" , ItemCodeList);
+
+            for(let i = 0 ; i < ItemCodeList.length; ++i){
+                const ItemCodeVo = ItemCodeList[i];
+                const optionTag = document.createElement("option");
+                optionTag.setAttribute("value" , ItemCodeVo.no);
+                optionTag.innerText = ItemCodeVo.no
+                codeSelect.appendChild(optionTag);
+
+    }
+        },
+        fail: function(){
+            console.log("통신 실패...")
+        },
+
+    });
+
+    
+}
+
+window.onload = function(){
+    setItemCodeSelect();
+}
+
+
+
+document.querySelector("#itemcode-select").addEventListener("change", function () {
+
+    const selectedCode = this.value;
+
+    console.log(selectedCode);
+    $.ajax({
+        url: `/qa/product/getItemCodeName?code=${selectedCode}`,
+        method: "GET",
+        success: function (x) {
+            console.log(x);
+            document.querySelector("#itemcode-product-name").value = x.itemName; 
+        },
+        error: function () {
+            alert("상품명을 불러오지 못했습니다...");
+        }
+    });
+ 
+});
+
+
+
+
 
 let no= "";
 
@@ -168,8 +265,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         registerButton.addEventListener("click", function () {            
 
-            const itemCode = document.querySelector("#item-code1").value;
-            const name = document.querySelector("#product-name1").value;
+            const itemCode = document.querySelector("#itemcode-select").value;
+            const name = document.querySelector("#itemcode-product-name").value;
             // const serialNumber = document.querySelector("#modalSerialNumber").value;
             const price = document.querySelector("#product-price1").value;
             const warrantyPeriod = document.querySelector("#warranty1").value;
@@ -193,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 success: function () {
                     alert("상품이 성공적으로 등록되었습니다!");
-                    reload();
+                    location.reload();
                     
                 },
                 error: function () {

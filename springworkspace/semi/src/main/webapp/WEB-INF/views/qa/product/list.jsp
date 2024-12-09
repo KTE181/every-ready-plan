@@ -238,12 +238,14 @@
                         </div>
         
                         <div class="form-group">
-                            <label for="product-code">품목코드</label>
-                            <input type="text" id="item-code1">
+                            <label for="defective-code">품목코드</label>
+                            <select id = "itemcode-select">
+                                
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="product-name">상품명</label>
-                            <input type="text" id="product-name1">
+                            <label for="defective-name">상품명</label>
+                            <input type="text" id="itemcode-product-name" value = "" readonly>
                         </div>
                         <div class="form-group">
                             <label for="product-price">가격</label>
@@ -278,10 +280,15 @@
 
             <div class="modal-itemCode" id="modalItemCode">
                 <div class="modal">
-                        <button id="closeModal">×</button>
-                    <h2>품질코드 등록</h2>
-                    <label for="code-number">상품명</label>
-                    <input type="text" id="itemCodeName">
+                        <button id="closeModal" onclick="closeItemCodeModal()">×</button>
+                    <h2>품목코드 등록</h2>
+                    <div class="form-group">
+                        <label for="code-number">상품명</label>
+                        <input type="text" id="itemCodeName">
+                    </div>
+                    <!-- <label for="code-number">상품명</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="text" id="itemCodeName"> -->
                     <div class="modal-buttons">
                         <button class="primary" id = "registerItemCode">등록</button>
                     </div>
@@ -292,7 +299,7 @@
 
                 <!-- Bottom Area -->
                 <div class="bottom-content-area">
-                                    <div><button class="crud-button-white" onclick = "delProduct()">삭제</button></div>
+                                    <div class="left-section"><button class="crud-button-white" onclick = "delProduct()">삭제</button></div>
                                     <div>
                                         <div class="pagination">
                                             <c:if test="${pageVo.currentPage > 1}">
@@ -309,8 +316,8 @@
                                         </div>
                                         
                                     </div>
-                                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openItemCodeModal();">품질코드 등록</button></div>
-                                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">상품 등록</button></div>
+                                    <div class="right-section"><button class="crud-button-white" id="openItemCodeModalBtn" onclick= "openItemCodeModal();">품목코드 등록</button></div>
+                                    <div class="right-section"><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">상품 등록</button></div>
                                 </div>
                             </div>
 

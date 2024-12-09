@@ -33,7 +33,7 @@
     border-radius: 20px; /* 모서리를 둥글게 */
     cursor: pointer; /* 버튼 위에 마우스 커서를 올리면 포인터 표시 */
     border: 1px solid #416DFF; ;
-    width: 70px;
+    width: 120px;
     height: 38px;
     margin-bottom: 8px;
 }

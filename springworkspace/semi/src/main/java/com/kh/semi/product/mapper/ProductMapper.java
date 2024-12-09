@@ -1,5 +1,6 @@
 package com.kh.semi.product.mapper;
 
+import com.kh.semi.itemcode.vo.ItemVo;
 import com.kh.semi.product.vo.ProductVo;
 import com.kh.semi.util.page.PageVo;
 import org.apache.ibatis.annotations.*;
@@ -17,7 +18,7 @@ public interface ProductMapper {
                 ,NAME
                 ,PRICE
                 ,SERIAL_NUMBER
-                ,RECEIVED_DATE
+                ,TO_CHAR(RECEIVED_DATE, 'YYYY-MM-DD') AS RECEIVED_DATE
                 ,FACTORY_NAME
                 ,ENROLL_DATE
             FROM PRODUCT_REGISTRATION
@@ -116,15 +117,15 @@ public interface ProductMapper {
                 )
                 VALUES
                 (
-                SEQ_PRODUCT_REGISTRATION.NEXTVAL
-                ,#{itemCode}
-                ,#{name}
-                ,#{price}
-                ,SEQ_SERIAL_NUMBER.NEXTVAL
-                ,#{factoryName}
-                ,#{factoryLocation}
-                ,#{warrantyPeriod}
-                ,#{receivedDate}
+                    SEQ_PRODUCT_REGISTRATION.NEXTVAL,
+                     #{itemCode},
+                     #{name},
+                     #{price},
+                     '${itemCode}-' || SEQ_ITEM_${itemCode}.NEXTVAL,
+                     #{factoryName},
+                     #{factoryLocation},
+                     #{warrantyPeriod},
+                     #{receivedDate}
                 )
             """)
     int insertProduct(ProductVo productvo);
@@ -155,4 +156,36 @@ public interface ProductMapper {
             WHERE DEL_YN = 'N'
             """)
     int getBoardCnt();
+
+
+    @Insert("""
+            INSERT INTO PRODUCT_INQUIRY
+            (
+             NO
+            ,ITEM_NAME
+            )
+            VALUES
+            (
+            SEQ_PRODUCT_INQUIRY.NEXTVAL
+            ,#{itemName}
+            )
+            """)
+    int insertItemCode(ItemVo vo);
+
+
+    @Select("""
+            SELECT *
+            FROM PRODUCT_INQUIRY
+            """)
+    List<ItemVo> getItemCodeVoList();
+
+
+    @Select("""
+            SELECT *
+            FROM PRODUCT_INQUIRY
+            WHERE NO = #{itemCode}
+            """)
+    ItemVo getItemCodeName(String itemCode);
+
+
 }

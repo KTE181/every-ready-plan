@@ -2,6 +2,8 @@ package com.kh.semi.product.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.semi.defective.vo.DefectiveCodeVo;
+import com.kh.semi.itemcode.vo.ItemVo;
 import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.product.service.ProductService;
@@ -29,8 +31,8 @@ public class ProductController {
     public String list(Model model,
                        @RequestParam(value = "searchValue", required = false) String searchValue,
                        @RequestParam(value = "searchValueName", required = false) String searchValueName
-                        ,@RequestParam(name = "pno", defaultValue = "1") int currentPage
-                        ,HttpSession session) {
+            ,@RequestParam(name = "pno", defaultValue = "1") int currentPage
+            ,HttpSession session) {
 
 
         LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
@@ -64,6 +66,21 @@ public class ProductController {
         return productVo;
     }
 
+    //품목코드 가져오기
+    @GetMapping("iclist")
+    @ResponseBody
+    public List<ItemVo> iclist(){
+        return service.getitemCodeVoList();
+    }
+
+    //상품명 불러오기
+    @GetMapping("/getItemCodeName")
+    @ResponseBody
+    public ItemVo getItemCodeName(@RequestParam("code") String itemCode) {
+        return service.getItemCodeName(itemCode);
+    }
+
+
 
     //상품 등록(처리)
     @PostMapping("write")
@@ -78,7 +95,17 @@ public class ProductController {
         }
     }
 
-
+    //품목 코드 등록(처리)
+    @PostMapping("item")
+    public String item(ItemVo vo, HttpSession session) throws Exception {
+        System.out.println(vo);
+        int result = service.itemCode(vo);
+        if(result == 1){
+            return "redirect:/qa/product/list";
+        }else{
+            throw new Exception("redirect:/error");
+        }
+    }
 
     //상품 삭제
     @DeleteMapping("delete")

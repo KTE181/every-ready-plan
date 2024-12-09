@@ -18,4 +18,5 @@ public class ProductVo {
     private String enrollDate;
     private String modifyDate;
     private String delYn;
+    private String receivedDay;
 }
