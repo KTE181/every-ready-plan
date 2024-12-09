@@ -139,10 +139,10 @@ public class SalaryController {
 
 //        System.out.println(editdata.get("payYearmonth"));
 
-        System.out.println(editdata);
+//        System.out.println(editdata);
         String resetdate=editdata.getPayYearmonth();
         String formattedPayYearmonth = resetdate.replace("-", "");
-        System.out.println(formattedPayYearmonth);
+//        System.out.println(formattedPayYearmonth);
 
        editdata.setPayYearmonth(formattedPayYearmonth);
 
