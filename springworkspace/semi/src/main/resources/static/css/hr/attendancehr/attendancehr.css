@@ -277,7 +277,6 @@ body {
     background-color: white;
     margin-top: 20px;
     border-radius: 8px;
-    box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.144);
 }
 
 .top-content-area{
@@ -544,7 +543,7 @@ body {
 .content-area table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .content-area td {
@@ -572,7 +571,7 @@ body {
 .attendance-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+
 }
 
 .attendance-table th, .attendance-table td {

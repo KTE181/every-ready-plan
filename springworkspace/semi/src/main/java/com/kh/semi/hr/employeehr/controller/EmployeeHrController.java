@@ -2,7 +2,10 @@ package com.kh.semi.hr.employeehr.controller;
 
 import com.kh.semi.hr.employeehr.service.EmployeeHrService;
 import com.kh.semi.hr.employeehr.vo.EmployeeVo;
+import com.kh.semi.login.vo.AdminLoginVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.util.page.PageVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,8 +36,13 @@ public class EmployeeHrController {
             @RequestParam(value = "pname", required = false) String pname,
             @RequestParam(value = "esname", required = false) String esname,
             @RequestParam(value = "page", defaultValue = "1") int currentPage,
-            Model model
-    ) {
+            Model model, HttpSession session) {
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
 
         // 전체 직원 수 조회 (검색 조건 포함)

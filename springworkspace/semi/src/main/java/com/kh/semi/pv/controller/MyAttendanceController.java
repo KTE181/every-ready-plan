@@ -1,6 +1,7 @@
 package com.kh.semi.pv.controller;
 
 import com.kh.semi.attendance.vo.AttendanceVo;
+import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.pv.service.MyAttendanceService;
@@ -27,7 +28,8 @@ public class MyAttendanceController {
             @RequestParam(value = "page", defaultValue = "1", required = false) int currentPage,
             Model model, HttpSession session) {
         LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
-        if(loginEmployeeVo==null){
+        AdminLoginVo adminVo = (AdminLoginVo) session.getAttribute("loginAdminVo");
+        if(loginEmployeeVo==null&&adminVo==null){
             session.setAttribute("loginalertMsg","로그인후 이용하세요");
             return "redirect:/login";
         }

@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="/css/common/bottom.css">
 
     <link rel="stylesheet" href="/css/hr/attendancehr/attendancehr.css">
-    <link rel="stylesheet" href="/css/hr/employeehr/modal.css">
+    <link rel="stylesheet" href="/css/hr/attendancehr/modal.css">
+    <script defer src="/js/hr/attendancehr/attendancehr.js"></script>
+    <script defer src="/js/hr/attendancehr/modal.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -32,7 +35,7 @@
                 <div class="top-title-area">
                     <div class="menu-name">근태 관리</div>
                     <div>
-                     <form action="/attendance" method="GET" class="top-title-area-form">
+                     <form action="/attendancehr" method="GET" class="top-title-area-form">
                         <!-- 소속부서 검색 -->
                         <div class="search-bar">
                             <select name="deptCode" id="deptCode">
@@ -56,7 +59,7 @@
 
                         <!-- 사번 검색 -->
                         <div class="search-bar">
-                            <input type="text" name="no" id="no" placeholder="사번">
+                            <input type="text" name="empNo" id="empNo" placeholder="사번">
                         </div>
 
                         <!-- 검색 버튼 -->
@@ -70,6 +73,7 @@
                     <table border="1" class="attendance-table">
                         <thead>
                             <tr>
+                                <th><input type="checkbox" onclick="toggleAll(this)" /></th>
                                 <th>순번</th>
                                 <th>일자</th>
                                 <th>사원번호</th>
@@ -84,8 +88,9 @@
                         <tbody>
                             <c:forEach var="attendance" items="${attendanceList}">
                                 <tr>
+                                    <td><input type="checkbox" name="attendanceCheck" value="${attendance.no}" /></td>
                                     <td>${attendance.no}</td>
-                                    <td>${attendance.date}</td>
+                                    <td>${attendance.attendanceDate}</td>
                                     <td>${attendance.empNo}</td>
                                     <td>${attendance.name}</td>
                                     <td>${attendance.deptName}</td>
@@ -101,36 +106,78 @@
 
                 <div class="bottom-content-area">
                                 <div>
-                                    <button class="crud-button-white" onclick="deleteEmployees('registerModal')">삭제</button>
+                                    <button class="crud-button-white" onclick="deleteSelected()">삭제</button>
                                 </div>
                                 <div></div>
                                 <div></div>
 
                                 <div class="pagination">
-                                    <!-- 이전 버튼 -->
                                     <c:if test="${pageVo.currentPage > 1}">
-                                        <a href="/employeehr?page=${pageVo.currentPage - 1}&name=${name}&dname=${dname}&pname=${pname}&esname=${esname}"
-                                           class="page-button">이전</a>
+                                        <a href="/attendancehr?page=${pageVo.currentPage - 1}&deptCode=${deptCode}&name=${name}&empNo=${empNo}"class="page-button">이전</a>
                                     </c:if>
-
-                                    <!-- 페이지 번호 -->
                                     <c:forEach var="i" begin="${pageVo.startPage}" end="${pageVo.endPage}">
-                                        <a href="/employeehr?page=${i}&name=${name}&dname=${dname}&pname=${pname}&esname=${esname}"
+                                        <a href="?page=${i}&deptCode=${param.deptCode}&name=${param.name}&empNo=${param.empNo}"
                                            class="page-button ${i == pageVo.currentPage ? 'active' : ''}">
                                             ${i}
                                         </a>
                                     </c:forEach>
-
-                                    <!-- 다음 버튼 -->
                                     <c:if test="${pageVo.currentPage < pageVo.maxPage}">
-                                        <a href="/employeehr?page=${pageVo.currentPage + 1}&name=${name}&dname=${dname}&pname=${pname}&esname=${esname}"
-                                           class="page-button">다음</a>
+                                        <a href="/attendancehr?page=${pageVo.currentPage + 1}&deptCode=${deptCode}&name=${name}&empNo=${empNo}"class="page-button">다음</a>
                                     </c:if>
                                 </div>
                                 <div></div>
 
-                                    <div><button class="crud-button-white" id="create">등록</button></div>
+                                    <div><button id="openModal" class="crud-button-white">등록</button></div>
+                </div>
+
+                <!-- 모달 창 -->
+                <div id="attendanceModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeModal">&times;</span>
+                        <h3>근태 등록</h3>
+                        <form id="attendanceForm">
+                                <div class="form-group">
+                                    <label for="attendanceDate">일자</label>
+                                    <input type="date" id="attendanceDate" name="attendanceDate">
                                 </div>
+                                <div class="form-group">
+                                    <label for="registerEmpNo">사번</label>
+                                    <input type="text" id="registerEmpNo" name="registerEmpNo" placeholder="사번 입력">
+                                    <button type="button" id="searchEmployeeButton">검색</button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="employeeName">사원명</label>
+                                    <input type="text" id="employeeName" name="employeeName" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="deptName">소속부서</label>
+                                    <input type="text" id="deptName" name="deptName" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="position">직급</label>
+                                    <input type="text" id="position" name="position" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ciTime">출근시간</label>
+                                    <input type="time" id="ciTime" name="ciTime" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="coTime">퇴근시간</label>
+                                    <input type="time" id="coTime" name="coTime">
+                                </div>
+                                <div class="form-group">
+                                    <label for="workTime">근무시간</label>
+                                    <input type="text" id="workTime" name="workTime" disabled>
+                                </div>
+                                <div class="modal-submit-wrapper">
+                                    <button type="submit" class="crud-button-white">등록</button>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+
+
             </div>
        </div>
     </div>
