@@ -224,6 +224,7 @@
                     <div id="product-modal-search-area">
                         <form id="product-search-form">
                         <select name="productSearchType">
+                            <option value="itemName">품목명</option>
                             <option value="serialNumber">상품일련번호</option>
                             <option value="productName">상품명</option>
                         </select>
