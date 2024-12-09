@@ -137,6 +137,8 @@
                 <div>
                     <button class="crud-button-white" onclick="deleteEmployees('registerModal')">삭제</button>
                 </div>
+                <div></div>
+                <div></div>
 
                 <div class="pagination">
                     <!-- 이전 버튼 -->
@@ -159,6 +161,7 @@
                            class="page-button">다음</a>
                     </c:if>
                 </div>
+                <div></div>
 
                     <div><button class="crud-button-white" id="create">등록</button></div>
                 </div>

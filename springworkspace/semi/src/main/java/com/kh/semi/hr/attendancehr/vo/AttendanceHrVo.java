@@ -12,6 +12,6 @@ public class AttendanceHrVo {
     private String ciTime;
     private String coTime;
     private String workTime; // 근무 시간
-    private String date;
+    private String attendanceDate;
     private String delYn;
 }
