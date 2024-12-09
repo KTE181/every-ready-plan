@@ -171,5 +171,16 @@ public interface AccountMapper {
     AccountVo getAccountDetail(String no, Model model);
 
 
+
+    @Delete("""
+    <script>
+        DELETE FROM ACCOUNT
+        WHERE NO IN
+        <foreach collection="accountIds" item="accountId" open="(" separator="," close=")">
+            #{accountId}
+        </foreach>
+    </script>
+    """)
+    int deleteMultipleAccounts(List<String> accountIds);
 }
 

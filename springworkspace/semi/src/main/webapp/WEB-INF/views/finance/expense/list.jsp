@@ -57,7 +57,7 @@
                                     <table class="list-area">
                                         <thead>
                                             <tr>
-                                                <th><input type="checkbox" name=""></th>
+                                                <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
                                                 <th>순번</th>
                                                 <th>거래처코드</th>
                                                 <th>거래항목코드</th>
@@ -71,7 +71,7 @@
                                         <tbody>
                                             <c:forEach items="${expenseVoList}" var="expenseVo">
                                                 <tr id="expense-list" onclick="expenseDetail('${expenseVo.no}');">
-                                                    <td><input type="checkbox" name=""></td>
+                                                    <td><input type="checkbox" name="expenseIds" value="${expenseVo.no}" onclick="event.stopPropagation();"></td>
                                                     <td>${expenseVo.no}</td>
                                                     <td>${expenseVo.partnerCode}</td>
                                                     <td>${expenseVo.transCode}</td>
@@ -90,7 +90,7 @@
                             <!-- Bottom Area -->
                             <div class="bottom-content-area">
                                 <div>
-                                    <button class="crud-button-white">삭제</button>
+                                    <button type="button" onclick="deleteSelectedExpense()" class="crud-button-white">삭제</button>
                                 </div>
                                 <div>
                                     <div class="pagination">

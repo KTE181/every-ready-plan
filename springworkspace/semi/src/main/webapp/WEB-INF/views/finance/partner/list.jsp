@@ -28,7 +28,7 @@
                             <div class="content-area">
                                 <!-- Search Area -->
                                 <div class="top-title-area">
-                                    <div class="menu-name">협력사</div>
+                                    <div class="menu-name">거래처 관리</div>
                                     <div>
                                     <form action="/finance/partner/list" class="top-title-area-form">
                                         <label for="select">카테고리</label>
@@ -57,7 +57,7 @@
                                     <table class="list-area">
                                         <thead>
                                             <tr>
-                                                <th><input type="checkbox" name=""></th>
+                                                <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)""</th>
                                                 <th>거래처코드</th>
                                                 <th>업종코드</th>
                                                 <th>업종</th>
@@ -68,7 +68,7 @@
                                         <tbody>
                                             <c:forEach items="${partnerVoList}" var="partnerVo">
                                                 <tr id="partner-list" onclick="partnerDetail('${partnerVo.no}');">
-                                                    <td><input type="checkbox" name=""></td>
+                                                    <td><input type="checkbox" name="partnerIds" value="${partnerVo.no}" onclick="event.stopPropagation();"></td>
                                                     <td>${partnerVo.no}</td>
                                                     <td>${partnerVo.businessCode}</td>
                                                     <td>${partnerVo.bizType}</td>
@@ -80,7 +80,7 @@
                                     </table>
                                 </div>
                                 <div class="bottom-content-area">
-                                    <div><button class="crud-button-white" onclick="partnerDeleteMultiple();">삭제</button></div>
+                                    <button type="button" onclick="deleteSelectedPartner()" class="crud-button-white">삭제</button>
                                     <div>
                                         <div class="pagination">
                                             <c:if test="${pageVo.currentPage > 1}">

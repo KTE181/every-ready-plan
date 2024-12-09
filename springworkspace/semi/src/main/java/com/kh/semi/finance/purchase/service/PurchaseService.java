@@ -1,8 +1,8 @@
 package com.kh.semi.finance.purchase.service;
 
-import com.kh.semi.finance.account.controller.AccountController;
 import com.kh.semi.finance.purchase.mapper.PurchaseMapper;
 import com.kh.semi.finance.purchase.vo.PurchaseVo;
+import com.kh.semi.pb.vo.PageVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,13 +24,6 @@ public class PurchaseService {
         return mapper.write(vo);
     }
 
-    public List<PurchaseVo> getPurchaseList() {
-        return mapper.selectPurchaseVoList();
-    }
-
-    private List<PurchaseVo> selectPurchaseVoList() {
-        return mapper.selectPurchaseVoList();
-    }
 
     public int edit(PurchaseVo vo) {
         return mapper.edit(vo);
@@ -44,6 +37,29 @@ public class PurchaseService {
         PurchaseVo vo = mapper.getPurchaseDetail(no ,model);
 
         return vo;
+    }
+
+
+    public int deleteMultiplePurchases(List<String> purchaseIds) {
+        return mapper.deleteMultiplePurchases(purchaseIds);
+    }
+
+    public int getPurchaseListCnt(String area, String searchValue) {
+        return mapper.getPurchaseListCnt(area, searchValue);
+    }
+
+    public int getTotalPurchaseCount() {
+        return mapper.getTotalPurchaseCount();
+    }
+
+
+    public List<PurchaseVo> getAllPurchases(PageVo pageVo) {
+        return mapper.getAllPurchases(pageVo);
+    }
+
+
+    public List<PurchaseVo> getPurchaseList(PageVo pageVo, String area, String searchValue) {
+        return mapper.selectPurchaseVoList(pageVo, area, searchValue);
     }
 
 }

@@ -3,6 +3,7 @@ package com.kh.semi.finance.account.controller;
 
 import com.kh.semi.finance.account.service.AccountService;
 import com.kh.semi.finance.account.vo.AccountVo;
+import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("finance/account")
@@ -124,7 +126,13 @@ public class AccountController {
             @RequestParam(name = "pno", defaultValue = "1") int currentPage,
             @RequestParam(name = "area", required = false) String area,
             @RequestParam(name = "searchValue", required = false) String searchValue,
-            Model model) {
+            Model model ,HttpSession session) {
+
+        LoginVo loginEmployeeVo = (LoginVo) session.getAttribute("loginEmployeeVo");
+        if(loginEmployeeVo==null){
+            session.setAttribute("loginalertMsg","로그인후 이용하세요");
+            return "redirect:/login";
+        }
 
         // 검색 조건 기본값 설정
         boolean isSearch = !(area == null || area.isBlank()) && !(searchValue == null || searchValue.isBlank());
@@ -137,7 +145,7 @@ public class AccountController {
                 : service.getTotalAccountCount(); // 검색 조건 없을 때
 
         // PageVo 생성
-        int pageLimit = 10;  // 하단 페이지 번호 개수
+        int pageLimit = 5;  // 하단 페이지 번호 개수
         int boardLimit = 14; // 한 페이지에 보여줄 데이터 수
         PageVo pageVo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
@@ -220,8 +228,30 @@ public class AccountController {
         if (result != 1) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회사 계좌 삭제 실패...");
         }
-        session.setAttribute("alertMsg", "회사 계좌 삭제 성공!");
+//        session.setAttribute("alertMsg", "회사 계좌 삭제 성공!");
         return ResponseEntity.ok("회사 계좌 삭제 성공");
+    }
+
+    @DeleteMapping("deleteMultiple")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> deleteMultiple(@RequestBody List<String> accountIds) {
+        if (accountIds == null || accountIds.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "삭제할 항목이 없습니다."));
+        }
+
+        // 디버깅 로그
+        System.out.println("컨트롤러에서 받은 Account IDs: " + accountIds);
+
+        // 서비스 호출
+        int result = service.deleteMultipleAccounts(accountIds);
+
+        // 결과 처리
+        if (result > 0) {
+            return ResponseEntity.ok(Map.of("message", "선택된 항목이 삭제되었습니다."));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "삭제에 실패했습니다."));
+        }
     }
 
 }

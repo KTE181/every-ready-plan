@@ -62,7 +62,7 @@
                                     <table class="list-area">
                                         <thead>
                                             <tr>
-                                                <th><input type="checkbox" name=""></th>
+                                                <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)">선택</th>
                                                 <th>번호</th>
                                                 <th>은행코드</th>
                                                 <th>은행명</th>
@@ -73,7 +73,7 @@
                                         <tbody>
                                             <c:forEach items="${accountVoList}" var="accountVo">
                                                 <tr id="account-list" onclick="accountDetail('${accountVo.no}');">
-                                                    <td><input type="checkbox" name=""></td>
+                                                    <td><input type="checkbox" name="accountIds" value="${accountVo.no}" onclick="event.stopPropagation();"></td>
                                                     <td>${accountVo.no}</td>
                                                     <td>${accountVo.bankCode}</td>
                                                     <td>${accountVo.bankName}</td>
@@ -87,7 +87,7 @@
                             
                             <!-- Bottom Area -->
                             <div class="bottom-content-area">
-                                <div><button class="crud-button-white" onclick="accountDeleteMultiple();">삭제</button></div>
+                                <button type="button" onclick="deleteSelectedAccount()" class="crud-button-white">삭제</button>
                                 <div>
                                     <div class="pagination">
                                         <c:if test="${pageVo.currentPage > 1}">
@@ -161,7 +161,8 @@
                             <!-- Detail Modal -->
                             <div id="account-detail">
                                 <form action='/finance/account/delete' method="delete"
-                                    onsubmit="return confirm('삭제하시겠습니까?')">
+                                    <!-- onsubmit="return confirm('삭제하시겠습니까?')" -->
+                                    >
                                     <div class="detail-content">
                                         <span class="detail-close" onclick="accountDetailClose();">&times;</span>
 

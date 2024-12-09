@@ -171,4 +171,15 @@ public interface ExpenseMapper {
     List<ExpenseVo> getExpenseList(@Param("pageVo") PageVo pageVo, @Param("area") String area, @Param("searchValue") String searchValue);
 
 
+    @Update("""
+    <script>
+        UPDATE EXPENSE
+        SET DEL_YN = 'Y'
+        WHERE NO IN
+        <foreach collection="expenseIds" item="expenseId" open="(" separator="," close=")">
+            #{expenseId}
+        </foreach>
+    </script>
+    """)
+    int deleteMultipleExpenses(List<String> expenseIds);
 }

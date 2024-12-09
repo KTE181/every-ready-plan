@@ -39,14 +39,12 @@ function accountDetail(no) {
             no : no
         } ,
         success: function(accountVo) {
-            
-
-            const noInput = document.querySelector("#account-detail input[name=no]");
-if (noInput) {
-    noInput.value = accountVo.no;
-} else {
-    console.error("DOM 요소를 찾을 수 없습니다: input[name=no]");
-}
+        const noInput = document.querySelector("#account-detail input[name=no]");
+        if (noInput) {
+            noInput.value = accountVo.no;
+        } else {
+            console.error("DOM 요소를 찾을 수 없습니다: input[name=no]");
+        }
 
             console.log("accountVo.area:", accountVo.area);
             console.log(document.querySelector("#account-detail select[name=area]"));
@@ -146,28 +144,41 @@ function accountDelete(no) {
     });
 }
 
-function accountDeleteMultiple() {
-    const selectedIds = Array.from(document.querySelectorAll('.selectItem:checked'))
-        .map(item => item.value);
+// 전체 선택/해제 함수
+function toggleSelectAll(selectAllCheckbox) {
+    const checkboxes = document.querySelectorAll('input[name="accountIds"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAllCheckbox.checked;
+        
+    });
+}
+
+// 선택된 항목 삭제
+function deleteSelectedAccount() {
+    const selectedCheckboxes = document.querySelectorAll('input[name="accountIds"]:checked');
+    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
 
     if (selectedIds.length === 0) {
-        alert('삭제할 항목을 선택하세요.');
+        alert("삭제할 항목을 선택하세요.");
         return;
     }
 
-    if (confirm('정말 삭제하시겠습니까?')) {
-        $.ajax({
-            url: '/finance/account/deleteMultiple',
-            method: 'POST',
-            traditional: true,
-            data: { ids: selectedIds },
-            success: function(response) {
-                alert(response);
-                location.reload();
-            },
-            error: function(xhr) {
-                alert('삭제 실패: ' + xhr.responseText);
-            }
-        });
+    if (!confirm("선택된 항목을 삭제하시겠습니까?")) {
+        return;
     }
+
+    $.ajax({
+        url: "/finance/account/deleteMultiple",
+        method: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify(selectedIds),
+        success: function (response) {
+            alert(response.message || "삭제되었습니다.");
+            location.reload();
+        },
+        error: function (xhr) {
+            alert("삭제에 실패했습니다.");
+            console.error(xhr.responseText);
+        }
+    });
 }

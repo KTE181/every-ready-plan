@@ -2,10 +2,8 @@ package com.kh.semi.finance.purchase.mapper;
 
 import com.kh.semi.finance.partner.vo.PartnerVo;
 import com.kh.semi.finance.purchase.vo.PurchaseVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.kh.semi.pb.vo.PageVo;
+import org.apache.ibatis.annotations.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -41,27 +39,6 @@ public interface PurchaseMapper {
             """)
     int write(PurchaseVo vo);
 
-
-
-    @Select("""
-            SELECT
-                NO
-                , PARTNER_CODE
-                , TRANS_CODE
-                , ACCOUNT_CODE
-                , TRANS_DATE
-                , SUPPLY_AMOUNT
-                , TAX_AMOUNT
-                , ATTACHMENT
-                , COMMENTS
-                , ENROLL_DATE
-                , MODIFY_DATE
-                , DEL_YN
-            FROM PURCHASE
-            WHERE DEL_YN = 'N'
-            ORDER BY NO DESC
-            """)
-    List<PurchaseVo> selectPurchaseVoList();
 
 
 
@@ -117,4 +94,101 @@ public interface PurchaseMapper {
             AND S.DEL_YN = 'N'
             """)
     PurchaseVo getPurchaseDetail(String no, Model model);
+
+    @Update("""
+    <script>
+        UPDATE PURCHASE
+        SET DEL_YN = 'Y'
+        WHERE NO IN
+        <foreach collection="purchaseIds" item="purchaseId" open="(" separator="," close=")">
+            #{purchaseId}
+        </foreach>
+    </script>
+    """)
+    int deleteMultiplePurchases(@Param("purchaseIds") List<String> purchaseIds);
+
+
+    
+    
+    @Select("SELECT COUNT(*) FROM PURCHASE WHERE DEL_YN = 'N'")
+    int getPurchaseListCnt(@Param("area") String area, @Param("searchValue") String searchValue);
+
+
+    @Select("""
+    SELECT COUNT(*)
+    FROM PURCHASE
+    WHERE DEL_YN = 'N'
+      AND (
+        (#{area} = '1' AND PARTNER_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND TRANS_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND TRANS_DATE LIKE '%' || #{searchValue} || '%')
+      )
+    """)
+    int getTotalPurchaseCount();
+
+
+    @Select("""
+    SELECT
+        NO,
+        PARTNER_CODE,
+        TRANS_CODE,
+        ACCOUNT_CODE,
+        TRANS_DATE,
+        SUPPLY_AMOUNT,
+        TAX_AMOUNT,
+        COMMENTS
+    FROM purchase
+    WHERE DEL_YN = 'N'
+    ORDER BY NO DESC
+    OFFSET #{offset} ROWS FETCH NEXT #{boardLimit} ROWS ONLY
+    """)
+    List<PurchaseVo> getAllPurchases(PageVo pageVo);
+
+
+    @Select("""
+    SELECT
+        NO,
+        PARTNER_CODE,
+        TRANS_CODE,
+        ACCOUNT_CODE,
+        TRANS_DATE,
+        SUPPLY_AMOUNT,
+        TAX_AMOUNT,
+        COMMENTS
+    FROM purchase
+    WHERE DEL_YN = 'N'
+      AND (
+        (#{area} = '1' AND PARTNER_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '2' AND TRANS_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '3' AND ACCOUNT_CODE LIKE '%' || #{searchValue} || '%')
+        OR (#{area} = '4' AND TRANS_DATE LIKE '%' || #{searchValue} || '%')
+      )
+    ORDER BY NO DESC
+    OFFSET #{pageVo.offset} ROWS FETCH NEXT #{pageVo.boardLimit} ROWS ONLY
+    """)
+    List<PurchaseVo> getPurchaseList(@Param("pageVo") PageVo pageVo, @Param("area") String area, @Param("searchValue") String searchValue);
+
+    @Select("""
+    SELECT *
+    FROM (
+        SELECT 
+            ROWNUM AS RN,
+            NO, PARTNER_CODE, TRANS_CODE, ACCOUNT_CODE, SUPPLY_AMOUNT, TAX_AMOUNT, TRANS_DATE, COMMENTS
+        FROM PURCHASE
+        WHERE DEL_YN = 'N'
+        AND (
+            (#{area} = '1' AND PARTNER_CODE LIKE '%' || #{searchValue} || '%') OR
+            (#{area} = '2' AND TRANS_CODE LIKE '%' || #{searchValue} || '%') OR
+            (#{area} = '3' AND ACCOUNT_CODE LIKE '%' || #{searchValue} || '%') OR
+            (#{area} = '4' AND TRANS_DATE LIKE '%' || #{searchValue} || '%') OR
+            (#{area} IS NULL OR #{area} = '')
+        )
+        ORDER BY NO DESC
+    )
+    WHERE RN BETWEEN #{pageVo.offset} + 1 AND #{pageVo.offset} + #{pageVo.boardLimit}
+    """)
+    List<PurchaseVo> selectPurchaseVoList(@Param("pageVo") PageVo pageVo, @Param("area") String area, @Param("searchValue") String searchValue);
+
+
 }
