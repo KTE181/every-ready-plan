@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class AsreqVo {
     private String no;
+    private String itemCode;
+    private String itemName;
     private String productNo;
     private String serialNumber;
     private String productName;

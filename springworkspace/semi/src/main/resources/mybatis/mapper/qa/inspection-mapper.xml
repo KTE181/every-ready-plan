@@ -8,6 +8,8 @@
     <select id="getInspectionList">
         SELECT
             I.NO
+            , Q.NO   AS ITEM_CODE
+            , Q.ITEM_NAME
             , I.PRODUCT_NO
             , P.NAME    AS PRODUCT_NAME
             , P.SERIAL_NUMBER
@@ -15,8 +17,8 @@
             , C.NAME    AS INSPECTION_NAME
             , TO_DATE(I.INSPECTION_DATE, 'YYYY-MM-DD') AS INSPECTION_DATE
             , CASE  WHEN (I.SUCCESS_YN = 'P') THEN 'PASS'
-            WHEN (I.SUCCESS_YN = 'F') THEN 'FAIL'
-            END AS SUCCESS_YN
+                    WHEN (I.SUCCESS_YN = 'F') THEN 'FAIL'
+                    END AS SUCCESS_YN
             , I.STATUS_CODE
             , S.NAME    AS STATUS_NAME
             , I.ENROLL_DATE
@@ -24,6 +26,7 @@
             , I.DEL_YN
         FROM INSPECTION_HISTORY I
         JOIN PRODUCT_REGISTRATION P ON (I.PRODUCT_NO = P.NO)
+        JOIN PRODUCT_INQUIRY Q ON (P.ITEM_CODE = Q.NO)
         JOIN INSPECTION_TYPE C ON (I.INSPECTION_CODE = C.NO)
         JOIN INSPECTION_STATUS S ON (I.STATUS_CODE = S.NO)
         WHERE I.DEL_YN = 'N'
@@ -37,11 +40,14 @@
         <if test="passYn != '' and passYn != null">
             AND I.SUCCESS_YN = #{passYn}
         </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'itemName'">
+            AND Q.ITEM_NAME LIKE '%${searchValue}%'
+        </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
-            AND P.SERIAL_NUMBER = #{searchValue}
+            AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
         </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'productName'">
-            AND P.NAME = #{searchValue}
+            AND P.NAME LIKE '%${searchValue}%'
         </if>
 
         ORDER BY I.NO DESC
@@ -52,6 +58,7 @@
         SELECT COUNT(I.NO)
         FROM INSPECTION_HISTORY I
         JOIN PRODUCT_REGISTRATION P ON (I.PRODUCT_NO = P.NO)
+        JOIN PRODUCT_INQUIRY Q ON (P.ITEM_CODE = Q.NO)
         JOIN INSPECTION_TYPE C ON (I.INSPECTION_CODE = C.NO)
         JOIN INSPECTION_STATUS S ON (I.STATUS_CODE = S.NO)
         WHERE I.DEL_YN = 'N'
@@ -65,11 +72,14 @@
         <if test="passYn != '' and passYn != null">
             AND I.SUCCESS_YN = #{passYn}
         </if>
+        <if test="searchValue != '' and searchValue != null and searchType == 'itemName'">
+            AND Q.ITEM_NAME LIKE '%${searchValue}%'
+        </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'serialNumber'">
-            AND P.SERIAL_NUMBER = #{searchValue}
+            AND P.SERIAL_NUMBER LIKE '%${searchValue}%'
         </if>
         <if test="searchValue != '' and searchValue != null and searchType == 'productName'">
-            AND P.NAME = #{searchValue}
+            AND P.NAME LIKE '%${searchValue}%'
         </if>
 
     </select>

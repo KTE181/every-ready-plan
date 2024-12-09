@@ -6,7 +6,7 @@ import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.areainfo.AreaInfo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.asreq.service.AsreqService;
-import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.qa.inspection.vo.ItemProductVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class AsreqController {
 
         // pno = currentPage
         int listCount = service.getAsreqListCnt(area, searchType, searchValue);
-        int pageLimit = 10;
+        int pageLimit = 5;
         int boardLimit = 14;
 
         PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
@@ -77,7 +77,7 @@ public class AsreqController {
 
         PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
-        List<ProductVo> productVoList = service.getProductList(pvo, productSearchType, productSearchValue);
+        List<ItemProductVo> productVoList = service.getProductList(pvo, productSearchType, productSearchValue);
 
         HashMap map = new HashMap();
         map.put("a", productVoList);

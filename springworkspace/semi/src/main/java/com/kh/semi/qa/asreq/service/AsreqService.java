@@ -4,6 +4,7 @@ import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.asreq.mapper.AsreqMapper;
 import com.kh.semi.product.vo.ProductVo;
+import com.kh.semi.qa.inspection.vo.ItemProductVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -80,7 +81,7 @@ public class AsreqService {
         return result1 * result2;
     }
 
-    public List<ProductVo> getProductList(PageVo pvo, String productSearchType, String productSearchValue) {
+    public List<ItemProductVo> getProductList(PageVo pvo, String productSearchType, String productSearchValue) {
         return mapper.getProductList(pvo, productSearchType, productSearchValue);
     }
 

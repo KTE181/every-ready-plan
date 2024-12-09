@@ -45,11 +45,12 @@
 
                             <label for="검색어"></label>
                             <div class="search-bar">
-                                <select name="searchType" onchange="handleSearchType(this)">
-                                    <option value="title" <c:if test='${searchType == "title"}'>selected</c:if>>AS요청제목</option>
-                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
+                                <select name="searchType">
+                                    <option value="itemName" <c:if test='${searchType == "itemName"}'>selected</c:if>>품목명</option>
                                     <option value="serialNumber" <c:if test='${searchType == "serialNumber"}'>selected</c:if>>상품일련번호</option>
                                     <option value="productName" <c:if test='${searchType == "productName"}'>selected</c:if>>상품명</option>
+                                    <option value="title" <c:if test='${searchType == "title"}'>selected</c:if>>AS요청제목</option>
+                                    <option value="customerName" <c:if test='${searchType == "customerName"}'>selected</c:if>>고객명</option>
                                 </select>
                             </div>
                             <div class="search-bar"><input type="search" id="longbar" name="searchValue" value="${searchValue}"></div>
@@ -67,6 +68,7 @@
                             <tr>
                                 <th><input type="checkbox" name="th-checkbox" onclick="handelCheckbox(this)"></th>
                                 <th>번호</th>
+                                <th>품목명</th>
                                 <th>상품일련번호</th>
                                 <th>상품명</th>
                                 <th>AS요청제목</th>
@@ -81,6 +83,7 @@
                                 <tr id="asreq-list" onclick="loadDetailModal('${asreqVo.no}');">
                                     <td onclick="event.stopPropagation();"><input type="checkbox" name="listCheckbox"></td>
                                     <td>${asreqVo.no}</td>
+                                    <td>${asreqVo.itemName}</td>
                                     <td>${asreqVo.serialNumber}</td>
                                     <td>${asreqVo.productName}</td>
                                     <td>${asreqVo.issueTitle}</td>
@@ -126,6 +129,16 @@
             
                         <input type="hidden" name="no">
                         <input type="hidden" name="productNo">
+                        
+                        <div class="modal-cont" id="item-code">
+                            <div><span class="required-text">*</span> 품목코드</div>
+                            <input type="text" name="itemCode" disabled>
+                        </div>
+
+                        <div class="modal-cont" id="item-name">
+                            <div><span class="required-text">*</span> 품목명</div>
+                            <input type="text" name="itemName" disabled>
+                        </div>
 
                         <div class="modal-cont">
                             <div><span class="required-text">*</span> 상품일련번호</div>
@@ -223,6 +236,8 @@
                         <thead>
                             <tr>
                                 <th>선택</th>
+                                <th>품목코드</th>
+                                <th>품목명</th>
                                 <th>상품일련번호</th>
                                 <th>상품명</th>
                                 <th>가격</th>

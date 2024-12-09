@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class InspectionVo {
     private String no;
+    private String itemCode;
+    private String itemName;
     private String productNo;
     private String productName;
     private String serialNumber;

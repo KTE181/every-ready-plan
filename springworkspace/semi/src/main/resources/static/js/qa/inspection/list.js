@@ -149,20 +149,28 @@ function productData(pno) {
                 tdTag.appendChild(noTag);
 
                 const tdTag1 = document.createElement("td");
-                tdTag1.innerText = vo.serialNumber;
+                tdTag1.innerText = vo.itemCode;
                 trTag.appendChild(tdTag1);
 
                 const tdTag2 = document.createElement("td");
-                tdTag2.innerText = vo.name;
+                tdTag2.innerText = vo.itemName;
                 trTag.appendChild(tdTag2);
-
+                
                 const tdTag3 = document.createElement("td");
-                tdTag3.innerText = vo.price;
+                tdTag3.innerText = vo.serialNumber;
                 trTag.appendChild(tdTag3);
 
                 const tdTag4 = document.createElement("td");
-                tdTag4.innerText = vo.warrantyPeriod;
+                tdTag4.innerText = vo.name;
                 trTag.appendChild(tdTag4);
+
+                const tdTag5 = document.createElement("td");
+                tdTag5.innerText = vo.price;
+                trTag.appendChild(tdTag5);
+
+                const tdTag6 = document.createElement("td");
+                tdTag6.innerText = vo.warrantyPeriod;
+                trTag.appendChild(tdTag6);
             }
         } , 
         error : function(){
@@ -212,10 +220,14 @@ function selectProduct() {
     }
 
     const no = selectedProduct.nextSibling.value;
-    const serialNumber = selectedProduct.parentNode.parentNode.children[1].innerText;
-    const productName = selectedProduct.parentNode.parentNode.children[2].innerText;
+    const itemCode = selectedProduct.parentNode.parentNode.children[1].innerText;
+    const itemName = selectedProduct.parentNode.parentNode.children[2].innerText;
+    const serialNumber = selectedProduct.parentNode.parentNode.children[3].innerText;
+    const productName = selectedProduct.parentNode.parentNode.children[4].innerText;
 
     document.querySelector("#inspection-modal input[name=productNo]").value = no;
+    document.querySelector("#inspection-modal input[name=itemCode]").value = itemCode;
+    document.querySelector("#inspection-modal input[name=itemName]").value = itemName;
     document.querySelector("#inspection-modal input[name=serialNumber]").value = serialNumber;
     document.querySelector("#inspection-modal input[name=productName]").value = productName;
 
@@ -245,6 +257,8 @@ function loadDetailModal(no) {
     document.querySelector("select[name=statusCode]").setAttribute("disabled", "true");
     document.querySelector("#inspection-date").innerHTML = `<div>검사일자</div><input type="text" name="inspectionDate" disabled>`
     document.querySelector("#success-yn").innerHTML = `<input type="text" name="successYn" disabled>`;
+    document.querySelector("#item-code").style.display = 'flex';
+    document.querySelector("#item-name").style.display = 'flex';
     document.querySelector("#enroll-date").style.display = 'flex';
     document.querySelector("#modify-date").style.display = 'flex';
     document.querySelector(".button-container").innerHTML = 
@@ -260,6 +274,8 @@ function loadDetailModal(no) {
         success: function(inspectionVo) {
 
             document.querySelector("#inspection-modal input[name=no]").value = inspectionVo.no;
+            document.querySelector("#inspection-modal input[name=itemCode]").value = inspectionVo.itemCode;
+            document.querySelector("#inspection-modal input[name=itemName]").value = inspectionVo.itemName;
             document.querySelector("#inspection-modal input[name=productNo]").value = inspectionVo.productNo;
             document.querySelector("#inspection-modal input[name=serialNumber]").value = inspectionVo.serialNumber;
             document.querySelector("#inspection-modal input[name=productName]").value = inspectionVo.productName;
@@ -494,23 +510,3 @@ function closeModal() {
 }
 
 closeModal();
-
-// searchType 값에 따라서 input 타입 변경
-function handleSearchType(x) {
-
-    const searchValueTag = document.querySelector("input[name=searchValue]");
-
-    if(x.value == "productName") {
-        searchValueTag.setAttribute("type", "search");
-    } 
-    else{
-        searchValueTag.setAttribute("type", "number");
-    }
-
-}
-
-// 새로고침 해도 input 타입 유지
-document.addEventListener("DOMContentLoaded", () => {
-    const searchTypeSelect = document.querySelector("select[name=searchType]");
-    handleSearchType(searchTypeSelect); 
-});
