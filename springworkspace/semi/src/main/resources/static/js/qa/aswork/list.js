@@ -56,12 +56,17 @@ function loadDetailModal(asworkNo) {
             document.querySelector("#aswork-modal input[name=empName]").value = asworkVo.empName;
             document.querySelector("#aswork-modal input[name=dname]").value = asworkVo.dname;
             document.querySelector("#aswork-modal input[name=repairDate]").value = asworkVo.repairDate;
-            const faultCodeElement = document.querySelector("#aswork-modal select[name=faultCode]");
-            const faultCode = faultCodeElement ? faultCodeElement.value : "";
+            if (asworkVo.faultCode && asworkVo.faultCode.trim() !== "") {
+                document.querySelector("#aswork-modal select[name=faultCode]").value = asworkVo.faultCode;
+            } else {
+                document.querySelector("#aswork-modal select[name=faultCode]").value = "";
+            }
             document.querySelector("#aswork-modal textarea[name=repairDetalis]").value = asworkVo.repairDetalis;
             document.querySelector("#aswork-modal input[name=enrollDate]").value = asworkVo.enrollDate;
             document.querySelector("#aswork-modal input[name=modifyDate]").value = asworkVo.modifyDate;
-            
+
+            console.log(asworkVo.faultCode);
+
             const editButton = document.querySelector("#aswork-edit-button");
             const deleteButton = document.querySelector("#aswork-delete-button");
 
@@ -75,7 +80,7 @@ function loadDetailModal(asworkNo) {
 
         },
         fail: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
         }
     });
 }
@@ -275,13 +280,13 @@ function asworkEditSave() {
                 alert("수정되었습니다.");
             }
             else {
-                alert("오류발생...");
+                alert("수정실패... 관리자에게 문의해주세요.");
             }
             location.reload();
         },
 
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.reload();
         }
     });
@@ -308,13 +313,13 @@ function asworkDelete(no) {
                 alert("삭제되었습니다.");
             }
             else {
-                alert("오류발생...");
+                alert("삭제실패... 관리자에게 문의해주세요.");
             }
             location.reload();
         },
 
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.reload();
         }
     });
@@ -365,14 +370,14 @@ function asworkDeleteMultiple() {
                 alert("삭제되었습니다.");
             }
             else {
-                alert("삭제실패...");
+                alert("삭제실패... 관리자에게 문의해주세요.");
             }
 
             location.reload();
 
         },
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
         }
     });
 

@@ -28,7 +28,21 @@ public class AsempService {
     }
 
     public int enroll(AsempVo vo) {
-        return mapper.enroll(vo);
+
+        // 해당 사원 기등록 여부 확인
+        int check = mapper.checkAsemp(vo);
+
+        int result;
+        // 해당 사원이 기등록 되었으면 DEL_YN 을 N로 업데이트
+        if (check == 1) {
+            result = mapper.update(vo);
+        }
+        else {
+            // 해당 사원이 등록된 적이 없다면 INSERT
+            result = mapper.enroll(vo);
+        }
+
+        return result;
     }
 
     public AsempVo getAsempDetail(String no) {
@@ -57,5 +71,13 @@ public class AsempService {
 
     public int getEmpCnt(String dept, String empSearchType, String empSearchValue) {
         return mapper.getEmpCnt(dept, empSearchType, empSearchValue);
+    }
+
+    public int checkAsemp(AsempVo vo) {
+        return mapper.checkAsemp(vo);
+    }
+
+    public int update(AsempVo vo) {
+        return mapper.update(vo);
     }
 }

@@ -3,6 +3,7 @@ package com.kh.semi.qa.asreq.controller;
 import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;
+import com.kh.semi.qa.areainfo.AreaInfo;
 import com.kh.semi.qa.asreq.vo.AsreqVo;
 import com.kh.semi.qa.asreq.service.AsreqService;
 import com.kh.semi.product.vo.ProductVo;
@@ -55,6 +56,10 @@ public class AsreqController {
         model.addAttribute("area", area);
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchValue", searchValue);
+
+        // 지역 정보 가져오기
+        AreaInfo areaInfo = new AreaInfo();
+        model.addAttribute("areaList", areaInfo.getAreaInfo());
 
         return "qa/asreq/list";
     }

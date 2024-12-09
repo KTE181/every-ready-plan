@@ -116,12 +116,12 @@ function write() {
                 alert("등록되었습니다.");
             }
             else {
-                alert("AS 요청 등록에 실패했습니다. 관리자에게 문의해주세요.");
+                alert("등록실패... 관리자에게 문의해주세요.");
             }
             location.href = "/qa/asreq/list";
         },
         error: function() {
-            alert("AS 요청 등록에 실패했습니다. 관리자에게 문의해주세요.");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.href = "/qa/asreq/list";
         }
     });
@@ -204,7 +204,7 @@ function productData(pno) {
             }
         } , 
         error : function(){
-            alert("조회 실패...")
+            alert("조회 실패... 관리자에게 문의해주세요.")
         }
     })
 
@@ -343,7 +343,7 @@ function loadDetailModal(asreqNo) {
         },
 
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
         }
     });
 }
@@ -470,13 +470,13 @@ function asreqEditSave() {
                 alert("수정되었습니다.");
             }
             else {
-                alert("오류발생...");
+                alert("수정실패... 관리자에게 문의해주세요.");
             }
             location.reload();
         },
 
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.reload();
         }
     });
@@ -503,14 +503,14 @@ function asreqReceive(no) {
                 alert("AS요청이 접수되었습니다.");
             }
             else {
-                alert("오류발생...");
+                alert("접수실패... 관리자에게 문의해주세요.");
             }
             location.reload();
         },
 
         error: function() {
             console.log(no);
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.reload();
         }
     });
@@ -537,13 +537,13 @@ function asreqDelete(no) {
                 location.reload();
             }
             else {
-                alert("AS 요청 삭제에 실패했습니다.");
+                alert("삭제실패... 관리자에게 문의해주세요.");
             }
             location.reload();
         },
 
         error: function() {
-            alert("AS 요청 삭제에 실패했습니다.");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.reload();
         }
     });
@@ -608,12 +608,12 @@ function asreqDeleteMultiple() {
                 alert("삭제되었습니다.");
             }
             else {
-                alert("AS 요청 삭제에 실패했습니다.");
+                alert("삭제실패... 관리자에게 문의해주세요.");
             }
             location.reload();
         },
         error: function() {
-            alert("AS 요청 삭제에 실패했습니다.");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.reload();
         }
     });

@@ -77,12 +77,12 @@ function write() {
                 alert("등록되었습니다.");
             }
             else {
-                alert("등록실패...");
+                alert("등록실패... 관리자에게 문의해주세요.");
             }
             location.href = "/qa/inspection/list";
         },
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.href = "/qa/inspection/list";
         }
     });
@@ -166,7 +166,7 @@ function productData(pno) {
             }
         } , 
         error : function(){
-            alert("조회 실패...")
+            alert("조회 실패... 관리자에게 문의해주세요.")
         }
     })
 
@@ -284,7 +284,7 @@ function loadDetailModal(no) {
         },
 
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
         }
     });
 
@@ -379,13 +379,13 @@ function inspectionEditSave() {
                 alert("수정되었습니다.");
             }
             else {
-                alert("수정실패...");
+                alert("수정실패... 관리자에게 문의해주세요.");
             }
             location.reload();
         },
 
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
             location.reload();
         }
     });
@@ -412,14 +412,14 @@ function inspectionDelete(no) {
                 alert("삭제되었습니다.");
             }
             else {
-                alert("삭제실패...");
+                alert("삭제실패... 관리자에게 문의해주세요.");
             }
 
             location.reload();
 
         },
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
         }
     });
 }
@@ -468,14 +468,14 @@ function deleteMultiple() {
                 alert("삭제되었습니다.");
             }
             else {
-                alert("삭제실패...");
+                alert("삭제실패... 관리자에게 문의해주세요.");
             }
 
             location.reload();
 
         },
         error: function() {
-            alert("통신실패...");
+            alert("통신실패... 관리자에게 문의해주세요.");
         }
     });
 

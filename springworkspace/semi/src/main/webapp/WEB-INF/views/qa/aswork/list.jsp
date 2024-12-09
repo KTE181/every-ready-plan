@@ -37,11 +37,9 @@
                             <div class="search-bar">
                                 <select name="area">
                                     <option value="">고객지역 전체</option>
-                                    <option value="서울" <c:if test='${area == "서울"}'>selected</c:if>>서울</option>
-                                    <option value="인천" <c:if test='${area == "인천"}'>selected</c:if>>인천</option>
-                                    <option value="경기" <c:if test='${area == "경기"}'>selected</c:if>>경기</option>
-                                    <option value="부산" <c:if test='${area == "부산"}'>selected</c:if>>부산</option>
-                                    <option value="제주도" <c:if test='${area == "제주도"}'>selected</c:if>>제주도</option>
+                                    <c:forEach items="${areaList}" var="areaName">
+                                        <option value="${areaName}" <c:if test='${area == areaName}'>selected</c:if>>${areaName}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
 
@@ -219,7 +217,7 @@
                             </select>
                         </div>
 
-                        <div class="modal-cont">
+                        <div class="modal-cont" id="div-faultCode">
                             <div>고장유형</div>
                             <select name="faultCode" disabled>
                                 <option value="">-- 선택 --</option>
@@ -285,11 +283,9 @@
                         <form id="emp-search-form">
                         <select name="asemp-area">
                             <option value="">담당지역 전체</option>
-                            <option value="서울">서울</option>
-                            <option value="인천">인천</option>
-                            <option value="경기">경기</option>
-                            <option value="부산">부산</option>
-                            <option value="제주도">제주도</option>
+                            <c:forEach items="${areaList}" var="areaName">
+                                <option value="${areaName}" <c:if test='${area == areaName}'>selected</c:if>>${areaName}</option>
+                            </c:forEach>
                         </select>
                         <input type="button" onclick="empData()" value="검색">
                         </form>

@@ -32,6 +32,13 @@ public interface AsempMapper {
             """)
     int enroll(AsempVo vo);
 
+    @Delete("""
+            UPDATE AS_ENGINEERS
+            SET DEL_YN = 'N'
+            WHERE NO = #{no}
+            """)
+    int update(AsempVo vo);
+
     @Select("""
             SELECT
                 A.NO
@@ -58,7 +65,8 @@ public interface AsempMapper {
     int edit(AsempVo vo);
 
     @Delete("""
-            DELETE FROM AS_ENGINEERS
+            UPDATE AS_ENGINEERS
+            SET DEL_YN = 'Y'
             WHERE NO IN (${no})
             """)
     int delete(String no);
@@ -75,4 +83,10 @@ public interface AsempMapper {
             """)
     List<DeptVo> getDeptList(Model model);
 
+    @Select("""
+            SELECT COUNT(NO)
+            FROM AS_ENGINEERS
+            WHERE NO = #{no}
+            """)
+    int checkAsemp(AsempVo vo);
 }
