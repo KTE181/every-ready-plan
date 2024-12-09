@@ -61,8 +61,7 @@ public class ProductcntController {
             String itemCode = vo.getItemCode();
             vo.setDefectiveCnt( map.getOrDefault(itemCode , 0) );
         }
-
-        System.out.println("map = " + map);
+        
 
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("productcntVo", productcntVo);

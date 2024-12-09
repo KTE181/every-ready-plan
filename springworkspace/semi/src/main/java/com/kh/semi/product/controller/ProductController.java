@@ -98,7 +98,6 @@ public class ProductController {
     //품목 코드 등록(처리)
     @PostMapping("item")
     public String item(ItemVo vo, HttpSession session) throws Exception {
-        System.out.println(vo);
         int result = service.itemCode(vo);
         if(result == 1){
             return "redirect:/qa/product/list";
@@ -111,7 +110,6 @@ public class ProductController {
     @DeleteMapping("delete")
     @ResponseBody
     public String delete(String ProductNoArr) throws JsonProcessingException {
-        System.out.println("ProductNoArr = " + ProductNoArr);
         List<String> productNoList = objectMapper.readValue(ProductNoArr, List.class);
         int result = service.delete(productNoList);
 
@@ -132,9 +130,6 @@ public class ProductController {
     //상품 수정(처리)
     @PostMapping("edit")
     public String edit(ProductVo vo, Model model) throws Exception {
-
-        System.out.println("@@@@@@@");
-        System.out.println("vo = " + vo);
 
         int result = service.edit(vo);
 

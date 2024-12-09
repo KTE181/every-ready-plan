@@ -11,7 +11,7 @@ function closeModal() {
     modalTag.classList.remove('active');
 }
 
-
+//모달 열기
 function openItemCodeModal() {
     const modal = document.querySelector("#modalItemCode");
 
@@ -93,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     itemName: name,
                 },
                 success: function (response) {
-                    console.log("Response:", response);
                     alert("품목코드가 성공적으로 등록되었습니다!");
                     location.reload();
                 },
@@ -105,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
+//품목코드 선택
 function setItemCodeSelect(){
     const codeSelect= document.querySelector("#itemcode-select");
     
@@ -119,7 +118,6 @@ function setItemCodeSelect(){
         method : "GET",
         // data: ~~~,
         success: function(ItemCodeList){
-            console.log("ItemCodeList" , ItemCodeList);
 
             for(let i = 0 ; i < ItemCodeList.length; ++i){
                 const ItemCodeVo = ItemCodeList[i];
@@ -144,12 +142,11 @@ window.onload = function(){
 }
 
 
-
+//품목코드에 따른 상품명 가져오기
 document.querySelector("#itemcode-select").addEventListener("change", function () {
 
     const selectedCode = this.value;
 
-    console.log(selectedCode);
     $.ajax({
         url: `/qa/product/getItemCodeName?code=${selectedCode}`,
         method: "GET",
@@ -166,11 +163,9 @@ document.querySelector("#itemcode-select").addEventListener("change", function (
 
 
 
-
-
 let no= "";
 
-// 테이블 행 클릭 이벤트
+// 테이블 행 클릭시 상세조회
 document.querySelectorAll("#productTable td").forEach(row => {
 
 
@@ -221,7 +216,7 @@ function closeDetailModal() {
 
 
 
-
+//상품 삭제
 function delProduct(){
 
     const ProductNoArr = [];
@@ -260,6 +255,7 @@ function delProduct(){
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const registerButton = document.querySelector("#registerProduct");
 
@@ -267,7 +263,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const itemCode = document.querySelector("#itemcode-select").value;
             const name = document.querySelector("#itemcode-product-name").value;
-            // const serialNumber = document.querySelector("#modalSerialNumber").value;
             const price = document.querySelector("#product-price1").value;
             const warrantyPeriod = document.querySelector("#warranty1").value;
             const receivedDate = document.querySelector("#import-date1").value;
@@ -281,7 +276,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: {
                     itemCode: itemCode,
                     name: name,
-                    // serialNumber: serialNumber,
                     price: price,
                     warrantyPeriod: warrantyPeriod,
                     receivedDate: receivedDate,
@@ -321,15 +315,13 @@ document.querySelector("#modalDetail #closeModal").addEventListener("click", fun
 });
 
 
+
+//상품 수정
 document.querySelector("#edit-button").addEventListener("click",function(){
     const itemCode = document.querySelector("#item-code").value;
-    console.log(itemCode);
     const name = document.querySelector("#product-name").value;
-    console.log(name);
     const price= document.querySelector("#product-price").value;
-    console.log(price);
     const factoryName = document.querySelector("#factoryName").value;
-    console.log(factoryName);
     const factoryAddress = document.querySelector("#factory-address").value;
     const warranty = document.querySelector("#warranty").value;
 
@@ -345,17 +337,11 @@ document.querySelector("#edit-button").addEventListener("click",function(){
 document.querySelector("#modalEdit .primary").addEventListener("click", function () {
 
         const itemCode= document.querySelector("#edit-item-code").value;
-        console.log(itemCode);
         const name= document.querySelector("#edit-product-name").value;
-        console.log(name);
         const price= document.querySelector("#edit-product-price").value;
-        console.log(price);
         const factoryName= document.querySelector("#edit-factory-name").value;
-        console.log(factoryName);
         const factoryAddress= document.querySelector("#edit-factory-address").value;
-        console.log(factoryAddress);
         const warrantyPeriod= document.querySelector("#edit-warranty-period").value;
-        console.log(warrantyPeriod);
 
 
 

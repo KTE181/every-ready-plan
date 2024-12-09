@@ -22,6 +22,8 @@ function openModal(){
   
   }
   
+
+  //불량 코드 삭제
   function delDefectiveCode(){
   
     const defectiveCodeNoArr = [];
@@ -63,8 +65,6 @@ function openModal(){
 
         registerButton.addEventListener("click", function () {
 
-            console.log("defectivename : " , document.querySelector("#defectivename"));
-
             const name = document.querySelector("#defectivename").value;
             
 
@@ -90,6 +90,8 @@ function openModal(){
   
 let no = "";
 
+
+//불량 코드 상세 조회
 document.querySelectorAll("#defectiveCodeTable td").forEach(row => {
     row.addEventListener("click", function (evt) {
         const defectiveCodeNo = this.getAttribute("data-product-no"); 
@@ -139,9 +141,7 @@ document.querySelector("#modalDetail #closeDefectiveCodeDetailModal").addEventLi
 
 document.querySelector("#edit-button-defectivecode").addEventListener("click",function(){
     const no = document.querySelector("#code-number").value;
-    console.log(no);
     const name = document.querySelector("#code-name").value;
-    console.log(name);
 
     document.querySelector("#edit-code-number").value = no;
     document.querySelector("#edit-code-name").value = name;
@@ -154,13 +154,11 @@ document.querySelector("#edit-button-defectivecode").addEventListener("click",fu
 
 
 
-// 수정하는 기능
+// 불량 상품 수정
 document.querySelector("#modalEdit .primary").addEventListener("click", function () {
 
     const defectiveNo= document.querySelector("#edit-code-number").value;
-    console.log(defectiveNo);
     const defectiveCode= document.querySelector("#edit-code-name").value;
-    console.log(defectiveCode);
 
 
 

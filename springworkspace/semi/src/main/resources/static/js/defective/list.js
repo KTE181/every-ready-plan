@@ -23,6 +23,7 @@ function handleCheckBox(x){
 
 }
 
+//상품 삭제(다중 삭제)
 function delDefective(){
 
   const defectiveNoArr = [];
@@ -57,6 +58,7 @@ function delDefective(){
 
 }
 
+//테이블 행 클릭시 상세조회
 document.querySelectorAll("#defectiveTable td").forEach(row => {
     row.addEventListener("click", function () {
         const defectiveNo = this.getAttribute("data-product-no"); 
@@ -92,7 +94,7 @@ document.querySelector("#closeDetailModal").addEventListener("click", function (
 
 
 
-
+//불량 상품 등록
 document.addEventListener("DOMContentLoaded", function () {
   const registerButton = document.querySelector("#registerDefectiveProduct");
 
@@ -175,6 +177,7 @@ document.querySelector("#edit-button").addEventListener("click",function(){
 });
 
 
+//불량 상품 등록에서 불량코드 선택
 function setDefectiveCodeSelect(){
     const codeSelect= document.querySelector("#defectivecode-select");
     
@@ -188,7 +191,6 @@ function setDefectiveCodeSelect(){
         method : "GET",
         // data: ~~~,
         success: function(defectiveCodeList){
-            console.log("defectiveCodeList" , defectiveCodeList);
 
             for(let i = 0 ; i < defectiveCodeList.length; ++i){
                 const defectiveCodeVo = defectiveCodeList[i];
@@ -213,7 +215,7 @@ window.onload = function(){
     setDefectiveCodeSelectEdit();
 }
 
-
+//불량 상품 등록에서 불량코드에 따른 불량유형 출력
 document.querySelector("#defectivecode-select").addEventListener("change", function () {
 
         const selectedCode = this.value;
@@ -232,7 +234,7 @@ document.querySelector("#defectivecode-select").addEventListener("change", funct
 });
 
 
-
+//DB 불량코드 불러오기
 function setDefectiveCodeSelectEdit(){
     const codeSelect= document.querySelector("#defectivecode-select-edit");
     
@@ -260,6 +262,7 @@ function setDefectiveCodeSelectEdit(){
     
 }
 
+//불량코드 선택시 불량명 불러오기
 document.querySelector("#defectivecode-select-edit").addEventListener("change", function () {
 
     const selectedCode = this.value;
@@ -277,7 +280,7 @@ document.querySelector("#defectivecode-select-edit").addEventListener("change", 
  
 });
 
-
+//불량 상품 수정
 document.querySelector("#modaldefectiveEdit .primary").addEventListener("click", function(){
 
     const productNo= document.querySelector("#edit-productno").value;
@@ -440,9 +443,6 @@ function selectProduct() {
     const productName = selectedProduct.parentNode.parentNode.children[2].innerText;
     const price = selectedProduct.parentNode.parentNode.children[3].innerText;
 
-    console.log(no);
-    console.log(serialNumber);
-    console.log(productName);
 
     document.querySelector("#modalOverlay input[id=dfproductno]").value = no;
     document.querySelector("#modalOverlay input[id=dfserialno]").value = serialNumber;

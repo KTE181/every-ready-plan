@@ -35,21 +35,6 @@
                         <div class="menu-name">상품 조회</div>
                         <div>
                             <form action="" class="top-title-area-form">
-                                <!-- <label for="">연월일</label> -->
-                                <!-- <div class="search-bar"><input type="text" name="year" maxlength="4" placeholder="연도"></div>
-                                <div class="search-bar"><input type="text" name="month" maxlength="2" placeholder="월"></div>
-                                <div class="search-bar"><input type="text" name="day" maxlength="2" placeholder="일"></div> -->
-
-                                <!-- <label for="연월 date"></label>
-                                <div class="search-bar"><input type="month" name=""></div>
-
-                                <label for="연월일 date"></label>
-                                <div class="search-bar"><input type="date" name=""></div> -->
-
-                                 <!-- <div class="search-bar"><input type="search" id="longbar"></div> 
-                                 <label>상품명: <input type="text" id="searchName"></label>
-                                <label>일련번호: <input type="text" id="searchSerialNumber"></label>
-                                <div class="search-bar"><button id="searchButton">검색</button></div>  -->
                                 <div class="search-bar">
                                     <form action="/qa/product/list">
                                         <label>상품이름 &nbsp;&nbsp; <input type="text" id = "longbar" name="searchValueName" value="${searchValueName}" placeholder="검색할 상품이름을 입력하세요"></label>
@@ -188,14 +173,6 @@
                                 <label for="product-price">가격</label>
                                 <input type="text" id="edit-product-price">
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="product-quantity">수량</label>
-                                <input type="text" id="product-quantity" value="${vo.price}">
-                            </div> -->
-                            <!-- <div class="form-group">
-                                <label for="serial-number">일련번호</label>
-                                <input type="text" id="serial-number" value="${vo.serialNumber}">
-                            </div> -->
                             <div class="form-group">
                                 <label for="manufacturer">생산공정</label>
                                 <input type="text" id="edit-factory-name">
@@ -208,10 +185,6 @@
                                 <label for="warranty">보증기간</label>
                                 <input type="text" id="edit-warranty-period">
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="import-date">입고일</label>
-                                <input type="date" id="import-date" value="2014-11-01">
-                            </div> -->
                         </div>
                         <div class="modal-buttons">
                             <button class="primary">등록</button>
@@ -286,9 +259,6 @@
                         <label for="code-number">상품명</label>
                         <input type="text" id="itemCodeName">
                     </div>
-                    <!-- <label for="code-number">상품명</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="text" id="itemCodeName"> -->
                     <div class="modal-buttons">
                         <button class="primary" id = "registerItemCode">등록</button>
                     </div>
