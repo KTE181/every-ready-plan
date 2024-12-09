@@ -53,9 +53,9 @@ public class VacationController {
     @ResponseBody
     public EmployeeVo getEmployeeData(String empNo) {
 
-        System.out.println("empNo======" + empNo);
-
-        System.out.println(empNo);
+//        System.out.println("empNo======" + empNo);
+//
+//        System.out.println(empNo);
 
         EmployeeVo selectvolist = service.selectvolist(empNo);
         return selectvolist;
@@ -72,7 +72,7 @@ public class VacationController {
             return "redirect:/login";
         }
 
-        System.out.println(searchVo);
+//        System.out.println(searchVo);
 
 
 
@@ -82,7 +82,7 @@ public class VacationController {
         int boardLimit = 14;
         PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
-        System.out.println(pvo);
+//        System.out.println(pvo);
 
         List<VacationVo> listVo = service.list(pvo,searchVo);
 
@@ -116,7 +116,14 @@ public class VacationController {
     @PostMapping("update")
     @ResponseBody
     public void update(VacationVo alldata,HttpSession session){
-        System.out.println(alldata);
+//        System.out.println(alldata);
+        String no = alldata.getEmpNo();
+        String year = alldata.getThisDate();
+        int cnt = service.getCnt(no,year);
+        if(cnt !=0){
+            session.setAttribute("alertMsg","일자가 중복되었습니다.");
+            return;
+        }
 
         String result= service.update(alldata);
 
@@ -130,7 +137,7 @@ public class VacationController {
     @PostMapping("del")
     @ResponseBody
     public int del(String no,HttpSession session){
-        System.out.println(no);
+//        System.out.println(no);
 
         int result = service.delete(no);
         if(result != 1){
@@ -158,7 +165,7 @@ public class VacationController {
     @GetMapping("getEmplistdata")
     @ResponseBody
     public  List<EmployeeVo> getEmplistdata(String pno){
-        System.out.println(pno);
+//        System.out.println(pno);
         int currentPage = Integer.parseInt(pno);
         int listCount2 = service.getEmpCnt();
         int pageLimit2 = 5;

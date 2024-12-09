@@ -14,7 +14,7 @@ testDiv3.addEventListener('click', () => {
     ename.setAttribute("value","");
     dname.setAttribute("value","");
     panme.setAttribute("value","");
-    console.log(vacationmodal);
+    // console.log(vacationmodal);
     vacationmodal.style.display = 'block'; // 모달 표시
 });
 
@@ -46,7 +46,7 @@ closeBtnmodal.addEventListener('click', () => {
     let target="";
     empNo.addEventListener("change", (event) => {
          target = event.target.value; // 현재 입력된 값
-         console.log(target);
+        //  console.log(target);
     });
 
 
@@ -70,15 +70,15 @@ closeBtnmodal.addEventListener('click', () => {
       var selectempNo = element.textContent || element.innerText;
 
 
-      console.log("클릭된 사원 번호:", selectempNo);
+      // console.log("클릭된 사원 번호:", selectempNo);
 
       $.ajax({
         url: "/api/hr/vacation/getEmployeeData", // 서버 엔드포인트
         method : "POST", // 요청 방식
         data:({ empNo : selectempNo }), // 전송할 데이터
         success: function (data) {
-            console.log("서버 응답 데이터:", data);
-                console.log(data);
+            // console.log("서버 응답 데이터:", data);
+                // console.log(data);
                 
                         empNo.setAttribute("value",data.no);
                         ename.setAttribute("value",data.name);
@@ -111,7 +111,7 @@ tbodyTag.addEventListener("click",(evt)=>{
         selectNo: selectNo,
       }),
       success: function(data){
-        console.log(data);
+        // console.log(data);
         
         document.querySelector(".vacationselectmodal-content .button-container").innerHTML = '';
 
@@ -205,7 +205,7 @@ tbodyTag.addEventListener("click",(evt)=>{
               data:(alldata),
   
               success:function(data2){
-                  console.log(data2);
+                  // console.log(data2);
                   location.href="/api/hr/vacation/list";
                   
                   
@@ -290,7 +290,7 @@ tbodyTag.addEventListener("click",(evt)=>{
       for(let i = 0; i <CheckboxArr.length;i++){
           if(CheckboxArr[i].checked == true){
     
-              console.log(CheckboxArr[i].value);
+              // console.log(CheckboxArr[i].value);
               delallData[CheckboxArr[i].value] = CheckboxArr[i].value;
               // [ 안 ] 안에는 선언이 되어있는 변수면 변수의 값을가져오고
               // 선언이 안되어있는 새로운 키값을 사용하려면 "" 문자열로써 사용하면된다.
@@ -299,9 +299,9 @@ tbodyTag.addEventListener("click",(evt)=>{
               dataArr.push(CheckboxArr[i].value);
           }
         }
-        console.log(delallData);
+        // console.log(delallData);
         // 최종적으로 완성된 키:벨류 값의 배열  
-        console.log(dataArr);
+        // console.log(dataArr);
         if(dataArr.length==0){
           alert("삭제할 게시글 체크박스를 선택해주세요");
           return;
@@ -316,7 +316,7 @@ tbodyTag.addEventListener("click",(evt)=>{
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify(dataArr),
           success:function(data){
-                  console.log(data); 
+                  // console.log(data); 
                   location.reload();
           },
           fail:function(){
@@ -355,8 +355,8 @@ tbodyTag.addEventListener("click",(evt)=>{
           },
           success: function(data) {
               // 서버에서 받은 데이터로 테이블 업데이트
-              console.log("통신성공");
-              console.log(data);
+              // console.log("통신성공");
+              // console.log(data);
               updateTable(data);
              
           },
@@ -392,8 +392,8 @@ tbodyTag.addEventListener("click",(evt)=>{
     const searchEname = document.querySelector(".btnmodal-title input[name=searchEname]");
     choiceBtn.addEventListener("click",()=>{
      
-      console.log(searchEmpNo.value);
-      console.log(searchEname.value);
+      // console.log(searchEmpNo.value);
+      // console.log(searchEname.value);
       
       if(searchEmpNo.value=='' && searchEname.value==''){
         loadPage(1);
@@ -416,8 +416,8 @@ tbodyTag.addEventListener("click",(evt)=>{
               loadPage(1);
               return;
             }
-            console.log("통신성공");
-            console.log(data);
+            // console.log("통신성공");
+            // console.log(data);
             updateTable2(data);
            
         },

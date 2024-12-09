@@ -84,7 +84,7 @@ public class OverTimeController{
         int boardLimit = 14;
         PageVo pvo = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 
-        System.out.println(pvo);
+//        System.out.println(pvo);
 
         List<OverTimeVo> listVo = service.list(pvo,searchVo);
 
@@ -119,7 +119,7 @@ public class OverTimeController{
 
 
         OverTimeVo vo = service.detail(no);
-        System.out.println(vo.getWorkHour());
+//        System.out.println(vo.getWorkHour());
 
         // 공백으로 날짜와 시간 나누기
         String[] dateTimeParts = vo.getWorkHour().split(" ");
@@ -143,10 +143,17 @@ public class OverTimeController{
     @PostMapping("edit")
     @ResponseBody
     public void edit(OverTimeVo alldata,HttpSession session){
-
+        String no = alldata.getEmpNo();
+        String year = alldata.getThisDate();
         String overtime = alldata.getHour()+":"+alldata.getMinute();
         alldata.setWorkHour(overtime);
-        System.out.println(alldata);
+
+        int cnt = service.getCnt(no,year);
+        if(cnt != 0){
+            session.setAttribute("alertMsg","일자가 중복되었습니다.");
+            return;
+        }
+//        System.out.println(alldata);
         String result = service.edit(alldata);
 
         if(result.equals("1")){
@@ -159,7 +166,7 @@ public class OverTimeController{
     @PostMapping("del")
     @ResponseBody
     public void del(String no,HttpSession session){
-        System.out.println(no);
+//        System.out.println(no);
 
         int result = service.delete(no);
         if(result == 1){
@@ -193,7 +200,7 @@ public class OverTimeController{
     @GetMapping("getEmplistdata")
     @ResponseBody
     public  List<EmployeeVo> getEmplistdata(String pno,HttpSession session){
-        System.out.println(pno);
+//        System.out.println(pno);
         int currentPage = Integer.parseInt(pno);
         int listCount2 = service.getEmpCnt();
         int pageLimit2 = 5;
@@ -220,7 +227,7 @@ public class OverTimeController{
 
         EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
 
-        System.out.println("vo = "+vo);
+//        System.out.println("vo = "+vo);
         if(vo == null||vo.getNo().isEmpty()){
             return null;
         }
