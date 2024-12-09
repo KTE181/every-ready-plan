@@ -339,13 +339,10 @@ tbodyTag.addEventListener("click",(evt)=>{
       // console.log(pageNumber.dataset.page);
       let pno=0;
       if(pageNumber==1){
-
         pno = 1;
       }else{
         pno =pageNumber.dataset.page;
       }
-      
-    
       $.ajax({
           url: `/api/hr/vacation/getEmplistdata`,  // 서버에서 페이징 데이터를 가져오는 엔드포인트
           method: 'GET',  // GET 요청
@@ -370,7 +367,7 @@ tbodyTag.addEventListener("click",(evt)=>{
       tableBody.innerHTML = ''; // 테이블 내용 초기화
     
       // 받은 데이터로 테이블 행 추가
-          for(let i = 0; i<data.length;i++){
+          for(let i =0; i<data.length;i++){
           const row = document.createElement('tr');
           row.innerHTML = `
               <td><a href="#" id="empNo_${data[i].no}" onclick="changeEmpNo(this);">${data[i].no}</a></td>
@@ -433,14 +430,16 @@ tbodyTag.addEventListener("click",(evt)=>{
     
       // 받은 데이터로 테이블 행 추가
           
-          const row = document.createElement('tr');
-          row.innerHTML = `
-              <td><a href="#" id="empNo_${data.no}" onclick="changeEmpNo(this);">${data.no}</a></td>
-              <td>${data.name}</td>
-              <td>${data.dname}</td>
-              <td>${data.pname}</td>
-          `;
-          tableBody.appendChild(row);
+      for(let i = 0; i<data.length;i++){
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><a href="#" id="empNo_${data[i].no}" onclick="changeEmpNo(this);">${data[i].no}</a></td>
+            <td>${data[i].name}</td>
+            <td>${data[i].dname}</td>
+            <td>${data[i].pname}</td>
+        `;
+        tableBody.appendChild(row);
+      }
        
     }
     

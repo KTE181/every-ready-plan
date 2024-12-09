@@ -102,7 +102,7 @@ public class VacationService {
         return mapper.getEmplistdata(pvo);
     }
 
-    public EmployeeVo selectEmpVo(String searchEmpNo, String searchEname) {
+    public List<EmployeeVo> selectEmpVo(String searchEmpNo, String searchEname) {
         return mapper.selectEmpVo(searchEmpNo,searchEname);
     }
 

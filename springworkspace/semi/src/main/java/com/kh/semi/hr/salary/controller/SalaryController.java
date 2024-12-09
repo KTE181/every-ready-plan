@@ -219,12 +219,12 @@ public class SalaryController {
     }
     @PostMapping("getEmplistdata")
     @ResponseBody
-    public EmployeeVo getEmpVo(String searchEmpNo, String searchEname){
+    public List<EmployeeVo>  getEmpVo(String searchEmpNo, String searchEname){
 //        System.out.println(searchEmpNo);
 //        System.out.println(searchEname);
 
-        EmployeeVo vo = service.selectEmpVo(searchEmpNo,searchEname);
-        if(vo == null||vo.getNo().isEmpty()){
+        List<EmployeeVo> vo = service.selectEmpVo(searchEmpNo,searchEname);
+        if(vo == null){
             return null;
         }
         return vo;
