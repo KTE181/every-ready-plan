@@ -3,7 +3,7 @@ package com.kh.semi.qa.asemp.mapper;
 import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.asemp.vo.AsempVo;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
 import com.kh.semi.qa.asemp.vo.DeptVo;
 
 import org.apache.ibatis.annotations.*;

@@ -1,6 +1,6 @@
 package com.kh.semi.hr;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
