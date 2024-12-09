@@ -1,6 +1,6 @@
 package com.kh.semi.qa.aswork.controller;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
 import com.kh.semi.login.vo.AdminLoginVo;
 import com.kh.semi.login.vo.LoginVo;
 import com.kh.semi.pb.vo.PageVo;

@@ -1,6 +1,6 @@
 package com.kh.semi.hr;
 
-import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

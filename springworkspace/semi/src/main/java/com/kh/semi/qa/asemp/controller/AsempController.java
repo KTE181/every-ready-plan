@@ -7,7 +7,7 @@ import com.kh.semi.pb.vo.PageVo;
 import com.kh.semi.qa.areainfo.AreaInfo;
 import com.kh.semi.qa.asemp.service.AsempService;
 import com.kh.semi.qa.asemp.vo.AsempVo;
-import com.kh.semi.hr.employee.vo.EmployeeVo;
+import com.kh.semi.hr.employeehr.vo.EmployeeVo;
 import com.kh.semi.qa.asemp.vo.DeptVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
