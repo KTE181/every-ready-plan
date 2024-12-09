@@ -131,8 +131,6 @@ public class InspectionController {
     @ResponseBody
     public int delete(String no) throws Exception {
 
-        System.out.println("no = " + no);
-
         int result = service.delete(no);
 
         if(result < 1) {

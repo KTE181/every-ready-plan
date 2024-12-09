@@ -108,7 +108,7 @@ public class AsworkController {
             log.warn(errCode);
             throw new Exception(errCode);
         }
-        System.out.println("asworkVo = " + asworkVo);
+
         return asworkVo;
     }
 
