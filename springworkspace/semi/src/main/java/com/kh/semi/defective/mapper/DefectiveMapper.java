@@ -14,24 +14,20 @@ public interface DefectiveMapper {
 
     @Select("""
             SELECT
-                 D.NO
-                ,P.ITEM_CODE
-                ,P.NAME AS PRODUCT_NAME
-                ,P.SERIAL_NUMBER
-                ,D.DEFECTIVE_CODE
-                ,P.RECEIVED_DATE
-                ,P.FACTORY_LOCATION
-                ,D.ENROLL_DATE
-                FROM DEFECTIVE_PRODUCT D
-                JOIN PRODUCT_REGISTRATION P ON(D.P_NO = P.NO)
-                WHERE D.DEL_YN = 'N'
+                D.NO,
+                P.ITEM_CODE,
+                P.NAME AS PRODUCT_NAME,
+                P.SERIAL_NUMBER,
+                D.DEFECTIVE_CODE,
+                P.RECEIVED_DATE,
+                P.FACTORY_LOCATION,
+                D.ENROLL_DATE
+            FROM DEFECTIVE_PRODUCT D
+            JOIN PRODUCT_REGISTRATION P ON (D.P_NO = P.NO)
+            WHERE D.DEL_YN = 'N'
 
             """)
     List<DefectiveVo> getDefective();
-
-
-
-
 
     @Insert("""
             INSERT INTO DEFECTIVE_PRODUCT
@@ -130,6 +126,8 @@ public interface DefectiveMapper {
     @Select("""
             SELECT *
             FROM DEFECTIVE_CODE
+            WHERE DEL_YN = 'N'
+            ORDER BY NO ASC
             """)
     List<DefectiveCodeVo> getdefectiveCodeVoList();
 

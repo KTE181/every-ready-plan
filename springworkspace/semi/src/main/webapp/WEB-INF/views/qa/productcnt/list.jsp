@@ -107,7 +107,6 @@
                 
 
                 <div class="bottom-content-area">
-                    <div><button class="crud-button-white" onclick = "delDefectiveCode();">삭제</button></div>
                     <div>
                         <div class="pagination">
                             <c:if test="${pageVo.currentPage > 1}">
@@ -123,7 +122,6 @@
                             </c:if>
                         </div>
                     </div>
-                    <div><button class="crud-button-white" id="openModalBtn" onclick= "openModal();">등록</button></div>
                 </div> 
 
         </div>

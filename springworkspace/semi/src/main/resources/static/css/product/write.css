@@ -18,19 +18,6 @@ body {
     align-items: center;
 }
 
-.modal-itemCode{
-    display: none;
-    position: fixed;
-    top: 20%;
-    left: 40%;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-
-}
 
 .modal {
     background: white;
@@ -154,3 +141,51 @@ body {
 .modal-overlay.active {
     display: flex;
 }
+
+
+
+
+#modalItemCode {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    z-index: 1000;
+}
+
+/* 모달이 활성화된 경우 */
+#modalItemCode.active {
+    display: block;
+}
+
+/* 배경 흐림 효과 (모달 뒷배경) */
+#modalBackdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#modalBackdrop.active {
+    display: block;
+}
+
+.form-group > #itemcode-select{
+
+    width: 135px;
+    height: 29px;
+    border-radius: 5px;
+    font-size: 13px;
+    padding-left: 8px;
+    border: 1px solid rgb(182, 182, 182);
+    display : flex;
+    align-items: center;
+
+}
+

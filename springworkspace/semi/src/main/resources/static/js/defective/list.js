@@ -281,19 +281,12 @@ document.querySelector("#defectivecode-select-edit").addEventListener("change", 
 document.querySelector("#modaldefectiveEdit .primary").addEventListener("click", function(){
 
     const productNo= document.querySelector("#edit-productno").value;
-    console.log(productNo);
     const price= document.querySelector("#edit-price").value;
-    console.log(price);
     const productName = document.querySelector("#edit-productname").value;
-    console.log(productName);
     const serialNumber = document.querySelector("#edit-serialNumber").value;
-    console.log(serialNumber);
     const defectiveCode= document.querySelector("#defectivecode-select-edit").value;
-    console.log(defectiveCode);
     const defectiveName= document.querySelector("#edit-defectivename").value;
-    console.log(defectiveName);
     const description = document.querySelector("#edit-text-area").value;
-    console.log(description);
 
     $.ajax({
         url : "/qa/defective/edit",
