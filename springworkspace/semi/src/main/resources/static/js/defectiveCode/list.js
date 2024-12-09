@@ -18,10 +18,18 @@ function openModal(){
         checkBoxArr[i].checked = x.checked;
     }
   
-  
-  
   }
+
   
+  function closeDefectiveCodeModal() {
+    const modal = document.querySelector("#modalOverlay");
+
+    modal.classList.remove("active");
+}
+
+
+
+
 
   //불량 코드 삭제
   function delDefectiveCode(){
@@ -114,6 +122,9 @@ document.querySelectorAll("#defectiveCodeTable td").forEach(row => {
         });
     });
 });
+
+
+
 
 document.querySelector("#closeDefectiveCodeDetailModal").addEventListener("click", function () {
     document.querySelector("#modalDetail").style.display = "none";

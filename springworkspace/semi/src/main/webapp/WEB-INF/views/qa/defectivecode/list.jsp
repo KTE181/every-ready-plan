@@ -76,7 +76,7 @@
                 
                 <div class="modal-overlay" id="modalOverlay">
                     <div class="modal">
-                            <button id="closeModal">×</button>
+                            <button id="closeModal" onclick="closeDefectiveCodeModal()">×</button>
                         <h2>불량코드 등록</h2>
                         <label for="code-number">불량유형명</label>
                         <input type="text" id="defectivename">
