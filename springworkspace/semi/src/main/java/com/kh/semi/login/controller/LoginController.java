@@ -33,7 +33,7 @@ public class LoginController {
         // 로그인 성공 처리
         log.info("로그인 성공: {}", loginEmployeeVo);
         session.setAttribute("loginEmployeeVo", loginEmployeeVo); // 세션에 로그인 정보 저장
-        return "redirect:/pb"; // 로그인 성공 후 메인 페이지로 리다이렉트
+        return "redirect:/hr"; // 로그인 성공 후 메인 페이지로 리다이렉트
     }
 
     // 로그아웃 처리
